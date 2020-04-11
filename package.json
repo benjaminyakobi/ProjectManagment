@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Only a test\" && exit 0",
     "server": "live-server",
-    "lint": "Eslint ./src"
+    "lint": "./node_modules/.bin/eslint ./src"
   },
   "repository": {
     "type": "git",
