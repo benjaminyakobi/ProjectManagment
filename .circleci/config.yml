@@ -8,15 +8,11 @@ jobs:
       - checkout
       - run:
           name: install npm
-          command: sudo npm install 
-      - run: # install npm dependencies
-          name: install-npm-wee
-          command: npm install
+          command: npm install 
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths: 
             - ./node_modules 
-      
       - run:
           name: test
           command: npm test
@@ -26,5 +22,5 @@ jobs:
       - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results.xml
       - run:
-            name: run ESLint
-            command: npm run lint   
+          name: run ESLint
+          command: npm run lint   
