@@ -8,7 +8,10 @@ jobs:
       - checkout
       - run:
           name: install npm
-          command: sudo npm install -g
+          command: sudo npm install 
+      - run:
+          name: install npm
+          command: sudo npm install -g eslint
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths: 
