@@ -9,7 +9,9 @@ jobs:
       - run:
           name: install npm
           command: sudo npm install 
-      
+      - run: # install npm dependencies
+          name: install-npm-wee
+          command: npm install
       - save_cache:
           key: dependency-cache-{{ checksum "package.json" }}
           paths: 
