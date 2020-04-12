@@ -10,6 +10,9 @@ jobs:
           name: install npm
           command: sudo npm install 
       - run:
+          name: install firebase
+          command: npm install --save-dev firebase-tools
+      - run:
           name: install npm
           command: sudo npm install -g eslint
       - save_cache:
@@ -27,3 +30,17 @@ jobs:
       - run:
           name: run ESLint
           command: npm run lint   
+      - run:
+          name: Deploy Master to Firebase
+          command: ./node_modules/.bin/firebase deploy --token=1//03p6YAy59har1CgYIARAAGAMSNwF-L9IrBW4kYHdFimsixoCmTWi00sD9IXrqQsBRS0tE9S71fngChqiC8yDgoU-Zy2SJ_mmzxzc #$
+workflows:
+  version: 2
+  deploy:
+    jobs:
+      - build-job
+      - deploy-job:
+          requires:
+            - build-job
+          filters:
+            branches:
+              only: master
