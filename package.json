@@ -1,0 +1,27 @@
+{
+  "name": "project_manager",
+  "version": "1.0.0",
+  "description": "Group assignment ",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Only a test\" && exit 0",
+    "server": "live-server",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "mainCheck":"node ./src/test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/benjaminyakobi/ProjectManagement.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/benjaminyakobi/ProjectManagement/issues"
+  },
+  "homepage": "https://github.com/benjaminyakobi/ProjectManagement#readme",
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "firebase-tools": "^8.0.2",
+    "live-server": "^1.2.1"
+  }
+}
