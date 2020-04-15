@@ -12,7 +12,7 @@ jobs:
                 steps:
                     - run:
                         name: install npm
-                        command: npm install
+                        command: npm install -g
                     - save_cache:
                         key: dependency-cache-{{ checksum "package.json" }}
                         paths: 
@@ -27,7 +27,7 @@ jobs:
                         path: test-results.xml
                     - run:
                         name: run ESLint
-                        command: npm run lint -s  
+                        command: npm run lint  
                     - run:
                         name: Deploy Master to Firebase
                         command: ./node_modules/.bin/firebase deploy --token=1//03p6YAy59har1CgYIARAAGAMSNwF-L9IrBW4kYHdFimsixoCmTWi00sD9IXrqQsBRS0tE9S71fngChqiC8yDgoU-Zy2SJ_mmzxzc 
