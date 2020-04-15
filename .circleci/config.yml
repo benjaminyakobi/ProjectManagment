@@ -8,7 +8,7 @@ jobs:
             - checkout
             - run:
                 name: install npm
-                command: sudo npm install 
+                command: sudo npm install -g
             - run:
                 name: install firebase
                 command: npm install --save-dev firebase-tools
