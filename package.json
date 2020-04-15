@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha ./test/*.spec.js --color",
     "server": "live-server",
-    "lint": "eslint src/*.js",
+    "lint": "./node_modules/.bin/eslint src/*.js",
     "mainCheck": "node ./src/test.js"
   },
   "repository": {
