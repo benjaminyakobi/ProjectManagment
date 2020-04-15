@@ -19,7 +19,7 @@ jobs:
                         - ./node_modules 
                     - run:
                         name: test
-                        command: npm run test
+                        command: npm test
                     - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
                         path: coverage
                         prefix: coverage
