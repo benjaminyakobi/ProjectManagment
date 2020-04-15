@@ -6,7 +6,7 @@ jobs:
         working_directory: ~/ProjectManagement
         steps:
             - checkout
-            -node/with-cache:
+            - node/with-cache:
                 - run:
                     name: install npm
                     command: sudo npm install -g
