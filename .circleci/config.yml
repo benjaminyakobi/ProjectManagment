@@ -12,9 +12,6 @@ jobs:
             - run:
                 name: update-npm
                 command: 'sudo npm install npm@latest'
-            - run:
-                name: update-npm
-                command: ' npm install --save-dev eslint'
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
                 paths: 
@@ -24,7 +21,7 @@ jobs:
                 command: npm run lint   
             - run:
                 name: test
-                command: npm test
+                command: npm run test
             - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
                 path: coverage
                 prefix: coverage
