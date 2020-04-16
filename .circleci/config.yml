@@ -14,6 +14,9 @@ jobs:
                 paths: 
                 - ./node_modules 
             - run:
+                name: run ESLint
+                command: npm run lint   
+            - run:
                 name: test
                 command: npm test
             - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
@@ -21,9 +24,6 @@ jobs:
                 prefix: coverage
             - store_test_results: # for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
                 path: test-results.xml
-            - run:
-                name: run ESLint
-                command: npm run lint   
             - run:
                 name: Deploy Master to Firebase
                 command: ./node_modules/.bin/firebase deploy --token=1//03p6YAy59har1CgYIARAAGAMSNwF-L9IrBW4kYHdFimsixoCmTWi00sD9IXrqQsBRS0tE9S71fngChqiC8yDgoU-Zy2SJ_mmzxzc #$
