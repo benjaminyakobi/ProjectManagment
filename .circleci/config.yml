@@ -8,10 +8,10 @@ jobs:
             - checkout
             - run:
                 name: install npm
-                command: sudo npm install -g 
+                command: npm install
             - run:
                 name: install npm
-                command: sudo npm install stringify -g --save-dev
+                command: sudo npm install mocha -g --save-dev
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
                 paths: 
