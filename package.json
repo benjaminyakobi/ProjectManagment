@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/benjaminyakobi/ProjectManagement#readme",
   "devDependencies": {
+    "@angular/cli": "^9.1.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "chai": "^4.2.0",
