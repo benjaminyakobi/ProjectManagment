@@ -15,7 +15,7 @@ jobs:
                         command: npm install 
                     - run:
                         name: install npm
-                        command: npm install --save-dev mocha chai @types/mocha @types/chai
+                        command: npm install --save-dev -g mocha chai  @types/mocha @types/chai
                     - save_cache:
                         key: dependency-cache-{{ checksum "package.json" }}
                         paths: 
