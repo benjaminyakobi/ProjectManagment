@@ -6,11 +6,7 @@
   "scripts": {
     "test": "mocha ./test/*.spec.js --color",
     "lint": "eslint src/*.js",
-    "mainCheck": "node ./src/test.js",
-    "build": "npm build",
-    "clean": "rm -rf node_modules", 
-    "reinstall": "npm run clean && npm install", 
-    "rebuild": "npm run clean && npm install && npm run build"
+    "mainCheck": "node ./src/test.js"
   },
   "repository": {
     "type": "git",
