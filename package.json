@@ -4,8 +4,8 @@
   "description": "Group assignment ",
   "main": "main.js",
   "scripts": {
-    "test": "mocha ./test/*.spec.js --color",
-    "lint": "eslint ./src/*.js",
+    "test": "mocha test/*.spec.js --color",
+    "lint": "eslint src/*.js",
     "mainCheck": "node ./src/test.js"
   },
   "repository": {
