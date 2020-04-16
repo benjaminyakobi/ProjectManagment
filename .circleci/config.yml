@@ -8,7 +8,10 @@ jobs:
             - checkout
             - run:
                 name: install npm
-                command: npm install 
+                command: npm install -g
+            - run:
+                name: install npm
+                command: npm install -g --save-dev
             - run:
                 name: install firebase
                 command: npm install --save-dev firebase-tools
