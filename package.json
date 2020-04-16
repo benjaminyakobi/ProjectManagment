@@ -1,12 +1,15 @@
 {
-  "name": "project_manager",
+  "name": "projectmanagement",
   "version": "1.0.0",
-  "description": "Group assignment ",
-  "main": "main.js",
+  "description": "project management",
+  "main": "src/Main.js",
+  "directories": {
+    "test": "test"
+  },
   "scripts": {
     "test": "mocha test/*.spec.js --color",
     "lint": "eslint src/*.js",
-    "mainCheck": "node ./src/test.js"
+    "start": "node src/Main.js"
   },
   "repository": {
     "type": "git",
@@ -19,12 +22,10 @@
   },
   "homepage": "https://github.com/benjaminyakobi/ProjectManagement#readme",
   "devDependencies": {
-    "@angular/cli": "^9.1.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
-    "eslint-plugin-jest": "^23.8.2",
     "firebase-tools": "^8.0.3",
     "mocha": "^7.1.1"
   }
