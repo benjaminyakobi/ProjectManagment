@@ -15,18 +15,6 @@
         "sourceType": "module"
     },
     "rules": {
-        "indent": [
-            "error",
-            "tab"
-        ],
-        "linebreak-style": [
-            "error",
-            "windows"
-        ],
-        "quotes": [
-            "error",
-            "double"
-        ],
         "camelcase" : [2, {"properties": "always"}]
     }
 }
