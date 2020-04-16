@@ -2,13 +2,14 @@
   "name": "projectmanagement",
   "version": "1.0.0",
   "description": "project management",
-  "main": "index.js",
+  "main": "src/Main.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
     "test": "mocha test/*.spec.js --color",
-    "lint": "eslint src/*.js"
+    "lint": "eslint src/*.js",
+    "start": "node src/Main.js"
   },
   "repository": {
     "type": "git",
