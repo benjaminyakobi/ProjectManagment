@@ -8,7 +8,7 @@ jobs:
         working_directory: ~/ProjectManagement
         steps:
             - checkout
-            - node/with-cache:
+            - node:
                 steps:
                     - run:
                         name: install npm
