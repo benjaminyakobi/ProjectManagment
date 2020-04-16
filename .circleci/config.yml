@@ -13,6 +13,9 @@ jobs:
                 name: install npm
                 command: sudo npm install -g --save-dev
             - run:
+                name: install npm
+                command: sudo npm install -g npm-install-peers
+            - run:
                 name: install firebase
                 command: npm install --save-dev firebase-tools
             - save_cache:
