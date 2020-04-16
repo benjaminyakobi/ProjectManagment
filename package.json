@@ -4,9 +4,8 @@
   "description": "Group assignment ",
   "main": "main.js",
   "scripts": {
-    "test": "mocha ./test/*.spec.js --color",
-    "server": "live-server",
-    "lint": "eslint ./src/*.js",
+    "test": "mocha test/*.spec.js --color",
+    "lint": "eslint src/*.js",
     "mainCheck": "node ./src/test.js"
   },
   "repository": {
@@ -20,12 +19,13 @@
   },
   "homepage": "https://github.com/benjaminyakobi/ProjectManagement#readme",
   "devDependencies": {
+    "@angular/cli": "^9.1.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "chai": "^4.2.0",
     "eslint": "^6.8.0",
-    "firebase-tools": "^8.0.2",
-    "live-server": "^1.2.1",
+    "eslint-plugin-jest": "^23.8.2",
+    "firebase-tools": "^8.0.3",
     "mocha": "^7.1.1"
   }
 }
