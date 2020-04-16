@@ -8,13 +8,10 @@ jobs:
             - checkout
             - run:
                 name: install npm
-                command: sudo npm install -g
+                command: sudo npm install -g 
             - run:
                 name: install npm
-                command: sudo npm install -g --save-dev
-            - run:
-                name: install npm
-                command: sudo npm install -g npm-install-peers
+                command: sudo npm install stringify -g --save-dev
             - run:
                 name: install firebase
                 command: npm install --save-dev firebase-tools
