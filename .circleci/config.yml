@@ -12,6 +12,9 @@ jobs:
             - run:
                 name: update-npm
                 command: 'sudo npm install -g npm@latest'
+            - run:
+                name: update-npm
+                command: ' npm install --save-dev eslint'
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
                 paths: 
