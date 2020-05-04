@@ -5,6 +5,7 @@ function initApp()
 {
     // Set the configuration for your app
     // TODO: Replace with your project's config object
+    
     var config = {
         apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
         authDomain: "projectmanagement-612b8.firebaseapp.com",
@@ -21,6 +22,7 @@ function initApp()
         }
     });
     // Get a reference to the database service
+
     const database = firebase.database();
     const auth = firebase.auth();
     const loginForm = document.getElementById('login-form');
@@ -46,6 +48,7 @@ function initApp()
     });
     });
 }
+
 /*
 function lClick()
 {
