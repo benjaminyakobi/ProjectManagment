@@ -1,0 +1,12 @@
+
+{
+    
+    "users": {
+        "1": {
+            "username": "tankos",
+            "password": "123",
+            "permission": "admin"
+        }
+    }
+
+}
