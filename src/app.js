@@ -3,6 +3,42 @@ window.onload = function() {
   };
 function initApp()
 {
+
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var forgotPasswordField = document.getElementById("forgot-pass");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    forgotPasswordField.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    document.getElementById("getQuestion").innerHTML = getQuestionByUsername();
+    function getQuestionByUsername(){
+    return 'your question';
+    }
+
+    function verifyAnswer(){
+    return 'correct';
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = "none";
+    }
+    }
+
+
     // Set the configuration for your app
     // TODO: Replace with your project's config object
     
