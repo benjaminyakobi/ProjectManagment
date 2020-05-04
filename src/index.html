@@ -7,14 +7,13 @@
   <title>Login Sami Rooms</title>
 
   <!-- update the version number as needed -->
-  <script defer src="/__/firebase/7.14.0/firebase-app.js"></script>
+  <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
   <!-- include only the Firebase features as you need -->
-  <script defer src="/__/firebase/7.14.0/firebase-auth.js"></script>
-  <script defer src="/__/firebase/7.14.0/firebase-database.js"></script>
-  <script defer src="/__/firebase/7.14.0/firebase-messaging.js"></script>
-  <script defer src="/__/firebase/7.14.0/firebase-storage.js"></script>
+  <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+  <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+  <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js"></script>
+  <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
   <!-- initialize the SDK after all desired features are loaded -->
-  <script defer src="/__/firebase/init.js"></script>
   
   <style media="screen">
     html {
@@ -38,8 +37,8 @@
     }
 
     #main-holder {
-      width: -100%;
-      height: 220%;
+      width: 100%;
+      height: 170%;
       display: grid;
       justify-items: center;
       align-items: center;
@@ -81,7 +80,7 @@
     }
 
     .login-form-field::placeholder {
-      color: #3a3a3a;
+      color: black;
     }
 
     .login-form-field {
@@ -98,21 +97,20 @@
       padding: 7px;
       border: none;
       border-radius: 5px;
-      color: white;
+      color: black;
       font-weight: bold;
-      background-color: #3a3a3a;
       cursor: pointer;
       outline: none;
     }
 
     #forgot-pass {
       width: 100%;
-      height: 280%;
+      height: 100%;
       border: none;
       color: yellow;
       font-weight: bold;
       cursor: pointer;
-    
+      margin-top :25px;
       font-size: 15px;
     }
 
@@ -166,6 +164,9 @@
       <img src="images/samiRooms.jpg">
   </div> -->
 
+
+    <!-- <h1 id="login-header">Login</h1> -->
+
 <!-- The Modal -->
 <div id="myModal" class="modal">
 
@@ -188,86 +189,16 @@
     </div>
 
     <form id="login-form">
-      <input type="text" name="username" id="username-field" class="login-form-field" placeholder="Username">
+      <input type="text" name="username" id="username-field" class="login-form-field"  placeholder="Username">
       <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
-      <input type="submit" value="Login" id="login-form-submit">
+      <button type='button' id="loginButton" class="login-form-button" >Login</button>
+      <label name = "forgot passowrd" id="forgot-pass" class = "login-form-field">Forgot password/username?</label>
     </form>
-    <label name = "forgot passowrd" id="forgot-pass" class = "login-form-field">Forgot password/username?</label>
 
   </main>
-
-  <script>
-    // Get the modal
-    var modal = document.getElementById("myModal");
-
-    // Get the button that opens the modal
-    var forgotPasswordField = document.getElementById("forgot-pass");
-
-    // Get the <span> element that closes the modal
-    var span = document.getElementsByClassName("close")[0];
-
-    // When the user clicks the button, open the modal 
-    forgotPasswordField.onclick = function() {
-    modal.style.display = "block";
-    }
-
-    // When the user clicks on <span> (x), close the modal
-    span.onclick = function() {
-    modal.style.display = "none";
-    }
-
-    document.getElementById("getQuestion").innerHTML = getQuestionByUsername();
-    function getQuestionByUsername(){
-      return 'your question';
-    }
-
-    function verifyAnswer(){
-      return 'correct';
-    }
-    // When the user clicks anywhere outside of the modal, close it
-    window.onclick = function(event) {
-    if (event.target == modal) {
-    modal.style.display = "none";
-    }
-    }
-    // Set the configuration for your app
-    // TODO: Replace with your project's config object
-    var config = {
-      apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
-      authDomain: "projectmanagement-612b8.firebaseapp.com",
-      databaseURL: "https://projectmanagement-612b8.firebaseio.com/"
-    };
-    firebase.initializeApp(config);
-
-    // Get a reference to the database service
-    var database = firebase.database();
-
-    const loginForm = document.getElementById("login-form");
-    const loginButton = document.getElementById("login-form-submit");
-    const loginErrorMsg = document.getElementById("login-error-msg");
-
-    loginButton.addEventListener("click", (e) => {
-      e.preventDefault();
-      const username = loginForm.username.value;
-      const password = loginForm.password.value;
-
-      var userId = firebase.auth().currentUser.uid;
-      return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-        var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-        // ...
-      });
-
-      if (username === "user" && password === "web_dev") {
-        alert("You have successfully logged in.");
-        location.reload();
-      } else {
-        loginErrorMsg.style.opacity = 1;
-      }
-    });
-
-
-  </script>
-
+  <script  type="text/javascript" src="app.js"> </script>
 </body>
 
 </html>
+      
+    
