@@ -15,14 +15,7 @@
   <script defer src="/__/firebase/7.14.0/firebase-storage.js"></script>
   <!-- initialize the SDK after all desired features are loaded -->
   <script defer src="/__/firebase/init.js"></script>
-  <script>
-    var img = new Image();
-    var div = document.getElementById('foo');
-    img.onload = function () {
-      div.appendChild(img);
-    };
-    img.src = './images/samiRooms.jpg'
-  </script>
+  
   <style media="screen">
     html {
       height: 100%;
@@ -36,17 +29,23 @@
       justify-items: center;
       align-items: center;
       background-color: #3a3a3a;
+      background-image: url('https://i.pinimg.com/originals/45/29/62/45296279bc1f04f1031f832b882eb78b.jpg');
+      height: 100%;
+      background-position:center ;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
     }
 
     #main-holder {
-      width: 50%;
-      height: 70%;
+      width: -100%;
+      height: 220%;
       display: grid;
       justify-items: center;
       align-items: center;
-      background-color: white;
-      border-radius: 7px;
-      box-shadow: 0px 0px 5px 2px black;
+      /*background-color: white; */
+      /*border-radius: 7px;*/
+      /*box-shadow: 0px 0px 5px 2px black; */
     }
 
     #login-error-msg-holder {
@@ -91,7 +90,7 @@
       margin-bottom: 10px;
       border-radius: 3px;
       outline: none;
-      padding: 0px 0px 5px 5px;
+      padding: 5px 5px 5px 5px;
     }
 
     #login-form-submit {
@@ -105,6 +104,59 @@
       cursor: pointer;
       outline: none;
     }
+
+    #forgot-pass {
+      width: 100%;
+      height: 280%;
+      border: none;
+      color: yellow;
+      font-weight: bold;
+      cursor: pointer;
+    
+      font-size: 15px;
+    }
+
+
+    /*recovery*/
+    /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
   </style>
 
 </head>
@@ -113,9 +165,24 @@
   <!-- <div>
       <img src="images/samiRooms.jpg">
   </div> -->
-  <main id="main-holder">
-    <h1 id="login-header">Login</h1>
 
+<!-- The Modal -->
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <p>Enter your username</p>
+    <input type="text" name="username" id="recovery-window" placeholder="Username">
+    <p id="getQuestion"></p>
+    <input type="text" name="question" id="question" placeholder="question">
+    <button id="forgot-answer">Submit answer</button>
+  </div>
+
+</div>
+  
+
+  <main id="main-holder">
     <div id="login-error-msg-holder">
       <p id="login-error-msg">Invalid username <span id="error-msg-second-line">and/or password</span></p>
     </div>
@@ -125,10 +192,44 @@
       <input type="password" name="password" id="password-field" class="login-form-field" placeholder="Password">
       <input type="submit" value="Login" id="login-form-submit">
     </form>
+    <label name = "forgot passowrd" id="forgot-pass" class = "login-form-field">Forgot password/username?</label>
 
   </main>
 
   <script>
+    // Get the modal
+    var modal = document.getElementById("myModal");
+
+    // Get the button that opens the modal
+    var forgotPasswordField = document.getElementById("forgot-pass");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks the button, open the modal 
+    forgotPasswordField.onclick = function() {
+    modal.style.display = "block";
+    }
+
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
+    modal.style.display = "none";
+    }
+
+    document.getElementById("getQuestion").innerHTML = getQuestionByUsername();
+    function getQuestionByUsername(){
+      return 'your question';
+    }
+
+    function verifyAnswer(){
+      return 'correct';
+    }
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = "none";
+    }
+    }
     // Set the configuration for your app
     // TODO: Replace with your project's config object
     var config = {
