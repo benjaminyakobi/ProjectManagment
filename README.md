@@ -16,7 +16,7 @@ Sami Room is a web application that mediates between renters and Sami Shamoon Co
 The rental is for the duration of the studies (or part-time) at attractive and subsidized prices for the students.
 
 Motivation:
-To allow access only for students of Sami SHmoon Beersheba and Ashdod campuses.
+To allow access only for students of Sami Shmoon Beersheba and Ashdod campuses.
 To enable registration and access only for students who present a valid student ID.
 To provide a modern and easy to user interface for brokerage firms to manage their accounts.
 To provide effective tracking of orders.
