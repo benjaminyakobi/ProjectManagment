@@ -4,10 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Student Homepage</title>
 
-    <script type="text/javascript"> function Redirect() { window.location = "index.html"; } </script>
+    <!-- back to homepage without logout -->
+    <script type="text/javascript"> function redirectToHomepageWithoutLogout() {
+            window.location = "index.html";
+        }
+    </script>
+
+    <!-- back to homepage after logout -->
+    <script type="text/javascript"> function logOutAndRedirectToHomepage() {
+            // Implement here logout functionality
+            window.location = "index.html";
+        }
+    </script>
+
+    <!-- display information about the website -->
+    <script>
+        function displayAboutInformation() {
+            alert("דף זה נבנה על ידי בנימין יעקובי בעמל רב ואם הגעתם לדף זה, סימן שאתם סטודנטים והדף הזה נועד בדיוק עבורכם. כאן תוכלו להשכיר דירות שמיועדות אך ורק לכם. תהנו, צוות האתר!");
+        }
+    </script>
+
+        <!-- display contact information -->
+        <script>
+            function displayContactInformation() {
+                alert("ליצירת קשר עם צוות האתר:\n");
+                alert();
+                alert();
+                alert();
+                alert();
+                alert();
+            }
+        </script>
 
 
 </head>
@@ -15,9 +44,20 @@
 
 <body>
 
-    <form> <input type="button" value="Back to Homepage" onclick="Redirect();" /> </form>
-    <div><img class="image2" src="/images/student.jpg" height="150" width="200" /></div>
+    <!-- <form> <input type="button" value="Log Out" onclick="logOutAndRedirectToHomepage();" /> </form> -->
 
+    <div class="topnav">
+        <a class="active" href="#home" onclick="logOutAndRedirectToHomepage();">Log-Out</a>
+        <a class="active" href="#home" onclick="redirectToHomepageWithoutLogout();">Home</a>
+        <a href="#about" onclick=displayAboutInformation()>About</a>
+        <a href="#contact" onclick=displayContactInformation()>Contact</a>
+        <input type="text" placeholder="Search...">
+    </div>
+
+
+
+
+    <div><img class="image2" src="/images/student.jpg" height="130" width="210" /></div>
 </body>
 <!------------------------------ end body ------------------------------>
 
