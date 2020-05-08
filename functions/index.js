@@ -17,16 +17,19 @@ const firebaseApp = admin.initializeApp(
 );
 
 var express = require('express');
+var app = express();
+
 //var todoController = require('./controller/tdController')
 
 //var app = express();
-console.log(__dirname);
+//console.log(__dirname);
 //app.use(express.static(__dirname));
 /*app.get('/',function (req, res) {
     res.sendFile('./index.html');
 });*/
 
 //new user signup
+
 exports.newUserSignUp = functions.auth.user().onCreate(user =>{
     return admin.firestore().collection('users').doc(user.uid).set({
         email: user.email,
@@ -64,7 +67,52 @@ exports.addRequest = functions.https.onCall((data,context)=>{
     });
 });
 
-//exports.app = functions.https.onRequest(app);
+exports.requestUnits = functions.https.onCall((data,context)=>{
+    
+    var query =  admin.firestore().collection('units');
+    return query.get().then(snapshot => {
+        //console.log(snapshot.docs);
+        var resp = [];
+        snapshot.docs.forEach(doc =>{
+            resp += doc;
+        })
+        console.log(resp);
+        return snapshot.docs;
+    });
+});
+app.get('/rU', (req,res)=>{
+       //res.send("wow");
+       (async() => {
+            try{
+                var l= [];
+                var query =  admin.firestore().collection('units');
+                var allDocs = query.get().then(snapShot=>{
+                snapShot.forEach(doc=>{
+                    l.push(doc.data());
+                });
+                
+                
+                return res.status(200).send(l);
+                });
+            }catch(error)
+            {
+                return res.status(500).send(error);
+            }
+    })();
+});
+app.use(express.static('./src'));
+
+   /* query.get().then(doc =>{
+        if (doc.exists) {
+            return res.status(200).json(doc.data());
+        } else {
+            return res.status(400).json({"message":"User ID not found."});
+        }
+    }).catch(e=>{
+        return res.status(400).json({"message":"Unable to connect to Firestore."});
+    });*/
+
+exports.api = functions.https.onRequest(app);
 
 
 /*
