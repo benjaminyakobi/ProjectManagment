@@ -8,29 +8,70 @@ function initApp()
     var modal = document.getElementById("myModal");
 
     // Get the button that opens the modal
-    var forgotPasswordField = document.getElementById("forgot-pass");
+    var forgotPasswordField = document.getElementById("forgotPass");
 
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
+
     // When the user clicks the button, open the modal 
     forgotPasswordField.onclick = function() {
         modal.style.display = "block";
-        }
+    }
 
-        // When the user clicks on <span> (x), close the modal
-        span.onclick = function() {
+    // When the user clicks on <span> (x), close the modal
+    span.onclick = function() {
         modal.style.display = "none";
     }
 
-    document.getElementById("getQuestion").innerHTML = getQuestionByUsername();
-    function getQuestionByUsername(){
-        return 'your question';
+    const checkUsername = document.getElementById("checkUsernameBtn");
+
+    const removeUsername = document.getElementById("modalOne");
+
+    const showQuestionWindow = document.getElementById("modalTwo");
+
+    const checkAnswer = document.getElementById("submitAnswerBtn");
+    
+    
+
+    function getUsername(){
+        console.log("he")
+        return document.getElementById("recoveryWindow").value;
     }
 
-    function verifyAnswer(){
-        return 'correct';
+
+    checkAnswer.addEventListener('click',e =>{
+        console.log(document.getElementById("userAnswer").value);
+        if(document.getElementById("userAnswer").value=="a"){
+            console.log("true");
+        }
+        else{
+            console.log("invalid answer");
+        }   
+            
+    });
+
+
+    checkUsername.addEventListener('click',e =>{
+        console.log(document.getElementById("recoveryWindow").value);
+        if(document.getElementById("recoveryWindow").value=="t"){
+            document.getElementById("getQuestion").innerHTML ='hello:'+ getUsername()+ ' your question is:';
+            removeUsername.style.display = "none";
+            showQuestionWindow.style.display = "block";
+        }
+        else{
+            console.log("invalid username");
+        }   
+            
+    });
+
+
+
+
+    function verifyAnswer(answer){
+        return answer;
     }
+    
     // When the user clicks anywhere outside of the modal, close it
     window.onclick = function(event) {
         if (event.target == modal) {
@@ -61,12 +102,12 @@ function initApp()
 
     const database = firebase.database();
     const auth = firebase.auth();
-    const loginForm = document.getElementById('login-form');
-    const loginUser = document.getElementById('username-field');
-    const loginPass = document.getElementById('password-field');
+    const loginForm = document.getElementById('loginForm');
+    const loginUser = document.getElementById('usernameField');
+    const loginPass = document.getElementById('passwordField');
 
     const loginButton = document.getElementById("loginButton");
-    const loginErrorMsg = document.getElementById("login-error-msg");
+    const loginErrorMsg = document.getElementById("loginErrorMsg");
 
 
     loginButton.addEventListener('click',e =>{
