@@ -190,3 +190,6 @@ $(".open").on("click", function() {
     background: #666666;
     color: #ffffff;
   }
+
+  
+        <!-- <form> <input type="button" value="Log Out" onclick="logOutAndRedirectToHomepage();" /> </form> -->

@@ -4,32 +4,56 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Renter Homepage</title>
 
-    
-
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <link rel="stylesheet" href="/resources/demos/style.css">
-    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <script>
-    $( function() {
-      $( "#dialog" ).dialog();
-    } );
-
+    <!-- back to homepage without logout -->
+    <script type="text/javascript"> function redirectToHomepageWithoutLogout() {
+            window.location = "index.html";
+        }
     </script>
 
+    <!-- back to homepage after logout -->
+    <script type="text/javascript"> function logOutAndRedirectToHomepage() {
+            // Implement here logout functionality
+            window.location = "index.html";
+        }
+    </script>
+
+    <!-- display information about the website -->
+    <script>
+        function displayAboutInformation() {
+            alert("דף זה נבנה על ידי בנימין יעקובי בעמל רב ואם הגעתם לדף זה, " +
+                  "סימן שאתם משכירים אדיבים שבחרו לתרום לקהילת הסטודנטים! " +
+                 "כאן תוכלו להשכיר דירות לסטודנטים ובכך לעזור להם "+
+                  "ללמוד קרוב למכללה במחירים אטרקטיביים שרק אתם יכולים להציע להם!");
+        }
+    </script>
+
+    <!-- display contact information -->
+    <script>
+        function displayContactInformation() {
+            alert("ליצירת קשר עם צוות האתר:\n"
+                + "שגיא וקנין - sagi6464@hotmail.com\n"
+                + "לירון וקנין - lironvaknin13@gmail.com\n"
+                + "קסם אבן חן - kesemevenhen18@gmail.com\n"
+                + "דן מרינסקו - dan.marinescu7693@gmail.com\n"
+                + "בנימין יעקובי - benjaminyakobi@gmail.com");
+        }
+    </script>
 </head>
 <!------------------------------ end head ------------------------------>
 
 <body>
 
-    <div><img class="image" src="/images/renter.jpg" height="130" width="210" /></div>
+    <div class="topnav" style="font-size: 17px;" >
+        <a href="#homepage" onclick="redirectToHomepageWithoutLogout();">Home</a>
+        <a href="#logout" onclick="logOutAndRedirectToHomepage();">Log-Out</a>
+        <a href="#about" onclick=displayAboutInformation()>About</a>
+        <a href="#contact" onclick=displayContactInformation()>Contact</a>
+        <input type="text" placeholder="Search..." style="font-size: 14px">
+    </div>
 
-    <div id="dialog" title="Basic dialog">
-        <p>This is the default dialog which is useful for displaying information. The dialog window can be moved, resized and closed with the 'x' icon.</p>
-      </div>
+    <div><img class="image" src="/images/renter.jpg" height="130" width="210" /></div>
 
 </body>
 <!------------------------------ end body ------------------------------>

@@ -43,13 +43,11 @@
 
     <body>
 
-        <!-- <form> <input type="button" value="Log Out" onclick="logOutAndRedirectToHomepage();" /> </form> -->
-
         <div class="topnav" style="font-size: 17px">
-            <a href="#home" onclick="logOutAndRedirectToHomepage();">Log-Out</a>
-            <a href="#home" onclick="redirectToHomepageWithoutLogout();">Home</a>
-            <a href="#about" onclick=displayAboutInformation()>About</a>
-            <a href="#contact" onclick=displayContactInformation()>Contact</a>
+            <a class="active" href="#home" onclick="redirectToHomepageWithoutLogout();">Home</a>
+            <a class="active" href="#logout" onclick="logOutAndRedirectToHomepage();">Log-Out</a>
+            <a class="active" href="#about" onclick=displayAboutInformation()>About</a>
+            <a class="active" href="#contact" onclick=displayContactInformation()>Contact</a>
             <input type="text" placeholder="Search..." style="font-size: 14px"  >
         </div>
 
