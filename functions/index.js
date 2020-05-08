@@ -27,26 +27,29 @@ console.log(__dirname);
 });*/
 
 //new user signup
-exports.SignUp = functions.auth.user().onCreate((user) =>{
-    return admin.firestore().collection('users').doc(user.uid)({
+exports.newUserSignUp = functions.auth.user().onCreate(user =>{
+    return admin.firestore().collection('users').doc(user.uid).set({
         email: user.email,
-        studentId: ""
+        studentId: 0
     });
 });
 
 exports.addUserRecords = functions.https.onCall((data,context)=>{
-    const userR = admin.firestore.collection('users').doc(context.auth.uid);
+    const userR = admin.firestore().collection('users').doc(context.auth.uid);
     return userR.update({
-            studentId: data.stdId
+        studentId: data.stdId
     });
+    /*return userR.get().then(doc=>{
+    });*/
+        
   /*  return userR.get().then( doc =>{
         
     });*/
 });
 
-exports.userDeleted = functions.auth.user().onDelete((user) =>{
+exports.userDeleted = functions.auth.user().onDelete(user =>{
     const id = admin.firestore().collection('users').doc(user.uid);
-    return id;
+    return id.delete();
 });
 
 exports.addRequest = functions.https.onCall((data,context)=>{

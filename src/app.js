@@ -31,6 +31,8 @@ function initApp()
         modal.style.display = "none";
     }
 
+    const signOutButton = document.getElementById("signOutButton");
+
     const checkUsername = document.getElementById("checkUsernameBtn");
 
     const removeUsername = document.getElementById("modalOne");
@@ -43,6 +45,13 @@ function initApp()
 
     const checkAnswer = document.getElementById("submitAnswerBtn");
     
+    signOutButton.onclick = function() {
+  
+        firebase.auth().signOut().then(()=>{
+            console.log("logged out");
+        });
+    }
+
     // When the user clicks the button, open the modal 
     registerButton.onclick = function() {
         modal.style.display = "block";
@@ -86,11 +95,13 @@ function initApp()
     registerUserForm.addEventListener('submit',e =>{
         e.preventDefault();
         console.log(registerUserForm.userE.value);  
-        firebase.auth().createUserWithEmailAndPassword(username, password)
+        var userEmail = registerUserForm.userE.value;
+        var userPass = registerUserForm.userP.value;
+        firebase.auth().createUserWithEmailAndPassword(userEmail, userPass)
         .then( user =>{
-            const sendInfo =  firebase.functions().httpsCallable('addUserRecords');
-            sendInfo({
-                stdId: registerUserForm.userStId.value,
+            const addUserRecords =  firebase.functions().httpsCallable('addUserRecords');
+            addUserRecords({
+                stdId: registerUserForm.userStId.value
             }).then( () =>
             {
                 registerUserForm.reset();
@@ -99,7 +110,7 @@ function initApp()
             .catch(function (error) {
                 console.log('registery error')
             });
-        })
+        });
     });
 
 
@@ -111,7 +122,7 @@ function initApp()
     window.onclick = function(event) {
         if (event.target == modal) {
             modal.style.display = "none";
-    }
+        }
     }
 
 
@@ -121,7 +132,9 @@ function initApp()
     var config = {
         apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
         authDomain: "projectmanagement-612b8.firebaseapp.com",
-        databaseURL: "https://projectmanagement-612b8.firebaseio.com/"
+        databaseURL: "https://projectmanagement-612b8.firebaseio.com/",
+        projectId: "projectmanagement-612b8",
+
     };
     firebase.initializeApp(config);
     firebase.auth().onAuthStateChanged(function (user) {
