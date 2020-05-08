@@ -24,6 +24,7 @@ function initApp()
         removeUsername.style.display = "block";
         registerUser.style.display = "none";
         showQuestionWindow.style.display = "none";
+        recoveryForm.reset();
     }
 
     // When the user clicks on <span> (x), close the modal
@@ -42,6 +43,8 @@ function initApp()
     const registerUser = document.getElementById("registerModal");
 
     const registerUserForm = document.querySelector(".registerForm");
+
+    const recoveryForm = document.querySelector(".recoveryForm");
 
     const checkAnswer = document.getElementById("submitAnswerBtn");
     
@@ -164,13 +167,16 @@ function initApp()
         var password = loginPass.value;
 
         var userId = firebase.auth().signInWithEmailAndPassword(username,password);
-        userId.catch(e => {
+        userId.then(()=>{
+            window.location.href="./renter.html";
+        })
+        .catch(e => {
             console.log(e.message);
             var errorCode = e.code;
             var errorMessage = e.message;
             loginErrorMsg.style.opacity = 1;
- 
-    });
+        }
+        );
     });
 }
 
