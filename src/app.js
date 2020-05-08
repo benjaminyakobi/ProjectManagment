@@ -10,13 +10,20 @@ function initApp()
     // Get the button that opens the modal
     var forgotPasswordField = document.getElementById("forgotPass");
 
+    var registerButton = document.getElementById("createUser");
+
+
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
+ 
 
     // When the user clicks the button, open the modal 
     forgotPasswordField.onclick = function() {
         modal.style.display = "block";
+        removeUsername.style.display = "block";
+        registerUser.style.display = "none";
+        showQuestionWindow.style.display = "none";
     }
 
     // When the user clicks on <span> (x), close the modal
@@ -30,9 +37,19 @@ function initApp()
 
     const showQuestionWindow = document.getElementById("modalTwo");
 
+    const registerUser = document.getElementById("registerModal");
+
+    const registerUserForm = document.querySelector(".registerForm");
+
     const checkAnswer = document.getElementById("submitAnswerBtn");
     
-    
+    // When the user clicks the button, open the modal 
+    registerButton.onclick = function() {
+        modal.style.display = "block";
+        registerUser.style.display = "block";
+        showQuestionWindow.style.display = "none";
+        removeUsername.style.display = "none";
+    }
 
     function getUsername(){
         console.log("he")
@@ -54,18 +71,36 @@ function initApp()
 
     checkUsername.addEventListener('click',e =>{
         console.log(document.getElementById("recoveryWindow").value);
+
         if(document.getElementById("recoveryWindow").value=="t"){
             document.getElementById("getQuestion").innerHTML ='hello:'+ getUsername()+ ' your question is:';
             removeUsername.style.display = "none";
             showQuestionWindow.style.display = "block";
         }
-        else{
+        else
             console.log("invalid username");
-        }   
+          
             
     });
 
-
+    registerUserForm.addEventListener('submit',e =>{
+        e.preventDefault();
+        console.log(registerUserForm.userE.value);  
+        firebase.auth().createUserWithEmailAndPassword(username, password)
+        .then( user =>{
+            const sendInfo =  firebase.functions().httpsCallable('addUserRecords');
+            sendInfo({
+                stdId: registerUserForm.userStId.value,
+            }).then( () =>
+            {
+                registerUserForm.reset();
+                console.log("registered");
+            })
+            .catch(function (error) {
+                console.log('registery error')
+            });
+        })
+    });
 
 
     function verifyAnswer(answer){

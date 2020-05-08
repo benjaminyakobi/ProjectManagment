@@ -30,8 +30,18 @@ console.log(__dirname);
 exports.SignUp = functions.auth.user().onCreate((user) =>{
     return admin.firestore().collection('users').doc(user.uid)({
         email: user.email,
-        studentId: [],
+        studentId: ""
     });
+});
+
+exports.addUserRecords = functions.https.onCall((data,context)=>{
+    const userR = admin.firestore.collection('users').doc(context.auth.uid);
+    return userR.update({
+            studentId: data.stdId
+    });
+  /*  return userR.get().then( doc =>{
+        
+    });*/
 });
 
 exports.userDeleted = functions.auth.user().onDelete((user) =>{
