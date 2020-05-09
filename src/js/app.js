@@ -52,7 +52,6 @@ function initApp()
             console.log("logged out");
         });
     }
-
     //render image
     document.getElementById("img").onchange = function setImage(evt) {
         console.log('change');
