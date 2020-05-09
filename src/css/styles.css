@@ -1,0 +1,81 @@
+/* import fonts from google fonts */
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Gugi&family=Lato:wght@100&family=Roboto:wght@100&family=Sofia&display=swap');
+
+
+.header{
+    height:80px;
+    position: fixed;
+    z-index: 1000;
+    width: 100%;
+    background: #fff;
+}
+
+.LD_search_wrapper {
+    min-height: 105px;
+}
+
+.search_bar {
+    border-radius: 4px;
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,.1);
+    /* z-index: 350; */
+}
+
+.search_columns {
+    display: flex;
+    /* padding-top: 30px;  */
+    align-items: flex-end;
+}
+
+.search_column {
+    margin: 0 5px;
+    flex: 1;
+    z-index: 2;
+}
+
+.datalist {
+    --option-height: 40px;
+    --number-of-options-to-display: 8;
+    margin: auto;
+    width: 100%;
+    text-align: right;
+}
+
+.labal {
+width: 100%;
+display: inline-block;
+color: #363636;
+text-align: right;
+font-size: .875rem;
+}
+
+.search_bar .search_columns .search_column:first-child {
+    margin-right: 0;
+}
+
+.search_bar .search_columns .col_x4 {
+    flex: 4;
+}
+
+.col_x4 {
+    flex: 4;
+}
+
+.search_bar .search_columns .search_column {
+    margin: 0 5px;
+    flex: 1;
+}
+
+.search_columns .search_column {
+    z-index: 2;
+}
+
+
+
+
+
+
+
