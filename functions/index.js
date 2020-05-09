@@ -15,9 +15,13 @@ const admin = require('firebase-admin');
 const firebaseApp = admin.initializeApp(
     functions.config().admin
 );
-
+var cors = require('cors');
 var express = require('express');
 var app = express();
+app.use(cors({origin: true}));
+var bodyParser = require('body-parser');
+app.use( bodyParser.json() );      
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //var todoController = require('./controller/tdController')
 
@@ -80,7 +84,7 @@ exports.requestUnits = functions.https.onCall((data,context)=>{
         return snapshot.docs;
     });
 });
-app.get('/rU', (req,res)=>{
+app.post('/rU', (req,res)=>{
        //res.send("wow");
        (async() => {
             try{
@@ -92,7 +96,7 @@ app.get('/rU', (req,res)=>{
                 });
                 
                 
-                return res.status(200).send(l);
+                return res.status(200).json({status:'OK',data:l});
                 });
             }catch(error)
             {
