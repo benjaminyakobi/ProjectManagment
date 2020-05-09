@@ -15,9 +15,13 @@ const admin = require('firebase-admin');
 const firebaseApp = admin.initializeApp(
     functions.config().admin
 );
-
+var cors = require('cors');
 var express = require('express');
 var app = express();
+app.use(cors({origin: true}));
+var bodyParser = require('body-parser');
+app.use( bodyParser.json() );      
+app.use(bodyParser.urlencoded({ extended: true }));
 
 //var todoController = require('./controller/tdController')
 
@@ -40,7 +44,8 @@ exports.newUserSignUp = functions.auth.user().onCreate(user =>{
 exports.addUserRecords = functions.https.onCall((data,context)=>{
     const userR = admin.firestore().collection('users').doc(context.auth.uid);
     return userR.update({
-        studentId: data.stdId
+        firstName: 'temp',
+        lastName: 'temp'
     });
     /*return userR.get().then(doc=>{
     });*/
@@ -54,7 +59,7 @@ exports.userDeleted = functions.auth.user().onDelete(user =>{
     const id = admin.firestore().collection('users').doc(user.uid);
     return id.delete();
 });
-
+/*
 exports.addRequest = functions.https.onCall((data,context)=>{
     if(!context.auth){
         throw new functions.https.HttpsError(
@@ -66,7 +71,7 @@ exports.addRequest = functions.https.onCall((data,context)=>{
 
     });
 });
-
+*/
 exports.requestUnits = functions.https.onCall((data,context)=>{
     
     var query =  admin.firestore().collection('units');
@@ -80,7 +85,7 @@ exports.requestUnits = functions.https.onCall((data,context)=>{
         return snapshot.docs;
     });
 });
-app.get('/rU', (req,res)=>{
+app.post('/rU', (req,res)=>{
        //res.send("wow");
        (async() => {
             try{
@@ -92,7 +97,7 @@ app.get('/rU', (req,res)=>{
                 });
                 
                 
-                return res.status(200).send(l);
+                return res.status(200).json({status:'OK',data:l});
                 });
             }catch(error)
             {
