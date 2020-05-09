@@ -53,6 +53,23 @@ function initApp()
         });
     }
 
+    //render image
+    document.getElementById("img").onchange = function setImage(evt) {
+        console.log('change');
+        var tgt = evt.target || window.event.srcElement,
+        files = tgt.files;
+
+        // FileReader support
+        if (FileReader && files && files.length) {
+            var fr = new FileReader();
+            fr.onload = function () {
+                document.getElementById("prevImage").src = fr.result;
+            }
+            fr.readAsDataURL(files[0]);
+        }
+    }
+
+
     // When the user clicks the button, open the modal 
     registerButton.onclick = function() {
         modal.style.display = "block";

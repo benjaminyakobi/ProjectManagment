@@ -3,13 +3,13 @@
 // // https://firebase.google.com/docs/functions/write-firebase-functions
 //
 // exports.helloWorld = functions.https.onRequest((request, response) => {
-    //  response.send("Hello from Firebase!");
-    // });
-    
-    //var http = require('http');
-    //var fs = require('fs');
-    
-    // The Firebase Admin SDK to access the Firebase Realtime Database.
+//  response.send("Hello from Firebase!");
+// });
+
+//var http = require('http');
+//var fs = require('fs');
+
+// The Firebase Admin SDK to access the Firebase Realtime Database.
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const firebaseApp = admin.initializeApp(

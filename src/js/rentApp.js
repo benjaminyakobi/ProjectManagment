@@ -13,7 +13,7 @@ function initApp()
             console.log("logged out");
         });
     }
-*/
+    */
 
 
     var config = {

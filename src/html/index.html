@@ -124,8 +124,12 @@
       cursor: pointer;
       font-size: 15px;
     }
-
-
+/*image reviewer*/
+.prevImage {
+    border: 8px solid #ccc;
+    width: 300px;
+    height: 200px;
+}
     /*recovery*/
     /* The Modal (background) */
 .modal {
@@ -159,7 +163,14 @@
   width: 80%;
   
 }
-
+.registerModalContent {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 5px;
+  border: 1px solid #888;
+  width: 80%;
+  
+}
 /* The Close Button */
 .close {
   color: #aaaaaa;
@@ -202,14 +213,18 @@
   </div>
 
   <div id = "registerModal" style = "display: none;" class="registerModalContent">
+    <span class="close">&times;</span>
     <form class="registerForm">
-      <span class="close">&times;</span>
       <p  id="email"></p>
       <input type="text" name="userE" id="userEmail" placeholder="Email">
       <p  id="password"></p>
       <input type="password" name="userP" id="userPassword" >
-      <p  id="stId"></p>
-      <input type="text" name="userStId" id="userStID" placeholder="Student id">
+      <div id="imgup">
+        <label for="img">Add student ID</label> <!--only for Students-->
+            <input type="file" id="img" name="img" accept="image/*" ><br> <!--add required field-->
+        <a href=http://asce.co.il>Don't have Student card?</a><br><br>
+      </div>
+      <img id="prevImage"  />
       <button name="registerB" id="registerButton">Register</button>
     </form>
   </div>
