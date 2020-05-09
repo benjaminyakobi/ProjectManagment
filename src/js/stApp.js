@@ -25,7 +25,21 @@ function initApp()
             console.log('no logged');
         }
     });
+    function hasImg() {
+        console.log("hasIMg");
+          if(true){
+              return "/images/compact_camera.png";
 
+            /*      var x = document.createElement("IMG");
+                  x.setAttribute("images", "compact_camera.png");
+                  x.setAttribute("width", "25");
+                  x.setAttribute("height", "25");
+                  x.setAttribute("alt", "The Pulpit Rock");
+
+                  document.body.appendChild(x);*/
+
+          }
+      }
     const addUserRecords =  firebase.functions().httpsCallable('api/rU');
     addUserRecords().then( res =>
     {
@@ -41,7 +55,7 @@ function initApp()
                             '<td>3</td>'+
                             '<td>3</td>'+
                             '<td>3</td>'+
-                            '<td>3</td>'+
+                            '<td><img src="'+hasImg()+'"></td>'+
                             '<td>'+
                             '</td>'+
                             '</tr>';
@@ -50,6 +64,18 @@ function initApp()
     .catch(function (error) {
         console.log('data error');
     });
+  /*  var l = [123,123,123,1,231,23,123]
+    var l2 = ['adasd','asdas'];
+    const createUnit =  firebase.functions().httpsCallable('createUnit');
+         createUnit({
+                
+            }).then( () =>
+            {
+                console.log("ok");
+            })
+            .catch(function (error) {
+                console.log('error')
+            });*/
 
     // Get a reference to the database service
 
@@ -93,16 +119,3 @@ function myFunction() {
     }
   }
 
-
-  function hasImg() {
-      if(true){
-          console.log("hasIMg");
-              var x = document.createElement("IMG");
-              x.setAttribute("images", "compact_camera.png");
-              x.setAttribute("width", "25");
-              x.setAttribute("height", "25");
-              x.setAttribute("alt", "The Pulpit Rock");
-
-              document.body.appendChild(x);
-      }
-  }

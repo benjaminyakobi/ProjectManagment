@@ -3,6 +3,8 @@ window.onload = function() {
   };
 function initApp()
 {
+    //contain profile image
+    let file={};
 
     // Get the modal
     var modal = document.getElementById("myModal");
@@ -52,13 +54,13 @@ function initApp()
             console.log("logged out");
         });
     }
-
+    
     //render image
     document.getElementById("img").onchange = function setImage(evt) {
         console.log('change');
         var tgt = evt.target || window.event.srcElement,
         files = tgt.files;
-
+        file = evt.target.files[0];
         // FileReader support
         if (FileReader && files && files.length) {
             var fr = new FileReader();
@@ -118,19 +120,20 @@ function initApp()
         firebase.auth().createUserWithEmailAndPassword(userEmail, userPass)
         .then( user =>{
             const addUserRecords =  firebase.functions().httpsCallable('addUserRecords');
-            addUserRecords({
-                stdId: registerUserForm.userStId.value
-            }).then( () =>
+            addUserRecords().then( () =>
             {
-                registerUserForm.reset();
-                console.log("registered");
+                storage.ref('profileImages/' +auth.user.uid +'/profile.png').put(file).then(()=>{
+
+                    registerUserForm.reset();
+                    console.log("registered");
+                })
             })
             .catch(function (error) {
                 console.log('registery error')
             });
         });
     });
-
+    
 
     function verifyAnswer(answer){
         return answer;
@@ -151,6 +154,7 @@ function initApp()
         apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
         authDomain: "projectmanagement-612b8.firebaseapp.com",
         databaseURL: "https://projectmanagement-612b8.firebaseio.com/",
+        
         projectId: "projectmanagement-612b8",
 
     };
@@ -168,10 +172,10 @@ function initApp()
 
     const database = firebase.database();
     const auth = firebase.auth();
+    const storage = firebase.storage();
     const loginForm = document.getElementById('loginForm');
     const loginUser = document.getElementById('usernameField');
     const loginPass = document.getElementById('passwordField');
-
     const loginButton = document.getElementById("loginButton");
     const loginErrorMsg = document.getElementById("loginErrorMsg");
 

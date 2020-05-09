@@ -44,7 +44,8 @@ exports.newUserSignUp = functions.auth.user().onCreate(user =>{
 exports.addUserRecords = functions.https.onCall((data,context)=>{
     const userR = admin.firestore().collection('users').doc(context.auth.uid);
     return userR.update({
-        studentId: data.stdId
+        firstName: 'temp',
+        lastName: 'temp'
     });
     /*return userR.get().then(doc=>{
     });*/
@@ -58,7 +59,7 @@ exports.userDeleted = functions.auth.user().onDelete(user =>{
     const id = admin.firestore().collection('users').doc(user.uid);
     return id.delete();
 });
-
+/*
 exports.addRequest = functions.https.onCall((data,context)=>{
     if(!context.auth){
         throw new functions.https.HttpsError(
@@ -70,7 +71,7 @@ exports.addRequest = functions.https.onCall((data,context)=>{
 
     });
 });
-
+*/
 exports.requestUnits = functions.https.onCall((data,context)=>{
     
     var query =  admin.firestore().collection('units');
