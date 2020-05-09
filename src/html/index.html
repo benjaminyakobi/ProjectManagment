@@ -13,6 +13,7 @@
   <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
   <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js"></script>
   <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+  <script src= "https://www.gstatic.com/firebasejs/7.14.2/firebase-functions.js"></script>
   <!-- initialize the SDK after all desired features are loaded -->
   
   <style media="screen">
@@ -187,8 +188,10 @@
   <div id ="modalOne" class="modalOneContent">
     <span class="close">&times;</span>
     <p>Enter your username</p>
-    <input type="text" name="username" id="recoveryWindow" placeholder="Username">
-    <button id="checkUsernameBtn">Next</button>
+    <form id="recoveryForm">
+      <input type="text" name="username" id="recoveryWindow" placeholder="Username">
+      <button id="checkUsernameBtn">Next</button>
+    </form>
   </div>
 
   <div id = "modalTwo" style = "display: none;" class="modalTwoContent">
@@ -198,6 +201,18 @@
     <button id="submitAnswerBtn">Submit answer</button>
   </div>
 
+  <div id = "registerModal" style = "display: none;" class="registerModalContent">
+    <form class="registerForm">
+      <span class="close">&times;</span>
+      <p  id="email"></p>
+      <input type="text" name="userE" id="userEmail" placeholder="Email">
+      <p  id="password"></p>
+      <input type="password" name="userP" id="userPassword" >
+      <p  id="stId"></p>
+      <input type="text" name="userStId" id="userStID" placeholder="Student id">
+      <button name="registerB" id="registerButton">Register</button>
+    </form>
+  </div>
 
 </div>
   
@@ -206,7 +221,7 @@
     <div id="loginErrorMsgHolder">
       <p id="loginErrorMsg">Invalid username <span id="errorMsgSecondLine">and/or password</span></p>
     </div>
-
+    <button id="signOutButton">sign-out</button>
     <form id="loginForm">
       <input type="text" name="username" id="usernameField" class="loginFormField"  placeholder="Username">
       <input type="password" name="password" id="passwordField" class="loginFormField" placeholder="Password">
@@ -214,7 +229,7 @@
       <label name = "forgot passowrd" id="forgotPass" class = "loginFormField">Forgot password/username?</label>
       <label name = "create new user" id="createUser" class = "loginFormField">create new user</label>
   </main>
-  <script  type="text/javascript" src="app.js"> </script>
+  <script  type="text/javascript" src="../js/app.js"> </script>
 </body>
 
 </html>

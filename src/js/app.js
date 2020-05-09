@@ -12,11 +12,9 @@ function initApp()
 
     var registerButton = document.getElementById("createUser");
 
-
     // Get the <span> element that closes the modal
     var span = document.getElementsByClassName("close")[0];
 
- 
 
     // When the user clicks the button, open the modal 
     forgotPasswordField.onclick = function() {
