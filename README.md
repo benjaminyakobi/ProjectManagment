@@ -54,4 +54,4 @@ Now we are running in sprint number 2.
 Add here credits. Project inspired by..., based on...
 
 ## Contact
-Created by Kesem Even Hen(@kesemev), Benjamin Yakobi(@benjaminyakobi]), Dan marinescu(@Dan-marinescu), Sagi Vaknin(@ForSure-Sv), Liron Vaknin.
+Created by Kesem Even Hen(@kesemev), Benjamin Yakobi(@benjaminyakobi]), Dan marinescu(@Dan-marinescu), Sagi Vaknin(@ForSure-Sv), Liron Vaknin. 
