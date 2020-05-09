@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="/images/logo-2.jpg">
+    <title>Sign up</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/src/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          -ms-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }
+      </style>
+
+    <!-- Custom styles for this template -->
+    <link href="/src/css/signs.css" rel="stylesheet">
+   </head>
+
+    <body class="text-center">
+        <form class="form-signs" onsubmit="UserManagement.signUp()">
+            <img class="mb-4" src="/images/logo-2.jpg" alt="" width="150" height="150">
+            <h1 class="h3 mb-3 font-weight-normal">Please sign out</h1>
+            <label for="userType">Type:</label>
+                <input type="radio" id="renter" name="userType" value="renter" onclick="UserManagement.userType(value)">
+            <label for="renter">Renter</label>
+                <input type="radio" checked="checked" id="student" name="userType" value="student" onclick="UserManagement.userType(value)">
+            <label for="student">Student</label>
+
+            <label for="email" class="sr-only">Email address</label>
+                <input type="email" id="userEmail" name="email" class="form-control" placeholder="Email address" required autofocus>
+
+            <label for="password" class="sr-only">Password</label>
+                <input type="password" id="userPassword" name="passasword" class="form-control" placeholder="Password" required>
+
+            <label for="firstName" class="sr-only">First name</label>
+                <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required>
+
+            <label for="lastName" class="sr-only">Last name</label>
+                <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required>
+
+            <div id="bankAccount" style="display: none">
+                <label for="lastName" class="sr-only">Bank Account number</label> <!--only for Renters-->
+                    <input type="text" id="bank" name="bank" class="form-control" placeholder="Bank Account number"><br> <!--add required field-->
+            </div>
+            <div id="imgup">
+                <label for="img">Add student ID</label> <!--only for Students-->
+                    <input type="file" id="img" name="img" accept="image/*"><br> <!--add required field-->
+                <a href=http://asce.co.il>Don't have Student card?</a><br><br>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="invalidCheck2" required>
+                <label class="form-check-label" for="invalidCheck2">Agree to terms and conditions<br>
+                    <a href="terms.html">Click here to read</a>
+                </label>
+                </div>
+            </div>
+            <button class="btn btn-primary" type="submit">Submit form</button>
+        </form>
+        </div>
+         <script src="/src/userManagment.js"></script>  
+    </body> 
+</html> 
