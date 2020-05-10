@@ -21,6 +21,7 @@
     <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
     <script src= "https://www.gstatic.com/firebasejs/7.14.2/firebase-functions.js"></script>
     <!-- initialize the SDK after all desired features are loaded -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
 
     <!-- Bootstrap CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -103,9 +104,9 @@
         <table id="myTable">
             <tr >
                 <th><div id ="locationCol">Location<img src="/images/sort icon.png"></div></th>
-                <th><div id ="roomsCol" onclick="sortNum()">Rooms<img src="/images/sort icon.png"></div></th>
-                <th><div id ="priceCol" onclick="sortNum()">Price<img src="/images/sort icon.png"></div></th>
-                <th><div id ="ownerNameCol" onclick="sortAlph()">Owner name<img src="/images/sort icon.png"></div></th>
+                <th><div id ="roomsCol" >Rooms<img src="/images/sort icon.png"></div></th>
+                <th><div id ="priceCol" >Price<img src="/images/sort icon.png"></div></th>
+                <th><div id ="ownerNameCol">Owner name<img src="/images/sort icon.png"></div></th>
                 <th>Phone number</th>
                 <th>picture</th>
               </tr>

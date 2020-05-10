@@ -84,8 +84,36 @@ function initApp()
   }
 }
 
-  
+  fetch("/rU", {
+    method: "POST",
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+    },
+    body: JSON.stringify({text:"ashdod" }),
+    })
+    .then(res=>{
+      console.log(res.data[]);
+      console.log("got data");
 
+      // eslint-disable-next-line promise/always-return
+      for(i =0;i<res.data.length ;i++)
+      {
+        
+          sss.innerHTML+= '<tr>'+'<td>5555555</td>'+
+            /*              '<td>' +res.data[i].location+ '</td>'+
+                          '<td>' +res.data[i].rooms+ '</td>'+
+                          '<td>' +res.data[i].price+ '</td>'+                         
+                          '<td>' +res.data[i].ownerName+ '</td>'+ 
+                          '<td>' +res.data[i].phoneNumber+ '</td>'+
+                          '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+*/
+                          '</tr>';
+      }
+    }).catch(function (error) {
+      console.log('data error');
+});
+/*
   const addUserRecords =  firebase.functions().httpsCallable('api/rU');
   addUserRecords().then( res =>
   {
@@ -109,7 +137,7 @@ function initApp()
   })
   .catch(function (error) {
       console.log('data error');
-  });
+  });*/
 /*  var l = [123,123,123,1,231,23,123]
   var l2 = ['adasd','asdas'];
   const createUnit =  firebase.functions().httpsCallable('createUnit');

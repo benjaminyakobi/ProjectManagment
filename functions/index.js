@@ -162,6 +162,17 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
 });
 
 app.post('/rU', (req, res) => {
+  /*  const sessionCookie = req.cookies.session || "";
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true /** checkRevoked )
+        .then(() => {
+        res.render("student.html");
+    })
+    .catch((error) => {
+    res.redirect("/");
+    });*/
     //res.send("wow");
     (async () => {
         try {
@@ -173,7 +184,7 @@ app.post('/rU', (req, res) => {
                 });
 
 
-                return res.status(200).json({ status: 'OK', data: l });
+                return res.status(200).end(JSON.stringify({ status: 'OK', data: l }));
             });
         } catch (error) {
             return res.status(500).send(error);
@@ -211,7 +222,7 @@ app.post('/getRequests', (req, res) => {
 var PORT = 9000;
 app.use('/js', express.static("js"));
 app.use('/images', express.static("../images"));
-app.use('/css', express.static("../css"));
+app.use('/css', express.static("css"));
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });
