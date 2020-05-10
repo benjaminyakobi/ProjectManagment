@@ -187,8 +187,8 @@ app.post('/rU', (req, res) => {
                     l.push(doc.data());
                 });
 
-
-                return res.status(200).json({ status: 'OK', data: l });
+                res.setHeader('Content-Type', 'application/json');
+                return res.json({ status: 'OK', data: l });
             });
         } catch (error) {
             return res.status(500).send(error);

@@ -1,91 +1,38 @@
 /* eslint-disable promise/always-return */
-import { response } from "express";
+//import { response } from "express";
 
 /* eslint-disable eqeqeq */
-window.onload = function() {
+window.onload = function () {
   initApp();
 };
 
-function initApp()
-{
+function initApp() {
 
   // Set the configuration for your app
   // TODO: Replace with your project's config object
-  
+
   var config = {
-      apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
-      authDomain: "projectmanagement-612b8.firebaseapp.com",
-      databaseURL: "https://projectmanagement-612b8.firebaseio.com/",
-      projectId: "projectmanagement-612b8",
+    apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
+    authDomain: "projectmanagement-612b8.firebaseapp.com",
+    databaseURL: "https://projectmanagement-612b8.firebaseio.com/",
+    projectId: "projectmanagement-612b8",
 
   };
   firebase.initializeApp(config);
-/*  firebase.auth().onAuthStateChanged(function (user) {
-      if (user) {
-          // User is signed in.
-          console.log('logged');
-      } else {
-          // No user is signed in.
-          console.log('no logged');
-      }
-  });*/ 
+  /*  firebase.auth().onAuthStateChanged(function (user) {
+        if (user) {
+            // User is signed in.
+            console.log('logged');
+        } else {
+            // No user is signed in.
+            console.log('no logged');
+        }
+    });*/
   function hasImg(val) {
-        if(val)
-            return "/images/compact_camera.png";
-        return "";
-    }
-
-  var locationSortBtn = document.getElementById("locationCol");
-  function sortAlph() {
-  var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
-  list = document.getElementById("id01");
-  switching = true;
-  // Set the sorting direction to ascending:
-  dir = "asc"; 
-  // Make a loop that will continue until no switching has been done:
-  while (switching) {
-    // start by saying: no switching is done:
-    switching = false;
-    b = list.getElementsByTagName("LI");
-    // Loop through all list-items:
-    for (i = 0; i < (b.length - 1); i++) {
-      //start by saying there should be no switching:
-      shouldSwitch = false;
-      /* check if the next item should switch place with the current item,
-      based on the sorting direction (asc or desc): */
-      if (dir == "asc") {
-        if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-          /* if next item is alphabetically lower than current item,
-          mark as a switch and break the loop: */
-          shouldSwitch = true;
-          break;
-        }
-      } else if (dir == "desc") {
-        if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
-          /* if next item is alphabetically higher than current item,
-          mark as a switch and break the loop: */
-          shouldSwitch= true;
-          break;
-        }
-      }
-    }
-    if (shouldSwitch) {
-      /* If a switch has been marked, make the switch
-      and mark that a switch has been done: */
-      b[i].parentNode.insertBefore(b[i + 1], b[i]);
-      switching = true;
-      // Each time a switch is done, increase switchcount by 1:
-      switchcount ++;
-    } else {
-      /* If no switching has been done AND the direction is "asc",
-      set the direction to "desc" and run the while loop again. */
-      if (switchcount == 0 && dir == "asc") {
-        dir = "desc";
-        switching = true;
-      }
-    }
+    if (val)
+      return "/images/compact_camera.png";
+    return "";
   }
-}
 
   fetch("/rU", {
     method: "POST",
@@ -94,55 +41,129 @@ function initApp()
         "Content-Type": "application/json",
         "CSRF-Token": Cookies.get("XSRF-TOKEN"),
     },
-    body: JSON.stringify({text:"ashdod" }),
+    body: JSON.stringify({}),
     })
-    .then(res=>{res.json()})
-    .then(function(data){
-      
-       console.log(data);
-       console.log("got data");
+    .then(response => response.json())
+    // eslint-disable-next-line prefer-arrow-callback
+    .then(function(resJ){
+        console.log(resJ.data);
+        for(var i = 0; i < resJ.data.length; i++) {
+          var obj = resJ.data[i];
+          console.log(obj);
+          console.log(obj.location);
+
+              sss.innerHTML+= '<tr>'+
+                                '<td>' +obj.location+ '</td>'+
+                                '<td>' +obj.rooms+ '</td>'+
+                                '<td>' +obj.price+ '</td>'+                         
+                                '<td>' +obj.ownerName+ '</td>'+ 
+                                '<td>' +obj.phoneNumber+ '</td>'+
+                                '<td><img src="'+hasImg(obj.hasPictures)+'"></td>'+
+                              '</tr>';
+          }
+        
+
+     //  console.log("got data");
     }).catch(function (error) {
       console.log('data error');
     });
 
-     // eslint-disable-next-line promise/always-return
-  /*   for(i =0;i<res.data.length ;i++)
-     {
-     /*  
-         sss.innerHTML+= '<tr>'+'<td>5555555</td>'+
-           /*              '<td>' +res.data[i].location+ '</td>'+
-                         '<td>' +res.data[i].rooms+ '</td>'+
-                         '<td>' +res.data[i].price+ '</td>'+                         
-                         '<td>' +res.data[i].ownerName+ '</td>'+ 
-                         '<td>' +res.data[i].phoneNumber+ '</td>'+
-                         '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
-                         '</tr>';*/
-  //   }
-    /*
-    const addUserRecords =  firebase.functions().httpsCallable('api/rU');
-  addUserRecords().then( res =>
-  {
-      console.log(res.data);
-      console.log(res.data[0]);
-      console.log("got data");
-
-      // eslint-disable-next-line promise/always-return
-      for(i =0;i<res.data.length ;i++)
-      {
-        
-          sss.innerHTML+= '<tr>'+
-                          '<td>' +res.data[i].location+ '</td>'+
-                          '<td>' +res.data[i].rooms+ '</td>'+
-                          '<td>' +res.data[i].price+ '</td>'+                         
-                          '<td>' +res.data[i].ownerName+ '</td>'+ 
-                          '<td>' +res.data[i].phoneNumber+ '</td>'+
-                          '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
-                          '</tr>';
+    
+  const sss = document.getElementById("myTable");
+  
+  var locationSortBtn = document.getElementById("locationCol");
+  function sortAlph() {
+    var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
+    list = document.getElementById("id01");
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc";
+    // Make a loop that will continue until no switching has been done:
+    while (switching) {
+      // start by saying: no switching is done:
+      switching = false;
+      b = list.getElementsByTagName("LI");
+      // Loop through all list-items:
+      for (i = 0; i < (b.length - 1); i++) {
+        //start by saying there should be no switching:
+        shouldSwitch = false;
+        /* check if the next item should switch place with the current item,
+        based on the sorting direction (asc or desc): */
+        if (dir == "asc") {
+          if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+            /* if next item is alphabetically lower than current item,
+            mark as a switch and break the loop: */
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+            /* if next item is alphabetically higher than current item,
+            mark as a switch and break the loop: */
+            shouldSwitch = true;
+            break;
+          }
+        }
       }
-  })
-  .catch(function (error) {
-      console.log('data error');
-  });*/
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        b[i].parentNode.insertBefore(b[i + 1], b[i]);
+        switching = true;
+        // Each time a switch is done, increase switchcount by 1:
+        switchcount++;
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }
+}
+
+
+
+// eslint-disable-next-line promise/always-return
+/*   for(i =0;i<res.data.length ;i++)
+   {
+   /*  
+       sss.innerHTML+= '<tr>'+'<td>5555555</td>'+
+         /*              '<td>' +res.data[i].location+ '</td>'+
+                       '<td>' +res.data[i].rooms+ '</td>'+
+                       '<td>' +res.data[i].price+ '</td>'+                         
+                       '<td>' +res.data[i].ownerName+ '</td>'+ 
+                       '<td>' +res.data[i].phoneNumber+ '</td>'+
+                       '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
+                       '</tr>';*/
+//   }
+/*
+const addUserRecords =  firebase.functions().httpsCallable('api/rU');
+addUserRecords().then( res =>
+{
+  console.log(res.data);
+  console.log(res.data[0]);
+  console.log("got data");
+
+  // eslint-disable-next-line promise/always-return
+  for(i =0;i<res.data.length ;i++)
+  {
+    
+      sss.innerHTML+= '<tr>'+
+                      '<td>' +res.data[i].location+ '</td>'+
+                      '<td>' +res.data[i].rooms+ '</td>'+
+                      '<td>' +res.data[i].price+ '</td>'+                         
+                      '<td>' +res.data[i].ownerName+ '</td>'+ 
+                      '<td>' +res.data[i].phoneNumber+ '</td>'+
+                      '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
+                      '</tr>';
+  }
+})
+.catch(function (error) {
+  console.log('data error');
+});*/
 /*  var l = [123,123,123,1,231,23,123]
   var l2 = ['adasd','asdas'];
   const createUnit =  firebase.functions().httpsCallable('createUnit');
@@ -156,18 +177,17 @@ function initApp()
               console.log('error')
           });*/
 
-  // Get a reference to the database service
-
-  const database = firebase.database();
-  const auth = firebase.auth();
-  const sss = document.getElementById("myTable");
-  var json={
-      app:1
-  };
+// Get a reference to the database service
+/*
+const database = firebase.database();
+const auth = firebase.auth();
+var json = {
+  app: 1
+};
 
 }
+*/
 
-  
 
 //const signOutButton = document.getElementById("signOutButton");
 
@@ -177,7 +197,7 @@ function initApp()
 
 
 
-
+/*
 
 function myFunction() {
   var input, filter, table, tr, td, i, txtValue;
@@ -194,7 +214,7 @@ function myFunction() {
       } else {
         tr[i].style.display = "none";
       }
-    }       
+    }
   }
 }
-
+*/
