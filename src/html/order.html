@@ -9,16 +9,49 @@
 <title>Apartment Order Form</title>
 
 <link href="https://cdn.jotfor.ms/static/formCss.css?3.3.17674" rel="stylesheet" type="text/css" />
-<!-- Bootstrap CDN -->
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
 <link type="text/css" media="print" rel="stylesheet" href="https://cdn.jotfor.ms/css/printForm.css?3.3.17674" />
 <link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/css/styles/nova.css?3.3.17674" />
 <link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/themes/CSS/566a91c2977cdfcd478b4567.css?themeRevisionID=5dca5ac9a5e86d17235d90c1"/>
 <link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/css/styles/payment/styles.css?3.3.17674" />
 
+   <!-- Bootstrap CDN -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+   <!-- Custom Stylesheet -->
+   <link rel="stylesheet" href="../css/styles.css">
+   
+   <div class="container-fluid">
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+           <a class="navbar-brand" href="#">
+               <img src="/images/logo.png" width="70" height="50" alt=""> Sami Room
+           </a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           
+           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                   <li class="nav-item active">
+                       <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="#">Log out</a>
+                   </li>
+               </ul>
+               <form class="form-inline my-2 my-lg-0">
+                   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+               </form>
+           </div>
+       </nav>
+   </div>
+
+
+
 <style type="text/css">
+
 @import '@{buttonFontLink}';
+
     .form-label-left{
         width:150px;
     }
@@ -65,6 +98,8 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/punycode/1.4.1/punycode.min.js"></script>
 <script src="https://cdn.jotfor.ms/static/prototype.forms.js" type="text/javascript"></script>
 <script src="https://cdn.jotfor.ms/static/jotform.forms.js?3.3.17674" type="text/javascript"></script>
+<script src="https://js.squareup.com/v2/paymentform" type="text/javascript"></script>
+<script src="https://cdn.jotfor.ms/js/square.js?v=3.3.17674" type="text/javascript"></script>
 <script type="text/javascript">
    JotForm.setConditions([{"action":[{"id":"action_1581690116457","visibility":"Hide","isError":false,"field":"10"}],"id":"1581690133174","index":"0","link":"Any","priority":"0","terms":[{"id":"term_1581690116457","field":"17","operator":"isEmpty","value":"","isError":false}],"type":"field"},{"action":[{"id":"action_0_1581690045611","visibility":"Hide","isError":false,"field":"10"}],"id":"1581689801697","index":"1","link":"Any","priority":"1","terms":[{"id":"term_0_1581690045611","field":"17","operator":"equals","value":"Yes","isError":false}],"type":"field"},{"action":[{"field":"11","visibility":"Show","id":"action_1_1581689802691"}],"id":"1581689543679","index":"2","link":"Any","priority":"2","terms":[{"field":"15","operator":"equals","value":"Yes"}],"type":"field"},{"action":[{"field":"18","visibility":"Show","id":"action_0_1581945983644","isError":false}],"id":"1581689543680","index":"3","link":"Any","priority":"3","terms":[{"field":"15","operator":"equals","value":"Yes","id":"term_0_1581945983644","isError":false}],"type":"field"},{"action":[{"field":"10","visibility":"Show","id":"action_3_1581689802691"}],"id":"1581689543681","index":"4","link":"Any","priority":"4","terms":[{"field":"15","operator":"equals","value":"Yes"}],"type":"field"}]);
 	JotForm.init(function(){
@@ -81,14 +116,21 @@
  } 
  JotForm.setCalendar("16", false, {"days":{"monday":true,"tuesday":true,"wednesday":true,"thursday":true,"friday":true,"saturday":true,"sunday":true},"future":true,"past":true,"custom":false,"ranges":false,"start":"","end":""});
 if (window.JotForm && JotForm.accessible) $('input_14').setAttribute('tabindex',0);
+      productID = {"0":"input_17_1001","1":"input_17_1002","2":"input_17_1003"};
+      paymentType = "product";
+      JotForm.setCurrencyFormat('USD',true, 'point');
+      JotForm.totalCounter({"input_17_1001":{"price":"1","quantityField":"input_17_quantity_1001_0"},"input_17_1002":{"price":"5","quantityField":"input_17_quantity_1002_0"},"input_17_1003":{"price":"10","quantityField":"input_17_quantity_1003_0"}});
+      $$('.form-product-custom_quantity').each(function(el, i){el.observe('blur', function(){isNaN(this.value) || this.value < 1 ? this.value = '0' : this.value = parseInt(this.value)})});
+      $$('.form-product-custom_quantity').each(function(el, i){el.observe('focus', function(){this.value == 0 ? this.value = '' : this.value})});
+      JotForm.handleProductLightbox();
 	JotForm.newDefaultTheme = false;
       JotForm.alterTexts({"couponApply":"Apply","couponBlank":"Please enter a coupon.","couponChange":"","couponEnter":"Enter coupon","couponExpired":"Coupon is expired. Please try another one.","couponInvalid":"Coupon is invalid.","couponValid":"Coupon is valid.","shippingShipping":"Shipping","taxTax":"Tax","totalSubtotal":"Subtotal","totalTotal":"Total"}, true);
     /*INIT-END*/
 	});
 
-   JotForm.prepareCalculationsOnTheFly([null,{"name":"clickTo","qid":"1","text":"Apartment Order Form","type":"control_head"},{"name":"fullName2","qid":"2","text":"Full Name","type":"control_fullname"},{"name":"email3","qid":"3","text":"E-mail","type":"control_email"},null,{"name":"contactNumber","qid":"5","text":"Contact Number","type":"control_phone"},null,null,null,null,null,null,null,{"name":"submit","qid":"13","text":"Submit Order","type":"control_button"},{"name":"specialRequests","qid":"14","text":"Special requests","type":"control_textarea"},{"description":"","name":"reviewAbout","qid":"15","text":"Review about the renter","type":"control_scale"},{"description":"","name":"endDate","qid":"16","text":"End date of the rantal","type":"control_datetime"}]);
+   JotForm.prepareCalculationsOnTheFly([null,{"name":"clickTo","qid":"1","text":"Product Order Form","type":"control_head"},{"name":"fullName2","qid":"2","text":"Full Name","type":"control_fullname"},{"name":"email3","qid":"3","text":"E-mail","type":"control_email"},null,{"name":"contactNumber","qid":"5","text":"Contact Number","type":"control_phone"},null,null,null,null,null,null,null,{"name":"submit","qid":"13","text":"Submit Order","type":"control_button"},{"name":"specialRequests","qid":"14","text":"Special requests","type":"control_textarea"},{"description":"","name":"reviewAbout","qid":"15","text":"Review about the renter","type":"control_scale"},{"description":"","name":"endDate","qid":"16","text":"End date of the rantal","type":"control_datetime"},{"description":"","name":"myProducts","qid":"17","text":"My Products","type":"control_square"}]);
    setTimeout(function() {
-JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Apartment Order Form","type":"control_head"},{"name":"fullName2","qid":"2","text":"Full Name","type":"control_fullname"},{"name":"email3","qid":"3","text":"E-mail","type":"control_email"},null,{"name":"contactNumber","qid":"5","text":"Contact Number","type":"control_phone"},null,null,null,null,null,null,null,{"name":"submit","qid":"13","text":"Submit Order","type":"control_button"},{"name":"specialRequests","qid":"14","text":"Special requests","type":"control_textarea"},{"description":"","name":"reviewAbout","qid":"15","text":"Review about the renter","type":"control_scale"},{"description":"","name":"endDate","qid":"16","text":"End date of the rantal","type":"control_datetime"}]);}, 20); 
+JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Product Order Form","type":"control_head"},{"name":"fullName2","qid":"2","text":"Full Name","type":"control_fullname"},{"name":"email3","qid":"3","text":"E-mail","type":"control_email"},null,{"name":"contactNumber","qid":"5","text":"Contact Number","type":"control_phone"},null,null,null,null,null,null,null,{"name":"submit","qid":"13","text":"Submit Order","type":"control_button"},{"name":"specialRequests","qid":"14","text":"Special requests","type":"control_textarea"},{"description":"","name":"reviewAbout","qid":"15","text":"Review about the renter","type":"control_scale"},{"description":"","name":"endDate","qid":"16","text":"End date of the rantal","type":"control_datetime"},{"description":"","name":"myProducts","qid":"17","text":"My Products","type":"control_square"}]);}, 20); 
 </script>
 </head>
 <body>
@@ -239,10 +281,62 @@ JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Apartmen
           </span>
         </div>
       </li>
-
+      <li class="form-line" data-type="control_square" id="id_17" data-payment="true">
+        <table class="form-address-table payment-form-table" style="border:0" cellPadding="0" cellSpacing="0">
+            <tbody>
+              <tr>
+                <th colSpan="2" style="text-align:left;margin-top:20px;display:table" id="ccTitle17">
+                  Credit Card
+                </th>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <span class="form-sub-label-container " style="vertical-align:top">
+                    <input type="text" id="input_17_cc_firstName" name="q17_myProducts[cc_firstName]" class="form-textbox cc_firstName" size="20" value="" data-component="cc_firstName" />
+                    <label class="form-sub-label" for="input_17_cc_firstName" id="sublabel_cc_firstName" style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> First Name </label>
+                  </span>
+                </td>
+                <td width="50%">
+                  <span class="form-sub-label-container " style="vertical-align:top">
+                    <input type="text" id="input_17_cc_lastName" name="q17_myProducts[cc_lastName]" class="form-textbox cc_lastName" size="20" value="" data-component="cc_lastName" />
+                    <label class="form-sub-label" for="input_17_cc_lastName" id="sublabel_cc_lastName" style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Last Name </label>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <span class="form-sub-label-container " style="vertical-align:top">
+                    <input type="text" id="input_17_cc_number" name="q17_myProducts[cc_number]" class="form-textbox cc_number" size="20" value="" data-component="cc_number" autocomplete="cc-number" autocapitalize="off" autocorrect="off" spellcheck="off" type="tel" pattern="\d*" maxlength="16" placeholder="•••• •••• •••• ••••" style="font-size: 14px;"/>
+                    <label class="form-sub-label" for="square_cc_number" id="sublabel_cc_number" style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Credit Card Number </label>
+                  </span>
+                </td>
+                <td width="50%">
+                  <span class="form-sub-label-container " style="vertical-align:top">
+                    <input type="text" id="input_17_cc_ccv" name="q17_myProducts[cc_ccv]" class="form-textbox cc_ccv" size="20" value="" data-component="cc_ccv" autocomplete="cc-csc" autocapitalize="off" autocorrect="off" spellcheck="off" type="tel" pattern="\d*" maxlength="3" placeholder="CVV" style="font-size: 14px;">
+                    <label class="form-sub-label" for="square_cc_ccv" id="sublabel_cc_ccv" style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Security Code </label>
+                  </span>
+                </td>
+              </tr>
+              <tr>
+                <td width="50%">
+                  <span class="form-sub-label-container " style="vertical-align:top">
+                    <input type="text" id="input_17_cc_exp" name="q17_myProducts[cc_exp]" class="form-textbox cc_exp" size="20" value="" data-component="cc_exp" autocomplete="disabled" autocapitalize="off" autocorrect="off" spellcheck="off" type="tel" pattern="\d*" maxlength="4" placeholder="MM/YY" style="font-size: 14px;"/>
+                    <label class="form-sub-label" for="square_cc_exp" id="sublabel_cc_exp" style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Expiration Date </label>
+                  </span>
+                </td>
+                <td width="50%">
+                  <span class="form-sub-label-container " style="vertical-align:top">
+                    <input type="text" id="input_17_cc_postal" name="q17_myProducts[cc_postal]" class="form-textbox cc_postal" size="20" value="" data-component="cc_postal" autocomplete="shipping postal-code" autocapitalize="off" autocorrect="off" spellcheck="off" type="text" maxlength="12" style="font-size: 14px;"/>
+                    <label class="form-sub-label" for="square_cc_postal" id="sublabel_cc_postal" style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Postal Code </label>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </li>
+      
       <li class="form-line" data-type="control_button" id="id_13">
           <div style="text-align:center" data-align="center">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to checkout</button>
             <button id="input_13" type="submit" class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button" data-content="">
               Submit Order
             </button>
