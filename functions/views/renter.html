@@ -48,50 +48,81 @@
 
     <style>
         * {
-          box-sizing: border-box;
+            box-sizing: border-box;
         }
-        
+
         #myInput {
-          background-image: url('/images/searchicon.png');
-          background-position: 10px 10px;
-          background-repeat: no-repeat;
-          width: 100%;
-          font-size: 16px;
-          padding: 12px 20px 12px 40px;
-          border: 1px solid #ddd;
-          margin-bottom: 12px;
+            background-image: url('/images/searchicon.png');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
         }
-        
+
         #myTable {
-          border-collapse: collapse;
-          width: 100%;
-          border: 1px solid #ddd;
-          font-size: 18px;
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
         }
-        
-        #myTable th, #myTable td {
-          text-align: left;
-          padding: 12px;
+
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 12px;
         }
-        
+
         #myTable tr {
-          border-bottom: 1px solid #ddd;
+            border-bottom: 1px solid #ddd;
         }
-        
-        #myTable tr.header, #myTable tr:hover {
-          background-color: #f1f1f1;
+
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .renterButtons {
+            display: flex;
+            margin: 2px;
+            display: inline;
+        }
+
+        .actionButtons {
+            display: flex;
+            margin: 2px;
+            display: inline;
         }
     </style>
+
+    <script>
+        /*This function have to be implemented!*/
+        function addNewAppartmentFunction() {
+
+        }
+
+        /*This function have to be implemented!*/
+        function showMyContractsFunction() {
+
+        }
+    </script>
 
 </head>
 <!------------------------------ end head ------------------------------>
 
 <body>
+    <div class="renterButtons">
+        <div class="actionButtons">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=addNewAppartmentFunction();>Add
+                New Appartment</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=showMyContractsFunction();>Show
+                My Contratcs</button>
+        </div>
+    </div>
 
-    <h2>Available apartments</h2>
-
-    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
-
+    <h2>Appartments</h2>
     <table id="myTable">
         <tr>
             <th>
@@ -111,6 +142,8 @@
         </tr>
         <img>
     </table>
+
+
 
     <script src="/js/stApp.js"></script>
 
