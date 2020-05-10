@@ -260,3 +260,8 @@ function lClick()
 
     // const database = firebase.database();
     // const auth = firebase.auth();
+
+    // firebase.initializeApp(config);
+
+                //  console.log("got data");
+

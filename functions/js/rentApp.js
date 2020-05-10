@@ -12,9 +12,6 @@ function initApp() {
 
     };
 
-    // firebase.initializeApp(config);
-
-
     function hasImg(val) {
         if (val)
             return "/images/compact_camera.png";
@@ -39,7 +36,7 @@ function initApp() {
                 console.log(obj);
                 console.log(obj.location);
 
-                sss.innerHTML += '<tr>' +
+                sss.innerHTML += '<tr>' + '<td>' + '<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit Info</button>' + '</td>' +
                     '<td>' + obj.location + '</td>' +
                     '<td>' + obj.rooms + '</td>' +
                     '<td>' + obj.price + '</td>' +
@@ -49,8 +46,12 @@ function initApp() {
                     '</tr>';
             }
 
+            /* have to implement this function to edit appartment information*/
+            function editInfoFunction() {
+                
+            }
+            window.editInfoFunction = editInfoFunction;
 
-            //  console.log("got data");
         }).catch(function (error) {
             console.log('data error');
         });
