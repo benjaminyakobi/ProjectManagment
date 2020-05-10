@@ -64,13 +64,12 @@ app.get("/student.html", function (req, res) {
     .auth()
     .verifySessionCookie(sessionCookie, true /** checkRevoked */)
     .then(() => {
-      res.render("profile.html");
+      res.render("student.html");
     })
     .catch((error) => {
       res.redirect("/");
     });
-    res.render("student.html");
-
+   // res.render("student.html");
 });
 app.all("*", (req, res, next) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
@@ -111,8 +110,7 @@ app.post("/registerAccount", (req, res) => {
     const idToken = req.body.idToken.toString();
     console.log('server');
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
-    admin
-        .auth()
+    admin.auth()
         .createSessionCookie(idToken, { expiresIn })
         .then(
             // eslint-disable-next-line promise/always-return
@@ -212,6 +210,8 @@ app.post('/getRequests', (req, res) => {
 });
 var PORT = 9000;
 app.use('/js', express.static("js"));
+app.use('/images', express.static("../images"));
+app.use('/css', express.static("../css"));
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
 });

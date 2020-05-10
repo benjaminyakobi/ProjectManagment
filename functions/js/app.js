@@ -124,7 +124,7 @@ function initApp()
         var lName = "temp";
         var saveA = null;
             // eslint-disable-next-line promise/catch-or-return
-        // eslint-disable-next-line promise/always-return
+            // eslint-disable-next-line promise/always-return
                 firebase
                 .auth()
                 .createUserWithEmailAndPassword(userEmail, userPass)
