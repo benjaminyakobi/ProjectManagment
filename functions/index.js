@@ -81,7 +81,9 @@ app.get("/sessionLogout", (req, res) => {
     res.redirect("/");
 });
 
-
+app.get("/student.html", function (req, res) {
+    res.render("renter.html");
+});
 
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString();
