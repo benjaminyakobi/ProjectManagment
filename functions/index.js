@@ -184,7 +184,7 @@ app.post('/rU', (req, res) => {
                 });
 
 
-                return res.status(200).end(JSON.stringify({ status: 'OK', data: l }));
+                return res.status(200).json({ status: 'OK', data: l });
             });
         } catch (error) {
             return res.status(500).send(error);

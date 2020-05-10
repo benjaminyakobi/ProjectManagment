@@ -1,3 +1,6 @@
+/* eslint-disable promise/always-return */
+import { response } from "express";
+
 /* eslint-disable eqeqeq */
 window.onload = function() {
   initApp();
@@ -93,28 +96,30 @@ function initApp()
     },
     body: JSON.stringify({text:"ashdod" }),
     })
-    .then(res=>{
-      console.log(res.data[]);
-      console.log("got data");
-
-      // eslint-disable-next-line promise/always-return
-      for(i =0;i<res.data.length ;i++)
-      {
-        
-          sss.innerHTML+= '<tr>'+'<td>5555555</td>'+
-            /*              '<td>' +res.data[i].location+ '</td>'+
-                          '<td>' +res.data[i].rooms+ '</td>'+
-                          '<td>' +res.data[i].price+ '</td>'+                         
-                          '<td>' +res.data[i].ownerName+ '</td>'+ 
-                          '<td>' +res.data[i].phoneNumber+ '</td>'+
-                          '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+*/
-                          '</tr>';
-      }
+    .then(res=>{res.json()})
+    .then(function(data){
+      
+       console.log(data);
+       console.log("got data");
     }).catch(function (error) {
       console.log('data error');
-});
-/*
-  const addUserRecords =  firebase.functions().httpsCallable('api/rU');
+    });
+
+     // eslint-disable-next-line promise/always-return
+  /*   for(i =0;i<res.data.length ;i++)
+     {
+     /*  
+         sss.innerHTML+= '<tr>'+'<td>5555555</td>'+
+           /*              '<td>' +res.data[i].location+ '</td>'+
+                         '<td>' +res.data[i].rooms+ '</td>'+
+                         '<td>' +res.data[i].price+ '</td>'+                         
+                         '<td>' +res.data[i].ownerName+ '</td>'+ 
+                         '<td>' +res.data[i].phoneNumber+ '</td>'+
+                         '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
+                         '</tr>';*/
+  //   }
+    /*
+    const addUserRecords =  firebase.functions().httpsCallable('api/rU');
   addUserRecords().then( res =>
   {
       console.log(res.data);
