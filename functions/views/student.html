@@ -94,27 +94,40 @@
         #myTable tr.header, #myTable tr:hover {
           background-color: #f1f1f1;
         }
+        .btnStyle {
+            font-size: 20px;
+            border: none;
+            background-color:white;
+            font-size:5px;
+            padding: 5px;
+        }   
+
     </style>
 </head>
 
     <body>
         <h2>Available apartments</h2>
         
-        <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+        <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
         
         <table id="myTable">
-            <tr >
-                <th><div id ="locationCol">Location<img src="/images/sort icon.png"></div></th>
-                <th><div id ="roomsCol" >Rooms<img src="/images/sort icon.png"></div></th>
-                <th><div id ="priceCol" >Price<img src="/images/sort icon.png"></div></th>
-                <th><div id ="ownerNameCol">Owner name<img src="/images/sort icon.png"></div></th>
+            <thead>
+            <tr> 
+                <th><div>Location<button class = "button btnStyle" onclick="sortUp('location')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>Rooms<button class = "button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('rooms')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>Price<button class = "button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('price')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>Rating<button class = "button btnStyle" onclick="sortUp('rating')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>Owner name<button class = "button btnStyle" onclick="sortUp('ownerName')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div></th>
                 <th>Phone number</th>
                 <th>picture</th>
               </tr>
-              <img>
+            </thead>
+            <tbody id ="myTableRows">
+
+            </tbody>
     </table>
 
-    <script src="/js/stApp.js"></script>
+    <script type ="text/javascript"  src="/js/stApp.js"></script>
 
 </body>
 <!------------------------------ end head ------------------------------>
@@ -143,8 +156,8 @@
                             </label>
                         </div>
                     </li>
-                     <!--  -->
-                <!-- </ul>
+                     
+                 </ul>
             </form>
     </div> -->
     
@@ -159,6 +172,6 @@
       </div> -->
     
 <!-- </body> -->
-<!-- ---------------------------- end body ---------------------------- --> -->
+<!-- ---------------------------- end body ---------------------------- --> 
 
 </html>
