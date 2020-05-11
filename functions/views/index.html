@@ -77,8 +77,10 @@
     #loginForm {
       align-self: flex-start;
       display: grid;
-      justify-items: center;
-      align-items: center;
+      /* justify-items: center; */
+      position:relative;
+      top:-250px;
+      /* align-items: center; */
     }
 
     .loginFormField::placeholder {
@@ -188,7 +190,6 @@
 }
 
   </style>
-
 </head>
 
 <body>
@@ -231,16 +232,15 @@
 
 </div>
   
-
   <main id="mainHolder">
     <div id="loginErrorMsgHolder">
       <p id="loginErrorMsg">Invalid username <span id="errorMsgSecondLine">and/or password</span></p>
     </div>
-    <button id="signOutButton">sign-out</button>
     <form id="loginForm">
       <input type="text" name="username" id="usernameField" class="loginFormField"  placeholder="Username">
       <input type="password" name="password" id="passwordField" class="loginFormField" placeholder="Password">
-      <button type="button" id="loginButton" class="loginFormButton" >Login</button>
+      <button type="button" id="loginButton" class="loginFormButton" >Log In</button>
+      <button type="button" id="loginButton" class="loginFormButton">Log Out</button>
       <label name = "forgot passowrd" id="forgotPass" class = "loginFormField">Forgot password/username?</label>
       <label name = "create new user" id="createUser" class = "loginFormField">create new user</label>
   </main>
