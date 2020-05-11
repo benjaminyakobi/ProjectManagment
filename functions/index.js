@@ -26,7 +26,7 @@ const firebaseApp = admin.initializeApp({
         storageBucket: "projectmanagement-612b8.appspot.com",
         projectId: "projectmanagement-612b8",
 });
-
+var bucket = admin.storage().bucket();
 var cors = require('cors')({ origin: true });
 var express = require('express');
 var path = require('path');
@@ -201,14 +201,16 @@ app.post("/registerAccount", (req, res) => {
                             email: req.body.email,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            perm:req.body.lPerm
+                            perm:req.body.lPerm,
+                            profileUrl:req.body.imgUrl
                         });
 
                         var checkRequest = admin.firestore().collection('requests').doc(req.body.uid).set({
                             email: req.body.email,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            perm:req.body.lPerm
+                            perm:req.body.lPerm,
+                            profileUrl:req.body.imgUrl
                         });
                     }
                     if(req.body.lPerm == "renter")
@@ -288,7 +290,8 @@ app.post('/requestAuth', (req, res) => {
                     var allDocs = query.get().then(snapShot => {
                         snapShot.forEach(doc => {
                             //var photoUrl ="";
-                            console.log(doc.id);
+                            //console.log(doc.id);
+                            //console.log(toString(doc.id));
                    /*         var forestRef = storageRef.child('profileImages/'+doc.id +'/profile.png');
                             var url = forestRef.getDownloadURL().then(function(url){
                                 photoUrl=url;
