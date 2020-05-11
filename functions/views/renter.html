@@ -53,8 +53,6 @@
             box-sizing: border-box;
         }
 
-
-
         #myInput {
             background-image: url('/images/searchicon.png');
             background-position: 10px 10px;
@@ -182,7 +180,7 @@
             var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
             saveSpan.onclick = function () {
                 saveChanges();
-                
+
 
                 modalVar.style.display = "none";
             }
@@ -194,32 +192,32 @@
 
         }
 
-        function saveChanges(){
-            console.log("TANKOSssssss");
+        /*NOT FINISHED YET - have to send eequest to server to update the database*/
+        function saveChanges() {
+            {
+                { email: document.getElementById('newEmail') }
+                { fullName: document.getElementById('fullName') }
+                { phoneNumber: document.getElementById('newPhone') }
+            }
         }
 
 
     </script>
 
 </head>
-<!------------------------------ end head ------------------------------>
 
 <body>
 
     <div id="myModal" class="modal">
-
         <!-- Modal content -->
         <div id="modalOne" class="modalEditInfo">
             <span class="close">&times;</span>
             <form id="editInfoForm">
                 <h2>Edit Personal Information</h2>
-                <!-- <p>Enter New Email</p>
-                <input type="text" name="newPhone" id="recoveryWindow" placeholder="New Phone Number">
-            <input type="text" name="newName" id="recoveryWindow" placeholder="Full Name">
-            <input type="text" name="newEmail" id="recoveryWindow" placeholder="New Email"> -->
+
                 <label for="fullName"><b>New Name</b></label>
                 <input id="fullName" type="text" placeholder="Enter Full Name" name="fullName" required>
-                    
+
                 <label for="email"><b>New Email</b></label>
                 <input id="newEmail" type="text" placeholder="Enter Email" name="email" required>
 
@@ -245,16 +243,12 @@
         </div>
     </div>
 
-
     <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
 
     <h2>Appartments</h2>
     <table id="myTable">
         <thead>
             <tr>
-                <!-- <th>
-                    <div id="locationCol">Edit Info<img src="/images/sort icon.png"></div>
-                </th> -->
                 <th>
                     <div>Location<button class="button btnStyle" onclick="sortUp('location')"> <img
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
@@ -290,6 +284,5 @@
 
 
 </body>
-<!------------------------------ end body ------------------------------>
 
 </html>
