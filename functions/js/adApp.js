@@ -52,7 +52,7 @@ function initApp()
 
 
     
-  fetch("/requstVerifications", {
+  fetch("/requestAuth", {
     method: "POST",
     headers: {
         Accept: "application/json",
@@ -70,11 +70,11 @@ function initApp()
 
 
               sss.innerHTML+= '<tl>'+
-                                '<td><a href="#">' +obj.Firstname+ '</a></td>'+
-                                '<td><a href="#">' +obj.Lastname+ '</a></td>'+
-                                '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
-                                '<td><a href="#">' +obj.photo+ '</a></td>'+        
-                                '<td><a href="#">' +obj.verify+ '</a></td>'+  
+                                '<td><a href="#">' +obj.id+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
+                                '<td><a href="#"><img src="'+obj.photo+'"></a></td>'+
+                                '<td><button onclick="accept()">V</button><button onclick="decline">X</button></td>'+
                               '</tl>';
           }
         
@@ -134,15 +134,17 @@ function initApp()
     // Get a reference to the database service
 
 }
+//-------------end init
+
+
+
     function accept(){
         alert("accepted");
-        return obj;
 
     }
     
     function decline(){
         alert("declined");
-        return obj;
 
     }
     
