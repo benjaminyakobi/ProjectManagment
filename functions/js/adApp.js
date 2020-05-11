@@ -65,19 +65,29 @@ function initApp()
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
         console.log(resJ.data);
+        // eslint-disable-next-line promise/always-return
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
+          // eslint-disable-next-line no-loop-func
+          (async () => {
+                try {
+                 // let url = await firebase.storage().ref('profileImages/'+obj.id +'/profile.png').getDownloadURL();
+                 // console.log(url);
+                  sss.innerHTML+= '<tl>'+
+                  '<td><a href="#">' +obj.id+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
+                  '<td><a href="#"><img src="'+hasImg()+'"></a></td>'+
+                  '<td><button onclick="accept()">V</button><button onclick="decline">X</button></td>'+
+                '</tl>';
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
 
 
-              sss.innerHTML+= '<tl>'+
-                                '<td><a href="#">' +obj.id+ '</a></td>'+
-                                '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
-                                '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
-                                '<td><a href="#"><img src="'+obj.photo+'"></a></td>'+
-                                '<td><button onclick="accept()">V</button><button onclick="decline">X</button></td>'+
-                              '</tl>';
-          }
-        
+            }
+          
 
     }).catch(function (error) {
       console.log('data error');
