@@ -48,6 +48,40 @@ function initApp()
 
           }
       }
+
+
+
+    
+  fetch("/requstVerifications", {
+    method: "POST",
+    headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+    },
+    body: JSON.stringify({}),
+    })
+    .then(response => response.json())
+    // eslint-disable-next-line prefer-arrow-callback
+    .then(function(resJ){
+        console.log(resJ.data);
+        for(var i = 0; i < resJ.data.length; i++) {
+          var obj = resJ.data[i];
+
+
+              sss.innerHTML+= '<tl>'+
+                                '<td><a href="#">' +obj.Firstname+ '</a></td>'+
+                                '<td><a href="#">' +obj.Lastname+ '</a></td>'+
+                                '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
+                                '<td><a href="#">' +obj.photo+ '</a></td>'+        
+                                '<td><a href="#">' +obj.verify+ '</a></td>'+  
+                              '</tl>';
+          }
+        
+
+    }).catch(function (error) {
+      console.log('data error');
+    });
   /*  const getRequests =  firebase.functions().httpsCallable('api/adminR');
     getRequests().then( res =>
     {
@@ -78,11 +112,12 @@ function initApp()
                             '<td>firstName</td>'+
                             '<td>LastName</td>'+
                             '<td><img src="'+hasImg()+'"></td>'+
-                            '<td><button>V</button><button>X</button></td>'+
+                            '<td><button onclick="accept()">V</button><button onclick="decline">X</button></td>'+
                             '</tr>';
         }
     }
     f1();
+
   /*  var l = [123,123,123,1,231,23,123]
     var l2 = ['adasd','asdas'];
     const createUnit =  firebase.functions().httpsCallable('createUnit');
@@ -99,7 +134,17 @@ function initApp()
     // Get a reference to the database service
 
 }
- 
+    function accept(){
+        alert("accepted");
+        return obj;
+
+    }
+    
+    function decline(){
+        alert("declined");
+        return obj;
+
+    }
     
 
 //const signOutButton = document.getElementById("signOutButton");

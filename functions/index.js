@@ -100,6 +100,9 @@ app.get("/", function (req, res) {
         res.render("index.html");
       });
     });
+
+
+
 app.get("/student.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     var role =  req.cookies.role;
@@ -239,6 +242,11 @@ app.post("/registerAccount", (req, res) => {
 });
 
 
+
+
+
+
+
 /*
 exports.newUserSignUp = functions.auth.user().onCreate(user => {
     return admin.firestore().collection('users').doc(user.uid).set({
@@ -262,6 +270,48 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
         });
     });
 });
+
+
+app.post('/requestAuth', (req, res) => {
+    const sessionCookie = req.cookies.session || "";
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+      .then(() => {
+        if(req.cookies.role === "Admin")
+        {
+            (async () => {
+                try {
+                    var l = [];
+                    
+                    var query = admin.firestore().collection('requests');
+                    var allDocs = query.get().then(snapShot => {
+                        snapShot.forEach(doc => {
+                            var photoUrl ="";
+                            var forestRef = admin.storage().child('profileImages/'+doc.id +'/profile.png');
+                            var url = forestRef.getDownloadURL().then(function(url){
+                                photoUrl=url;
+                            });
+                            l.push({id:doc.id,data:doc.data(),photo:photoUrl});
+                        });
+        
+                        res.setHeader('Content-Type', 'application/json');
+                        return res.json({ status: 'OK', data: l });
+                    });
+                } catch (error) {
+                    return res.status(500).send(error);
+                }
+            })();
+        }
+        else
+            res.send("Not authorized!");
+      })
+      .catch((error) => {
+        res.send("Not authorized!");
+      });   
+  });
+  
+
 
 app.post('/rU', (req, res) => {
   /*  const sessionCookie = req.cookies.session || "";
@@ -294,6 +344,26 @@ app.post('/rU', (req, res) => {
     })();
 });
 
+
+app.post('/postUnit', (req, res) => {
+      const sessionCookie = req.cookies.session || "";
+  
+      admin
+          .auth()
+          .verifySessionCookie(sessionCookie, true)
+          .then(() => {
+
+
+         
+
+
+        })
+      .catch((error) => {
+        return res.status(500).send('y are you');
+    });
+
+});
+
 app.post('/getRequests', (req, res) => {
     try {
         if (req.user.authenticated) {
@@ -321,6 +391,7 @@ app.post('/getRequests', (req, res) => {
         }
     })();
 });
+
 var PORT = 9000;
 app.use('/js', express.static("js"));
 app.use('/images', express.static("../images"));
