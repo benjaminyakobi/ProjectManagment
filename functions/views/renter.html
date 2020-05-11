@@ -136,15 +136,6 @@
         }
 
         /* Extra styles for the cancel button */
-        .cancelbtn {
-            padding: 5px 20px;
-            background-color: #f44336;
-        }
-        .saveChangesBtn {
-            padding: 5px 20px;
-            background-color: #00ff15;
-        }
-
         .cancelbtn,
         .saveChangesBtn {
             float: left;
@@ -167,8 +158,9 @@
         function editInfoFunction() {
             const modalVar = document.getElementById("myModal");
             modalVar.style.display = "block";
-            var span = document.getElementsByClassName("close")[0];
-            span.onclick = function () {
+
+            var cancelSpan = document.getElementsByClassName("close")[0];
+            cancelSpan.onclick = function () {
                 modalVar.style.display = "none";
             }
             window.onclick = function (event) {
@@ -176,6 +168,34 @@
                     modalVar.style.display = "none";
                 }
             }
+
+            var cancelSpan = document.getElementsByClassName("cancelbtn")[0];
+            cancelSpan.onclick = function () {
+                modalVar.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modalVar) {
+                    modalVar.style.display = "none";
+                }
+            }
+
+            var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
+            saveSpan.onclick = function () {
+                saveChanges();
+                
+
+                modalVar.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modalVar) {
+                    modalVar.style.display = "none";
+                }
+            }
+
+        }
+
+        function saveChanges(){
+            console.log("TANKOSssssss");
         }
 
 
@@ -198,18 +218,18 @@
             <input type="text" name="newName" id="recoveryWindow" placeholder="Full Name">
             <input type="text" name="newEmail" id="recoveryWindow" placeholder="New Email"> -->
                 <label for="fullName"><b>New Name</b></label>
-                <input type="text" placeholder="Enter Full Name" name="name" required>
+                <input id="fullName" type="text" placeholder="Enter Full Name" name="fullName" required>
                     
                 <label for="email"><b>New Email</b></label>
-                <input type="text" placeholder="Enter Email" name="email" required>
+                <input id="newEmail" type="text" placeholder="Enter Email" name="email" required>
 
-                <label for="pwd"><b>New Phone Number</b></label>
-                <input type="text" placeholder="Enter Phone Number" name="phone" required>
+                <label for="phone"><b>New Phone Number</b></label>
+                <input id="newPhone" type="text" placeholder="Enter Phone Number" name="phone" required>
 
             </form>
             <div class="clearfix">
-                <button type="submit" class="saveChangesBtn">Save Changes</button>
-                <button type="button" class="cancelbtn">Cancel</button>
+                <button type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
+                <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
             </div>
         </div>
     </div>
