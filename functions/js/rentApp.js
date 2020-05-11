@@ -113,3 +113,36 @@ function initApp() {
 }
 
 
+function searchFunction() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("myInput");
+    filter = input.value.toUpperCase();
+    table = document.getElementById("myTable");
+    tr = table.getElementsByTagName("tr");
+    for (i = 1; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("a");
+        tr[i].style.display ="none";
+        for(var j = 0; j <td.length;j++){
+          if(td[j].innerHTML.toUpperCase().indexOf(filter)>-1){
+            tr[i].style.display = "";
+            continue;
+          }
+        }
+      }  
+  }
+  
+  
+  var sortUpOrDown = 'dec';
+  function sortUp(columnName){
+    console.log("up");
+    sortUpOrDown = 'dec';
+    return {columnName:sortUpOrDown};
+  }
+  
+  function sortDown(columnName){
+    console.log("down");
+    sortUpOrDown = 'inc';
+    return {columnName:sortUpOrDown};
+  }
+
+
