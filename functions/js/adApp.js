@@ -78,7 +78,7 @@ function initApp()
                   '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
                   '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
                   '<td><a href="#"><img src="'+hasImg()+'"></a></td>'+
-                  '<td><button onclick="accept()">V</button><button onclick="decline">X</button></td>'+
+                  '<td><button onclick="accept()">V</button><button onclick="decline()">X</button></td>'+
                 '</tl>';
                 } catch (error) {
                     console.log(error);
@@ -113,7 +113,7 @@ function initApp()
         console.log('data error');
     });*/
 
-    const f1= function()
+    /*const f1= function()
     {
      
         for(i =0;i<10 ;i++)
@@ -126,7 +126,7 @@ function initApp()
                             '</tr>';
         }
     }
-    f1();
+    f1();*/
 
   /*  var l = [123,123,123,1,231,23,123]
     var l2 = ['adasd','asdas'];
@@ -148,15 +148,48 @@ function initApp()
 
 
 
+
+
     function accept(){
+        fetch("/requestAuth", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+            },
+            body: JSON.stringify({id,flag:"true"}),
+            })
+        .then(response => response.json())
+        // eslint-disable-next-line prefer-arrow-callback
+        .then(function(resJ){
+            console.log(resJ.data);
+        }).catch(function (error) {
+            console.log('data error');
+            });
         alert("accepted");
+        }
+        function decline(){
+            
 
-    }
-    
-    function decline(){
-        alert("declined");
-
-    }
+            fetch("/requestAuth", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                },
+                body: JSON.stringify({id,flag:"false"}),
+                })
+                .then(response => response.json())
+                // eslint-disable-next-line prefer-arrow-callback
+                .then(function(resJ){
+                    console.log(resJ.data);
+                }).catch(function (error) {
+                    console.log('data error');
+                    });
+            alert("declined");    
+        }
     
 
 //const signOutButton = document.getElementById("signOutButton");
