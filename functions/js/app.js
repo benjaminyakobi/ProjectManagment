@@ -120,8 +120,15 @@ function initApp()
         console.log(registerUserForm.userE.value);  
         var userEmail = registerUserForm.userE.value;
         var userPass = registerUserForm.userP.value;
-        var fName = "temp";
-        var lName = "temp";
+
+        var fName = registerUserForm.firstName.value;
+        var lName = registerUserForm.lastName.value;
+        var bankN = registerUserForm.bank.value;
+        console.log(fName);
+        console.log(lName);
+        console.log(val);
+        console.log(bankN);
+        
         var saveA = null;
             // eslint-disable-next-line promise/catch-or-return
             // eslint-disable-next-line promise/always-return
@@ -131,28 +138,39 @@ function initApp()
                 .then((Authh) => {
                     saveA =Authh;
                     return Authh.user.getIdToken().then((idToken) => {
-                        return fetch("/sessionLogin", {
+                        return fetch("/registerAccount", 
+                        {
                         method: "POST",
                         headers: {
                             Accept: "application/json",
                             "Content-Type": "application/json",
                             "CSRF-Token": Cookies.get("XSRF-TOKEN"),
                         },
-                        body: JSON.stringify({ idToken ,uid:Authh.user.uid,firstName:fName,lastName:lName}),
+                        body: JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val}),
                         });
                     });
                 })
                 .then(() => {
-                    // eslint-disable-next-line promise/always-return
-                    return storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then(()=>{
-                    console.log("registered");
-                    registerUserForm.reset();
-                }).catch( e =>{
-                    console.log("upload failed");
-                });          
+                    if(val == "student"){
+                        // eslint-disable-next-line promise/always-return
+                        return storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then(()=>{
+                        console.log("registered");
+
+                        registerUserForm.reset();
+                        }).catch( e =>{
+                            console.log("upload failed");
+                        });          
+                    }
+                    else if(val == "renter")
+                    {
+                        console.log("registered");
+                        registerUserForm.reset();
+                    }
                 });
             return false;
-        });
+            
+            }
+        );
     /*registerUserForm.addEventListener('submit',e =>{
         e.preventDefault();
         console.log(registerUserForm.userE.value);  
@@ -250,8 +268,48 @@ function initApp()
                 console.log(error)
             });
         });*/
-   // });
-    
+   // }); 
+   var val = "student";
+   const radioR = document.getElementById("renter");
+   const radioS = document.getElementById("student");
+   radioR.onclick = function userType() {       
+        val = "renter";
+        let imgUpload = document.getElementById("imgup");        
+        let bank = document.getElementById("bankAccount") ;       
+        if (val == "student") {           
+            imgUpload.style.display = "block"  ;         
+            bank.style.display = "none" ;           
+        }
+        if (val == "renter") {                       
+            imgUpload.style.display = "none" ;        
+            bank.style.display = "block";
+        }
+    };     
+    radioS.onclick = function userType() {    
+        val = "student";   
+        let imgUpload = document.getElementById("imgup");        
+        let bank = document.getElementById("bankAccount") ;       
+        if (val == "student") {           
+            imgUpload.style.display = "block"  ;         
+            bank.style.display = "none" ;           
+        }
+        if (val == "renter") {                       
+            imgUpload.style.display = "none" ;        
+            bank.style.display = "block";
+        }
+    }; 
+    const f1 = function userType(val) {       
+        let imgUpload = document.getElementById("imgup");        
+        let bank = document.getElementById("bankAccount") ;       
+        if (val == "student") {           
+            imgUpload.style.display = "block"  ;         
+            bank.style.display = "none" ;           
+        }
+        if (val == "renter") {                       
+            imgUpload.style.display = "none" ;        
+            bank.style.display = "block";
+        }
+    }    
 
     function verifyAnswer(answer){
         return answer;
@@ -324,12 +382,13 @@ function initApp()
         })
         .then(() => {
 
-          console.log('cookie connection');
-        //  window.location.href="/renter.html";
-          window.location.assign("/student.html");
+            window.location.href="/";
+            console.log('cookie connection');
+        //  window.location.assign("/student.html");
         });
     });
 }
+
 
             //   console.log(user.uid);
                   //  var accessToken = null;
