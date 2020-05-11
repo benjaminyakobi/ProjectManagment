@@ -36,7 +36,7 @@ function initApp()
         modal.style.display = "none";
     }
 
-    const signOutButton = document.getElementById("signOutButton");
+    const signOutButton = document.getElementById("logoutButton");
 
     const checkUsername = document.getElementById("checkUsernameBtn");
 
@@ -323,11 +323,10 @@ function initApp()
           });
         })
         .then(() => {
-          //return firebase.auth().signOut();
-        })
-        .then(() => {
+
           console.log('cookie connection');
-        //  window.location.assign("/student.html");
+        //  window.location.href="/renter.html";
+          window.location.assign("/student.html");
         });
     });
 }
