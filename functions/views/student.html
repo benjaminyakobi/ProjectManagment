@@ -118,6 +118,8 @@
                 <th><div>Price<button class = "button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('price')"><img src="/images/sortDown.jpg"></button></div></th>
                 <th><div>Rating<button class = "button btnStyle" onclick="sortUp('rating')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div></th>
                 <th><div>Owner name<button class = "button btnStyle" onclick="sortUp('ownerName')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>Start date<button class = "button btnStyle" onclick="sortUp('startDate')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>End date<button class = "button btnStyle" onclick="sortUp('endDate')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div></th>
                 <th>Phone number</th>
                 <th>picture</th>
               </tr>
@@ -126,25 +128,32 @@
 
     <script type ="text/javascript"  src="/js/stApp.js"></script>
 
-</body>
+
 
 <div id="myModal" class="modal">
 
     <!-- Modal content -->
-    <div id ="modalOne" class="modalContent">
+    <div id ="modalUnits" class="modalContent">
       <span class="close">&times;</span>
       <p>unit information</p>
-       <form>   <fieldset disabled>     
+       <form name="modalName">   <fieldset disabled>     
            <legend>Contact Form</legend> 
-                 <p>Unit location: <input type="text" size="30"></p>    
-                  <p>Email: <input type="text" size="30"></p>   
-                    <p>Subject: <input type="text" size="30"></p>  
-                       <p>Message: <textarea>Type your message here</textarea></p>   
-                         <p><input type="submit"></p>   </fieldset> </form> 
-                          <p>Additional paragraph content</p> 
+                 <p>Unit location: <input id="locationModal" type="text" size="30"></p>    
+                  <p>Rooms: <input id="roomzModal" type="text" size="30"></p>   
+                    <p>Price: <input id="priceModal" type="text" size="30"></p>  
+                        <p>Rating: <input id="ratingModal" type="text" size="30"></p>  
+                            <p>Owner name: <input id="ownerNameModal" type="text" size="30"></p>  
+                                <p>From date: <input id="startDateModal" type="text" size="30"></p>  
+                                    <p>Until date: <input id="endDateModal" type="text" size="30"></p>  
+                                        <p>Phone number: <input id="phoneNumberModal" type="text" size="30"></p>
+                         <button style="float:right" onclick="PaymentWindow()">continue</button>   
+                 </fieldset> 
+        </form> 
 
 
     </div>
+</body> 
+
 <!------------------------------ end head ------------------------------>
 <!-- <body>
 

@@ -57,6 +57,8 @@ function initApp() {
                                 '<td><a href="#">' +obj.price+ '</a></td>'+        
                                 '<td><a href="#">' +obj.rating+ '</a></td>'+                     
                                 '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
                                 '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
                                 '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
                               '</tl>';
@@ -91,6 +93,8 @@ function initApp() {
                                   '<td><a href="#">' +obj.price+ '</a></td>'+        
                                   '<td><a href="#">' +obj.rating+ '</a></td>'+                     
                                   '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
                                   '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
                                 '</tl>';
@@ -101,18 +105,13 @@ function initApp() {
         console.log('data error');
       });
 
-      
-      
     }
   const sss = document.getElementById("myTable");
   
-
 }
 
-var modal = document.getElementById("myModal");
-var modal2 = document.getElementById("modalUnits");
-var span = document.getElementsByClassName("close")[0];
 
+// When the user clicks on <span> (x), close the modal
 
 function addRowHandlers() {
   var table = document.getElementById("myTable");
@@ -129,9 +128,22 @@ function addRowHandlers() {
                                       var cell1 = row.getElementsByTagName("a")[1];
                                       var id2 = cell1.innerHTML;
                                       // window.prompt("Copy to clipboard: Ctrl+C, Enter", "<table><tr><td>" + id + "</td><td>" + id2 + "</td></tr></table>")
+                                      var modal = document.getElementById("myModal");
+                                      var modal2 = document.getElementById("modalUnits");
+                                      var span = document.getElementsByClassName("close")[0];
+                                      span.onclick = function() {
+                                        modal.style.display = "none";
+                                      }
+                                      window.onclick = function(event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+
+                                        }
+                                    }
                                       modal.style.display = "block";
                                       modal2.style.display = "block";
-
+                                      
+                                      fillInformation(row.getElementsByTagName("a"));
                                };
                                       
           };
@@ -139,19 +151,17 @@ function addRowHandlers() {
       currentRow.onclick = createClickHandler(currentRow);
   }
 }
-
-
-
-function msg(varr){
-  console.log("ha");
+function fillInformation(id){
+  document.getElementById("locationModal").value = id[0].innerHTML;
+  document.getElementById("roomzModal").value = id[1].innerHTML;
+  document.getElementById("priceModal").value = id[2].innerHTML;
+  document.getElementById("ratingModal").value = id[3].innerHTML;
+  document.getElementById("ownerNameModal").value = id[4].innerHTML;
+  document.getElementById("startDateModal").value = id[5].innerHTML;
+  document.getElementById("endDateModal").value = id[6].innerHTML;
+  document.getElementById("phoneNumberModal").value = id[7].innerHTML;
 }
-function getOwnerName(){
-  return obj.ownerName;
-}
 
-function getlocation(){
-  return obj.location;
-}
 
 function searchFunction() {
   var input, filter, table, tr, td, i, txtValue;
