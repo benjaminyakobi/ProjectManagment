@@ -1,3 +1,6 @@
+/* eslint-disable promise/always-return */
+/* eslint-disable promise/no-nesting */
+/* eslint-disable promise/catch-or-return */
 window.onload = function() {
     initApp();
   };
@@ -33,7 +36,7 @@ function initApp()
         modal.style.display = "none";
     }
 
-    const signOutButton = document.getElementById("signOutButton");
+    const signOutButton = document.getElementById("logoutButton");
 
     const checkUsername = document.getElementById("checkUsernameBtn");
 
@@ -112,7 +115,6 @@ function initApp()
           
             
     });
-
     registerUserForm.addEventListener('submit',e =>{
         e.preventDefault();
         console.log(registerUserForm.userE.value);  
@@ -120,14 +122,82 @@ function initApp()
         var userPass = registerUserForm.userP.value;
         var fName = "temp";
         var lName = "temp";
-
-
-
-            firebase
-            .auth()
-            .createUserWithEmailAndPassword(userEmail, userPass)
-            .then(({ Auth }) => {
-              return Auth.getIdToken().then((idToken) => {
+        var saveA = null;
+            // eslint-disable-next-line promise/catch-or-return
+            // eslint-disable-next-line promise/always-return
+                firebase
+                .auth()
+                .createUserWithEmailAndPassword(userEmail, userPass)
+                .then((Authh) => {
+                    saveA =Authh;
+                    return Authh.user.getIdToken().then((idToken) => {
+                        return fetch("/sessionLogin", {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                        },
+                        body: JSON.stringify({ idToken ,uid:Authh.user.uid,firstName:fName,lastName:lName}),
+                        });
+                    });
+                })
+                .then(() => {
+                    // eslint-disable-next-line promise/always-return
+                    return storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then(()=>{
+                    console.log("registered");
+                    registerUserForm.reset();
+                }).catch( e =>{
+                    console.log("upload failed");
+                });          
+                });
+            return false;
+        });
+    /*registerUserForm.addEventListener('submit',e =>{
+        e.preventDefault();
+        console.log(registerUserForm.userE.value);  
+        var userEmail = registerUserForm.userE.value;
+        var userPass = registerUserForm.userP.value;
+        var fName = "temp";
+        var lName = "temp";
+        var saveA = null;
+            // eslint-disable-next-line promise/catch-or-return
+            // eslint-disable-next-line promise/always-return
+                firebase
+                .auth()
+                .createUserWithEmailAndPassword(userEmail, userPass)
+                .then((Authh) => {
+                    saveA =Authh;
+                    
+                    return Authh.user.getIdToken().then((idToken) => {
+                        console.log(Authh.user.uid);
+                        return fetch("/registerAccount", {
+                        method: "POST",
+                        headers: {
+                            Accept: "application/json",
+                            "Content-Type": "application/json",
+                            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                        },
+                        body: JSON.stringify({ idToken ,uid:Authh.user.uid,firstName:fName,lastName:lName}),
+                        });
+                    });
+                })
+                .then(() => {
+                    // eslint-disable-next-line promise/always-return
+                    console.log("update");
+                    return storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then(()=>{
+                    console.log("registered");
+                    registerUserForm.reset();
+                }).catch( e =>{
+                    console.log("upload failed");
+                });          
+                });
+            return false;
+        });*/
+    /*    firebase.auth().createUserWithEmailAndPassword(userEmail, userPass).then(Auth => {
+            (async () => {
+              return await firebase.auth().currentUser.getIdToken().then((idToken) => {
+                  console.log('debug1');
                 return fetch("/registerAccount", {
                   method: "POST",
                   headers: {
@@ -138,23 +208,30 @@ function initApp()
                   body: JSON.stringify({ idToken ,uid:Auth.user.uid,firstName:fName,lastName:lName}),
                 });
               });
+            })();
             })
+    
             .then(() => {
+                // eslint-disable-next-line promise/always-return
                 return storage.ref('profileImages/' +Auth.user.uid +'/profile.png').put(file).then(()=>{
-                    registerUserForm.reset();
+                    console.log('debug2');
+
                     console.log("registered");
+                    registerUserForm.reset();
                 }).catch( e =>{
                     console.log("upload failed");
                 });          
                
             })
+            // eslint-disable-next-line promise/always-return
             .then(() => {
                 console.log("wowie");
                 //window.location.assign("/");
             });
+            
           return false;
 
-
+*/
 
 
         /*    //console.log('uid',Auth.user.uid);
@@ -173,7 +250,7 @@ function initApp()
                 console.log(error)
             });
         });*/
-    });
+   // });
     
 
     function verifyAnswer(answer){
@@ -204,12 +281,9 @@ function initApp()
         if (user) {
             // User is signed in.
             console.log('logged');
-     
         } else {
             // No user is signed in.
-            console.log('no logged');
-
-             
+            console.log('no logged');    
         }
     });
     // Get a reference to the database service
@@ -233,8 +307,10 @@ function initApp()
         firebase
         .auth()
         .signInWithEmailAndPassword(username, password)
-        .then(({ user }) => {
-          return user.getIdToken().then((idToken) => {
+        .then(( Authh ) => {
+           saveA =Authh;
+          return Authh.user.getIdToken().then((idToken) => {
+              console.log(Authh.user.uid);
             return fetch("/sessionLogin", {
               method: "POST",
               headers: {
@@ -242,16 +318,15 @@ function initApp()
                 "Content-Type": "application/json",
                 "CSRF-Token": Cookies.get("XSRF-TOKEN"),
               },
-              body: JSON.stringify({ idToken }),
+              body: JSON.stringify({ idToken ,uid:Authh.user.uid}),
             });
           });
         })
         .then(() => {
-          return firebase.auth().signOut();
-        })
-        .then(() => {
+
           console.log('cookie connection');
-          window.location.assign("/");
+        //  window.location.href="/renter.html";
+          window.location.assign("/student.html");
         });
     });
 }

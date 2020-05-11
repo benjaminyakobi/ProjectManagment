@@ -47,7 +47,24 @@
 <!------------------------------ end head ------------------------------>
 
 <body>
+    
+    <h2>Available apartments</h2> 
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for names.." title="Type in a name">
+    
+    <table id="myTable">
+        <tr >
+            <th><div id ="locationCol">Location<img src="/images/sort icon.png"></div></th>
+            <th><div id ="roomsCol" onclick="sortNum()">Rooms<img src="/images/sort icon.png"></div></th>
+            <th><div id ="priceCol" onclick="sortNum()">Price<img src="/images/sort icon.png"></div></th>
+            <th><div id ="ownerNameCol" onclick="sortAlph()">Owner name<img src="/images/sort icon.png"></div></th>
+            <th>Phone number</th>
+            <th>picture</th>
+          </tr>
+          <img>
+    </table>
 
+<script src="../js/stApp.js">
+</script>
 
 </body>
 <!------------------------------ end body ------------------------------>
