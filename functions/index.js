@@ -16,7 +16,6 @@
 const csrf = require("csurf");
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const adminDB = require('firebase-admin');
 const cookieParser = require("cookie-parser");
 const serviceAccount = require("../serviceAccountKey.json");
 const csrfMiddleware = csrf({ cookie: true });
@@ -285,20 +284,23 @@ app.post('/requestAuth', (req, res) => {
                     var l = [];
                     
                     var query = admin.firestore().collection('requests');
+                    //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(snapShot => {
                         snapShot.forEach(doc => {
-                            var photoUrl ="";
-                            var forestRef = admin.storage().child('profileImages/'+doc.id +'/profile.png');
+                            //var photoUrl ="";
+                            console.log(doc.id);
+                   /*         var forestRef = storageRef.child('profileImages/'+doc.id +'/profile.png');
                             var url = forestRef.getDownloadURL().then(function(url){
                                 photoUrl=url;
-                            });
-                            l.push({id:doc.id,data:doc.data(),photo:photoUrl});
+                            });*/
+                            l.push({id:doc.id,data:doc.data()});
                         });
         
                         res.setHeader('Content-Type', 'application/json');
                         return res.json({ status: 'OK', data: l });
                     });
                 } catch (error) {
+                    console.log(error);
                     return res.status(500).send(error);
                 }
             })();
