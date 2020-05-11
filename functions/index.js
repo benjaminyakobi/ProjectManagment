@@ -285,10 +285,11 @@ app.post('/requestAuth', (req, res) => {
                     var l = [];
                     
                     var query = admin.firestore().collection('requests');
+                    var storageRef = admin.firebase.storage().ref();
                     var allDocs = query.get().then(snapShot => {
                         snapShot.forEach(doc => {
                             var photoUrl ="";
-                            var forestRef = admin.storage().child('profileImages/'+doc.id +'/profile.png');
+                            var forestRef = storageRef.child('profileImages/'+doc.id +'/profile.png');
                             var url = forestRef.getDownloadURL().then(function(url){
                                 photoUrl=url;
                             });
