@@ -1,3 +1,4 @@
+/* eslint-disable promise/no-nesting */
 /* eslint-disable promise/always-return */
 /* eslint-disable prefer-arrow-callback */
 
@@ -57,7 +58,25 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/renter.html", function (req, res) {
     res.render("renter.html");
 });
+/*
+app.get("/admin.html", function (req, res) {
+    const sessionCookie = req.cookies.session || "";
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked )
+      .then(() => {
+        
+        res.render("student.html");
+      })
+      .catch((error) => {
+        res.redirect("/");
+      });
 
+
+
+    res.send("admin console");
+});
+*/
 app.get("/", function (req, res) {
     res.render("index.html");
 });
@@ -102,16 +121,28 @@ app.post("/sessionLogin", (req, res) => {
       .then(
         // eslint-disable-next-line promise/always-return
         (sessionCookie) => {
-
-          const options = { maxAge: expiresIn, httpOnly: true };
-          res.cookie("session", sessionCookie, options);
-          res.end(JSON.stringify({ status: "success" }));
-          
+            const userAuth = admin.firestore().collection('users').doc(req.body.uid);
+            (async () => {
+                try {
+                        userAuth.get().then(doc=>{
+                            var docF =doc.data();
+                            var permDb = docF.perm || "no";
+                            const options = { maxAge: expiresIn, httpOnly: true };
+                            res.cookie("uid",req.body.uid,"role",permDb,"session", sessionCookie, options);
+                            res.end(JSON.stringify({ status: "success" }));
+                        }).catch(e=>{
+                            res.status(401).send("Unable to access database!");
+                        });
+            }
+            catch(error){
+               send.status(401).send("Unable to access database!");
+            }
+        })();
         }).catch(e => {
             res.status(401).send("UNAUTHORIZED REQUEST!");
 
         });
-     } );
+});
   
 
 app.post("/registerAccount", (req, res) => {
@@ -123,20 +154,27 @@ app.post("/registerAccount", (req, res) => {
         .then(
             // eslint-disable-next-line promise/always-return
             (sessionCookie) => {
-                var check = admin.firestore().collection('users').doc(req.body.uid).set({
-                    email: req.body.email,
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName
-                });
-                var checkRequest = admin.firestore().collection('requests').doc(req.body.uid).set({
-                    email: req.body.email,
-                    firstName: req.body.firstName,
-                    lastName: req.body.lastName
-                });
-                const options = { maxAge: expiresIn, httpOnly: true };
-                
-                res.cookie("session", sessionCookie, options);
-                res.end(JSON.stringify({ status: "success" }));
+                (async () => {
+                try {
+                    var check = admin.firestore().collection('users').doc(req.body.uid).set({
+                        email: req.body.email,
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName
+                    });
+                    var checkRequest = admin.firestore().collection('requests').doc(req.body.uid).set({
+                        email: req.body.email,
+                        firstName: req.body.firstName,
+                        lastName: req.body.lastName
+                    });
+                    const options = { maxAge: expiresIn, httpOnly: true};
+                    //
+                    res.cookie("uid",req.body.uid,"role","St","session", sessionCookie, options);
+                    res.end(JSON.stringify({ status: "success" }));
+                }
+                catch(error){
+                res.send.status(401).send("Unable to access database!");
+                }
+                })();
             }
         ).catch(e => {
             res.status(401).send("UNAUTHORIZED REQUEST!");
