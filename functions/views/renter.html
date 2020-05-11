@@ -125,9 +125,13 @@
     </div>
 
     <h2>Appartments</h2>
+
+    <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
+
     <table id="myTable">
         <thead>
         <tr> 
+            <th><div id="locationCol">Edit Info<img src="/images/sort icon.png"></div></th>
             <th><div>Location<button class = "button btnStyle" onclick="sortUp('location')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div></th>
             <th><div>Rooms<button class = "button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('rooms')"><img src="/images/sortDown.jpg"></button></div></th>
             <th><div>Price<button class = "button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('price')"><img src="/images/sortDown.jpg"></button></div></th>
@@ -137,36 +141,9 @@
             <th>picture</th>
           </tr>
         </thead>
-        <tbody id ="myTableRows">
-
-        </tbody>
+        <tbody id ="myTableRows"></tbody>
 </table>
-    <!-- <table id="myTable">
-        <tr>
-            <th>
-                <div id="locationCol">Edit Info<img src="/images/sort icon.png"></div>
-            </th>
-            <th>
-                <div id="locationCol">Location<img src="/images/sort icon.png"></div>
-            </th>
-            <th>
-                <div id="roomsCol">Rooms<img src="/images/sort icon.png"></div>
-            </th>
-            <th>
-                <div id="priceCol">Price<img src="/images/sort icon.png"></div>
-            </th>
-            <th>
-                <div id="ownerNameCol">Owner name<img src="/images/sort icon.png"></div>
-            </th>
-            <th>Phone number</th>
-            <th>picture</th>
-        </tr>
-        <img>
-    </table> -->
-
-
-
-    <script src="/js/rentApp.js"></script>
+        <script type ="text/javascript"  src="/js/rentApp.js"></script>
 
 </body>
 <!------------------------------ end body ------------------------------>
