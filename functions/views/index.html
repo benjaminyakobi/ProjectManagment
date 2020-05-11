@@ -216,10 +216,29 @@
   <div id = "registerModal" style = "display: none;" class="registerModalContent">
     <span class="close">&times;</span>
     <form class="registerForm">
+      <label for="userType">Type:</label>
+      <input type="radio" id="renter" name="userType" value="renter" onclick="userType(value)">
+      <label for="renter">Renter</label>
+          <input type="radio" checked="checked" id="student" name="userType" value="student" onclick="UserManagement.userType(value)">
+      <label for="student">Student</label>
       <p  id="email"></p>
       <input type="text" name="userE" id="userEmail" placeholder="Email">
       <p  id="password"></p>
       <input type="password" name="userP" id="userPassword" >
+      
+      <p  id="FName"></p>
+      <label for="firstName" class="sr-only">First name</label>
+      <input type="text" id="firstName" name="firstName" class="form-control" placeholder="First name" required>
+
+      <p  id="LName"></p>
+      <label for="lastName" class="sr-only">Last name</label>
+      <input type="text" id="lastName" name="lastName" class="form-control" placeholder="Last name" required>
+
+      <div id="bankAccount" style="display: none">
+        <label for="lastName" class="sr-only">Bank Account number</label> <!--only for Renters-->
+            <input type="text" id="bank" name="bank" class="form-control" placeholder="Bank Account number"><br> <!--add required field-->
+      </div>
+
       <div id="imgup">
         <label for="img">Add student ID</label> <!--only for Students-->
             <input type="file" id="img" name="img" accept="image/x-png" ><br> <!--add required field-->

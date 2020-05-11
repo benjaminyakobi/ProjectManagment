@@ -16,12 +16,12 @@
 const csrf = require("csurf");
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
+const adminDB = require('firebase-admin');
 const cookieParser = require("cookie-parser");
 const serviceAccount = require("../serviceAccountKey.json");
 const csrfMiddleware = csrf({ cookie: true });
 const firebaseApp = admin.initializeApp({
         credential: admin.credential.cert(serviceAccount),
-        apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
         authDomain: "projectmanagement-612b8.firebaseapp.com",
         databaseURL: "https://projectmanagement-612b8.firebaseio.com/",
         storageBucket: "projectmanagement-612b8.appspot.com",
@@ -58,43 +58,67 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/renter.html", function (req, res) {
     res.render("renter.html");
 });
-/*
-app.get("/admin.html", function (req, res) {
+
+app.get("/Admin.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     admin
       .auth()
-      .verifySessionCookie(sessionCookie, true /** checkRevoked )
+      .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
       .then(() => {
-        
-        res.render("student.html");
+        if(req.cookies.role === "Admin")
+            res.render("Admin.html");
+        else
+            res.send("Not authorized!");
       })
       .catch((error) => {
         res.redirect("/");
       });
-
-
-
-    res.send("admin console");
 });
-*/
+
 app.get("/", function (req, res) {
-    res.render("index.html");
-});
+    const sessionCookie = req.cookies.session || "";
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+      .then(() => {
+        if(req.cookies.role === "Admin"){
+            req.url = '/Admin.html';
+            app.handle(req, res);
+        }
+        else if(req.cookies.role === "student"){
+            req.url = '/student.html';
+            app.handle(req, res);
+        }
+        else if(req.cookies.role === "renter"){
+            req.url = '/renter.html';
+            app.handle(req, res);
+        }else{
+            res.render("index.html");
+        }     
+      })
+      .catch((error) => {
+        res.render("index.html");
+      });
+    });
 app.get("/student.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
-/*
-  admin
-    .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked )
-    .then(() => {
-      res.render("student.html");
-    })
-    .catch((error) => {
-      res.redirect("/");
-    });
-    */
-   res.render("student.html");
+    var role =  req.cookies.role;
+    console.log(role);
 
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true  )//checkRevoked
+        .then(() => {
+            console.log(role);
+            if(req.cookies.role === "student")
+                res.render("student.html");
+            else
+                res.redirect("/");
+        })
+        .catch((error) => {
+            console.log(error);
+        res.redirect("/");
+        });
 });
 app.all("*", (req, res, next) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
@@ -104,10 +128,6 @@ app.all("*", (req, res, next) => {
 app.get("/sessionLogout", (req, res) => {
     res.clearCookie("session");
     res.redirect("/");
-});
-
-app.get("/renter.html", function (req, res) {
-    res.render("renter.html");
 });
 
 
@@ -126,18 +146,34 @@ app.post("/sessionLogin", (req, res) => {
             const userAuth = admin.firestore().collection('users').doc(req.body.uid);
             (async () => {
                 try {
+                        var permA= "Unk";
                         userAuth.get().then(doc=>{
                             var docF =doc.data();
-                            var permDb = docF.perm || "no";
+                            var permDb = docF.perm||"no";
                             const options = { maxAge: expiresIn, httpOnly: true };
-                            res.cookie("uid",req.body.uid,"role",permDb,"session", sessionCookie, options);
-                            res.end(JSON.stringify({ status: "success" }));
+                            res.cookie("uid",req.body.uid);
+                            res.cookie("role",permDb);
+                            res.cookie("session", sessionCookie, options);
+                            res.send(JSON.stringify({ status: "success" }));
+
+                      /*      if(permDb === "Admin")
+                            {
+                                res.redirect("/Admin.html");
+                            }
+                            if(permDb === "renter")
+                            {
+                                res.redirect("/renter.html");
+                            }
+                            if(permDb === "student")
+                            {
+                                res.redirect("/student.html");
+                            }*/
                         }).catch(e=>{
-                            res.status(401).send("Unable to access database!");
+                            res.send("Unable to access database!");
                         });
             }
             catch(error){
-               send.status(401).send("Unable to access database!");
+               res.status(401).send("Unable to access database!");
             }
         })();
         }).catch(e => {
@@ -149,7 +185,6 @@ app.post("/sessionLogin", (req, res) => {
 
 app.post("/registerAccount", (req, res) => {
     const idToken = req.body.idToken.toString();
-    console.log('server');
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
     admin.auth()
         .createSessionCookie(idToken, { expiresIn })
@@ -157,35 +192,54 @@ app.post("/registerAccount", (req, res) => {
             // eslint-disable-next-line promise/always-return
             (sessionCookie) => {
                 (async () => {
-                try {
-                    var check = admin.firestore().collection('users').doc(req.body.uid).set({
-                        email: req.body.email,
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName
-                    });
-                    var checkRequest = admin.firestore().collection('requests').doc(req.body.uid).set({
-                        email: req.body.email,
-                        firstName: req.body.firstName,
-                        lastName: req.body.lastName
-                    });
+                try {  
+                    if(req.body.lPerm == "student")
+                    {
+                        var check = admin.firestore().collection('users').doc(req.body.uid).set({
+                            email: req.body.email,
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            perm:req.body.lPerm
+                        });
+
+                        var checkRequest = admin.firestore().collection('requests').doc(req.body.uid).set({
+                            email: req.body.email,
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            perm:req.body.lPerm
+                        });
+                    }
+                    if(req.body.lPerm == "renter")
+                    {
+                        var check2 = admin.firestore().collection('users').doc(req.body.uid).set({
+                            email: req.body.email,
+                            firstName: req.body.firstName,
+                            lastName: req.body.lastName,
+                            bankAccount:req.body.bankA,
+                            perm:req.body.lPerm
+                        });
+                    }
                     const options = { maxAge: expiresIn, httpOnly: true};
-                    //
-                    res.cookie("uid",req.body.uid,"role","St","session", sessionCookie, options);
+                    //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                    res.cookie('role',req.body.lPerm);
+                    res.cookie('uid',req.body.uid);
+                    res.cookie("session", sessionCookie, options);
                     res.end(JSON.stringify({ status: "success" }));
+                    //res.send('');
                 }
                 catch(error){
-                res.send.status(401).send("Unable to access database!");
+                res.send("Unable to access database!");
                 }
                 })();
             }
         ).catch(e => {
-            res.status(401).send("UNAUTHORIZED REQUEST!");
+            res.send("UNAUTHORIZED REQUEST!");
 
         });
 });
 
 
-
+/*
 exports.newUserSignUp = functions.auth.user().onCreate(user => {
     return admin.firestore().collection('users').doc(user.uid).set({
         email: user.email,
@@ -193,7 +247,7 @@ exports.newUserSignUp = functions.auth.user().onCreate(user => {
         lastName: 'lName'
     });
 });
-
+*/
 exports.addUserRecords = functions.https.onCall((data, context) => {
     const userR = admin.firestore().collection('users').doc(context.auth.uid);
     const requestR = admin.firestore().collection('requests').doc(context.auth.uid);
