@@ -49,39 +49,77 @@ function initApp() {
             console.log('data error');
         });
 
-    function sortTable(jsonInfo) {
-        fetch("/rU", {
-            method: "POST",
-            headers: {
-                Accept: "application/json",
-                "Content-Type": "application/json",
-                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-            },
-            body: JSON.stringify(jsonInfo),
-        })
-            .then(response => response.json())
-            .then(function (resJ) {
-                console.log(resJ.data);
-                for (var i = 0; i < resJ.data.length; i++) {
-                    var obj = resJ.data[i];
+// example
+// fetch("/editData", {
+//     method: "POST",
+//     headers: {
+//         Accept: "application/json",
+//         "Content-Type": "application/json",
+//         "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+//     },
+
+//     body: JSON.stringify({}),
+// })
+//     .then(response => response.json())
+//     .then(function (resJ) {
+//         console.log(resJ.data);
+//         for (var i = 0; i < resJ.data.length; i++) {
+//             var obj = resJ.data[i];
+
+//             sss.innerHTML += '<tl>' + '<td>' + '<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit Info</button>' + '</td>' +
+//                 '<td><a href="#">' + obj.location + '</a></td>' +
+//                 '<td><a href="#">' + obj.rooms + '</a></td>' +
+//                 '<td><a href="#">' + obj.price + '</a></td>' +
+//                 '<td><a href="#">' + obj.rating + '</a></td>' +
+//                 '<td><a href="#">' + obj.ownerName + '</a></td>' +
+//                 '<td><a href="#">' + obj.phoneNumber + '</a></td>' +
+//                 '<td><a href="#"><img src="' + hasImg(obj.hasPictures) + '"></a></td>' +
+//                 '</tl>';
+//         }
+//     }).catch(function (error) {
+//         console.log('data error');
+//     });
 
 
-                    sss.innerHTML += '<tl>' + '<td>' + '<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit Info</button>' + '</td>' +
-                        '<td><a href="#">' + obj.location + '</a></td>' +
-                        '<td><a href="#">' + obj.rooms + '</a></td>' +
-                        '<td><a href="#">' + obj.price + '</a></td>' +
-                        '<td><a href="#">' + obj.rating + '</a></td>' +
-                        '<td><a href="#">' + obj.ownerName + '</a></td>' +
-                        '<td><a href="#">' + obj.phoneNumber + '</a></td>' +
-                        '<td><a href="#"><img src="' + hasImg(obj.hasPictures) + '"></a></td>' +
-                        '</tl>';
-                }
 
 
-            }).catch(function (error) {
-                console.log('data error');
-            });
-    }
+
+
+//not in use yet
+    // function sortTable(jsonInfo) {
+    //     fetch("/rU", {
+    //         method: "POST",
+    //         headers: {
+    //             Accept: "application/json",
+    //             "Content-Type": "application/json",
+    //             "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+    //         },
+    //         body: JSON.stringify(jsonInfo),
+    //     })
+    //         .then(response => response.json())
+    //         .then(function (resJ) {
+    //             console.log(resJ.data);
+    //             for (var i = 0; i < resJ.data.length; i++) {
+    //                 var obj = resJ.data[i];
+
+
+    //                 sss.innerHTML += '<tl>' + '<td>' + '<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit Info</button>' + '</td>' +
+    //                     '<td><a href="#">' + obj.location + '</a></td>' +
+    //                     '<td><a href="#">' + obj.rooms + '</a></td>' +
+    //                     '<td><a href="#">' + obj.price + '</a></td>' +
+    //                     '<td><a href="#">' + obj.rating + '</a></td>' +
+    //                     '<td><a href="#">' + obj.ownerName + '</a></td>' +
+    //                     '<td><a href="#">' + obj.phoneNumber + '</a></td>' +
+    //                     '<td><a href="#"><img src="' + hasImg(obj.hasPictures) + '"></a></td>' +
+    //                     '</tl>';
+    //             }
+
+
+    //         }).catch(function (error) {
+    //             console.log('data error');
+    //         });
+    // }
+
     const sss = document.getElementById("myTable");
 
 }
