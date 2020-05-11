@@ -33,6 +33,9 @@ function initApp() {
       return "/images/compact_camera.png";
     return "";
   }
+  
+  
+  
 
   fetch("/rU", {
     method: "POST",
@@ -49,172 +52,95 @@ function initApp() {
         console.log(resJ.data);
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
-          console.log(obj);
-          console.log(obj.location);
 
-              sss.innerHTML+= '<tr>'+
-                                '<td>' +obj.location+ '</td>'+
-                                '<td>' +obj.rooms+ '</td>'+
-                                '<td>' +obj.price+ '</td>'+                         
-                                '<td>' +obj.ownerName+ '</td>'+ 
-                                '<td>' +obj.phoneNumber+ '</td>'+
-                                '<td><img src="'+hasImg(obj.hasPictures)+'"></td>'+
-                              '</tr>';
+
+              sss.innerHTML+= '<tl>'+
+                                '<td><a href="#">' +obj.location+ '</a></td>'+
+                                '<td><a href="#">' +obj.rooms+ '</a></td>'+
+                                '<td><a href="#">' +obj.price+ '</a></td>'+        
+                                '<td><a href="#">' +obj.rating+ '</a></td>'+                     
+                                '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
+                                '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
+                              '</tl>';
           }
         
 
-     //  console.log("got data");
     }).catch(function (error) {
       console.log('data error');
     });
+  
 
-    
+
+
+    function sortTable(jsonInfo){ 
+      fetch("/rU", {
+      method: "POST",
+      headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+          "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+      },
+      body: JSON.stringify(jsonInfo),
+      })
+      .then(response => response.json())
+      // eslint-disable-next-line prefer-arrow-callback
+      .then(function(resJ){
+          console.log(resJ.data);
+          for(var i = 0; i < resJ.data.length; i++) {
+            var obj = resJ.data[i];
+  
+  
+                sss.innerHTML+= '<tl>'+
+                                  '<td><a href="#">' +obj.location+ '</a></td>'+
+                                  '<td><a href="#">' +obj.rooms+ '</a></td>'+
+                                  '<td><a href="#">' +obj.price+ '</a></td>'+        
+                                  '<td><a href="#">' +obj.rating+ '</a></td>'+                     
+                                  '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
+                                  '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
+                                '</tl>';
+            }
+          
+  
+      }).catch(function (error) {
+        console.log('data error');
+      });
+    }
   const sss = document.getElementById("myTable");
   
-  var locationSortBtn = document.getElementById("locationCol");
-  function sortAlph() {
-    var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
-    list = document.getElementById("id01");
-    switching = true;
-    // Set the sorting direction to ascending:
-    dir = "asc";
-    // Make a loop that will continue until no switching has been done:
-    while (switching) {
-      // start by saying: no switching is done:
-      switching = false;
-      b = list.getElementsByTagName("LI");
-      // Loop through all list-items:
-      for (i = 0; i < (b.length - 1); i++) {
-        //start by saying there should be no switching:
-        shouldSwitch = false;
-        /* check if the next item should switch place with the current item,
-        based on the sorting direction (asc or desc): */
-        if (dir == "asc") {
-          if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
-            /* if next item is alphabetically lower than current item,
-            mark as a switch and break the loop: */
-            shouldSwitch = true;
-            break;
-          }
-        } else if (dir == "desc") {
-          if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
-            /* if next item is alphabetically higher than current item,
-            mark as a switch and break the loop: */
-            shouldSwitch = true;
-            break;
-          }
-        }
-      }
-      if (shouldSwitch) {
-        /* If a switch has been marked, make the switch
-        and mark that a switch has been done: */
-        b[i].parentNode.insertBefore(b[i + 1], b[i]);
-        switching = true;
-        // Each time a switch is done, increase switchcount by 1:
-        switchcount++;
-      } else {
-        /* If no switching has been done AND the direction is "asc",
-        set the direction to "desc" and run the while loop again. */
-        if (switchcount == 0 && dir == "asc") {
-          dir = "desc";
-          switching = true;
-        }
-      }
-    }
-  }
-}
-
-
-
-// eslint-disable-next-line promise/always-return
-/*   for(i =0;i<res.data.length ;i++)
-   {
-   /*  
-       sss.innerHTML+= '<tr>'+'<td>5555555</td>'+
-         /*              '<td>' +res.data[i].location+ '</td>'+
-                       '<td>' +res.data[i].rooms+ '</td>'+
-                       '<td>' +res.data[i].price+ '</td>'+                         
-                       '<td>' +res.data[i].ownerName+ '</td>'+ 
-                       '<td>' +res.data[i].phoneNumber+ '</td>'+
-                       '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
-                       '</tr>';*/
-//   }
-/*
-const addUserRecords =  firebase.functions().httpsCallable('api/rU');
-addUserRecords().then( res =>
-{
-  console.log(res.data);
-  console.log(res.data[0]);
-  console.log("got data");
-
-  // eslint-disable-next-line promise/always-return
-  for(i =0;i<res.data.length ;i++)
-  {
-    
-      sss.innerHTML+= '<tr>'+
-                      '<td>' +res.data[i].location+ '</td>'+
-                      '<td>' +res.data[i].rooms+ '</td>'+
-                      '<td>' +res.data[i].price+ '</td>'+                         
-                      '<td>' +res.data[i].ownerName+ '</td>'+ 
-                      '<td>' +res.data[i].phoneNumber+ '</td>'+
-                      '<td><img src="'+hasImg(res.data[i].hasPictures)+'"></td>'+
-                      '</tr>';
-  }
-})
-.catch(function (error) {
-  console.log('data error');
-});*/
-/*  var l = [123,123,123,1,231,23,123]
-  var l2 = ['adasd','asdas'];
-  const createUnit =  firebase.functions().httpsCallable('createUnit');
-       createUnit({
-              
-          }).then( () =>
-          {
-              console.log("ok");
-          })
-          .catch(function (error) {
-              console.log('error')
-          });*/
-
-// Get a reference to the database service
-/*
-const database = firebase.database();
-const auth = firebase.auth();
-var json = {
-  app: 1
-};
 
 }
-*/
 
 
-//const signOutButton = document.getElementById("signOutButton");
-
-//signOutButton.onclick = function(){
-
-
-
-
-
-/*
-
-function myFunction() {
+function searchFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
-    if (td) {
-      txtValue = td.textContent || td.innerText;
-      if (txtValue.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
+  for (i = 1; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("a");
+      tr[i].style.display ="none";
+      for(var j = 0; j <td.length;j++){
+        if(td[j].innerHTML.toUpperCase().indexOf(filter)>-1){
+          tr[i].style.display = "";
+          continue;
+        }
       }
-    }
-  }
+    }  
 }
-*/
+
+
+var sortUpOrDown = 'dec';
+function sortUp(columnName){
+  console.log("up");
+  sortUpOrDown = 'dec';
+  return {columnName:sortUpOrDown};
+}
+
+function sortDown(columnName){
+  console.log("down");
+  sortUpOrDown = 'inc';
+  return {columnName:sortUpOrDown};
+}
