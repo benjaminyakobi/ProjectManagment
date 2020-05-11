@@ -1,21 +1,9 @@
-window.onload = function() {
+
+window.onload = function () {
     initApp();
-  };
-function initApp()
-{
+};
 
-
-   /* const signOutButton = document.getElementById("signOutButton");
-
-    signOutButton.onclick = function() {
-  
-        firebase.auth().signOut().then(()=>{
-            console.log("logged out");
-        });
-    }
-    */
-
-
+function initApp() {
     var config = {
         apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
         authDomain: "projectmanagement-612b8.firebaseapp.com",
@@ -23,60 +11,105 @@ function initApp()
         projectId: "projectmanagement-612b8",
 
     };
-    firebase.initializeApp(config);
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            user.getIdTokenResult().then(idTokenResult => {
-                user.renter = idTokenResult.claims.admin;
-                if ( user.renter != true)
-                {
-                    console.log("unauthorized access!");
-                    //window.location.href=".html";
+
+    function hasImg(val) {
+        if (val)
+            return "/images/compact_camera.png";
+        return "";
+    }
+
+    fetch("/rU", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+        },
+        body: JSON.stringify({}),
+    })
+        .then(response => response.json())
+        // eslint-disable-next-line prefer-arrow-callback
+        .then(function (resJ) {
+            console.log(resJ.data);
+            for (var i = 0; i < resJ.data.length; i++) {
+                var obj = resJ.data[i];
+                console.log(obj);
+                console.log(obj.location);
+
+                sss.innerHTML += '<tr>' + '<td>' + '<button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit Info</button>' + '</td>' +
+                    '<td>' + obj.location + '</td>' +
+                    '<td>' + obj.rooms + '</td>' +
+                    '<td>' + obj.price + '</td>' +
+                    '<td>' + obj.ownerName + '</td>' +
+                    '<td>' + obj.phoneNumber + '</td>' +
+                    '<td><img src="' + hasImg(obj.hasPictures) + '"></td>' +
+                    '</tr>';
+            }
+
+            /* have to implement this function to edit appartment information*/
+            function editInfoFunction() {
+                
+            }
+            window.editInfoFunction = editInfoFunction;
+
+        }).catch(function (error) {
+            console.log('data error');
+        });
+
+
+    const sss = document.getElementById("myTable");
+
+    var locationSortBtn = document.getElementById("locationCol");
+    function sortAlph() {
+        var list, i, switching, b, shouldSwitch, dir, switchcount = 0;
+        list = document.getElementById("id01");
+        switching = true;
+        // Set the sorting direction to ascending:
+        dir = "asc";
+        // Make a loop that will continue until no switching has been done:
+        while (switching) {
+            // start by saying: no switching is done:
+            switching = false;
+            b = list.getElementsByTagName("LI");
+            // Loop through all list-items:
+            for (i = 0; i < (b.length - 1); i++) {
+                //start by saying there should be no switching:
+                shouldSwitch = false;
+                /* check if the next item should switch place with the current item,
+                based on the sorting direction (asc or desc): */
+                if (dir == "asc") {
+                    if (b[i].innerHTML.toLowerCase() > b[i + 1].innerHTML.toLowerCase()) {
+                        /* if next item is alphabetically lower than current item,
+                        mark as a switch and break the loop: */
+                        shouldSwitch = true;
+                        break;
+                    }
+                } else if (dir == "desc") {
+                    if (b[i].innerHTML.toLowerCase() < b[i + 1].innerHTML.toLowerCase()) {
+                        /* if next item is alphabetically higher than current item,
+                        mark as a switch and break the loop: */
+                        shouldSwitch = true;
+                        break;
+                    }
                 }
-            })
-            // User is signed in.
-            console.log('logged');
-        } else {
-            // No user is signed in.
-            console.log('no logged');
+            }
+            if (shouldSwitch) {
+                /* If a switch has been marked, make the switch
+                and mark that a switch has been done: */
+                b[i].parentNode.insertBefore(b[i + 1], b[i]);
+                switching = true;
+                // Each time a switch is done, increase switchcount by 1:
+                switchcount++;
+            } else {
+                /* If no switching has been done AND the direction is "asc",
+                set the direction to "desc" and run the while loop again. */
+                if (switchcount == 0 && dir == "asc") {
+                    dir = "desc";
+                    switching = true;
+                }
+            }
         }
-    });
-    // Get a reference to the database service
-
-    const database = firebase.database();
-    const auth = firebase.auth();
-   
+    }
 }
 
-/*
-function lClick()
-{
-    //e.preventDefault();
-    console.log("clicksss");
-   /* const username = loginUser.value;
-    const password = loginPass.value;
 
-    // var userId = firebase.auth().signInWithUserAndPassword(username,password);
-    // userId.catch(e=> alert(e.message));
-    firebase.auth().createUserWithEmailAndPassword(username, password).catch(function (error) {
-        // Handle Errors here.
-        /*var errorCode = error.code;
-        var errorMessage = error.message;
-        loginErrorMsg.style.opacity = 1;*/
-        // ...
-    //});*/
-
-//}
-
-    /* return firebase.database().ref('/users/' + userId).once('value').then(function (snapshot) {
-    var username = (snapshot.val() && snapshot.val().username) || 'Anonymous';
-    // ...
-});*/
-
-/*  if (username === "user" && password === "web_dev") {
-    alert("You have successfully logged in.");
-    location.reload();
-} else {
-    loginErrorMsg.style.opacity = 1;
-}
-});*/

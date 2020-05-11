@@ -54,6 +54,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //new user signup
 
+app.get("/renter.html", function (req, res) {
+    res.render("renter.html");
+});
+
 app.get("/", function (req, res) {
     res.render("index.html");
 });
