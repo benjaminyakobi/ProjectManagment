@@ -109,6 +109,11 @@ function initApp() {
 
 }
 
+var modal = document.getElementById("myModal");
+var modal2 = document.getElementById("modalUnits");
+var span = document.getElementsByClassName("close")[0];
+
+
 function addRowHandlers() {
   var table = document.getElementById("myTable");
   var rows = table.getElementsByTagName("tl");
@@ -123,22 +128,30 @@ function addRowHandlers() {
                                       var id = cell.innerHTML;
                                       var cell1 = row.getElementsByTagName("a")[1];
                                       var id2 = cell1.innerHTML;
-                                      window.prompt("Copy to clipboard: Ctrl+C, Enter", "<table><tr><td>" + id + "</td><td>" + id2 + "</td></tr></table>")
+                                      // window.prompt("Copy to clipboard: Ctrl+C, Enter", "<table><tr><td>" + id + "</td><td>" + id2 + "</td></tr></table>")
+                                      modal.style.display = "block";
+                                      modal2.style.display = "block";
 
                                };
+                                      
           };
 
       currentRow.onclick = createClickHandler(currentRow);
   }
 }
 
+
+
 function msg(varr){
   console.log("ha");
 }
 function getOwnerName(){
-  return obj.location;
+  return obj.ownerName;
 }
 
+function getlocation(){
+  return obj.location;
+}
 
 function searchFunction() {
   var input, filter, table, tr, td, i, txtValue;
