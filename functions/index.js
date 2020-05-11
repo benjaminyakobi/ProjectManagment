@@ -82,17 +82,19 @@ app.get("/", function (req, res) {
 });
 app.get("/student.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
-
+/*
   admin
     .auth()
-    .verifySessionCookie(sessionCookie, true /** checkRevoked */)
+    .verifySessionCookie(sessionCookie, true /** checkRevoked )
     .then(() => {
       res.render("student.html");
     })
     .catch((error) => {
       res.redirect("/");
     });
-   // res.render("student.html");
+    */
+   res.render("student.html");
+
 });
 app.all("*", (req, res, next) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());

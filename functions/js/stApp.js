@@ -49,11 +49,8 @@ function initApp() {
     .then(response => response.json())
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
-        console.log(resJ.data);
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
-
-
               sss.innerHTML+= '<tl>'+
                                 '<td><a href="#">' +obj.location+ '</a></td>'+
                                 '<td><a href="#">' +obj.rooms+ '</a></td>'+
@@ -64,15 +61,13 @@ function initApp() {
                                 '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
                               '</tl>';
           }
-        
-
+          addRowHandlers();
     }).catch(function (error) {
       console.log('data error');
     });
   
 
-
-
+   
     function sortTable(jsonInfo){ 
       fetch("/rU", {
       method: "POST",
@@ -86,7 +81,6 @@ function initApp() {
       .then(response => response.json())
       // eslint-disable-next-line prefer-arrow-callback
       .then(function(resJ){
-          console.log(resJ.data);
           for(var i = 0; i < resJ.data.length; i++) {
             var obj = resJ.data[i];
   
@@ -106,10 +100,43 @@ function initApp() {
       }).catch(function (error) {
         console.log('data error');
       });
+
+      
+      
     }
   const sss = document.getElementById("myTable");
   
 
+}
+
+function addRowHandlers() {
+  var table = document.getElementById("myTable");
+  var rows = table.getElementsByTagName("tl");
+  console.log(rows.length);
+  for (i = 1; i < rows.length+1; i++) {
+      var currentRow = table.rows[i];
+      var createClickHandler = 
+          function(row) 
+          {
+              return function() { 
+                                      var cell = row.getElementsByTagName("a")[0];
+                                      var id = cell.innerHTML;
+                                      var cell1 = row.getElementsByTagName("a")[1];
+                                      var id2 = cell1.innerHTML;
+                                      window.prompt("Copy to clipboard: Ctrl+C, Enter", "<table><tr><td>" + id + "</td><td>" + id2 + "</td></tr></table>")
+
+                               };
+          };
+
+      currentRow.onclick = createClickHandler(currentRow);
+  }
+}
+
+function msg(varr){
+  console.log("ha");
+}
+function getOwnerName(){
+  return obj.location;
 }
 
 

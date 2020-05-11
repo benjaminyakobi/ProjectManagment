@@ -11,7 +11,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Student Homepage</title>
 
-
+  
     <!-- update the version number as needed -->
     <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
     <!-- include only the Firebase features as you need -->
@@ -50,10 +50,7 @@
                         <a class="nav-link" href="/sessionLogout">Log out</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+
             </div>
         </nav>
     </div>
@@ -100,9 +97,12 @@
             background-color:white;
             font-size:5px;
             padding: 5px;
-        }   
+        } 
+
 
     </style>
+
+<link rel="stylesheet" href="/css/stStyle.css">
 </head>
 
     <body>
@@ -122,14 +122,29 @@
                 <th>picture</th>
               </tr>
             </thead>
-            <tbody id ="myTableRows">
-
-            </tbody>
     </table>
 
     <script type ="text/javascript"  src="/js/stApp.js"></script>
 
 </body>
+
+<div id="myModal" class="modal">
+
+    <!-- Modal content -->
+    <div id ="modalOne" class="modalContent">
+      <span class="close">&times;</span>
+      <p>unit information</p>
+       <form>   <fieldset disabled>     
+           <legend>Contact Form</legend> 
+                 <p>Unit location: <input type="text" size="30"></p>    
+                  <p>Email: <input type="text" size="30"></p>   
+                    <p>Subject: <input type="text" size="30"></p>  
+                       <p>Message: <textarea>Type your message here</textarea></p>   
+                         <p><input type="submit"></p>   </fieldset> </form> 
+                          <p>Additional paragraph content</p> 
+
+
+    </div>
 <!------------------------------ end head ------------------------------>
 <!-- <body>
 
