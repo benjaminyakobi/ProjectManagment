@@ -265,3 +265,31 @@ function lClick()
 
                 //  console.log("got data");
 
+
+                    <!-- <table id="myTable">
+        <tr>
+            <th>
+                <div id="locationCol">Edit Info<img src="/images/sort icon.png"></div>
+            </th>
+            <th>
+                <div id="locationCol">Location<img src="/images/sort icon.png"></div>
+            </th>
+            <th>
+                <div id="roomsCol">Rooms<img src="/images/sort icon.png"></div>
+            </th>
+            <th>
+                <div id="priceCol">Price<img src="/images/sort icon.png"></div>
+            </th>
+            <th>
+                <div id="ownerNameCol">Owner name<img src="/images/sort icon.png"></div>
+            </th>
+            <th>Phone number</th>
+            <th>picture</th>
+        </tr>
+        <img>
+    </table> -->
+
+
+
+    <!-- <script src="/js/rentApp.js"></script> -->
+
