@@ -53,6 +53,25 @@
             box-sizing: border-box;
         }
 
+        html {
+        height: 100%;
+        }
+
+        body {
+        height: 100%;
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        display: grid;
+        justify-items: center;
+        align-items: center;
+        height: 100%;
+        background-position:center ;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        }
+ 
+
         #myInput {
             background-image: url('/images/searchicon.png');
             background-position: 10px 10px;
@@ -97,6 +116,44 @@
             margin: 2px;
             display: inline;
         }
+        .modal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            padding-top: 100px; /* Location of the box */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgb(0,0,0); /* Fallback color */
+            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+            }
+
+        /* Modal Content */
+        .modalOneContent {
+        background-color: #fefefe;
+        margin: auto;
+        padding: 5px;
+        border: 1px solid #888;
+        width: 80%;
+        }
+        /* The Close Button */
+        .close {
+        color: #aaaaaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+        color: #000;
+        text-decoration: none;
+        cursor: pointer;
+        }
+
+
     </style>
 
     <script>
@@ -109,12 +166,27 @@
         function showMyContractsFunction() {
 
         }
-    </script>
+
+  
+    </script>  
 
 </head>
 <!------------------------------ end head ------------------------------>
 
 <body>
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div id ="modalOne" class="modalOneContent">
+          <span class="close">&times;</span>
+          <p>Enter your username</p>
+          <form id="recoveryForm">
+            <input type="text" name="username" id="recoveryWindow" placeholder="Username">
+            <button id="checkUsernameBtn">Next</button>
+          </form>
+        </div>
+    </div>
+
     <div class="renterButtons">
         <div class="actionButtons">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=addNewAppartmentFunction();>Add
@@ -130,21 +202,44 @@
 
     <table id="myTable">
         <thead>
-        <tr> 
-            <th><div id="locationCol">Edit Info<img src="/images/sort icon.png"></div></th>
-            <th><div>Location<button class = "button btnStyle" onclick="sortUp('location')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div></th>
-            <th><div>Rooms<button class = "button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('rooms')"><img src="/images/sortDown.jpg"></button></div></th>
-            <th><div>Price<button class = "button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('price')"><img src="/images/sortDown.jpg"></button></div></th>
-            <th><div>Rating<button class = "button btnStyle" onclick="sortUp('rating')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div></th>
-            <th><div>Owner name<button class = "button btnStyle" onclick="sortUp('ownerName')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div></th>
-            <th>Phone number</th>
-            <th>picture</th>
-          </tr>
+            <tr>
+                <th>
+                    <div id="locationCol">Edit Info<img src="/images/sort icon.png"></div>
+                </th>
+                <th>
+                    <div>Location<button class="button btnStyle" onclick="sortUp('location')"> <img
+                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div>
+                </th>
+                <th>
+                    <div>Rooms<button class="button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg">
+                        </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('rooms')"><img
+                                src="/images/sortDown.jpg"></button></div>
+                </th>
+                <th>
+                    <div>Price<button class="button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg">
+                        </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('price')"><img
+                                src="/images/sortDown.jpg"></button></div>
+                </th>
+                <th>
+                    <div>Rating<button class="button btnStyle" onclick="sortUp('rating')"> <img
+                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div>
+                </th>
+                <th>
+                    <div>Owner name<button class="button btnStyle" onclick="sortUp('ownerName')"> <img
+                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
+                </th>
+                <th>Phone number</th>
+                <th>picture</th>
+            </tr>
         </thead>
-        <tbody id ="myTableRows"></tbody>
-</table>
-        <script type ="text/javascript"  src="/js/rentApp.js"></script>
+        <tbody id="myTableRows"></tbody>
+    </table>
+    <script type="text/javascript" src="/js/rentApp.js"></script>
 
+ 
 </body>
 <!------------------------------ end body ------------------------------>
 
