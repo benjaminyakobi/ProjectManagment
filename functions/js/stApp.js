@@ -49,30 +49,27 @@ function initApp() {
     .then(response => response.json())
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
-        console.log(resJ.data);
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
-
-
               sss.innerHTML+= '<tl>'+
                                 '<td><a href="#">' +obj.location+ '</a></td>'+
                                 '<td><a href="#">' +obj.rooms+ '</a></td>'+
                                 '<td><a href="#">' +obj.price+ '</a></td>'+        
                                 '<td><a href="#">' +obj.rating+ '</a></td>'+                     
                                 '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
                                 '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
                                 '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
                               '</tl>';
           }
-        
-
+          addRowHandlers();
     }).catch(function (error) {
       console.log('data error');
     });
   
 
-
-
+   
     function sortTable(jsonInfo){ 
       fetch("/rU", {
       method: "POST",
@@ -86,7 +83,6 @@ function initApp() {
       .then(response => response.json())
       // eslint-disable-next-line prefer-arrow-callback
       .then(function(resJ){
-          console.log(resJ.data);
           for(var i = 0; i < resJ.data.length; i++) {
             var obj = resJ.data[i];
   
@@ -97,6 +93,8 @@ function initApp() {
                                   '<td><a href="#">' +obj.price+ '</a></td>'+        
                                   '<td><a href="#">' +obj.rating+ '</a></td>'+                     
                                   '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
                                   '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
                                 '</tl>';
@@ -106,10 +104,62 @@ function initApp() {
       }).catch(function (error) {
         console.log('data error');
       });
+
     }
   const sss = document.getElementById("myTable");
   
+}
 
+
+// When the user clicks on <span> (x), close the modal
+
+function addRowHandlers() {
+  var table = document.getElementById("myTable");
+  var rows = table.getElementsByTagName("tl");
+  console.log(rows.length);
+  for (i = 1; i < rows.length+1; i++) {
+      var currentRow = table.rows[i];
+      var createClickHandler = 
+          function(row) 
+          {
+              return function() { 
+                                      var cell = row.getElementsByTagName("a")[0];
+                                      var id = cell.innerHTML;
+                                      var cell1 = row.getElementsByTagName("a")[1];
+                                      var id2 = cell1.innerHTML;
+                                      // window.prompt("Copy to clipboard: Ctrl+C, Enter", "<table><tr><td>" + id + "</td><td>" + id2 + "</td></tr></table>")
+                                      var modal = document.getElementById("myModal");
+                                      var modal2 = document.getElementById("modalUnits");
+                                      var span = document.getElementsByClassName("close")[0];
+                                      span.onclick = function() {
+                                        modal.style.display = "none";
+                                      }
+                                      window.onclick = function(event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+
+                                        }
+                                    }
+                                      modal.style.display = "block";
+                                      modal2.style.display = "block";
+                                      
+                                      fillInformation(row.getElementsByTagName("a"));
+                               };
+                                      
+          };
+
+      currentRow.onclick = createClickHandler(currentRow);
+  }
+}
+function fillInformation(id){
+  document.getElementById("locationModal").value = id[0].innerHTML;
+  document.getElementById("roomzModal").value = id[1].innerHTML;
+  document.getElementById("priceModal").value = id[2].innerHTML;
+  document.getElementById("ratingModal").value = id[3].innerHTML;
+  document.getElementById("ownerNameModal").value = id[4].innerHTML;
+  document.getElementById("startDateModal").value = id[5].innerHTML;
+  document.getElementById("endDateModal").value = id[6].innerHTML;
+  document.getElementById("phoneNumberModal").value = id[7].innerHTML;
 }
 
 
