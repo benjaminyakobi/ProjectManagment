@@ -288,7 +288,7 @@ app.post('/requestAuth', (req, res) => {
                     var allDocs = query.get().then(snapShot => {
                         snapShot.forEach(doc => {
                             var photoUrl ="";
-                            var forestRef = storageRef.child('profileImages/'+doc.id +'/profile.png');
+                            var forestRef = admin.storage().child('profileImages/'+doc.id +'/profile.png');
                             var url = forestRef.getDownloadURL().then(function(url){
                                 photoUrl=url;
                             });
