@@ -44,6 +44,8 @@ function initApp() {
                     '</tl>';
             }
 
+            addRowHandlers();
+
         }).catch(function (error) {
             console.log('data error');
         });
@@ -51,6 +53,59 @@ function initApp() {
     const sss = document.getElementById("myTable");
 
 }
+
+
+function addRowHandlers() {
+    var table = document.getElementById("myTable");
+    var rows = table.getElementsByTagName("tl");
+    console.log(rows.length);
+    for (i = 1; i < rows.length+1; i++) {
+        var currentRow = table.rows[i];
+        var createClickHandler = 
+            function(row) 
+            {
+                return function() { 
+                                        var cell = row.getElementsByTagName("a")[0];
+                                        var id = cell.innerHTML;
+                                        var cell1 = row.getElementsByTagName("a")[1];
+                                        var id2 = cell1.innerHTML;
+                                        var modal = document.getElementById("myModal");
+                                        var modal1 = document.getElementById("modalOne");
+                                        var modal2 = document.getElementById("modalTwo");
+                                        var span = document.getElementsByClassName("close")[0];
+                                        span.onclick = function() {
+                                          modal.style.display = "none";
+                                        }
+                                        window.onclick = function(event) {
+                                          if (event.target == modal) {
+                                              modal.style.display = "none";
+  
+                                          }
+                                      }
+                                        modal.style.display = "block";
+                                        modal1.style.display = "none";
+                                        modal2.style.display = "block";
+                                        
+                                        // fillInformation(row.getElementsByTagName("a"));
+                                 };
+                                        
+            };
+  
+        currentRow.onclick = createClickHandler(currentRow);
+    }
+  }
+
+  function fillInformation(id){
+    document.getElementById("locationModal").value = id[0].innerHTML;
+    document.getElementById("roomzModal").value = id[1].innerHTML;
+    document.getElementById("priceModal").value = id[2].innerHTML;
+    document.getElementById("ratingModal").value = id[3].innerHTML;
+    document.getElementById("ownerNameModal").value = id[4].innerHTML;
+    document.getElementById("startDateModal").value = id[5].innerHTML;
+    document.getElementById("endDateModal").value = id[6].innerHTML;
+    document.getElementById("phoneNumberModal").value = id[7].innerHTML;
+  }
+
 
 function searchFunction() {
     var input, filter, table, tr, td, i, txtValue;

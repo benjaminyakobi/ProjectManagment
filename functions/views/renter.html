@@ -120,6 +120,15 @@
             width: 80%;
         }
 
+        
+        .modalEditInfoTwo {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 5px;
+            border: 1px solid rgb(0, 0, 0);
+            width: 80%;
+        }
+
         .close {
             color: #030303;
             float: right;
@@ -155,6 +164,10 @@
         /*This function have to be implemented!*/
         function editInfoFunction() {
             const modalVar = document.getElementById("myModal");
+
+            const modalVarTwo = document.getElementById("modalTwo");
+            modalVarTwo.style.display = "none";
+            
             modalVar.style.display = "block";
 
             var cancelSpan = document.getElementsByClassName("close")[0];
@@ -230,6 +243,30 @@
                 <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
             </div>
         </div>
+
+
+        <div id="modalTwo" class="modalEditInfoTwo">
+            <span class="close">&times;</span>
+            <form id="editInfoFormTwo">
+                <h2>Edit Personal Information</h2>
+
+                <label for="fullName"><b>New Name</b></label>
+                <input id="name" type="text" placeholder="Enter Full Name" name="fullName" required>
+
+                <label for="email"><b>New Email</b></label>
+                <input id="email" type="text" placeholder="Enter Email" name="email" required>
+
+                <label for="phone"><b>New Phone Number</b></label>
+                <input id="phone" type="text" placeholder="Enter Phone Number" name="phone" required>
+
+            </form>
+            <div class="clearfix">
+                <button type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
+                <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
+            </div>
+        </div>
+
+
     </div>
 
     <div class="renterButtons">
@@ -282,6 +319,7 @@
     </table>
     <script type="text/javascript" src="/js/rentApp.js"></script>
 
+    
 
 </body>
 
