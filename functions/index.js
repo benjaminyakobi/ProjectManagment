@@ -453,7 +453,7 @@ app.post('/renterResponse', (req, res) => {
 
 
                         batch.commit();
-                    };
+                    });
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({ status: 'OK', data: l });
                 });
