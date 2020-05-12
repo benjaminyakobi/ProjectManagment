@@ -68,9 +68,70 @@ function initApp() {
       console.log('data error');
     });
   
+  const sss = document.getElementById("myTable");
+}
 
-   
-    function sortTable(jsonInfo){ 
+
+function changeToCurrectField(){
+  var d = document.getElementById("fromFilter");
+  while(d.length > 0) {
+    console.log("removed");
+    d.remove(d.length-1);
+  }
+  var d2 = document.getElementById("toFilter");
+  while(d2.length > 0) {
+    console.log("removed");
+    d2.remove(d2.length-1);
+  }
+  var x = document.getElementById("filter").selectedIndex;
+  if(x==0){
+    for(index=1;index<12;index++){
+      var sel = document.getElementById("fromFilter");
+      newOption = document.createElement("option");
+      newOptionVal = document.createTextNode((index*500));
+      newOption.appendChild(newOptionVal);
+      sel.insertBefore(newOption,sel.lastChild);
+    }
+  }else{
+    for(index=1;index<6;index++){
+      var sel = document.getElementById("fromFilter");
+      newOption = document.createElement("option");
+      newOptionVal = document.createTextNode(index);
+      newOption.appendChild(newOptionVal);
+      sel.insertBefore(newOption,sel.lastChild);
+    }
+  }
+}
+
+function setToMin(){
+  var d = document.getElementById("toFilter");
+  while(d.length > 0) {
+    console.log("removed");
+    d.remove(d.length-1);
+  }
+  var x = document.getElementById("filter").selectedIndex;
+  index = document.getElementById("fromFilter").selectedIndex+1;
+  console.log(index);
+  if(x==0){
+    for(index;index<12;index++){
+      var sel = document.getElementById("toFilter");
+      newOption = document.createElement("option");
+      newOptionVal = document.createTextNode((index*500));
+      newOption.appendChild(newOptionVal);
+      sel.insertBefore(newOption,sel.lastChild);
+    }
+  }else{
+    for(index;index<6;index++){
+      var sel = document.getElementById("toFilter");
+      newOption = document.createElement("option");
+      newOptionVal = document.createTextNode(index);
+      newOption.appendChild(newOptionVal);
+      sel.insertBefore(newOption,sel.lastChild);
+    }
+  }
+}
+
+function sortTable(jsonInfo){ 
       fetch("/rU", {
       method: "POST",
       headers: {
@@ -85,8 +146,6 @@ function initApp() {
       .then(function(resJ){
           for(var i = 0; i < resJ.data.length; i++) {
             var obj = resJ.data[i];
-  
-  
                 sss.innerHTML+= '<tl>'+
                                   '<td><a href="#">' +obj.location+ '</a></td>'+
                                   '<td><a href="#">' +obj.rooms+ '</a></td>'+
@@ -106,12 +165,7 @@ function initApp() {
       });
 
     }
-  const sss = document.getElementById("myTable");
-  
-}
 
-
-// When the user clicks on <span> (x), close the modal
 
 function addRowHandlers() {
   var table = document.getElementById("myTable");
@@ -127,7 +181,6 @@ function addRowHandlers() {
                                       var id = cell.innerHTML;
                                       var cell1 = row.getElementsByTagName("a")[1];
                                       var id2 = cell1.innerHTML;
-                                      // window.prompt("Copy to clipboard: Ctrl+C, Enter", "<table><tr><td>" + id + "</td><td>" + id2 + "</td></tr></table>")
                                       var modal = document.getElementById("myModal");
                                       var modal2 = document.getElementById("modalUnits");
                                       var span = document.getElementsByClassName("close")[0];
@@ -186,11 +239,11 @@ var sortUpOrDown = 'dec';
 function sortUp(columnName){
   console.log("up");
   sortUpOrDown = 'dec';
-  return {columnName:sortUpOrDown};
+  sortTable({columnName:sortUpOrDown});
 }
 
 function sortDown(columnName){
   console.log("down");
   sortUpOrDown = 'inc';
-  return {columnName:sortUpOrDown};
+  sortTable({columnName:sortUpOrDown});
 }

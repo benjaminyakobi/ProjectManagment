@@ -107,7 +107,20 @@
 
     <body>
         <h2>Available apartments</h2>
-        
+        <label for="filter">choose field:</label>
+            <select onchange="changeToCurrectField()" id="filter" name="filter">
+                <option value="filterPrice">Price</option>
+                <option value="filterRoom">Rooms</option>
+            </select>   
+            <select onchange="setToMin()" id="fromFilter" name="fromFilter">
+
+            </select>
+            <select id="toFilter" name="toFilter">
+
+            </select>
+            
+        <input onclick="sendData()" type="submit">
+
         <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
         
         <table id="myTable">
