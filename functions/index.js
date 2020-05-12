@@ -101,6 +101,23 @@ app.get("/", function (req, res) {
     });
 
 
+app.get("/renter/requests", function (req, res) {
+    const sessionCookie = req.cookies.session || "";
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+        .then(() => {
+        if(req.cookies.role === "renter"){
+            res.render("rentTrack.html");
+        }else{
+            res.render("index.html");
+        }     
+        })
+        .catch((error) => {
+        res.render("index.html");
+        });
+});
+    
 
 app.get("/student.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
@@ -275,6 +292,7 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
 });
 
 
+
 app.post('/requestAuth', (req, res) => {
     const sessionCookie = req.cookies.session || "";
     admin
@@ -317,6 +335,46 @@ app.post('/requestAuth', (req, res) => {
         res.send("Not authorized!");
       });   
   });
+  
+
+app.post('/adminRequest', (req, res) => {
+    const sessionCookie = req.cookies.session || "";
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+      .then(() => {
+        if(req.cookies.role === "Admin")
+        {  
+            console.log(req.body.flag);
+            if(req.body.flag == "true")
+            {
+                var query = admin.firestore().collection('requests').doc(req.body.uid).delete();
+
+            }
+            else if(req.body.flag == "false")
+            {
+                var query2 = admin.firestore().collection('requests').doc(req.body.uid).delete();
+                var query3 = admin.firestore().collection('users').doc(req.body.uid).delete();
+                admin.auth().deleteUser(req.body.uid)
+                .then(function(userRecord) {
+                        console.log('Successfully deleted user');
+                })
+                .catch(function(error) {
+                        console.log('Error deleting user:', error);
+                });
+            }
+
+            res.setHeader('Content-Type', 'application/json');
+            return res.json({ status: 'OK', data: l });
+              
+        }
+        else
+            res.send("Not authorized!");
+      })
+      .catch((error) => {
+        res.send("Not authorized!");
+      });   
+});
   
 
 

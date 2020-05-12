@@ -52,7 +52,7 @@ function initApp()
 
 
     
-  fetch("/requestAuth", {
+ /* fetch("/requestAuth", {
     method: "POST",
     headers: {
         Accept: "application/json",
@@ -93,7 +93,7 @@ function initApp()
 
     }).catch(function (error) {
       console.log('data error');
-    });
+    });*/
   /*  const getRequests =  firebase.functions().httpsCallable('api/adminR');
     getRequests().then( res =>
     {
@@ -115,20 +115,25 @@ function initApp()
         console.log('data error');
     });*/
 
-    /*const f1= function()
+    const f1= function()
     {
      
         for(i =0;i<10 ;i++)
         {
             sss.innerHTML+= '<tr>'+
-                            '<td>firstName</td>'+
-                            '<td>LastName</td>'+
-                            '<td><img src="'+hasImg()+'"></td>'+
-                            '<td><button onclick="accept()">V</button><button onclick="decline">X</button></td>'+
+                            '<td >First name</td>'+
+                            '<td >last name</td>'+
+                            '<td >Email</td>'+
+                            '<td >Phone Number</td>'+
+                            '<td >starting date</td>'+
+                            '<td >ending date</td>'+
+                            '<td >Billing overall</td>'+
+                            '<td >Approve Sale</td>'+
+                            '<td><button onclick="Approved()">V</button><button onclick="Declined">X</button></td>'+
                             '</tr>';
         }
     }
-    f1();*/
+    f1();
 
   /*  var l = [123,123,123,1,231,23,123]
     var l2 = ['adasd','asdas'];
