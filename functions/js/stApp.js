@@ -52,14 +52,14 @@ function initApp() {
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
               sss.innerHTML+= '<tl>'+
-                                '<td><a href="#">' +obj.location+ '</a></td>'+
-                                '<td><a href="#">' +obj.rooms+ '</a></td>'+
-                                '<td><a href="#">' +obj.price+ '</a></td>'+        
-                                '<td><a href="#">' +obj.rating+ '</a></td>'+                     
-                                '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
-                                '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
-                                '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
-                                '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.location+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.rooms+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.price+ '</a></td>'+        
+                                '<td><a href="#">' +obj.data.rating+ '</a></td>'+                     
+                                '<td><a href="#">' +obj.data.ownerName+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.data.startDate+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.data.endDate+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
                                 '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
                               '</tl>';
           }

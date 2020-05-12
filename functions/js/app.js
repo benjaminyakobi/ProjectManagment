@@ -189,12 +189,15 @@ function initApp()
                 .then(() => {
                     if(val == "student"){
                         // eslint-disable-next-line promise/always-return
-                        console.log("registered");
+                        alert("Successfully Registered as Student!");
+                        // location.reload();
+                        // console.log("registered");
                     }
                     else if(val == "renter")
                     {
-                        console.log("registered renter");
-                        registerUserForm.reset();
+                        alert("Successfully Registered as Renter!");
+                        // console.log("registered renter");
+                        // registerUserForm.reset();
                     }
                 });
             return false;
