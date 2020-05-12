@@ -71,8 +71,8 @@ fetch("/renterLease", {
           var obj = resJ.data[i];
           
           // eslint-disable-next-line no-loop-func
-          (async () => {
-                try {
+           
+                
                  // let url = await firebase.storage().ref('profileImages/'+obj.id +'/profile.png').getDownloadURL();
                  // console.log(url);
                   sss.innerHTML+= '<tl>'+
@@ -86,10 +86,8 @@ fetch("/renterLease", {
                   '<td><a href="#">' +obj.data.Bill+ '</a></td>'+
                   '<td><button value ='+obj.id+' onclick="Approved(this)">V</button><button value ='+obj.id+' onclick="Declined(this)">X</button></td>'+
                 '</tl>';
-                } catch (error) {
-                    console.log(error);
-                }
-            })();
+               
+            
 
 
         }
