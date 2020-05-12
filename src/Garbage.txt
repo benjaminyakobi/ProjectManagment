@@ -387,3 +387,66 @@ function lClick()
     //         });
     // }
 
+              //  const sss = document.getElementById("myTable");
+                <!-- <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form> -->
+
+
+                            // var cancelSpan = document.getElementsByClassName("close")[0];
+            // cancelSpan.onclick = function () {
+            //     modalVar.style.display = "none";
+            // }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVar) {
+            //         modalVar.style.display = "none";
+            //     }
+            // }
+
+            // var cancelSpan = document.getElementsByClassName("cancelbtn")[0];
+            // cancelSpan.onclick = function () {
+            //     modalVar.style.display = "none";
+            // }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVar) {
+            //         modalVar.style.display = "none";
+            //     }
+            // }
+
+            // var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
+            // saveSpan.onclick = function () {
+            //     saveChanges();
+            //     modalVarTwo.style.display = "none";
+            // }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVarTwo) {
+            //         modalVarTwo.style.display = "none";
+            //     }
+            // }
+
+
+                        // window.onclick = function (event) {
+            //     if (event.target == modalVar) {
+            //         modalVar.style.display = "none";
+            //     }
+            // }
+
+
+
+                        // window.onclick = function (event) {
+            //     if (event.target == modalVarTwo) {
+            //         modalVarTwo.style.display = "none";
+            //     }
+            // }
+
+
+                    /*NOT FINISHED YET - have to send eequest to server to update the database*/
+        // function saveChanges() {
+        //     {
+        //         { email: document.getElementById('newEmail') }
+        //         { fullName: document.getElementById('fullName') }
+        //         { phoneNumber: document.getElementById('newPhone') }
+        //     }
+        // }
+
