@@ -158,7 +158,8 @@ app.post("/sessionLogin", (req, res) => {
                             res.cookie("session", sessionCookie, options);
                             res.send(JSON.stringify({ status: "success" }));
 
-                      /*      if(permDb === "Admin")
+                        /*    
+                            if(permDb === "Admin")
                             {
                                 res.redirect("/Admin.html");
                             }
@@ -169,7 +170,8 @@ app.post("/sessionLogin", (req, res) => {
                             if(permDb === "student")
                             {
                                 res.redirect("/student.html");
-                            }*/
+                            }
+                        */
                         }).catch(e=>{
                             res.send("Unable to access database!");
                         });
@@ -337,7 +339,7 @@ app.post('/rU', (req, res) => {
             var query = admin.firestore().collection('units');
             var allDocs = query.get().then(snapShot => {
                 snapShot.forEach(doc => {
-                    l.push(doc.data());
+                    l.push({id:doc.id,data:doc.data()});
                 });
 
                 res.setHeader('Content-Type', 'application/json');
@@ -359,7 +361,7 @@ app.post('/postUnit', (req, res) => {
           .then(() => {
 
 
-         
+            
 
 
         })
