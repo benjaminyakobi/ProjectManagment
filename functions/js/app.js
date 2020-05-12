@@ -190,12 +190,14 @@ function initApp()
                     if(val == "student"){
                         // eslint-disable-next-line promise/always-return
                         alert("Successfully Registered as Student!");
+                        window.location.href="/";
                         // location.reload();
                         // console.log("registered");
                     }
                     else if(val == "renter")
                     {
                         alert("Successfully Registered as Renter!");
+                        window.location.href="/";
                         // console.log("registered renter");
                         // registerUserForm.reset();
                     }

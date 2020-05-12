@@ -24,15 +24,6 @@ function initApp()
         app:1
     };
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            // User is signed in.
-            console.log('logged');
-        } else {
-            // No user is signed in.
-            console.log('no logged');
-        }
-    });
     function hasImg() {
         console.log("hasIMg");
           if(true){
