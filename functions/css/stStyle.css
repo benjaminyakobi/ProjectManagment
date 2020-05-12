@@ -20,7 +20,13 @@
     border: 1px solid #888;
     width: 80%;
   }
-  
+  .modalContent2 {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 5px;
+    border: 1px solid #888;
+    width: 80%;
+  }
   /* The Close Button */
   .close {
     color: #aaaaaa;

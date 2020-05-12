@@ -69,6 +69,8 @@ function initApp() {
     });
   
   const sss = document.getElementById("myTable");
+  changeToCurrectField();
+  setToMin();
 }
 
 
@@ -180,6 +182,7 @@ function addRowHandlers() {
                                       // var id2 = cell1.innerHTML;
                                       var modal = document.getElementById("myModal");
                                       var modal2 = document.getElementById("modalUnits");
+                                      var modal3 = document.getElementById("modalOrder");
                                       var span = document.getElementsByClassName("close")[0];
                                       span.onclick = function() {
                                         modal.style.display = "none";
@@ -192,7 +195,7 @@ function addRowHandlers() {
                                     }
                                       modal.style.display = "block";
                                       modal2.style.display = "block";
-                                      
+                                      modal3.style.display = "none";
                                       fillInformation(row.getElementsByTagName("a"));
                                };
                                       
@@ -231,18 +234,27 @@ function searchFunction() {
     }  
 }
 
+function paymentWindow(){
+  console.log("hasdf");
+  var modal2 = document.getElementById("modalUnits");
+  var modal3 = document.getElementById("modalOrder");
+  modal2.style.display = "none";
+  modal3.style.display = "block";
+
+
+
+}
+
 
 var sortUpOrDown = 'desc';
 function sortUp(columnName){
   var x = document.getElementById("myInput").value;
-  console.log("up");
   sortUpOrDown = 'desc';
   sendRequestToServer({colName:columnName,sortDirection:sortUpOrDown,searchField:x,action:"sort"});
 }
 
 function sortDown(columnName){
   var searchData = document.getElementById("myInput").value;
-  console.log("down");
   sortUpOrDown = 'inc';
   sendRequestToServer({colName:columnName,sortDirection:sortUpOrDown,searchField:searchData,action:"sort"});
 }
@@ -253,7 +265,9 @@ function sendData(){
   fromFilter = document.getElementById("fromFilter").value;
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex==0) ? "price" :"rooms";
-  console.log(columnName);
+  console.log(searchData +" "+ fromFilter+" "+ toFilter +" "+columnName);
   sendRequestToServer({colName:columnName,searchField:searchData,lowerValue:fromFilter,higherValue:toFilter,action:"filter"});
-  
 }
+
+
+
