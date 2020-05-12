@@ -52,15 +52,15 @@ function initApp() {
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
               sss.innerHTML+= '<tl>'+
-                                '<td><a href="#">' +obj.location+ '</a></td>'+
-                                '<td><a href="#">' +obj.rooms+ '</a></td>'+
-                                '<td><a href="#">' +obj.price+ '</a></td>'+        
-                                '<td><a href="#">' +obj.rating+ '</a></td>'+                     
-                                '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
-                                '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
-                                '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
-                                '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
-                                '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
+                                '<td><a href="#">' +obj.data.location+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.rooms+ '</a></td>'+
+                                '<td><a href="#">' +obj.data.price+ '</a></td>'+        
+                                '<td><a href="#">' +obj.data.rating+ '</a></td>'+                     
+                                '<td><a href="#">' +obj.data.ownerName+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.data.startDate+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.data.endDate+ '</a></td>'+ 
+                                '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
+                                '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
                               '</tl>';
           }
           addRowHandlers();
@@ -131,8 +131,8 @@ function setToMin(){
   }
 }
 
-function sortTable(jsonInfo){ 
-      fetch("/rU", {
+function sendRequestToServer(jsonInfo){ 
+      fetch("/rUSort", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -147,23 +147,20 @@ function sortTable(jsonInfo){
           for(var i = 0; i < resJ.data.length; i++) {
             var obj = resJ.data[i];
                 sss.innerHTML+= '<tl>'+
-                                  '<td><a href="#">' +obj.location+ '</a></td>'+
-                                  '<td><a href="#">' +obj.rooms+ '</a></td>'+
-                                  '<td><a href="#">' +obj.price+ '</a></td>'+        
-                                  '<td><a href="#">' +obj.rating+ '</a></td>'+                     
-                                  '<td><a href="#">' +obj.ownerName+ '</a></td>'+ 
-                                  '<td><a href="#">' +obj.startDate+ '</a></td>'+ 
-                                  '<td><a href="#">' +obj.endDate+ '</a></td>'+ 
-                                  '<td><a href="#">' +obj.phoneNumber+ '</a></td>'+
-                                  '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
+                                  '<td><a href="#">' +obj.data.location+ '</a></td>'+
+                                  '<td><a href="#">' +obj.data.rooms+ '</a></td>'+
+                                  '<td><a href="#">' +obj.data.price+ '</a></td>'+        
+                                  '<td><a href="#">' +obj.data.rating+ '</a></td>'+                     
+                                  '<td><a href="#">' +obj.data.ownerName+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.data.startDate+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.data.endDate+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
+                                  '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
                                 '</tl>';
             }
-          
-  
       }).catch(function (error) {
         console.log('data error');
       });
-
     }
 
 
@@ -177,10 +174,10 @@ function addRowHandlers() {
           function(row) 
           {
               return function() { 
-                                      var cell = row.getElementsByTagName("a")[0];
-                                      var id = cell.innerHTML;
-                                      var cell1 = row.getElementsByTagName("a")[1];
-                                      var id2 = cell1.innerHTML;
+                                      // var cell = row.getElementsByTagName("a")[0];
+                                      // var id = cell.innerHTML;
+                                      // var cell1 = row.getElementsByTagName("a")[1];
+                                      // var id2 = cell1.innerHTML;
                                       var modal = document.getElementById("myModal");
                                       var modal2 = document.getElementById("modalUnits");
                                       var span = document.getElementsByClassName("close")[0];
@@ -235,15 +232,28 @@ function searchFunction() {
 }
 
 
-var sortUpOrDown = 'dec';
+var sortUpOrDown = 'desc';
 function sortUp(columnName){
+  var x = document.getElementById("myInput").value;
   console.log("up");
-  sortUpOrDown = 'dec';
-  sortTable({columnName:sortUpOrDown});
+  sortUpOrDown = 'desc';
+  sendRequestToServer({colName:columnName,sortDirection:sortUpOrDown,searchField:x,action:"sort"});
 }
 
 function sortDown(columnName){
+  var searchData = document.getElementById("myInput").value;
   console.log("down");
   sortUpOrDown = 'inc';
-  sortTable({columnName:sortUpOrDown});
+  sendRequestToServer({colName:columnName,sortDirection:sortUpOrDown,searchField:searchData,action:"sort"});
+}
+
+function sendData(){
+  var fromFilter, toFilter,searchData;
+  searchData = document.getElementById("myInput").value;
+  fromFilter = document.getElementById("fromFilter").value;
+  toFilter = document.getElementById("toFilter").value;
+  columnName = (document.getElementById("filter").selectedIndex==0) ? "price" :"rooms";
+  console.log(columnName);
+  sendRequestToServer({colName:columnName,searchField:searchData,lowerValue:fromFilter,higherValue:toFilter,action:"filter"});
+  
 }
