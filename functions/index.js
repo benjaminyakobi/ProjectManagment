@@ -219,7 +219,7 @@ app.post("/registerAccount", (req, res) => {
                             email: req.body.email,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            bankAccount:req.body.bankA,
+                            bankAccount:req.body.bankAccount,
                             perm:req.body.lPerm
                         });
                     }
