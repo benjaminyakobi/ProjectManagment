@@ -170,6 +170,7 @@ function sendRequestToServer(jsonInfo){
                   console.log(error);
               }
             }
+            addRowHandlers();
       }).catch(function (error) {
         console.log('data error');
       });
@@ -229,7 +230,15 @@ function fillInformation(id){
   document.getElementById("phoneNumberModal").value = id[7].innerHTML;
 }
 
+function closeWindow(){
+  var modal = document.getElementById("myModal");
+  var modal2 = document.getElementById("modalUnits");
+  var modal3 = document.getElementById("modalOrder");
+  modal.style.display = "none";
+  modal2.style.display = "none";
+  modal3.style.display = "none";
 
+}
 function searchFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
@@ -248,7 +257,7 @@ function searchFunction() {
     }  
 }
 
-function paymentWindow(){
+function paymentWindow(x){
   console.log("hasdf");
   var modal2 = document.getElementById("modalUnits");
   var modal3 = document.getElementById("modalOrder");
