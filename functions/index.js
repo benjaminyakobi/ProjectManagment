@@ -29,7 +29,6 @@ const firebaseApp = admin.initializeApp({
 var bucket = admin.storage().bucket();
 var cors = require('cors')({ origin: true });
 var express = require('express');
-var path = require('path');
 var bodyParser = require('body-parser');
 var app = express();
 app.use(cookieParser());
@@ -54,8 +53,20 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //new user signup
 
-app.get("/renter.html", function (req, res) {///////////////////////////////////////CGECJCCHECK COCOOCOOCOOOOOKIES
-    res.render("renter.html");
+app.get("/renter.html", function (req, res) {
+    const sessionCookie = req.cookies.session || "";
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+      .then(() => {
+        if(req.cookies.role === "renter")
+            res.render("renter.html");
+        else
+            res.send("Not authorized!");
+      })
+      .catch((error) => {
+        res.redirect("/");
+      });
 });
 
 app.get("/Admin.html", function (req, res) {
@@ -174,21 +185,6 @@ app.post("/sessionLogin", (req, res) => {
                             res.cookie("role",permDb);
                             res.cookie("session", sessionCookie, options);
                             res.send(JSON.stringify({ status: "success" }));
-
-                        /*    
-                            if(permDb === "Admin")
-                            {
-                                res.redirect("/Admin.html");
-                            }
-                            if(permDb === "renter")
-                            {
-                                res.redirect("/renter.html");
-                            }
-                            if(permDb === "student")
-                            {
-                                res.redirect("/student.html");
-                            }
-                        */
                         }).catch(e=>{
                             res.send("Unable to access database!");
                         });
@@ -301,37 +297,43 @@ app.post('/renterLease', (req, res) => {
       .then(() => {
         if(req.cookies.role === "renter")
         {
+            var l = [];
             (async () => {
                 try {
-                    var l = [];
                     var query = admin.firestore().collection('units');
+                    //console.log(req.cookies.uid);
                     //var storageRef = firebaseApp.storage().ref();
-                    var allDocs = query.where('rid','==',req.cookies.uid).then(snapShot => {
+                    var allDocs = query.where('rid','==',req.cookies.uid).get().then(snapShot => {
                         snapShot.forEach(doc => {
                             if(snapShot.empty){
-                                console.log('No matching documents.');
+                                console.log('No matching documents,firstPhase.');
                                 return;
                             }
                             var query2 = admin.firestore().collection('requestPayment');
                             //var storageRef = firebaseApp.storage().ref();
-                            var allDocs2 = query.where('unitid','==',doc.id).get().then(snapShot2 => {
+                            //console.log(doc.id);
+                            var allDocs2 = query2.where('unitid','==',doc.id).get().then(snapShot2 => {
                                 if(snapShot2.empty){
-                                    console.log('No matching documents.');
+                                    console.log('No matching documents,SecondPhase..');
                                     return;
                                 }
                                 snapShot2.forEach(doc2=>{
+                            //        console.log('push');
                                     l.push({id:doc2.id,data:doc2.data(),unitId:doc.id});
                                 });
+                            //    console.log(l);
+                                res.setHeader('Content-Type', 'application/json');
+                                return res.json({ status: 'OK', data: l });
                             });
                         });
-                        res.setHeader('Content-Type', 'application/json');
-                        return res.json({ status: 'OK', data: l });
                     });
+
                 } catch (error) {
                     console.log(error);
                     return res.status(500).send(error);
                 }
             })();
+ 
         }
         else
             res.send("Not authorized!");
@@ -458,6 +460,42 @@ app.post('/rU', (req, res) => {
 });
 
 
+app.post('/requestRenter', (req, res) => {
+      const sessionCookie = req.cookies.session || "";
+  
+      admin
+          .auth()
+          .verifySessionCookie(sessionCookie, true )
+          .then(() => {
+                if(req.cookies.role == "renter"){
+                    var l = [];
+                    var query = admin.firestore().collection('units').where('rid','==',req.cookies.uid);
+                    var allDocs = query.get().then(snapShot => {
+                        if(snapShot.empty)
+                        {
+                            console.log('No matching documents,firstPhase.');
+                                return;
+                        }
+                        snapShot.forEach(doc => {
+                            l.push({id:doc.id,data:doc.data()});
+                        });
+        
+                        res.setHeader('Content-Type', 'application/json');
+                        return res.json({ status: 'OK', data: l });
+                    });
+                }else{
+                    res.error("not Authorized!");
+                }
+
+            })
+    
+    .catch((error) => {
+
+        res.error("server internal error");
+
+    });
+});
+
 app.post('/postUnit', (req, res) => {
       const sessionCookie = req.cookies.session || "";
   
@@ -465,7 +503,39 @@ app.post('/postUnit', (req, res) => {
           .auth()
           .verifySessionCookie(sessionCookie, true)
           .then(() => {
-
+            (sessionCookie) => {
+                (async () => {
+                try {  
+ 
+                    if(req.body.lPerm == "renter")
+                    {
+                        var check2 = admin.firestore().collection('units').doc().update({/////ADD UID///////////////////////////////////////////////////////////////////////
+                            location: form.location.value,
+                            endDate: form.untilDate.value,
+                            ownerName: form.owner.value,
+                            phoneNumber: form.untilDate.value, 
+                            price: form.price.value,
+                            rating: form.rating.value,
+                            rooms: form.rooms.value,
+                            fromDate: form.fromDate.value,
+                            rid:req.cookies.uid
+                        });
+                        const options = { maxAge: expiresIn, httpOnly: true};
+                        //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                        res.cookie('role',req.body.lPerm);
+                        res.cookie('uid',req.body.uid);
+                        res.cookie("session", sessionCookie, options);
+                        res.end(JSON.stringify({ status: "success" }));
+                    }
+                    else{
+                        res.send("not authorized post!");
+                    }
+                }
+                catch(error){
+                res.send("Unable to access database!");
+                }
+                })();
+            }
 
             
 
