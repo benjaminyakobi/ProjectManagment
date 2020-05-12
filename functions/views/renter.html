@@ -30,19 +30,19 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="../">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Tracking orders</a>
+                        <a class="nav-link" href="/renter/requests">Tracking orders</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/sessionLogout">Log out</a>
                     </li>
                 </ul>
-                <form class="form-inline my-2 my-lg-0">
+                <!-- <form class="form-inline my-2 my-lg-0">
                     <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
+                </form> -->
             </div>
         </nav>
     </div>
@@ -164,11 +164,13 @@
         /*This function have to be implemented!*/
         function editInfoFunction() {
             const modalVar = document.getElementById("myModal");
+            const modalVarOne = document.getElementById("modalOne");
+            modalVarOne.style.display = "block";
+            modalVar.style.display = "block";
 
             const modalVarTwo = document.getElementById("modalTwo");
             modalVarTwo.style.display = "none";
-            
-            modalVar.style.display = "block";
+
 
             var cancelSpan = document.getElementsByClassName("close")[0];
             cancelSpan.onclick = function () {
@@ -193,16 +195,13 @@
             var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
             saveSpan.onclick = function () {
                 saveChanges();
-
-
-                modalVar.style.display = "none";
+                modalVarTwo.style.display = "none";
             }
             window.onclick = function (event) {
-                if (event.target == modalVar) {
-                    modalVar.style.display = "none";
+                if (event.target == modalVarTwo) {
+                    modalVarTwo.style.display = "none";
                 }
             }
-
         }
 
         /*NOT FINISHED YET - have to send eequest to server to update the database*/
@@ -239,30 +238,34 @@
 
             </form>
             <div class="clearfix">
-                <button type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
+                <button type="submit" class="saveChangesBtn" id="savChangesB" onclick="saveChanges()">Save Changes</button>
                 <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
             </div>
         </div>
 
 
         <div id="modalTwo" class="modalEditInfoTwo">
-            <span class="close">&times;</span>
+            <span id="closeTwo" class="close">&times;</span>
             <form id="editInfoFormTwo">
-                <h2>Edit Personal Information</h2>
+                <h2>Edit Unit Information</h2>
 
-                <label for="fullName"><b>New Name</b></label>
-                <input id="name" type="text" placeholder="Enter Full Name" name="fullName" required>
-
-                <label for="email"><b>New Email</b></label>
-                <input id="email" type="text" placeholder="Enter Email" name="email" required>
-
-                <label for="phone"><b>New Phone Number</b></label>
-                <input id="phone" type="text" placeholder="Enter Phone Number" name="phone" required>
+                <form name="modalName">     
+                    <legend>Contact Form</legend> 
+                          <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>    
+                           <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>   
+                             <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>  
+                                 <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>  
+                                     <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>  
+                                         <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>  
+                                             <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>  
+                                                 <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
+                          
+                 </form>
 
             </form>
             <div class="clearfix">
-                <button type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
-                <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
+                <button id="saveTwo" type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
+                <button id="cancelTwo" type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
             </div>
         </div>
 
@@ -311,6 +314,8 @@
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
                             onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
                 </th>
+                <th><div>Start date<button class = "button btnStyle" onclick="sortUp('startDate')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th><div>End date<button class = "button btnStyle" onclick="sortUp('endDate')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div></th>
                 <th>Phone number</th>
                 <th>picture</th>
             </tr>

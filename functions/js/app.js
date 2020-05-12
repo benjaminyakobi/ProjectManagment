@@ -36,7 +36,8 @@ function initApp()
         modal.style.display = "none";
     }
 
-    const signOutButton = document.getElementById("logoutButton");
+    // const signOutButton = document.getElementById("logoutButton");
+    const signOutButton = document.getElementById("createUser");
 
     const checkUsername = document.getElementById("checkUsernameBtn");
 
@@ -189,12 +190,17 @@ function initApp()
                 .then(() => {
                     if(val == "student"){
                         // eslint-disable-next-line promise/always-return
-                        console.log("registered");
+                        alert("Successfully Registered as a Student!");
+                        // window.location.href="/";
+                        // location.reload();
+                        // console.log("registered");
                     }
                     else if(val == "renter")
                     {
-                        console.log("registered renter");
-                        registerUserForm.reset();
+                        alert("Successfully Registered as a Renter!");
+                        // window.location.href="/";
+                        // console.log("registered renter");
+                        // registerUserForm.reset();
                     }
                 });
             return false;

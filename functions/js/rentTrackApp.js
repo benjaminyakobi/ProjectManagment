@@ -24,15 +24,6 @@ function initApp()
         app:1
     };
 
-    firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            // User is signed in.
-            console.log('logged');
-        } else {
-            // No user is signed in.
-            console.log('no logged');
-        }
-    });
     function hasImg() {
         console.log("hasIMg");
           if(true){
@@ -52,7 +43,7 @@ function initApp()
 
 
     
- /* fetch("/requestAuth", {
+fetch("/renterLease", {
     method: "POST",
     headers: {
         Accept: "application/json",
@@ -65,56 +56,40 @@ function initApp()
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
         console.log(resJ.data);
-        // eslint-disable-next-line promise/always-return
         
+        // eslint-disable-next-line promise/always-return
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
           
           // eslint-disable-next-line no-loop-func
-          (async () => {
-                try {
+           
+                
                  // let url = await firebase.storage().ref('profileImages/'+obj.id +'/profile.png').getDownloadURL();
                  // console.log(url);
                   sss.innerHTML+= '<tl>'+
-                  '<td><a href="#">' +obj.id+ '</a></td>'+
+                  '<td><a href="#">' +obj.unitId+ '</a></td>'+
                   '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
                   '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
-                  '<td><a href="#"><img src="'+obj.data.profileUrl+'"></a></td>'+
-                  '<td><button value ='+obj.id+' onclick="accept(this)">V</button><button value ='+obj.id+' onclick="decline(this)">X</button></td>'+
+                  '<td><a href="#">' +obj.data.email+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.startDate+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.endDate+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.billTotal+ '</a></td>'+
+                  '<td><button value ='+obj.id+' onclick="Approved(this)">V</button><button value ='+obj.id+' onclick="Declined(this)">X</button></td>'+
                 '</tl>';
-                } catch (error) {
-                    console.log(error);
-                }
-            })();
+               
+            
 
 
         }
-          
+
 
     }).catch(function (error) {
       console.log('data error');
-    });*/
-  /*  const getRequests =  firebase.functions().httpsCallable('api/adminR');
-    getRequests().then( res =>
-    {
-        console.log(res.data);
-        console.log(res.data[0]);
-        console.log("got data");
+    });
 
-        for(i =0;i<res.data.length ;i++)
-        {
-            sss.innerHTML+= '<tr>'+
-                            '<td>' +res.data[i].name+ '</td>'+
-                            '<td>Germany</td>'+
-                            '<td>3</td>'+
-                            '<td><img src="'+hasImg()+'"></td>'+
-                            '</tr>';
-        }
-    })
-    .catch(function (error) {
-        console.log('data error');
-    });*/
-
+/*
+    //-------------------+fake names+---------------------
     const f1= function()
     {
      
@@ -128,38 +103,22 @@ function initApp()
                             '<td >starting date</td>'+
                             '<td >ending date</td>'+
                             '<td >Billing overall</td>'+
-                            '<td >Approve Sale</td>'+
                             '<td><button onclick="Approved()">V</button><button onclick="Declined">X</button></td>'+
                             '</tr>';
         }
     }
     f1();
 
-  /*  var l = [123,123,123,1,231,23,123]
-    var l2 = ['adasd','asdas'];
-    const createUnit =  firebase.functions().httpsCallable('createUnit');
-         createUnit({
-                
-            }).then( () =>
-            {
-                console.log("ok");
-            })
-            .catch(function (error) {
-                console.log('error')
-            });*/
-
-    // Get a reference to the database service
-
+    */
 }
 //-------------end init
 
 
 
 
-
-    function accept(objec){
+function Approved(objec){
         
-       fetch("/adminRequest", {
+       fetch("/renterLease", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -172,19 +131,19 @@ function initApp()
         // eslint-disable-next-line prefer-arrow-callback
         .then(function(resJ){
             console.log(resJ.data);
-            alert("accepted");
+            alert("Contract accepted");
         }).catch(function (error) {
             console.log('data error');
         });
-    }
+}
 
 
 
     //--------------------------------
 
 
-    function decline(objec){
-        fetch("/adminRequest", {
+    function Declined(objec){
+        fetch("/renterLease", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -197,7 +156,7 @@ function initApp()
             // eslint-disable-next-line prefer-arrow-callback
             .then(function(resJ){
                 console.log(resJ.data);
-                alert("declined");    
+                alert("Contract declined");    
             }).catch(function (error) {
                 console.log('data error');
             });
