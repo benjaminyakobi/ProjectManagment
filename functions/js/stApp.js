@@ -68,7 +68,9 @@ function initApp() {
       console.log('data error');
     });
   
-  const sss = document.getElementById("myTable");
+  changeToCurrectField();
+  setToMin();
+  const sss = document.getElementById("tableBody");
 }
 
 
@@ -132,7 +134,8 @@ function setToMin(){
 }
 
 function sendRequestToServer(jsonInfo){ 
-      fetch("/rUSort", {
+      var sss = document.getElementById("tableBody");
+      fetch("/requestUSort", {
       method: "POST",
       headers: {
           Accept: "application/json",
@@ -144,8 +147,11 @@ function sendRequestToServer(jsonInfo){
       .then(response => response.json())
       // eslint-disable-next-line prefer-arrow-callback
       .then(function(resJ){
+          console.log(resJ.data);
+          sss.innerHTML="";
           for(var i = 0; i < resJ.data.length; i++) {
             var obj = resJ.data[i];
+              try{
                 sss.innerHTML+= '<tl>'+
                                   '<td><a href="#">' +obj.data.location+ '</a></td>'+
                                   '<td><a href="#">' +obj.data.rooms+ '</a></td>'+
@@ -157,15 +163,23 @@ function sendRequestToServer(jsonInfo){
                                   '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
                                   '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
                                 '</tl>';
+              }
+              catch(error){
+                  console.log(error);
+              }
             }
       }).catch(function (error) {
         console.log('data error');
       });
     }
-
+function hasImg(val) {
+  if (val)
+    return "/images/compact_camera.png";
+  return "";
+}
 
 function addRowHandlers() {
-  var table = document.getElementById("myTable");
+  var table = document.getElementById("tableBody");
   var rows = table.getElementsByTagName("tl");
   console.log(rows.length);
   for (i = 1; i < rows.length+1; i++) {
@@ -180,6 +194,7 @@ function addRowHandlers() {
                                       // var id2 = cell1.innerHTML;
                                       var modal = document.getElementById("myModal");
                                       var modal2 = document.getElementById("modalUnits");
+                                      var modal3 = document.getElementById("modalOrder");
                                       var span = document.getElementsByClassName("close")[0];
                                       span.onclick = function() {
                                         modal.style.display = "none";
@@ -192,7 +207,7 @@ function addRowHandlers() {
                                     }
                                       modal.style.display = "block";
                                       modal2.style.display = "block";
-                                      
+                                      modal3.style.display = "none";
                                       fillInformation(row.getElementsByTagName("a"));
                                };
                                       
@@ -217,7 +232,7 @@ function searchFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
+  table = document.getElementById("tableBody");
   tr = table.getElementsByTagName("tr");
   for (i = 1; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("a");
@@ -231,18 +246,27 @@ function searchFunction() {
     }  
 }
 
+function paymentWindow(){
+  console.log("hasdf");
+  var modal2 = document.getElementById("modalUnits");
+  var modal3 = document.getElementById("modalOrder");
+  modal2.style.display = "none";
+  modal3.style.display = "block";
+
+
+
+}
+
 
 var sortUpOrDown = 'desc';
 function sortUp(columnName){
   var x = document.getElementById("myInput").value;
-  console.log("up");
   sortUpOrDown = 'desc';
   sendRequestToServer({colName:columnName,sortDirection:sortUpOrDown,searchField:x,action:"sort"});
 }
 
 function sortDown(columnName){
   var searchData = document.getElementById("myInput").value;
-  console.log("down");
   sortUpOrDown = 'inc';
   sendRequestToServer({colName:columnName,sortDirection:sortUpOrDown,searchField:searchData,action:"sort"});
 }
@@ -253,7 +277,9 @@ function sendData(){
   fromFilter = document.getElementById("fromFilter").value;
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex==0) ? "price" :"rooms";
-  console.log(columnName);
+  console.log(searchData +" "+ fromFilter+" "+ toFilter +" "+columnName);
   sendRequestToServer({colName:columnName,searchField:searchData,lowerValue:fromFilter,higherValue:toFilter,action:"filter"});
-  
 }
+
+
+
