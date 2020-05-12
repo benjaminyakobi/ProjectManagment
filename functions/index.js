@@ -101,6 +101,23 @@ app.get("/", function (req, res) {
     });
 
 
+app.get("/renter/requests", function (req, res) {
+    const sessionCookie = req.cookies.session || "";
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+        .then(() => {
+        if(req.cookies.role === "renter"){
+            res.render("rentTrack.html");
+        }else{
+            res.render("index.html");
+        }     
+        })
+        .catch((error) => {
+        res.render("index.html");
+        });
+});
+    
 
 app.get("/student.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
@@ -273,6 +290,7 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
         });
     });
 });
+
 
 
 app.post('/requestAuth', (req, res) => {
