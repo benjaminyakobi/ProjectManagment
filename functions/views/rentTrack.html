@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Appartment Lease</title>
+   
+        
+    <!-- update the version number as needed -->
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-auth.js"></script>
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-database.js"></script>
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-messaging.js"></script>
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+    <script src= "https://www.gstatic.com/firebasejs/7.14.2/firebase-functions.js"></script>
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/2d10b7aa43.js" crossorigin="anonymous"></script>
+    
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="../css/styles.css">
+    
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="/images/logo.png" width="50" height="70" alt=""> Sami Room
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+        
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Tracking orders</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/sessionLogout">Log out</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+            </div>
+        </nav>
+    </div>
+
+
+    <style>
+        * {
+          box-sizing: border-box;
+        }
+        
+        #myInput {
+          background-image: url('/images/searchicon.png');
+          background-position: 10px 10px;
+          background-repeat: no-repeat;
+          width: 100%;
+          font-size: 16px;
+          padding: 12px 20px 12px 40px;
+          border: 1px solid #ddd;
+          margin-bottom: 12px;
+        }
+        
+        #myTable {
+          border-collapse: collapse;
+          width: 100%;
+          border: 1px solid #ddd;
+          font-size: 18px;
+        }
+        
+        #myTable th, #myTable td {
+          text-align: left;
+          padding: 12px;
+        }
+        
+        #myTable tr {
+          border-bottom: 1px solid #ddd;
+        }
+        
+        #myTable tr.header, #myTable tr:hover {
+          background-color: #f1f1f1;
+        }
+    </style>
+     <h1>Appartment Lease Contract's Available.</h1>
+</head>
+
+
+<table id="myTable">
+    <tr >
+        <th >First name</th>
+        <th >last name</th>
+        <th >Email</th>
+        <th >Phone Number</th>
+        <th >starting date</th>
+        <th >ending date</th>
+        <th >Billing overall</th>
+        <th >Approve Sale</th>
+
+      </tr>
+      <img>
+
+
+</table>
+
+<script src="/js/adApp.js"></script>
+
+<!------------------------------ end head ------------------------------>
+
+<body>
+
+
+</body>
+<!------------------------------ end body ------------------------------>
+
+</html>
