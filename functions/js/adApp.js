@@ -88,7 +88,7 @@ function initApp()
             })();
 
 
-            }
+        }
           
 
     }).catch(function (error) {
@@ -154,52 +154,50 @@ function initApp()
 
     function accept(objec){
         
-       fetch("/requestAuth", {
+       fetch("/adminRequest", {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 "CSRF-Token": Cookies.get("XSRF-TOKEN"),
             },
-            body: JSON.stringify({objec,flag:"true"}),
+            body: JSON.stringify({uid:objec.value,flag:"true"}),
             })
         .then(response => response.json())
         // eslint-disable-next-line prefer-arrow-callback
         .then(function(resJ){
             console.log(resJ.data);
+            alert("accepted");
         }).catch(function (error) {
             console.log('data error');
+        });
+    }
+
+
+
+    //--------------------------------
+
+
+    function decline(objec){
+        fetch("/adminRequest", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+            },
+            body: JSON.stringify({uid:objec.value,flag:"false"}),
+            })
+            .then(response => response.json())
+            // eslint-disable-next-line prefer-arrow-callback
+            .then(function(resJ){
+                console.log(resJ.data);
+                alert("declined");    
+            }).catch(function (error) {
+                console.log('data error');
             });
-        alert("accepted");
-        }
+    }
 
-
-
-        //--------------------------------
-
-
-        function decline(objec){
-            
-
-            fetch("/requestAuth", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                },
-                body: JSON.stringify({objec,flag:"false"}),
-                })
-                .then(response => response.json())
-                // eslint-disable-next-line prefer-arrow-callback
-                .then(function(resJ){
-                    console.log(resJ.data);
-                }).catch(function (error) {
-                    console.log('data error');
-                    });
-            alert("declined");    
-        }
-    
 
 //const signOutButton = document.getElementById("signOutButton");
 
