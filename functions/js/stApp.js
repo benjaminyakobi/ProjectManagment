@@ -50,6 +50,7 @@ function initApp() {
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
         for(var i = 0; i < resJ.data.length; i++) {
+          try{
           var obj = resJ.data[i];
               sss.innerHTML+= '<tl>'+
                                 '<td><a href="#">' +obj.data.location+ '</a></td>'+
@@ -62,10 +63,11 @@ function initApp() {
                                 '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
                                 '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
                               '</tl>';
-          }
+          }catch(error){console.log(error);}
           addRowHandlers();
+        }
     }).catch(function (error) {
-      console.log('data error');
+      console.log(error);
     });
   
   const sss = document.getElementById("tableBody");
@@ -177,7 +179,7 @@ function hasImg(val) {
 }
 
 function addRowHandlers() {
-  var table = document.getElementById("tableBody");
+  var table = document.getElementById("myTable");
   var rows = table.getElementsByTagName("tl");
   console.log(rows.length);
   for (i = 1; i < rows.length+1; i++) {
@@ -265,7 +267,6 @@ function sendData(){
   fromFilter = document.getElementById("fromFilter").value;
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex==0) ? "price" :"rooms";
-  console.log(columnName);
   sendRequestToServer({colName:columnName,searchField:searchData,lowerValue:fromFilter,higherValue:toFilter,action:"filter"});
   
 }

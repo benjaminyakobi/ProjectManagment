@@ -79,7 +79,7 @@ fetch("/requestRenter", {
     })
         .then(response => response.json())
         // eslint-disable-next-line prefer-arrow-callback
-        .then(function (resJ) {
+        .then(function(resJ) {
             console.log(resJ.data);
             // eslint-disable-next-line promise/always-return
             for (var i = 0; i < resJ.data.length; i++) {

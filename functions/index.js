@@ -521,13 +521,26 @@ app.post('/requestUSort', (req, res) => {
                                 query = admin.firestore().collection('units').orderBy(req.body.colName);
                             }
                         }
+                        else if(req.body.action == "filter")
+                        {
+                            console.log(req.body.colName);
+                            console.log(req.body.lowerValue);
+                            console.log(req.body.colName);
+                            console.log(req.body.higherValue);
+
+                            //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
+                            //.where(req.body.colName,'<=',req.body.higherValue);
+                            query =  admin.firestore().collection('units').where(req.body.colName,'>=',0)
+                            .where(req.body.colName,'<=',90000);
+                        }
                         else
                             query = admin.firestore().collection('units');
-                            
+
                         var allDocs = query.get().then(snapShot => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
+                            console.log(l);
                             res.setHeader('Content-Type', 'application/json');
                             return res.json({ status: 'OK', data: l });
                         });
