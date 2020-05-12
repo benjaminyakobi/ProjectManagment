@@ -54,7 +54,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //new user signup
 
-app.get("/renter.html", function (req, res) {
+app.get("/renter.html", function (req, res) {///////////////////////////////////////CGECJCCHECK COCOOCOOCOOOOOKIES
     res.render("renter.html");
 });
 
@@ -292,6 +292,54 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
 });
 
 
+
+app.post('/renterLease', (req, res) => {
+    const sessionCookie = req.cookies.session || "";
+    admin
+      .auth()
+      .verifySessionCookie(sessionCookie, true /** checkRevoked*/ )
+      .then(() => {
+        if(req.cookies.role === "renter")
+        {
+            (async () => {
+                try {
+                    var l = [];
+                    var query = admin.firestore().collection('units');
+                    //var storageRef = firebaseApp.storage().ref();
+                    var allDocs = query.where('rid','==',req.cookies.uid).then(snapShot => {
+                        snapShot.forEach(doc => {
+                            if(snapShot.empty){
+                                console.log('No matching documents.');
+                                return;
+                            }
+                            var query2 = admin.firestore().collection('requestPayment');
+                            //var storageRef = firebaseApp.storage().ref();
+                            var allDocs2 = query.where('unitid','==',doc.id).get().then(snapShot2 => {
+                                if(snapShot2.empty){
+                                    console.log('No matching documents.');
+                                    return;
+                                }
+                                snapShot2.forEach(doc2=>{
+                                    l.push({id:doc2.id,data:doc2.data(),unitId:doc.id});
+                                });
+                            });
+                        });
+                        res.setHeader('Content-Type', 'application/json');
+                        return res.json({ status: 'OK', data: l });
+                    });
+                } catch (error) {
+                    console.log(error);
+                    return res.status(500).send(error);
+                }
+            })();
+        }
+        else
+            res.send("Not authorized!");
+      })
+      .catch((error) => {
+        res.send("Not authorized!");
+      });   
+  });
 
 app.post('/requestAuth', (req, res) => {
     const sessionCookie = req.cookies.session || "";
