@@ -523,15 +523,10 @@ app.post('/requestUSort', (req, res) => {
                         }
                         else if(req.body.action == "filter")
                         {
-                            console.log(req.body.colName);
-                            console.log(req.body.lowerValue);
-                            console.log(req.body.colName);
-                            console.log(req.body.higherValue);
-
                             //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
                             //.where(req.body.colName,'<=',req.body.higherValue);
-                            query =  admin.firestore().collection('units').where(req.body.colName,'>=',0)
-                            .where(req.body.colName,'<=',90000);
+                            query =  admin.firestore().collection('units').where(req.body.colName,'>=',Number(req.body.lowerValue))
+                            .where(req.body.colName,'<=',Number(req.body.higherValue));
                         }
                         else
                             query = admin.firestore().collection('units');
@@ -540,7 +535,6 @@ app.post('/requestUSort', (req, res) => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
-                            console.log(l);
                             res.setHeader('Content-Type', 'application/json');
                             return res.json({ status: 'OK', data: l });
                         });
