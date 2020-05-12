@@ -140,6 +140,7 @@ function initApp()
                 .then((Authh) => {
                     saveA =Authh;
                     return Authh.user.getIdToken().then((idToken) => {
+                        console.log(val);
                         if(val == "student")
                         {   
                             (async () => {
@@ -170,7 +171,7 @@ function initApp()
                             })()
                         }
                         else if (val == "renter"){
-                            sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val});
+                            sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val,bankAccount:bankN});
                             return fetch("/registerAccount", 
                             {
                                 method: "POST",
@@ -192,7 +193,7 @@ function initApp()
                     }
                     else if(val == "renter")
                     {
-                        console.log("registered");
+                        console.log("registered renter");
                         registerUserForm.reset();
                     }
                 });
