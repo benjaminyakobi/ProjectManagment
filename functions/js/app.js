@@ -321,7 +321,6 @@ function initApp()
     });
 }
 
-
             //   console.log(user.uid);
                   //  var accessToken = null;
 /*
