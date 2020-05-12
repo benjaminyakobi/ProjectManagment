@@ -85,6 +85,7 @@ app.get("/Admin.html", function (req, res) {
       });
 });
 
+//web forwarding
 app.get("/", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     admin
@@ -129,7 +130,7 @@ app.get("/renter/requests", function (req, res) {
         });
 });
     
-
+//verify permissions and render site to requester
 app.get("/student.html", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     var role =  req.cookies.role;
@@ -161,7 +162,7 @@ app.get("/sessionLogout", (req, res) => {
 });
 
 
-
+//Login and creating cookie 
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString();
   
@@ -199,7 +200,7 @@ app.post("/sessionLogin", (req, res) => {
         });
 });
   
-
+//register account save records and give cookie
 app.post("/registerAccount", (req, res) => {
     const idToken = req.body.idToken.toString();
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
@@ -288,7 +289,7 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
 });
 
 
-
+//Get a renter's units requests
 app.post('/renterLease', (req, res) => {
     const sessionCookie = req.cookies.session || "";
     admin
@@ -342,7 +343,7 @@ app.post('/renterLease', (req, res) => {
         res.send("Not authorized!");
       });   
   });
-
+//get the admin account a list of users to veirfy from 
 app.post('/requestAuth', (req, res) => {
     const sessionCookie = req.cookies.session || "";
     admin
@@ -386,7 +387,7 @@ app.post('/requestAuth', (req, res) => {
       });   
   });
   
-
+//Admin command to verify or cancel a student account 
 app.post('/adminRequest', (req, res) => {
     const sessionCookie = req.cookies.session || "";
     admin
@@ -427,7 +428,7 @@ app.post('/adminRequest', (req, res) => {
 });
   
 
-app.post('/adminRequest', (req, res) => {
+app.post('/renterResponse', (req, res) => {
     const sessionCookie = req.cookies.session || "";
     admin
       .auth()
@@ -439,25 +440,30 @@ app.post('/adminRequest', (req, res) => {
             console.log(req.body.flag);
             if(req.body.flag == "true")
             {
-                var query = admin.firestore().collection('requests').doc(req.body.uid).delete();
+                var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
+                //var storageRef = firebaseApp.storage().ref();
+                var allDocs = query.get().then(doc => {
 
+                    var query2 = admin.firestore().collection('Transactions').doc(doc.id).set(doc.data());
+                    var query3 = admin.firestore().collection('requestPayment').where('unitid','==',doc.data().unitid).get().then(snapShot=>{
+                        var batch = admin.firestore().batch();
+                        snapShot.forEach(doc2=>{
+                            batch.delete(doc2.ref);
+                        });
+
+
+                        batch.commit();
+                    };
+                    res.setHeader('Content-Type', 'application/json');
+                    return res.json({ status: 'OK', data: l });
+                });
             }
             else if(req.body.flag == "false")
             {
-                var query2 = admin.firestore().collection('requests').doc(req.body.uid).delete();
-                var query3 = admin.firestore().collection('users').doc(req.body.uid).delete();
-                admin.auth().deleteUser(req.body.uid)
-                .then(function(userRecord) {
-                        console.log('Successfully deleted user');
-                })
-                .catch(function(error) {
-                        console.log('Error deleting user:', error);
-                });
+                var query = admin.firestore().collection('requestPayement').doc(req.body.uid).delete();
+                res.setHeader('Content-Type', 'application/json');
+                return res.json({ status: 'OK', data: l });         
             }
-
-            res.setHeader('Content-Type', 'application/json');
-            return res.json({ status: 'OK', data: l });
-              
         }
         else
             res.send("Not authorized!");
@@ -468,7 +474,7 @@ app.post('/adminRequest', (req, res) => {
 });
   
 
-
+//request all units 
 app.post('/rU', (req, res) => {
   /*  const sessionCookie = req.cookies.session || "";
 
@@ -500,7 +506,7 @@ app.post('/rU', (req, res) => {
     })();
 });
 
-
+//request all units of the request id
 app.post('/requestRenter', (req, res) => {
       const sessionCookie = req.cookies.session || "";
   
@@ -537,6 +543,7 @@ app.post('/requestRenter', (req, res) => {
     });
 });
 
+//post a unit from the renter to the firestore
 app.post('/postUnit', (req, res) => {
       const sessionCookie = req.cookies.session || "";
   
@@ -588,6 +595,7 @@ app.post('/postUnit', (req, res) => {
 
 });
 
+///checkeckeckekckekce
 app.post('/getRequests', (req, res) => {
     try {
         if (req.user.authenticated) {

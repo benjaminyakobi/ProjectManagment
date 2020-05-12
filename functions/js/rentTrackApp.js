@@ -116,7 +116,7 @@ fetch("/renterLease", {
 
 
 
-    function Approved(objec){
+function Approved(objec){
         
        fetch("/renterLease", {
             method: "POST",
@@ -135,7 +135,7 @@ fetch("/renterLease", {
         }).catch(function (error) {
             console.log('data error');
         });
-    }
+}
 
 
 
