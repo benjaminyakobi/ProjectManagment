@@ -17,6 +17,9 @@ function initApp() {
         return "";
     }
 
+    const modalVarThree = document.getElementById("modalThree");
+    modalVarThree.style.display = "none";
+
     var cancelSpan = document.getElementById("closeTwo");
     cancelSpan.onclick = function () {
         const modalVar = document.getElementById("myModal");
@@ -127,6 +130,7 @@ function addRowHandlers() {
                     var modal = document.getElementById("myModal");
                     var modal1 = document.getElementById("modalOne");
                     var modal2 = document.getElementById("modalTwo");
+                    var modal3 = document.getElementById("modalThree");
                     var span = document.getElementsByClassName("close")[0];
                     span.onclick = function () {
                         modal.style.display = "none";
@@ -140,6 +144,7 @@ function addRowHandlers() {
                     modal.style.display = "block";
                     modal1.style.display = "none";
                     modal2.style.display = "block";
+                    modal3.style.display = "none";
 
                     fillInformation(row.getElementsByTagName("a"),bd.value);
                 };

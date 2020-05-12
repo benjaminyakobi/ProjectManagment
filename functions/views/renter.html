@@ -120,8 +120,16 @@
             width: 80%;
         }
 
-        
+
         .modalEditInfoTwo {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 5px;
+            border: 1px solid rgb(0, 0, 0);
+            width: 80%;
+        }
+
+        .modalEditInfoThree {
             background-color: #fefefe;
             margin: auto;
             padding: 5px;
@@ -152,13 +160,72 @@
 
     <script>
         /*This function have to be implemented!*/
-        function addNewAppartmentFunction() {
+        function showMyContractsFunction() {
 
         }
 
         /*This function have to be implemented!*/
-        function showMyContractsFunction() {
+        function addNewAppartmentFunction() {
+            const modalVar = document.getElementById("myModal");
+            const modalVarOne = document.getElementById("modalOne");
+            modalVarOne.style.display = "none";
+            modalVar.style.display = "block";
 
+            const modalVarTwo = document.getElementById("modalTwo");
+            modalVarTwo.style.display = "none";
+
+            const modalVarThree = document.getElementById("modalThree");
+            modalVarThree.style.display = "block";
+
+            var cancelSpan = document.getElementById("closeThree");
+            cancelSpan.onclick = function () {
+                const modalVar = document.getElementById("myModal");
+                modalVar.style.display = "none";
+            }
+
+            var cancelSpan = document.getElementById("cancelThree");
+            cancelSpan.onclick = function () {
+                const modalVar = document.getElementById("myModal");
+                modalVar.style.display = "none";
+            }
+
+            var cancelSpan = document.getElementById("saveThree");
+            cancelSpan.onclick = function () {
+                const modalVar = document.getElementById("myModal");
+                // const form = document.getElementById("editInfoFormThree");
+                modalVar.style.display = "none";
+            }
+
+            // var cancelSpan = document.getElementsByClassName("close")[0];
+            // cancelSpan.onclick = function () {
+            //     modalVar.style.display = "none";
+            // }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVar) {
+            //         modalVar.style.display = "none";
+            //     }
+            // }
+
+            // var cancelSpan = document.getElementsByClassName("cancelbtn")[0];
+            // cancelSpan.onclick = function () {
+            //     modalVar.style.display = "none";
+            // }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVar) {
+            //         modalVar.style.display = "none";
+            //     }
+            // }
+
+            // var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
+            // saveSpan.onclick = function () {
+            //     saveChanges();
+            //     modalVarTwo.style.display = "none";
+            // }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVarTwo) {
+            //         modalVarTwo.style.display = "none";
+            //     }
+            // }
         }
 
         /*This function have to be implemented!*/
@@ -171,6 +238,8 @@
             const modalVarTwo = document.getElementById("modalTwo");
             modalVarTwo.style.display = "none";
 
+            const modalVarThree = document.getElementById("modalThree");
+            modalVarThree.style.display = "none";
 
             var cancelSpan = document.getElementsByClassName("close")[0];
             cancelSpan.onclick = function () {
@@ -182,36 +251,36 @@
                 }
             }
 
-            var cancelSpan = document.getElementsByClassName("cancelbtn")[0];
+            var cancelSpan = document.getElementById("cancelOne");
             cancelSpan.onclick = function () {
                 modalVar.style.display = "none";
             }
-            window.onclick = function (event) {
-                if (event.target == modalVar) {
-                    modalVar.style.display = "none";
-                }
-            }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVar) {
+            //         modalVar.style.display = "none";
+            //     }
+            // }
 
-            var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
+            var saveSpan = document.getElementById("saveOne");
             saveSpan.onclick = function () {
-                saveChanges();
-                modalVarTwo.style.display = "none";
+                // INSERT CHANGES HERE
+                modalVar.style.display = "none";
             }
-            window.onclick = function (event) {
-                if (event.target == modalVarTwo) {
-                    modalVarTwo.style.display = "none";
-                }
-            }
+            // window.onclick = function (event) {
+            //     if (event.target == modalVarTwo) {
+            //         modalVarTwo.style.display = "none";
+            //     }
+            // }
         }
 
         /*NOT FINISHED YET - have to send eequest to server to update the database*/
-        function saveChanges() {
-            {
-                { email: document.getElementById('newEmail') }
-                { fullName: document.getElementById('fullName') }
-                { phoneNumber: document.getElementById('newPhone') }
-            }
-        }
+        // function saveChanges() {
+        //     {
+        //         { email: document.getElementById('newEmail') }
+        //         { fullName: document.getElementById('fullName') }
+        //         { phoneNumber: document.getElementById('newPhone') }
+        //     }
+        // }
 
 
     </script>
@@ -238,8 +307,8 @@
 
             </form>
             <div class="clearfix">
-                <button type="submit" class="saveChangesBtn" id="savChangesB" onclick="saveChanges()">Save Changes</button>
-                <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
+                <button id="saveOne" type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
+                <button id="cancelOne" type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
             </div>
         </div>
 
@@ -249,18 +318,19 @@
             <form id="editInfoFormTwo">
                 <h2>Edit Unit Information</h2>
 
-                <form name="modalName">     
-                    <legend>Contact Form</legend> 
-                          <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>    
-                           <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>   
-                             <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>  
-                                 <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>  
-                                     <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>  
-                                         <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>  
-                                             <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>  
-                                                 <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
-                          
-                 </form>
+                <form name="modalName">
+                    <legend>Contact Form</legend>
+                    <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>
+                    <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>
+                    <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>
+                    <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>
+                    <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>
+                    <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>
+                    <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>
+                    <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
+                    <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p>
+
+                </form>
 
             </form>
             <div class="clearfix">
@@ -269,6 +339,31 @@
             </div>
         </div>
 
+        <div id="modalThree" class="modalEditInfoThree">
+            <span id="closeThree" class="close">&times;</span>
+            <form id="editInfoFormThree">
+                <h2>Edit Unit Information</h2>
+
+                <form name="modalName">
+                    <legend>Contact Form</legend>
+                    <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>
+                    <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>
+                    <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>
+                    <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>
+                    <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>
+                    <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>
+                    <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>
+                    <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
+
+                </form>
+
+            </form>
+            <div class="clearfix">
+                <button id="saveThree" type="submit" class="saveChangesBtn" onclick="saveChanges()">Save
+                    Changes</button>
+                <button id="cancelThree" type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
+            </div>
+        </div>
 
     </div>
 
@@ -314,8 +409,16 @@
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
                             onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
                 </th>
-                <th><div>Start date<button class = "button btnStyle" onclick="sortUp('startDate')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div></th>
-                <th><div>End date<button class = "button btnStyle" onclick="sortUp('endDate')"> <img src="/images/sortUp.jpg"> </button> <button id="sortDown" class = "button btnStyle" onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div></th>
+                <th>
+                    <div>Start date<button class="button btnStyle" onclick="sortUp('startDate')"> <img
+                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div>
+                </th>
+                <th>
+                    <div>End date<button class="button btnStyle" onclick="sortUp('endDate')"> <img
+                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div>
+                </th>
                 <th>Phone number</th>
                 <th>picture</th>
             </tr>
@@ -324,7 +427,7 @@
     </table>
     <script type="text/javascript" src="/js/rentApp.js"></script>
 
-    
+
 
 </body>
 
