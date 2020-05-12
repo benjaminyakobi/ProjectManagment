@@ -36,8 +36,8 @@ function initApp() {
     cancelSpan.onclick = function () {
         const modalVar = document.getElementById("myModal");
         const form = document.getElementById("editInfoFormTwo");
-
-        //request to db to update data
+        console.log("running");
+          //request to db to update data
             fetch("/updateUnit", {
                 method: "POST",
                 headers: {
@@ -45,15 +45,16 @@ function initApp() {
                     "Content-Type": "application/json",
                     "CSRF-Token": Cookies.get("XSRF-TOKEN"),
                 },
-
-                body: JSON.stringify({  location: form.location.value,
-                                        endDate: form.untilDate.value,
-                                        ownerName: form.owner.value,
-                                        phoneNumber: form.untilDate.value, 
-                                        price: form.price.value,
-                                        rating: form.rating.value,
-                                        rooms: form.rooms.value,
-                                        fromDate: form.fromDate.value
+                body: JSON.stringify({ 
+                                        endDate:    form.untilDate.value,
+                                        location:   form.location.value,
+                                        ownerName:  form.owner.value,
+                                        phoneNumber:form.phone.value, 
+                                        price:      form.price.value,
+                                        rating:     form.rating.value,
+                                        rooms:      form.rooms.value,
+                                        startDate:   form.fromDate.value,
+                                        unitId:     form.uid.value
                                     }),
             })
             
@@ -65,10 +66,10 @@ function initApp() {
                     console.log('data error');
                 });
 
-            const sss = document.getElementById("myTable");
+          //  const sss = document.getElementById("myTable");
             
-        modalVar.style.display = "none";
-    }
+        //modalVar.style.display = "none";
+    };
 
 
 fetch("/requestRenter", {

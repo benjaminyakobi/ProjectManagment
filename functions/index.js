@@ -588,35 +588,30 @@ app.post('/requestRenter', (req, res) => {
 });
 
 //post a unit from the renter to the firestore
-app.post('/postUnit', (req, res) => {
+app.post('/updateUnit', (req, res) => {
     const sessionCookie = req.cookies.session || "";
-
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then(() => {
-            (sessionCookie) => {
                 (async () => {
                     try {
 
-                        if (req.body.lPerm == "renter") {
-                            var check2 = admin.firestore().collection('units').doc().update({/////ADD UID///////////////////////////////////////////////////////////////////////
-                                location: form.location.value,
-                                endDate: form.untilDate.value,
-                                ownerName: form.owner.value,
-                                phoneNumber: form.untilDate.value,
-                                price: form.price.value,
-                                rating: form.rating.value,
-                                rooms: form.rooms.value,
-                                fromDate: form.fromDate.value,
-                                rid: req.cookies.uid
+                        if (req.cookies.role == "renter") {
+                            var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
+                                location: req.body.location,
+                                endDate: req.body.endDate,
+                                ownerName: req.body.ownerName,
+                                phoneNumber: req.body.phoneNumber,
+                                price: Number(req.body.price),
+                                rating: req.body.rating,
+                                rooms: Number(req.body.rooms),
+                                startDate: req.body.startDate  
+                            }).then(()=>{
+                                //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                                res.setHeader('Content-Type', 'application/json');
+                                res.end(JSON.stringify({ status: "success" }));
                             });
-                            const options = { maxAge: expiresIn, httpOnly: true };
-                            //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
-                            res.cookie('role', req.body.lPerm);
-                            res.cookie('uid', req.body.uid);
-                            res.cookie("session", sessionCookie, options);
-                            res.end(JSON.stringify({ status: "success" }));
                         }
                         else {
                             res.send("not authorized post!");
@@ -626,11 +621,6 @@ app.post('/postUnit', (req, res) => {
                         res.send("Unable to access database!");
                     }
                 })();
-            }
-
-
-
-
         })
         .catch((error) => {
             return res.status(500).send('y are you');
