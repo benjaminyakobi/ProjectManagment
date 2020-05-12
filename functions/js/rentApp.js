@@ -78,8 +78,10 @@ fetch("/requestRenter", {
         body: JSON.stringify({}),
     })
         .then(response => response.json())
+        // eslint-disable-next-line prefer-arrow-callback
         .then(function (resJ) {
             console.log(resJ.data);
+            // eslint-disable-next-line promise/always-return
             for (var i = 0; i < resJ.data.length; i++) {
                 var obj = resJ.data[i];
                 //console.log(obj.id);
@@ -97,7 +99,6 @@ fetch("/requestRenter", {
                     '</tl>';
                 //note: obj.id is a unique unit-id
             }
-
             addRowHandlers();
 
         }).catch(function (error) {
