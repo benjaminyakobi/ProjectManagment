@@ -56,8 +56,8 @@ fetch("/renterLease", {
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
         console.log(resJ.data);
-        // eslint-disable-next-line promise/always-return
         
+        // eslint-disable-next-line promise/always-return
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
           
@@ -74,7 +74,7 @@ fetch("/renterLease", {
                   '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
                   '<td><a href="#">' +obj.data.startDate+ '</a></td>'+
                   '<td><a href="#">' +obj.data.endDate+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.Bill+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.billTotal+ '</a></td>'+
                   '<td><button value ='+obj.id+' onclick="Approved(this)">V</button><button value ='+obj.id+' onclick="Declined(this)">X</button></td>'+
                 '</tl>';
                
@@ -88,7 +88,7 @@ fetch("/renterLease", {
       console.log('data error');
     });
 
-
+/*
     //-------------------+fake names+---------------------
     const f1= function()
     {
@@ -109,9 +109,9 @@ fetch("/renterLease", {
     }
     f1();
 
+    */
 }
 //-------------end init
-
 
 
 

@@ -82,17 +82,18 @@ function initApp() {
             console.log(resJ.data);
             for (var i = 0; i < resJ.data.length; i++) {
                 var obj = resJ.data[i];
-
+                //console.log(obj.id);
                 sss.innerHTML += '<tl>' +
-                    '<td><a href="#">' + obj.data.location + '</a></td>' +
-                    '<td><a href="#">' + obj.data.rooms + '</a></td>' +
-                    '<td><a href="#">' + obj.data.price + '</a></td>' +
-                    '<td><a href="#">' + obj.data.rating + '</a></td>' +
-                    '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
-                    '<td><a href="#">' + obj.data.startDate + '</a></td>' +
-                    '<td><a href="#">' + obj.data.endDate + '</a></td>' +
-                    '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
-                    '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures) + '"></a></td>' +
+                        '<td><a href="#">' + obj.data.location + '</a></td>' +
+                        '<td><a href="#">' + obj.data.rooms + '</a></td>' +
+                        '<td><a href="#">' + obj.data.price + '</a></td>' +
+                        '<td><a href="#">' + obj.data.rating + '</a></td>' +
+                        '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
+                        '<td><a href="#">' + obj.data.startDate + '</a></td>' +
+                        '<td><a href="#">' + obj.data.endDate + '</a></td>' +
+                        '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
+                        '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures) + '"></a></td>' +
+                        '<td style="display:none;"><button value='+obj.id+' ></button></td>' +
                     '</tl>';
                 //note: obj.id is a unique unit-id
             }
@@ -121,6 +122,7 @@ function addRowHandlers() {
                     var id = cell.innerHTML;
                     var cell1 = row.getElementsByTagName("a")[1];
                     var id2 = cell1.innerHTML;
+                    var bd = row.getElementsByTagName("button")[0];
                     var modal = document.getElementById("myModal");
                     var modal1 = document.getElementById("modalOne");
                     var modal2 = document.getElementById("modalTwo");
@@ -138,7 +140,7 @@ function addRowHandlers() {
                     modal1.style.display = "none";
                     modal2.style.display = "block";
 
-                    fillInformation(row.getElementsByTagName("a"));
+                    fillInformation(row.getElementsByTagName("a"),bd.value);
                 };
 
             };
@@ -147,7 +149,7 @@ function addRowHandlers() {
     }
 }
 
-function fillInformation(id) {
+function fillInformation(id,uid) {
     document.getElementById("locationModal").value = id[0].innerHTML;
     document.getElementById("roomzModal").value = id[1].innerHTML;
     document.getElementById("priceModal").value = id[2].innerHTML;
@@ -156,6 +158,8 @@ function fillInformation(id) {
     document.getElementById("startDateModal").value = id[5].innerHTML;
     document.getElementById("endDateModal").value = id[6].innerHTML;
     document.getElementById("phoneNumberModal").value = id[7].innerHTML;
+    document.getElementById("savChangesB").value = uid;
+    console.log(uid);
 }
 
 
