@@ -66,8 +66,10 @@ function initApp()
     .then(function(resJ){
         console.log(resJ.data);
         // eslint-disable-next-line promise/always-return
+        
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
+          
           // eslint-disable-next-line no-loop-func
           (async () => {
                 try {
@@ -77,8 +79,8 @@ function initApp()
                   '<td><a href="#">' +obj.id+ '</a></td>'+
                   '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
                   '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
-                  '<td><a href="#"><img src="'+hasImg()+'"></a></td>'+
-                  '<td><button onclick="accept()">V</button><button onclick="decline()">X</button></td>'+
+                  '<td><a href="#"><img src="'+obj.data.profileUrl+'"></a></td>'+
+                  '<td><button value ='+obj.id+' onclick="accept(this)">V</button><button value ='+obj.id+' onclick="decline(this)">X</button></td>'+
                 '</tl>';
                 } catch (error) {
                     console.log(error);
@@ -150,15 +152,16 @@ function initApp()
 
 
 
-    function accept(){
-        fetch("/requestAuth", {
+    function accept(objec){
+        
+       fetch("/requestAuth", {
             method: "POST",
             headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
                 "CSRF-Token": Cookies.get("XSRF-TOKEN"),
             },
-            body: JSON.stringify({id,flag:"true"}),
+            body: JSON.stringify({objec,flag:"true"}),
             })
         .then(response => response.json())
         // eslint-disable-next-line prefer-arrow-callback
@@ -169,7 +172,13 @@ function initApp()
             });
         alert("accepted");
         }
-        function decline(){
+
+
+
+        //--------------------------------
+
+
+        function decline(objec){
             
 
             fetch("/requestAuth", {
@@ -179,7 +188,7 @@ function initApp()
                     "Content-Type": "application/json",
                     "CSRF-Token": Cookies.get("XSRF-TOKEN"),
                 },
-                body: JSON.stringify({id,flag:"false"}),
+                body: JSON.stringify({objec,flag:"false"}),
                 })
                 .then(response => response.json())
                 // eslint-disable-next-line prefer-arrow-callback
