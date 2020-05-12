@@ -460,6 +460,42 @@ app.post('/rU', (req, res) => {
 });
 
 
+app.post('/requestRenter', (req, res) => {
+      const sessionCookie = req.cookies.session || "";
+  
+      admin
+          .auth()
+          .verifySessionCookie(sessionCookie, true )
+          .then(() => {
+                if(req.cookies.role == "renter"){
+                    var l = [];
+                    var query = admin.firestore().collection('units').where('rid','==',req.cookies.uid);
+                    var allDocs = query.get().then(snapShot => {
+                        if(snapShot.empty)
+                        {
+                            console.log('No matching documents,firstPhase.');
+                                return;
+                        }
+                        snapShot.forEach(doc => {
+                            l.push({id:doc.id,data:doc.data()});
+                        });
+        
+                        res.setHeader('Content-Type', 'application/json');
+                        return res.json({ status: 'OK', data: l });
+                    });
+                }else{
+                    res.error("not Authorized!");
+                }
+
+            })
+    
+    .catch((error) => {
+
+        res.error("server internal error");
+
+    });
+});
+
 app.post('/postUnit', (req, res) => {
       const sessionCookie = req.cookies.session || "";
   

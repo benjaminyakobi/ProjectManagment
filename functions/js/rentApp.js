@@ -68,7 +68,7 @@ function initApp() {
     }
 
 
-    fetch("/rU", {
+fetch("/requestRenter", {
         method: "POST",
         headers: {
             Accept: "application/json",
