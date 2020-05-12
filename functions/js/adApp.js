@@ -52,7 +52,7 @@ function initApp()
 
 
     
-  fetch("/requstVerifications", {
+  fetch("/requestAuth", {
     method: "POST",
     headers: {
         Accept: "application/json",
@@ -65,19 +65,29 @@ function initApp()
     // eslint-disable-next-line prefer-arrow-callback
     .then(function(resJ){
         console.log(resJ.data);
+        // eslint-disable-next-line promise/always-return
         for(var i = 0; i < resJ.data.length; i++) {
           var obj = resJ.data[i];
+          // eslint-disable-next-line no-loop-func
+          (async () => {
+                try {
+                 // let url = await firebase.storage().ref('profileImages/'+obj.id +'/profile.png').getDownloadURL();
+                 // console.log(url);
+                  sss.innerHTML+= '<tl>'+
+                  '<td><a href="#">' +obj.id+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
+                  '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
+                  '<td><a href="#"><img src="'+hasImg()+'"></a></td>'+
+                  '<td><button onclick="accept()">V</button><button onclick="decline()">X</button></td>'+
+                '</tl>';
+                } catch (error) {
+                    console.log(error);
+                }
+            })();
 
 
-              sss.innerHTML+= '<tl>'+
-                                '<td><a href="#">' +obj.Firstname+ '</a></td>'+
-                                '<td><a href="#">' +obj.Lastname+ '</a></td>'+
-                                '<td><a href="#"><img src="'+hasImg(obj.hasPictures)+'"></a></td>'+
-                                '<td><a href="#">' +obj.photo+ '</a></td>'+        
-                                '<td><a href="#">' +obj.verify+ '</a></td>'+  
-                              '</tl>';
-          }
-        
+            }
+          
 
     }).catch(function (error) {
       console.log('data error');
@@ -103,7 +113,7 @@ function initApp()
         console.log('data error');
     });*/
 
-    const f1= function()
+    /*const f1= function()
     {
      
         for(i =0;i<10 ;i++)
@@ -116,7 +126,7 @@ function initApp()
                             '</tr>';
         }
     }
-    f1();
+    f1();*/
 
   /*  var l = [123,123,123,1,231,23,123]
     var l2 = ['adasd','asdas'];
@@ -134,17 +144,52 @@ function initApp()
     // Get a reference to the database service
 
 }
+//-------------end init
+
+
+
+
+
     function accept(){
+        fetch("/requestAuth", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+            },
+            body: JSON.stringify({id,flag:"true"}),
+            })
+        .then(response => response.json())
+        // eslint-disable-next-line prefer-arrow-callback
+        .then(function(resJ){
+            console.log(resJ.data);
+        }).catch(function (error) {
+            console.log('data error');
+            });
         alert("accepted");
-        return obj;
+        }
+        function decline(){
+            
 
-    }
-    
-    function decline(){
-        alert("declined");
-        return obj;
-
-    }
+            fetch("/requestAuth", {
+                method: "POST",
+                headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json",
+                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                },
+                body: JSON.stringify({id,flag:"false"}),
+                })
+                .then(response => response.json())
+                // eslint-disable-next-line prefer-arrow-callback
+                .then(function(resJ){
+                    console.log(resJ.data);
+                }).catch(function (error) {
+                    console.log('data error');
+                    });
+            alert("declined");    
+        }
     
 
 //const signOutButton = document.getElementById("signOutButton");

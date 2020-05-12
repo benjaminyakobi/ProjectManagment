@@ -53,25 +53,6 @@
             box-sizing: border-box;
         }
 
-        html {
-        height: 100%;
-        }
-
-        body {
-        height: 100%;
-        margin: 0;
-        font-family: Arial, Helvetica, sans-serif;
-        display: grid;
-        justify-items: center;
-        align-items: center;
-        height: 100%;
-        background-position:center ;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-        background-size: cover;
-        }
- 
-
         #myInput {
             background-image: url('/images/searchicon.png');
             background-position: 10px 10px;
@@ -116,44 +97,48 @@
             margin: 2px;
             display: inline;
         }
+
         .modal {
-            display: none; /* Hidden by default */
-            position: fixed; /* Stay in place */
-            z-index: 1; /* Sit on top */
-            padding-top: 100px; /* Location of the box */
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 100px;
             left: 0;
             top: 0;
-            width: 100%; /* Full width */
-            height: 100%; /* Full height */
-            overflow: auto; /* Enable scroll if needed */
-            background-color: rgb(0,0,0); /* Fallback color */
-            background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-            }
-
-        /* Modal Content */
-        .modalOneContent {
-        background-color: #fefefe;
-        margin: auto;
-        padding: 5px;
-        border: 1px solid #888;
-        width: 80%;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
         }
-        /* The Close Button */
+
+        .modalEditInfo {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 5px;
+            border: 1px solid rgb(0, 0, 0);
+            width: 80%;
+        }
+
         .close {
-        color: #aaaaaa;
-        float: right;
-        font-size: 28px;
-        font-weight: bold;
+            color: #030303;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
         }
 
-        .close:hover,
         .close:focus {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
+            color: #000;
+            text-decoration: none;
+            cursor: pointer;
         }
 
-
+        /* Extra styles for the cancel button */
+        .cancelbtn,
+        .saveChangesBtn {
+            float: left;
+            width: 50%;
+        }
     </style>
 
     <script>
@@ -167,23 +152,83 @@
 
         }
 
-  
-    </script>  
+        /*This function have to be implemented!*/
+        function editInfoFunction() {
+            const modalVar = document.getElementById("myModal");
+            modalVar.style.display = "block";
+
+            var cancelSpan = document.getElementsByClassName("close")[0];
+            cancelSpan.onclick = function () {
+                modalVar.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modalVar) {
+                    modalVar.style.display = "none";
+                }
+            }
+
+            var cancelSpan = document.getElementsByClassName("cancelbtn")[0];
+            cancelSpan.onclick = function () {
+                modalVar.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modalVar) {
+                    modalVar.style.display = "none";
+                }
+            }
+
+            var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
+            saveSpan.onclick = function () {
+                saveChanges();
+
+
+                modalVar.style.display = "none";
+            }
+            window.onclick = function (event) {
+                if (event.target == modalVar) {
+                    modalVar.style.display = "none";
+                }
+            }
+
+        }
+
+        /*NOT FINISHED YET - have to send eequest to server to update the database*/
+        function saveChanges() {
+            {
+                { email: document.getElementById('newEmail') }
+                { fullName: document.getElementById('fullName') }
+                { phoneNumber: document.getElementById('newPhone') }
+            }
+        }
+
+
+    </script>
 
 </head>
-<!------------------------------ end head ------------------------------>
 
 <body>
-    <div id="myModal" class="modal">
 
+    <div id="myModal" class="modal">
         <!-- Modal content -->
-        <div id ="modalOne" class="modalOneContent">
-          <span class="close">&times;</span>
-          <p>Enter your username</p>
-          <form id="recoveryForm">
-            <input type="text" name="username" id="recoveryWindow" placeholder="Username">
-            <button id="checkUsernameBtn">Next</button>
-          </form>
+        <div id="modalOne" class="modalEditInfo">
+            <span class="close">&times;</span>
+            <form id="editInfoForm">
+                <h2>Edit Personal Information</h2>
+
+                <label for="fullName"><b>New Name</b></label>
+                <input id="fullName" type="text" placeholder="Enter Full Name" name="fullName" required>
+
+                <label for="email"><b>New Email</b></label>
+                <input id="newEmail" type="text" placeholder="Enter Email" name="email" required>
+
+                <label for="phone"><b>New Phone Number</b></label>
+                <input id="newPhone" type="text" placeholder="Enter Phone Number" name="phone" required>
+
+            </form>
+            <div class="clearfix">
+                <button type="submit" class="saveChangesBtn" onclick="saveChanges()">Save Changes</button>
+                <button type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
+            </div>
         </div>
     </div>
 
@@ -193,19 +238,17 @@
                 New Appartment</button>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=showMyContractsFunction();>Show
                 My Contratcs</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit
+                Info</button>
         </div>
     </div>
 
-    <h2>Appartments</h2>
-
     <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
 
+    <h2>Appartments</h2>
     <table id="myTable">
         <thead>
             <tr>
-                <th>
-                    <div id="locationCol">Edit Info<img src="/images/sort icon.png"></div>
-                </th>
                 <th>
                     <div>Location<button class="button btnStyle" onclick="sortUp('location')"> <img
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
@@ -239,8 +282,7 @@
     </table>
     <script type="text/javascript" src="/js/rentApp.js"></script>
 
- 
+
 </body>
-<!------------------------------ end body ------------------------------>
 
 </html>

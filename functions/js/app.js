@@ -128,38 +128,67 @@ function initApp()
         console.log(lName);
         console.log(val);
         console.log(bankN);
-        
+        var saveUrl="";
+        var sentPack={};
         var saveA = null;
             // eslint-disable-next-line promise/catch-or-return
             // eslint-disable-next-line promise/always-return
+
                 firebase
                 .auth()
                 .createUserWithEmailAndPassword(userEmail, userPass)
                 .then((Authh) => {
                     saveA =Authh;
                     return Authh.user.getIdToken().then((idToken) => {
-                        return fetch("/registerAccount", 
-                        {
-                        method: "POST",
-                        headers: {
-                            Accept: "application/json",
-                            "Content-Type": "application/json",
-                            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                        },
-                        body: JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val}),
-                        });
+                        if(val == "student")
+                        {   
+                            (async () => {
+                                    try {  
+                                var resp = await storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then((snapshot)=>{
+                                    // eslint-disable-next-line prefer-arrow-callback
+                                    snapshot.ref.getDownloadURL().then(function(url){
+                                        console.log(saveUrl);
+                                        sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val,imgUrl:url});
+                                        return fetch("/registerAccount", 
+                                        {
+                                            method: "POST",
+                                            headers: {
+                                                Accept: "application/json",
+                                                "Content-Type": "application/json",
+                                                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                                            },
+                                            body: sentPack,
+                                        });
+                                    }).catch( e =>{
+                                        console.log("upload failed");
+                                    });          
+                                })
+                                
+                                }catch(error){
+                                    console.log('fail upload');
+                                }
+                            })()
+                        }
+                        else if (val == "renter"){
+                            sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val});
+                            return fetch("/registerAccount", 
+                            {
+                                method: "POST",
+                                headers: {
+                                    Accept: "application/json",
+                                    "Content-Type": "application/json",
+                                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                                },
+                                body: sentPack,
+                            });
+                        }
+                        
                     });
                 })
                 .then(() => {
                     if(val == "student"){
                         // eslint-disable-next-line promise/always-return
-                        return storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then(()=>{
                         console.log("registered");
-
-                        registerUserForm.reset();
-                        }).catch( e =>{
-                            console.log("upload failed");
-                        });          
                     }
                     else if(val == "renter")
                     {

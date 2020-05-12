@@ -16,7 +16,6 @@
 const csrf = require("csurf");
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const adminDB = require('firebase-admin');
 const cookieParser = require("cookie-parser");
 const serviceAccount = require("../serviceAccountKey.json");
 const csrfMiddleware = csrf({ cookie: true });
@@ -27,7 +26,7 @@ const firebaseApp = admin.initializeApp({
         storageBucket: "projectmanagement-612b8.appspot.com",
         projectId: "projectmanagement-612b8",
 });
-
+var bucket = admin.storage().bucket();
 var cors = require('cors')({ origin: true });
 var express = require('express');
 var path = require('path');
@@ -202,14 +201,16 @@ app.post("/registerAccount", (req, res) => {
                             email: req.body.email,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            perm:req.body.lPerm
+                            perm:req.body.lPerm,
+                            profileUrl:req.body.imgUrl
                         });
 
                         var checkRequest = admin.firestore().collection('requests').doc(req.body.uid).set({
                             email: req.body.email,
                             firstName: req.body.firstName,
                             lastName: req.body.lastName,
-                            perm:req.body.lPerm
+                            perm:req.body.lPerm,
+                            profileUrl:req.body.imgUrl
                         });
                     }
                     if(req.body.lPerm == "renter")
@@ -285,20 +286,24 @@ app.post('/requestAuth', (req, res) => {
                     var l = [];
                     
                     var query = admin.firestore().collection('requests');
+                    //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(snapShot => {
                         snapShot.forEach(doc => {
-                            var photoUrl ="";
-                            var forestRef = admin.storage().child('profileImages/'+doc.id +'/profile.png');
+                            //var photoUrl ="";
+                            //console.log(doc.id);
+                            //console.log(toString(doc.id));
+                   /*         var forestRef = storageRef.child('profileImages/'+doc.id +'/profile.png');
                             var url = forestRef.getDownloadURL().then(function(url){
                                 photoUrl=url;
-                            });
-                            l.push({id:doc.id,data:doc.data(),photo:photoUrl});
+                            });*/
+                            l.push({id:doc.id,data:doc.data()});
                         });
         
                         res.setHeader('Content-Type', 'application/json');
                         return res.json({ status: 'OK', data: l });
                     });
                 } catch (error) {
+                    console.log(error);
                     return res.status(500).send(error);
                 }
             })();
