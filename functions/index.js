@@ -502,7 +502,9 @@ app.post('/renterResponse', (req, res) => {
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
                     //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(doc => {
-
+                        var query4 = admin.firestore().collection('units').doc(req.body.uid).update({
+                            sold:"true"
+                        });
                         var query2 = admin.firestore().collection('Transactions').doc(doc.id).set(doc.data());
                         var query3 = admin.firestore().collection('requestPayment').where('unitid', '==', doc.data().unitid).get().then(snapShot => {
                             var batch = admin.firestore().batch();
@@ -565,7 +567,7 @@ app.post('/rU', (req, res) => {
 
 
 
-//request all units 
+//request all units Sort
 app.post('/requestUSort', (req, res) => {
     const sessionCookie = req.cookies.session || "";
 
@@ -776,34 +778,7 @@ app.post('/addUnit', (req, res) => {
         });
 
 });
-///checkeckeckekckekce
-app.post('/getRequests', (req, res) => {
-    try {
-        if (req.user.authenticated) {
-            return res.render('es/login', { title: 'Hello - Please Login To Your Account' });
-        }
-    }
-    catch (error) {
-        return res.status(500).send('y are you');
-    }
 
-    (async () => {
-        try {
-            /*    var l = [];
-                var query = admin.firestore().collection('units');
-                var allDocs = query.get().then(snapShot => {
-                    snapShot.forEach(doc => {
-                        l.push(doc.data());
-                        
-                        
-                    });
-                });*/
-            return res.status(200).json({ status: 'OK', data: "kk" });
-        } catch (error) {
-            return res.status(500).send(error);
-        }
-    })();
-});
 
 var PORT = 9000;
 app.use('/js', express.static("js"));
