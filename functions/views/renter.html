@@ -13,6 +13,8 @@
 
     <!-- Font Awesome CDN -->
     <script src="https://kit.fontawesome.com/2d10b7aa43.js" crossorigin="anonymous"></script>
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="../css/styles.css">
@@ -184,12 +186,24 @@
                 const modalVar = document.getElementById("myModal");
                 modalVar.style.display = "none";
             }
-
+            let imgsUrls=[];
             var saveSpan = document.getElementById("saveThree");
             saveSpan.onclick = function () {
                 const modalVar = document.getElementById("myModal");
                 const form = document.getElementById("editInfoFormThree");
+                console.log(imgsUrls);
                 console.log("running");
+
+            /*    var resp = storage.ref('unitsImages/').put(file).then((snapshot) => {
+                    // eslint-disable-next-line prefer-arrow-callback
+                    snapshot.ref.getDownloadURL().then(function (url) {
+
+                    }).catch(e => {
+                        console.log("upload failed");
+                    });
+                    modalVar.style.display = "none";
+                });*/
+                
                 //request to db to update data
                 fetch("/addUnit", {
                     method: "POST",
@@ -199,66 +213,93 @@
                         "CSRF-Token": Cookies.get("XSRF-TOKEN"),
                     },
                     body: JSON.stringify({
-                        endDate: form.untilDate.value,
-                        location: form.location.value,
-                        ownerName: form.owner.value,
-                        phoneNumber: form.phone.value,
-                        price: form.price.value,
-                        rating: form.rating.value,
-                        rooms: form.rooms.value,
-                        startDate: form.fromDate.value,
-                        // unitId: form.uid.value
+                        endDate: form.untilDate.value, //1
+                        location: form.location.value, //1 
+                        ownerName: form.owner.value, //1
+                        phoneNumber: form.phone.value, // 1
+                        price: form.price.value, //1
+                        rating: form.rating.value, // 1
+                        rooms: form.rooms.value, //1
+                        startDate: form.fromDate.value, //1
+                        hasPictures:imgsUrls,    //1
+                        minDate:"01-01-2020" //1
+
+                        //rid in server side
+                        //images
                     }),
                 })
 
                     .then(response => response.json())
                     .then(function (resJ) {
-                        console.log(resJ.data);
+                        //console.log(resJ.data);
 
                     }).catch(function (error) {
                         console.log('data error');
                     });
+            };
+            const fileButton = document.getElementById("img");
+            fileButton.addEventListener('change', function(e){ 
+                const form = document.getElementById("editInfoFormThree");
+                console.log(imgsUrls);
 
-                modalVar.style.display = "none";
-                location.reload();
+                //Get files
+                for (var i = 0; i < e.target.files.length; i++) {
+                    var imageFile = e.target.files[i];
+                    uploadImageAsPromise(imageFile,form.owner.value);
+                }
+            });
+            function uploadImageAsPromise (imageFile,pathImg) {
+                return new Promise(function (resolve, reject) {
+                    var storageRef = firebase.storage().ref("unitsImages/"+pathImg+"/"+imageFile.name);
+
+                    //Upload file
+                    var task = storageRef.put(imageFile).then((snapShot)=>{
+                        snapShot.ref.getDownloadURL().then(function(url){
+                            console.log(url);
+                            imgsUrls.push(url);
+                        });
+                    });
+
+                    //Update progress bar
+            
+                });
             }
 
-        }
+            function editInfoFunction() {
+                const modalVar = document.getElementById("myModal");
+                const modalVarOne = document.getElementById("modalOne");
+                modalVarOne.style.display = "block";
+                modalVar.style.display = "block";
 
-        function editInfoFunction() {
-            const modalVar = document.getElementById("myModal");
-            const modalVarOne = document.getElementById("modalOne");
-            modalVarOne.style.display = "block";
-            modalVar.style.display = "block";
+                const modalVarTwo = document.getElementById("modalTwo");
+                modalVarTwo.style.display = "none";
 
-            const modalVarTwo = document.getElementById("modalTwo");
-            modalVarTwo.style.display = "none";
+                const modalVarThree = document.getElementById("modalThree");
+                modalVarThree.style.display = "none";
 
-            const modalVarThree = document.getElementById("modalThree");
-            modalVarThree.style.display = "none";
-
-            var closeSpan = document.getElementsByClassName("close")[0];
-            closeSpan.onclick = function () {
-                modalVar.style.display = "none";
-            }
-            window.onclick = function (event) {
-                if (event.target == modalVar) {
+                var closeSpan = document.getElementsByClassName("close")[0];
+                closeSpan.onclick = function () {
                     modalVar.style.display = "none";
                 }
+                window.onclick = function (event) {
+                    if (event.target == modalVar) {
+                        modalVar.style.display = "none";
+                    }
+                }
+
+                var cancelSpan = document.getElementById("cancelOne");
+                cancelSpan.onclick = function () {
+                    modalVar.style.display = "none";
+                }
+
+
+                var saveSpan = document.getElementById("saveOne");
+                saveSpan.onclick = function () {
+                    // INSERT CHANGES HERE
+                    modalVar.style.display = "none";
+                }
+
             }
-
-            var cancelSpan = document.getElementById("cancelOne");
-            cancelSpan.onclick = function () {
-                modalVar.style.display = "none";
-            }
-
-
-            var saveSpan = document.getElementById("saveOne");
-            saveSpan.onclick = function () {
-                // INSERT CHANGES HERE
-                modalVar.style.display = "none";
-            }
-
         }
 
     </script>
@@ -337,12 +378,18 @@
                     <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>
                     <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>
                     <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
-
+                    <div id="imgup">
+                        <label for="img">Add unit images</label>
+                        <!--only for Students-->
+                        <input type="file" multiple="multiple" id="img" name="img" accept="image/x-png"><br>
+                        <!--add required field-->
+                    </div>
+                    <img id="prevImage" />
                 </form>
 
             </form>
             <div class="clearfix">
-                <button id="saveThree" type="submit" class="saveChangesBtn" onclick="saveChanges()">Save
+                <button id="saveThree" type="button" class="saveChangesBtn" onclick="saveChanges()">Save
                     Changes</button>
                 <button id="cancelThree" type="button" class="cancelbtn" onclick="cancelModal()">Cancel</button>
             </div>
@@ -356,7 +403,8 @@
                 New Appartment</button>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=showMyContractsFunction();>Show
                 My Contratcs</button>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit User Info</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit User
+                Info</button>
         </div>
     </div>
 

@@ -5,11 +5,10 @@ window.onload = function () {
 function initApp() {
     var config = {
         apiKey: "AIzaSyDwIvIUQ02UrYTeJ_H96jW49NaQkXMTBVc",
-        authDomain: "projectmanagement-612b8.firebaseapp.com",
-        databaseURL: "https://projectmanagement-612b8.firebaseio.com/",
+        storageBucket: "projectmanagement-612b8.appspot.com",
         projectId: "projectmanagement-612b8",
-
     };
+    firebase.initializeApp(config);
 
     function hasImg(val) {
         if (val)
@@ -108,8 +107,8 @@ function initApp() {
             console.log('data error');
         });
 
-    const sss = document.getElementById("myTable");
-
+        const sss = document.getElementById("myTable");
+        
 }
 
 

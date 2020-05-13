@@ -36,7 +36,7 @@ function initApp() {
   
   
   
-
+/*
   fetch("/rU", {
     method: "POST",
     headers: {
@@ -68,8 +68,47 @@ function initApp() {
         }
     }).catch(function (error) {
       console.log(error);
-    });
+    });*/
   
+function addRowHandlers() {
+  var table = document.getElementById("myTable");
+  var rows = table.getElementsByTagName("tr");
+  console.log(rows.length);
+  for (i = 0; i < rows.length; i++) {
+      var currentRow = table.rows[i];
+      var createClickHandler = 
+          function(row) 
+          {
+              return function() { 
+                                      // var cell = row.getElementsByTagName("a")[0];
+                                      // var id = cell.innerHTML;
+                                      // var cell1 = row.getElementsByTagName("a")[1];
+                                      // var id2 = cell1.innerHTML;
+                                      var modal = document.getElementById("myModal");
+                                      var modal2 = document.getElementById("modalUnits");
+                                      var modal3 = document.getElementById("modalOrder");
+                                      var span = document.getElementsByClassName("close")[0];
+                                      span.onclick = function() {
+                                        modal.style.display = "none";
+                                      }
+                                      window.onclick = function(event) {
+                                        if (event.target == modal) {
+                                            modal.style.display = "none";
+
+                                        }
+                                    }
+                                      modal.style.display = "block";
+                                      modal2.style.display = "block";
+                                      modal3.style.display = "none";
+                                      fillInformation(row.getElementsByTagName("a"));
+                               };
+                                      
+          };
+
+      currentRow.onclick = createClickHandler(currentRow);
+    }
+  }
+  addRowHandlers();
   changeToCurrectField();
   setToMin();
   const sss = document.getElementById("tableBody");
