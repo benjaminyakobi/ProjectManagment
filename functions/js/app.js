@@ -87,11 +87,15 @@ function initApp()
         removeUsername.style.display = "none";
     }
 
-    function getUsername(){
-        console.log("he")
-        return document.getElementById("recoveryWindow").value;
-    }
+    // function getUsername(){
+    //     console.log("he")
+    //     return document.getElementById("recoveryWindow").value;
+    // }
 
+    var closeSpan = document.getElementById("closeReg");
+    closeSpan.onclick = function () {
+        modal.style.display = "none";
+    }
 
     checkAnswer.addEventListener('click',e =>{
         console.log(document.getElementById("userAnswer").value);
@@ -101,7 +105,6 @@ function initApp()
         else{
             console.log("invalid answer");
         }   
-            
     });
 
 
