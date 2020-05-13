@@ -191,18 +191,6 @@
             saveSpan.onclick = function () {
                 const modalVar = document.getElementById("myModal");
                 const form = document.getElementById("editInfoFormThree");
-                console.log(imgsUrls);
-                console.log("running");
-
-            /*    var resp = storage.ref('unitsImages/').put(file).then((snapshot) => {
-                    // eslint-disable-next-line prefer-arrow-callback
-                    snapshot.ref.getDownloadURL().then(function (url) {
-
-                    }).catch(e => {
-                        console.log("upload failed");
-                    });
-                    modalVar.style.display = "none";
-                });*/
                 
                 //request to db to update data
                 fetch("/addUnit", {
@@ -223,16 +211,13 @@
                         startDate: form.fromDate.value, //1
                         hasPictures:imgsUrls,    //1
                         minDate:"01-01-2020" //1
-
-                        //rid in server side
-                        //images
                     }),
                 })
 
                     .then(response => response.json())
                     .then(function (resJ) {
                         //console.log(resJ.data);
-
+                        location.reload();
                     }).catch(function (error) {
                         console.log('data error');
                     });
@@ -265,6 +250,7 @@
                 });
             }
 
+
             function editInfoFunction() {
                 const modalVar = document.getElementById("myModal");
                 const modalVarOne = document.getElementById("modalOne");
@@ -291,7 +277,6 @@
                 cancelSpan.onclick = function () {
                     modalVar.style.display = "none";
                 }
-
 
                 var saveSpan = document.getElementById("saveOne");
                 saveSpan.onclick = function () {
