@@ -249,6 +249,7 @@ function addRowHandlers() {
           var modal2 = document.getElementById("modalUnits");
           var modal3 = document.getElementById("modalOrder");
           var span = document.getElementsByClassName("close")[0];
+          var bd = row.getElementsByTagName("button")[0];
           span.onclick = function () {
             modal.style.display = "none";
           }
@@ -261,7 +262,7 @@ function addRowHandlers() {
           modal.style.display = "block";
           modal2.style.display = "block";
           modal3.style.display = "none";
-          fillInformation(row.getElementsByTagName("a"));
+          fillInformation(row.getElementsByTagName("a"),bd.value);
         };
 
       };
@@ -269,7 +270,7 @@ function addRowHandlers() {
     currentRow.onclick = createClickHandler(currentRow);
   }
 }
-function fillInformation(id) {
+function fillInformation(id,uid) {
   document.getElementById("locationModal").value = id[0].innerHTML;
   document.getElementById("roomzModal").value = id[1].innerHTML;
   document.getElementById("priceModal").value = id[2].innerHTML;
@@ -279,8 +280,7 @@ function fillInformation(id) {
   document.getElementById("minDateModal").value = id[6].innerHTML;
   document.getElementById("endDateModal").value = id[7].innerHTML;
   document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-  //document.getElementById("orderRef").href = "/orders"
-  console.log("/order/" + uid);
+  document.getElementById("orderRef").href = "/order/" +uid;
 }
 
 function closeWindow() {
