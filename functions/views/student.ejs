@@ -190,8 +190,12 @@
                         <td><a href="#"> <%= obj.data.minDate     %></a></td> 
                         <td><a href="#"> <%= obj.data.endDate       %></a></td>
                         <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
-                        <td><a href="#"><img src=""></a></td>
-                    </tl></tr>
+                        <!-- <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
+                            <img style="visibility: hidden;" src =" <%= obj.data.hasPictures[j] %> ">
+                            
+                       <% } %> -->
+                        <td><a href="#"><img src="<%- "hasImg(" + obj.data.hasPictures.length + ")" %>" > </a></td>
+                    </tl></tr> 
                 <% } %>
         </tbody>
     </table>

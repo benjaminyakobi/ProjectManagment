@@ -29,7 +29,8 @@ function initApp() {
         }
     });*/
   function hasImg(val) {
-    if (val)
+
+    if (val>0)
       return "/images/compact_camera.png";
     return "";
   }
@@ -73,7 +74,6 @@ function initApp() {
 function addRowHandlers() {
   var table = document.getElementById("tableBody");
   var rows = table.getElementsByTagName("tr");
-  console.log(rows.length);
   for (i = 0; i < rows.length; i++) {
       var currentRow = table.rows[i];
       var createClickHandler = 
@@ -154,7 +154,6 @@ function setToMin(){
   }
   var x = document.getElementById("filter").selectedIndex;
   index = document.getElementById("fromFilter").selectedIndex+1;
-  console.log(index);
   if(x==0){
     for(index;index<12;index++){
       var sel = document.getElementById("toFilter");
@@ -188,7 +187,6 @@ function sendRequestToServer(jsonInfo){
       .then(response => response.json())
       // eslint-disable-next-line prefer-arrow-callback
       .then(function(resJ){
-          console.log(resJ.data);
           sss.innerHTML="";
           for(var i = 0; i < resJ.data.length; i++) {
             var obj = resJ.data[i];
@@ -216,7 +214,8 @@ function sendRequestToServer(jsonInfo){
       });
     }
 function hasImg(val) {
-  if (val)
+  console.log('+hadsaf'+val);
+  if (val>0)
     return "/images/compact_camera.png";
   return "";
 }
