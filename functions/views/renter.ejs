@@ -192,9 +192,14 @@
                 const modalVar = document.getElementById("myModal");
                 const form = document.getElementById("editInfoFormThree");
 
-                // console.log(form.untilDate);
-                // console.log(form.untilDate.value);
-                //request to db to update data
+                var fDateThree = new Date(form.fromDateThree.value);
+                var uDateThree = new Date(form.untilDateThree.value);
+
+                if(fDateThree.getTime() - uDateThree.getTime() > 0){
+                    alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
+                    return;
+                }
+
                 fetch("/addUnit", {
                     method: "POST",
                     headers: {
