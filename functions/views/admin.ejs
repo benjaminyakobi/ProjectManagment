@@ -106,8 +106,24 @@
         <th >verify</th>
 
       </tr>
-      <img>
-
+      <tbody> 
+      <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+        <tr><tl>
+            <td><a href="#"> <%= obj.id   %></a></td>
+            <td><a href="#"> <%= obj.data.firstName         %></a></td>
+            <td><a href="#"> <%= obj.data.lastName         %></a></td>        
+            <td><a href="#"> <img src=" <%= obj.data.profileUrl      %>" /> </a></td>                   
+           <td><button value = <%= obj.id %> </button> onclick="accept(this)">V</button><button value = <%= obj.id %> </button> onclick="decline(this)">X</button></td>
+           
+        </tl></tr>
+        +obj.id+ '</a></td>'+
+        '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
+        '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
+        '<td><a href="#"><img src="'+obj.data.profileUrl+'"></a></td>'+
+        '<td><button value ='+obj.id+' onclick="accept(this)">V</button><button value ='+obj.id+' onclick="decline(this)">X</button></td>'+
+      '</tl>';
+    <% } %> 
+    </tbody>
 
 </table>
 
