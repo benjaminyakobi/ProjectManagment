@@ -28,7 +28,7 @@ function initApp()
         removeUsername.style.display = "block";
         registerUser.style.display = "none";
         showQuestionWindow.style.display = "none";
-        recoveryForm.reset();
+        // recoveryForm.reset();
     }
 
     // When the user clicks on <span> (x), close the modal
@@ -104,19 +104,17 @@ function initApp()
     });
 
 
-    checkUsername.addEventListener('click',e =>{
-        console.log(document.getElementById("recoveryWindow").value);
-
-        if(document.getElementById("recoveryWindow").value=="t"){
-            document.getElementById("getQuestion").innerHTML ='hello:'+ getUsername()+ ' your question is:';
-            removeUsername.style.display = "none";
-            showQuestionWindow.style.display = "block";
-        }
-        else
-            console.log("invalid username");
-          
-            
-    });
+    // checkUsername.addEventListener('click',e =>{
+        // console.log(document.getElementById("recoveryWindow").value);
+        // if(document.getElementById("recoveryWindow").value=="t"){
+        //     document.getElementById("getQuestion").innerHTML ='hello:'+ getUsername()+ ' your question is:';
+        //     removeUsername.style.display = "none";
+        //     showQuestionWindow.style.display = "block";
+        // }
+        // else
+        //     console.log("invalid username");     
+    // });
+    
     registerUserForm.addEventListener('submit',e =>{
         e.preventDefault();
         console.log(registerUserForm.userE.value);  
