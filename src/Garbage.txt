@@ -485,3 +485,188 @@ function lClick()
         <!-- <form id="recoveryForm"> -->
         <!-- <button id="checkUsernameBtn">Next</button> -->
         <!-- </form> -->
+
+
+         <!-- <form>
+                        <label class="nativeDatePicker">Until Date:
+                            <input type="date" id="endDateModalThree" name="untilDateThree"> -->
+                            <!-- <script>
+                                var dateControl = document.querySelector('input[type="date"]');
+                                dateControl.value = '<input type="date" name="bday">';
+                            </script> -->
+                            <!-- <input type="text" name="bday"> -->
+                            <!-- <span class="validity"></span>
+                        </label>
+
+                        <fieldset class="fallbackDatePicker" hidden>
+                            <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                            <label>
+                                Day:
+                                <select name="day"></select>
+                            </label>
+
+                            <label>
+                                Month:
+                                <select name="month">
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Year:
+                                <select name="year"></select>
+                            </label>
+                        </fieldset>
+                    </form> -->
+
+
+                                        <!-- <form>
+                        <label class="nativeDatePicker">From Date:
+                            <input type="date" id="startDateModalThree" name="fromDateThree">
+                            <span class="validity"></span>
+                        </label>
+
+                        <fieldset class="fallbackDatePicker" hidden>
+                            <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                            <label>
+                                Day:
+                                <select name="day"></select>
+                            </label>
+
+                            <label>
+                                Month:
+                                <select name="month">
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Year:
+                                <select name="year"></select>
+                            </label>
+                        </fieldset>
+                    </form> -->
+
+                    <!-- <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p> -->
+
+
+
+                                        <!-- <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p> -->
+
+
+                <!-- <label for="phone"><b>New Phone Number</b></label> -->
+                <!-- <input id="newPhone" type="text" placeholder="Enter Phone Number" name="phone" required> -->
+
+                
+                <!-- <label for="fullName"><b>New Name</b></label>
+                <input id="fullName" type="text" placeholder="Enter Full Name" name="fullName" required> -->
+
+
+                <!-- <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p> -->
+
+                        <!-- <form>
+                            <label class="nativeDatePicker">From Date:
+                                <input type="date" id="startDateModal" name="fromDate">
+                                <span class="validity"></span>
+                            </label>
+
+                            <fieldset class="fallbackDatePicker" hidden>
+                                <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                                <label>
+                                    Day:
+                                    <select name="day"></select>
+                                </label>
+
+                                <label>
+                                    Month:
+                                    <select name="month">
+                                        <option>January</option>
+                                        <option>February</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        <option>July</option>
+                                        <option>August</option>
+                                        <option>September</option>
+                                        <option>October</option>
+                                        <option>November</option>
+                                        <option>December</option>
+                                    </select>
+                                </label>
+
+                                <label>
+                                    Year:
+                                    <select name="year"></select>
+                                </label>
+                            </fieldset>
+                        </form> -->
+
+
+                        <!-- <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p> -->
+
+                        <!-- <form>
+                            <label class="nativeDatePicker">Until Date:
+                                <input type="date" id="endDateModal" name="untilDate">
+                                <span class="validity"></span>
+                            </label>
+
+                            <fieldset class="fallbackDatePicker" hidden>
+                                <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                                <label>
+                                    Day:
+                                    <select name="day"></select>
+                                </label>
+
+                                <label>
+                                    Month:
+                                    <select name="month">
+                                        <option>January</option>
+                                        <option>February</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        <option>July</option>
+                                        <option>August</option>
+                                        <option>September</option>
+                                        <option>October</option>
+                                        <option>November</option>
+                                        <option>December</option>
+                                    </select>
+                                </label>
+
+                                <label>
+                                    Year:
+                                    <select name="year"></select>
+                                </label>
+                            </fieldset>
+                        </form> -->
+
+                        
