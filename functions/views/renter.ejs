@@ -17,7 +17,7 @@
     <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
 
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
 
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -453,7 +453,25 @@
                 <th>picture</th>
             </tr>
         </thead>
-        <tbody id="myTableRows"></tbody>
+        <tbody id="tableBody">
+            <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+                <tr>
+                    <tl>
+                        <td><a href="#"> <%= obj.data.location      %></a></td>
+                        <td><a href="#"> <%= obj.data.rooms         %></a></td>
+                        <td><a href="#"> <%= obj.data.price         %></a></td>        
+                        <td><a href="#"> <%= obj.data.rating        %></a></td>                   
+                        <td><a href="#"> <%= obj.data.ownerName     %></a></td> 
+                        <td><a href="#"> <%= obj.data.startDate     %></a></td> 
+                        <td><a href="#"> <%= obj.data.endDate       %></a></td>
+                        <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                        <td><a href="#"><img src=""></a></td>
+                        <td style="display:none;"><button value= <% obj.id %> </button></td>
+
+                    </tl>
+               </tr>
+            <% } %>
+    </tbody>
     </table>
     <script type="text/javascript" src="/js/rentApp.js"></script>
 

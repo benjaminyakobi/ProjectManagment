@@ -55,14 +55,27 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //new user signup
 
-app.get("/renter.html", function (req, res) {
+app.get("/renter.ejs", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "renter")
-                res.render("renter.html");
+            {            
+                    var l = [];
+                    var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
+                    var allDocs = query.get().then(snapShot => {
+                        if (snapShot.empty) {
+                            console.log('No matching documents,firstPhase.');
+                            return;
+                        }
+                        snapShot.forEach(doc => {
+                            l.push({ id: doc.id, data: doc.data() });
+                        });
+                        res.render("renter.ejs",{l:l});
+                    });          
+            }
             else
                 res.send("Not authorized!");
         })
@@ -115,7 +128,7 @@ app.get("/", function (req, res) {
                 app.handle(req, res);
             }
             else if (req.cookies.role === "renter") {
-                req.url = '/renter.html';
+                req.url = '/renter.ejs';
                 app.handle(req, res);
             } else {
                 res.render("index.html");
@@ -744,9 +757,9 @@ app.post('/addUnit', (req, res) => {
                         rooms: Number(req.body.rooms),      //1
                         startDate: req.body.startDate,       //1
                         hasPictures:req.body.hasPictures, //1
-                        minDate: req.body.minDate //1
-                        
-
+                        minDate: req.body.minDate, //1
+                        sold:"false",
+                        rid:req.cookies.uid
                     }).then(()=>{
                         //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                         res.setHeader('Content-Type', 'application/json');

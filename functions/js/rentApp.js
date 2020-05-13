@@ -69,7 +69,7 @@ function initApp() {
         location.reload();
     };
 
-
+/*
     fetch("/requestRenter", {
         method: "POST",
         headers: {
@@ -105,9 +105,65 @@ function initApp() {
 
         }).catch(function (error) {
             console.log('data error');
-        });
+        });*/
+        addRowHandlers();
 
-        const sss = document.getElementById("myTable");
+        const sss = document.getElementById("tableBody");
+        
+        function addRowHandlers() {
+            var table = document.getElementById("tableBody");
+            var rows = table.getElementsByTagName("tr");
+            console.log(rows.length);
+            for (i = 0; i < rows.length; i++) {
+                var currentRow = table.rows[i];
+                var createClickHandler =
+                    function (row) {
+                        return function () {
+                            var cell = row.getElementsByTagName("a")[0];
+                            var id = cell.innerHTML;
+                            var cell1 = row.getElementsByTagName("a")[1];
+                            var id2 = cell1.innerHTML;
+                            var bd = row.getElementsByTagName("button")[0];
+                            var modal = document.getElementById("myModal");
+                            var modal1 = document.getElementById("modalOne");
+                            var modal2 = document.getElementById("modalTwo");
+                            var modal3 = document.getElementById("modalThree");
+                            var span = document.getElementsByClassName("close")[0];
+                            span.onclick = function () {
+                                modal.style.display = "none";
+                            }
+                            window.onclick = function (event) {
+                                if (event.target == modal) {
+                                    modal.style.display = "none";
+
+                                }
+                            }
+                            modal.style.display = "block";
+                            modal1.style.display = "none";
+                            modal2.style.display = "block";
+                            modal3.style.display = "none";
+
+                            fillInformation(row.getElementsByTagName("a"), bd.value);
+                        };
+
+                    };
+
+                currentRow.onclick = createClickHandler(currentRow);
+            }
+        }
+                
+        function fillInformation(id, uid) {
+            document.getElementById("locationModal").value = id[0].innerHTML;
+            document.getElementById("roomzModal").value = id[1].innerHTML;
+            document.getElementById("priceModal").value = id[2].innerHTML;
+            document.getElementById("ratingModal").value = id[3].innerHTML;
+            document.getElementById("ownerNameModal").value = id[4].innerHTML;
+            document.getElementById("startDateModal").value = id[5].innerHTML;
+            document.getElementById("endDateModal").value = id[6].innerHTML;
+            document.getElementById("phoneNumberModal").value = id[7].innerHTML;
+            document.getElementById("savChangesB").value = uid;
+            console.log(uid);
+        }
         
 }
 

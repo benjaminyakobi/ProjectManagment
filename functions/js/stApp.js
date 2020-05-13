@@ -71,7 +71,7 @@ function initApp() {
     });*/
   
 function addRowHandlers() {
-  var table = document.getElementById("myTable");
+  var table = document.getElementById("tableBody");
   var rows = table.getElementsByTagName("tr");
   console.log(rows.length);
   for (i = 0; i < rows.length; i++) {
