@@ -99,7 +99,7 @@ app.get("/", function (req, res) {
                 app.handle(req, res);
             }
             else if (req.cookies.role === "student") {
-                req.url = '/student.html';
+                req.url = '/student.ejs';
                 app.handle(req, res);
             }
             else if (req.cookies.role === "renter") {
@@ -161,7 +161,7 @@ app.get("/renter/requests", function (req, res) {
 });
 
 //verify permissions and render site to requester
-app.get("/student.html", function (req, res) {
+app.get("/student.ejs", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     var role = req.cookies.role;
     //console.log(role);
@@ -170,8 +170,22 @@ app.get("/student.html", function (req, res) {
         .verifySessionCookie(sessionCookie, true)//checkRevoked
         .then(() => {
             console.log(role);
-            if (req.cookies.role === "student")
-                res.render("student.html");
+            if (req.cookies.role === "student"){
+            
+                try {
+                    var l = [];
+                    var query = admin.firestore().collection('units');
+                    var allDocs = query.get().then(snapShot => {
+                        snapShot.forEach(doc => {
+                            l.push({ id: doc.id, data: doc.data() });
+                        });
+                        res.render("student.ejs",{l:l});
+                    });
+                } catch (error) {
+                    return res.status(500).send(error);
+                }
+              
+            }
             else
                 res.redirect("/");
         })
@@ -699,6 +713,44 @@ app.post('/updateUnit', (req, res) => {
 
 });
 
+//post a unit from the renter to the firestore
+app.post('/addUnit', (req, res) => {
+    const sessionCookie = req.cookies.session || "";
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then(() => {
+
+                if (req.cookies.role == "renter") {
+                    var check2 = admin.firestore().collection('units').add({
+                        location: req.body.location,//1
+                        endDate: req.body.endDate,//1
+                        ownerName: req.body.ownerName,      //1
+                        phoneNumber: req.body.phoneNumber,  //1
+                        price: Number(req.body.price),      //1
+                        rating: req.body.rating,            //1
+                        rooms: Number(req.body.rooms),      //1
+                        startDate: req.body.startDate,       //1
+                        hasPictures:req.body.hasPictures, //1
+                        minDate: req.body.minDate //1
+                        
+
+                    }).then(()=>{
+                        //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                        res.setHeader('Content-Type', 'application/json');
+                        res.end(JSON.stringify({ status: "success" }));
+                    });
+                }
+                else {
+                    res.send("not authorized to post a unit!");
+                }
+                
+        })
+        .catch((error) => {
+            return res.status(500).send('y are you');
+        });
+
+});
 ///checkeckeckekckekce
 app.post('/getRequests', (req, res) => {
     try {

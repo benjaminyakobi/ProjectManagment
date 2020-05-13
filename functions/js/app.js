@@ -59,7 +59,8 @@ function initApp()
             console.log("logged out");
         });
     }
-    
+
+
     //render image
     document.getElementById("img").onchange = function setImage(evt) {
         console.log('change');
@@ -147,7 +148,6 @@ function initApp()
                                 var resp = await storage.ref('profileImages/' +saveA.user.uid +'/profile.png').put(file).then((snapshot)=>{
                                     // eslint-disable-next-line prefer-arrow-callback
                                     snapshot.ref.getDownloadURL().then(function(url){
-                                        console.log(saveUrl);
                                         sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val,imgUrl:url});
                                         return fetch("/registerAccount", 
                                         {

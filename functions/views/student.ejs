@@ -169,7 +169,19 @@
             </tr>
         </thead>
         <tbody id="tableBody">
-
+                <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+                    <tr><tl>
+                        <td><a href="#"> <%= obj.data.location      %></a></td>
+                        <td><a href="#"> <%= obj.data.rooms         %></a></td>
+                        <td><a href="#"> <%= obj.data.price         %></a></td>        
+                        <td><a href="#"> <%= obj.data.rating        %></a></td>                   
+                        <td><a href="#"> <%= obj.data.ownerName     %></a></td> 
+                        <td><a href="#"> <%= obj.data.startDate     %></a></td> 
+                        <td><a href="#"> <%= obj.data.endDate       %></a></td>
+                        <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                        <td><a href="#"><img src=""></a></td>
+                    </tl></tr>
+                <% } %>
         </tbody>
     </table>
 
