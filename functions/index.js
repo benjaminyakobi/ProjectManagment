@@ -757,9 +757,9 @@ app.post('/addUnit', (req, res) => {
                         price: Number(req.body.price),      //1
                         rating: req.body.rating,            //1
                         rooms: Number(req.body.rooms),      //1
-                        startDate: req.body.startDate,       //1
+                        startDate: Date(req.body.startDate),       //1
                         hasPictures:req.body.hasPictures, //1
-                        minDate: req.body.minDate, //1
+                        minDate: new Date(req.body.minDate).parse, //1
                         sold:"false",
                         rid:req.cookies.uid
                     }).then(()=>{
