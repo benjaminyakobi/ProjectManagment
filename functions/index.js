@@ -590,12 +590,8 @@ app.post('/requestOrder', (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true )
         .then(() => {
-            console.log('debug1');
             if(req.cookies.role == "student")
             {
-                console.log('debug2');
-                console.log(req.body);
-
                 var query = admin.firestore().collection('requestPayment').add({
                     email:req.body.email,
                     billTotal:Number(req.body.billTotal),
@@ -613,8 +609,6 @@ app.post('/requestOrder', (req, res) => {
                     ccExp:req.body.ccExp,
                     ccPostal:req.body.ccPostal
                 });
-                console.log('debug3');
-
                 res.setHeader('Content-Type', 'application/json');
                 return res.json({ status: 'OK'});
             }
