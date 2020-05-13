@@ -13,8 +13,8 @@
 
     <!-- Font Awesome CDN -->
     <script src="https://kit.fontawesome.com/2d10b7aa43.js" crossorigin="anonymous"></script>
-    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
-    <script  src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
 
     <!-- Custom Stylesheet -->
     <link rel="stylesheet" href="/css/styles.css">
@@ -186,24 +186,14 @@
                 const modalVar = document.getElementById("myModal");
                 modalVar.style.display = "none";
             }
-            let imgsUrls=[];
+            let imgsUrls = [];
             var saveSpan = document.getElementById("saveThree");
             saveSpan.onclick = function () {
                 const modalVar = document.getElementById("myModal");
                 const form = document.getElementById("editInfoFormThree");
-                console.log(imgsUrls);
-                console.log("running");
 
-            /*    var resp = storage.ref('unitsImages/').put(file).then((snapshot) => {
-                    // eslint-disable-next-line prefer-arrow-callback
-                    snapshot.ref.getDownloadURL().then(function (url) {
 
-                    }).catch(e => {
-                        console.log("upload failed");
-                    });
-                    modalVar.style.display = "none";
-                });*/
-                
+
                 //request to db to update data
                 fetch("/addUnit", {
                     method: "POST",
@@ -221,49 +211,47 @@
                         rating: form.rating.value, // 1
                         rooms: form.rooms.value, //1
                         startDate: form.fromDate.value, //1
-                        hasPictures:imgsUrls,    //1
-                        minDate:"01-01-2020" //1
-
-                        //rid in server side
-                        //images
+                        hasPictures: imgsUrls,    //1
+                        minDate: "01-01-2020" //1
                     }),
                 })
 
                     .then(response => response.json())
                     .then(function (resJ) {
                         //console.log(resJ.data);
-
+                        location.reload();
                     }).catch(function (error) {
                         console.log('data error');
                     });
             };
             const fileButton = document.getElementById("img");
-            fileButton.addEventListener('change', function(e){ 
+            fileButton.addEventListener('change', function (e) {
                 const form = document.getElementById("editInfoFormThree");
                 console.log(imgsUrls);
 
                 //Get files
                 for (var i = 0; i < e.target.files.length; i++) {
                     var imageFile = e.target.files[i];
-                    uploadImageAsPromise(imageFile,form.owner.value);
+                    uploadImageAsPromise(imageFile, form.owner.value);
                 }
             });
-            function uploadImageAsPromise (imageFile,pathImg) {
+            function uploadImageAsPromise(imageFile, pathImg) {
                 return new Promise(function (resolve, reject) {
-                    var storageRef = firebase.storage().ref("unitsImages/"+pathImg+"/"+imageFile.name);
+                    var storageRef = firebase.storage().ref("unitsImages/" + pathImg + "/" + imageFile.name);
 
                     //Upload file
-                    var task = storageRef.put(imageFile).then((snapShot)=>{
-                        snapShot.ref.getDownloadURL().then(function(url){
+                    var task = storageRef.put(imageFile).then((snapShot) => {
+                        snapShot.ref.getDownloadURL().then(function (url) {
                             console.log(url);
                             imgsUrls.push(url);
                         });
                     });
 
                     //Update progress bar
-            
+
                 });
             }
+
 
             function editInfoFunction() {
                 const modalVar = document.getElementById("myModal");
@@ -291,7 +279,6 @@
                 cancelSpan.onclick = function () {
                     modalVar.style.display = "none";
                 }
-
 
                 var saveSpan = document.getElementById("saveOne");
                 saveSpan.onclick = function () {
@@ -340,21 +327,101 @@
             <form id="editInfoFormTwo">
                 <h2>Edit Unit Information</h2>
 
-                <form name="modalName">
-                    <legend>Contact Form</legend>
-                    <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>
-                    <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>
-                    <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>
-                    <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>
-                    <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>
-                    <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>
-                    <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>
-                    <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
-                    <fieldset disabled>
-                        <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p>
-                    </fieldset>
+                    <form name="modalName">
+                        <legend>Contact Form</legend>
+                        <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>
+                        <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>
+                        <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>
+                        <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>
+                        <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>
+                        <!-- <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p> -->
 
-                </form>
+                        <form>
+                            <label class="nativeDatePicker">From Date:
+                                <input type="date" id="startDateModal" name="fromDate">
+                                <span class="validity"></span>
+                            </label>
+
+                            <fieldset class="fallbackDatePicker" hidden>
+                                <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                                <label>
+                                    Day:
+                                    <select name="day"></select>
+                                </label>
+
+                                <label>
+                                    Month:
+                                    <select name="month">
+                                        <option>January</option>
+                                        <option>February</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        <option>July</option>
+                                        <option>August</option>
+                                        <option>September</option>
+                                        <option>October</option>
+                                        <option>November</option>
+                                        <option>December</option>
+                                    </select>
+                                </label>
+
+                                <label>
+                                    Year:
+                                    <select name="year"></select>
+                                </label>
+                            </fieldset>
+                        </form>
+
+                        <!-- <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p> -->
+
+                        <form>
+                            <label class="nativeDatePicker">Until Date:
+                                <input type="date"id="endDateModal" name="untilDate">
+                                <span class="validity"></span>
+                            </label>
+
+                            <fieldset class="fallbackDatePicker" hidden>
+                                <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                                <label>
+                                    Day:
+                                    <select name="day"></select>
+                                </label>
+
+                                <label>
+                                    Month:
+                                    <select name="month">
+                                        <option>January</option>
+                                        <option>February</option>
+                                        <option>March</option>
+                                        <option>April</option>
+                                        <option>May</option>
+                                        <option>June</option>
+                                        <option>July</option>
+                                        <option>August</option>
+                                        <option>September</option>
+                                        <option>October</option>
+                                        <option>November</option>
+                                        <option>December</option>
+                                    </select>
+                                </label>
+
+                                <label>
+                                    Year:
+                                    <select name="year"></select>
+                                </label>
+                            </fieldset>
+                        </form>
+
+                        <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
+                        <fieldset disabled>
+                            <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p>
+                        </fieldset>
+
+                    </form>
 
             </form>
             <div class="clearfix">
@@ -366,7 +433,7 @@
         <div id="modalThree" class="modalEditInfoThree">
             <span id="closeThree" class="close">&times;</span>
             <form id="editInfoFormThree">
-                <h2>Edit Unit Information</h2>
+                <h2>Add New Appartment</h2>
 
                 <form name="modalName">
                     <legend>Contact Form</legend>
@@ -375,8 +442,93 @@
                     <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>
                     <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>
                     <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>
-                    <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>
-                    <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>
+                    <!-- <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p> -->
+                    <form>
+                        <label class="nativeDatePicker">From Date:
+                            <!-- <input type="date" name="bday"> -->
+                            <input type="date" id="startDateModal" name="fromDate">
+                            <span class="validity"></span>
+                        </label>
+
+                        <fieldset class="fallbackDatePicker" hidden>
+                            <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                            <label>
+                                Day:
+                                <select name="day"></select>
+                            </label>
+
+                            <label>
+                                Month:
+                                <select name="month">
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Year:
+                                <select name="year"></select>
+                            </label>
+                        </fieldset>
+                    </form>
+
+                    <!-- <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p> -->
+
+                    <form>
+                        <label class="nativeDatePicker">Until Date:
+                            <input type="date" id="endDateModal" name="untilDate">
+                            <!-- <script>
+                                var dateControl = document.querySelector('input[type="date"]');
+                                dateControl.value = '<input type="date" name="bday">';
+                            </script> -->
+                            <!-- <input type="text" name="bday"> -->
+                            <span class="validity"></span>
+                        </label>
+
+                        <fieldset class="fallbackDatePicker" hidden>
+                            <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                            <label>
+                                Day:
+                                <select name="day"></select>
+                            </label>
+
+                            <label>
+                                Month:
+                                <select name="month">
+                                    <option>January</option>
+                                    <option>February</option>
+                                    <option>March</option>
+                                    <option>April</option>
+                                    <option>May</option>
+                                    <option>June</option>
+                                    <option>July</option>
+                                    <option>August</option>
+                                    <option>September</option>
+                                    <option>October</option>
+                                    <option>November</option>
+                                    <option>December</option>
+                                </select>
+                            </label>
+
+                            <label>
+                                Year:
+                                <select name="year"></select>
+                            </label>
+                        </fieldset>
+                    </form>
+
                     <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
                     <div id="imgup">
                         <label for="img">Add unit images</label>
@@ -455,23 +607,23 @@
         </thead>
         <tbody id="tableBody">
             <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
-                <tr>
-                    <tl>
-                        <td><a href="#"> <%= obj.data.location      %></a></td>
-                        <td><a href="#"> <%= obj.data.rooms         %></a></td>
-                        <td><a href="#"> <%= obj.data.price         %></a></td>        
-                        <td><a href="#"> <%= obj.data.rating        %></a></td>                   
-                        <td><a href="#"> <%= obj.data.ownerName     %></a></td> 
-                        <td><a href="#"> <%= obj.data.startDate     %></a></td> 
-                        <td><a href="#"> <%= obj.data.endDate       %></a></td>
-                        <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
-                        <td><a href="#"><img src=""></a></td>
-                        <td style="display:none;"><button value= <% obj.id %> </button></td>
+            <tr>
+                <tl>
+                    <td><a href="#"> <%= obj.data.location      %></a></td>
+                    <td><a href="#"> <%= obj.data.rooms         %></a></td>
+                    <td><a href="#"> <%= obj.data.price         %></a></td>
+                    <td><a href="#"> <%= obj.data.rating        %></a></td>
+                    <td><a href="#"> <%= obj.data.ownerName     %></a></td>
+                    <td><a href="#"> <%= obj.data.startDate     %></a></td>
+                    <td><a href="#"> <%= obj.data.endDate       %></a></td>
+                    <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                    <td><a href="#"><img src=""></a></td>
+                    <td style="display:none;"><button value=<% obj.id %> </button></td>
 
-                    </tl>
-               </tr>
+                </tl>
+            </tr>
             <% } %>
-    </tbody>
+        </tbody>
     </table>
     <script type="text/javascript" src="/js/rentApp.js"></script>
 
