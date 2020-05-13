@@ -3,60 +3,62 @@
 <html class="supernova">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
-  <meta name="HandheldFriendly" content="true" />
-  <link rel="icon" href="/images/logo-2.jpg">
-  <title>Apartment Order Form</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
+<meta name="HandheldFriendly" content="true" />
+<link rel="icon" href="/images/logo-2.jpg">
+<title>Apartment Order Form</title>
 
-  <link href="https://cdn.jotfor.ms/static/formCss.css?3.3.17674" rel="stylesheet" type="text/css" />
-  <link type="text/css" media="print" rel="stylesheet" href="https://cdn.jotfor.ms/css/printForm.css?3.3.17674" />
-  <link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/css/styles/nova.css?3.3.17674" />
-  <link type="text/css" rel="stylesheet"
-    href="https://cdn.jotfor.ms/themes/CSS/566a91c2977cdfcd478b4567.css?themeRevisionID=5dca5ac9a5e86d17235d90c1" />
-  <link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/css/styles/payment/styles.css?3.3.17674" />
+<link href="https://cdn.jotfor.ms/static/formCss.css?3.3.17674" rel="stylesheet" type="text/css" />
+<link type="text/css" media="print" rel="stylesheet" href="https://cdn.jotfor.ms/css/printForm.css?3.3.17674" />
+<link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/css/styles/nova.css?3.3.17674" />
+<link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/themes/CSS/566a91c2977cdfcd478b4567.css?themeRevisionID=5dca5ac9a5e86d17235d90c1"/>
+<link type="text/css" rel="stylesheet" href="https://cdn.jotfor.ms/css/styles/payment/styles.css?3.3.17674" />
 
-  <!-- Bootstrap CDN -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-    integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-
-  <!-- Custom Stylesheet -->
-  <link rel="stylesheet" href="../css/styles.css">
-
-  <div class="container-fluid">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <a class="navbar-brand" href="#">
-        <img src="/images/logo.png" width="70" height="50" alt=""> Sami Room
-      </a>
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-          <li class="nav-item active">
-            <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/sessionLogout">Log out</a>
-          </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-          <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-      </div>
-    </nav>
-  </div>
+   <!-- Bootstrap CDN -->
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    
+   <!-- Custom Stylesheet -->
+   <link rel="stylesheet" href="/css/styles.css">
+   
+   <div class="container-fluid">
+       <nav class="navbar navbar-expand-lg navbar-light bg-light">
+           <a class="navbar-brand" href="#">
+               <img src="/images/logo.png" width="70" height="50" alt=""> Sami Room
+           </a>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+               <span class="navbar-toggler-icon"></span>
+           </button>
+           
+           <div class="collapse navbar-collapse" id="navbarSupportedContent">
+               <ul class="navbar-nav mr-auto">
+                   <li class="nav-item active">
+                       <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                   </li>
+                   <li class="nav-item">
+                       <a class="nav-link" href="/sessionLogout">Log out</a>
+                   </li>
+               </ul>
+               <form class="form-inline my-2 my-lg-0">
+                   <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                   <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+               </form>
+           </div>
+       </nav>
+   </div>
 
 
 
-  <style type="text/css">
-    @import '@{buttonFontLink}';
+<style type="text/css">
 
-    .form-label-left {
-      width: 150px;
+@import '@{buttonFontLink}';
+
+    .form-label-left{
+        width:150px;
+    }
+    .form-line{
+        padding-top:12px;
+        padding-bottom:12px;
     }
 
     .form-line {
@@ -457,6 +459,7 @@
             </button>
             <script type="text/javascript">
               function clickHand() {
+
                 var firstName = document.getElementById("first_2");
                 var lastName = document.getElementById("last_2");
                 var email = document.getElementById("input_3");

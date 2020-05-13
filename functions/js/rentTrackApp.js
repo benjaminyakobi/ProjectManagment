@@ -99,7 +99,7 @@ fetch("/renterLease", {
                             '<td >First name</td>'+
                             '<td >last name</td>'+
                             '<td >Email</td>'+
-                            '<td >Phone Number</td>'+
+                             '<td >Phone Number</td>'+
                             '<td >starting date</td>'+
                             '<td >ending date</td>'+
                             '<td >Billing overall</td>'+

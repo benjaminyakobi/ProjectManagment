@@ -38,7 +38,7 @@ reqApp.use(cors);
 reqApp.use(bodyParser.json());
 reqApp.use(bodyParser.urlencoded({ extended: true }));*/
 app.engine("html", ejs.renderFile);
-app.set('view engine',ejs);
+app.set('view engine', ejs);
 app.use(cors);
 app.use(csrfMiddleware);
 app.use(bodyParser.json());
@@ -61,20 +61,19 @@ app.get("/renter.ejs", function (req, res) {
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "renter")
-            {            
-                    var l = [];
-                    var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
-                    var allDocs = query.get().then(snapShot => {
-                        if (snapShot.empty) {
-                            console.log('No matching documents,firstPhase.');
-                            return;
-                        }
-                        snapShot.forEach(doc => {
-                            l.push({ id: doc.id, data: doc.data() });
-                        });
-                        res.render("renter.ejs",{l:l});
-                    });          
+            if (req.cookies.role === "renter") {
+                var l = [];
+                var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
+                var allDocs = query.get().then(snapShot => {
+                    if (snapShot.empty) {
+                        console.log('No matching documents,firstPhase.');
+                        return;
+                    }
+                    snapShot.forEach(doc => {
+                        l.push({ id: doc.id, data: doc.data() });
+                    });
+                    res.render("renter.ejs", { l: l });
+                });
             }
             else
                 res.send("Not authorized!");
@@ -90,8 +89,7 @@ app.get("/Admin.ejs", function (req, res) {
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "Admin")
-            {
+            if (req.cookies.role === "Admin") {
 
                 var l = [];
 
@@ -101,7 +99,7 @@ app.get("/Admin.ejs", function (req, res) {
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
-                    res.render("Admin.ejs",{l:l});
+                    res.render("Admin.ejs", { l: l });
                 });
             }
             else
@@ -130,7 +128,11 @@ app.get("/", function (req, res) {
             else if (req.cookies.role === "renter") {
                 req.url = '/renter.ejs';
                 app.handle(req, res);
-            } else {
+            } else if (req.cookies.role == "Verify") {
+                res.clearCookie("session");
+                res.send("Wait for admin verification");
+            }
+            else {
                 res.render("index.html");
             }
         })
@@ -155,7 +157,7 @@ app.get("/order/:unitId", function (req, res) {
                         return;
                     }
 
-                    res.render("order.ejs",{id:req.params.unitId,data:doc.data()});
+                    res.render("order.ejs", { id: req.params.unitId, data: doc.data() });
                 });
             } else {
                 console.log('no auth');
@@ -196,21 +198,21 @@ app.get("/student.ejs", function (req, res) {
         .verifySessionCookie(sessionCookie, true)//checkRevoked
         .then(() => {
             console.log(role);
-            if (req.cookies.role === "student"){
-            
+            if (req.cookies.role === "student") {
+
                 try {
                     var l = [];
-                    var query = admin.firestore().collection('units');
+                    var query = admin.firestore().collection('units').where('sold', '==', "false");
                     var allDocs = query.get().then(snapShot => {
                         snapShot.forEach(doc => {
                             l.push({ id: doc.id, data: doc.data() });
                         });
-                        res.render("student.ejs",{l:l});
+                        res.render("student.ejs", { l: l });
                     });
                 } catch (error) {
                     return res.status(500).send(error);
                 }
-              
+
             }
             else
                 res.redirect("/");
@@ -234,9 +236,7 @@ app.get("/sessionLogout", (req, res) => {
 //Login and creating cookie 
 app.post("/sessionLogin", (req, res) => {
     const idToken = req.body.idToken.toString();
-
     const expiresIn = 60 * 60 * 24 * 5 * 1000;
-
     admin
         .auth()
         .createSessionCookie(idToken, { expiresIn })
@@ -280,12 +280,14 @@ app.post("/registerAccount", (req, res) => {
             (sessionCookie) => {
                 (async () => {
                     try {
+                        var roleA = "";
                         if (req.body.lPerm === "student") {
+                            roleA = "Verify";
                             var check = admin.firestore().collection('users').doc(req.body.uid).set({
                                 email: req.body.email,
                                 firstName: req.body.firstName,
                                 lastName: req.body.lastName,
-                                perm: req.body.lPerm,
+                                perm: "Verify",
                                 profileUrl: req.body.imgUrl
                             });
 
@@ -298,6 +300,7 @@ app.post("/registerAccount", (req, res) => {
                             });
                         }
                         if (req.body.lPerm === "renter") {
+                            roleA = "renter";
                             var check2 = admin.firestore().collection('users').doc(req.body.uid).set({
                                 email: req.body.email,
                                 firstName: req.body.firstName,
@@ -308,7 +311,7 @@ app.post("/registerAccount", (req, res) => {
                         }
                         const options = { maxAge: expiresIn, httpOnly: true };
                         //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
-                        res.cookie('role', req.body.lPerm);
+                        res.cookie('role', roleA);
                         res.cookie('uid', req.body.uid);
                         res.cookie("session", sessionCookie, options);
                         res.end(JSON.stringify({ status: "success" }));
@@ -463,7 +466,9 @@ app.post('/adminRequest', (req, res) => {
                 //  console.log(req.body.flag);
                 if (req.body.flag == "true") {
                     var query = admin.firestore().collection('requests').doc(req.body.uid).delete();
-
+                    var query2 = admin.firestore().collection('users').doc(req.body.uid).update({
+                        perm: "student"
+                    });
                 }
                 else if (req.body.flag == "false") {
                     var query2 = admin.firestore().collection('requests').doc(req.body.uid).delete();
@@ -497,13 +502,13 @@ app.post('/renterResponse', (req, res) => {
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "renter") {
-                /////req.body.reqId
-                // console.log(req.body.flag);
                 if (req.body.flag == "true") {
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
                     //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(doc => {
-
+                        var query4 = admin.firestore().collection('units').doc(req.body.uid).update({
+                            sold: "true"
+                        });
                         var query2 = admin.firestore().collection('Transactions').doc(doc.id).set(doc.data());
                         var query3 = admin.firestore().collection('requestPayment').where('unitid', '==', doc.data().unitid).get().then(snapShot => {
                             var batch = admin.firestore().batch();
@@ -518,9 +523,11 @@ app.post('/renterResponse', (req, res) => {
                     });
                 }
                 else if (req.body.flag == "false") {
-                    var query = admin.firestore().collection('requestPayement').doc(req.body.uid).delete();
+                    console.log(req.body.uid);
+                    var query6 = admin.firestore().collection('requestPayment').doc(req.body.uid).delete();
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({ status: 'OK', data: l });
+
                 }
             }
             else
@@ -534,69 +541,68 @@ app.post('/renterResponse', (req, res) => {
 
 //request all units 
 app.post('/rU', (req, res) => {
-    /*  const sessionCookie = req.cookies.session || "";
-  
-      admin
-          .auth()
-          .verifySessionCookie(sessionCookie, true /** checkRevoked )
-          .then(() => {
-          res.render("student.html");
-      })
-      .catch((error) => {
-      res.redirect("/");
-      });*/
-    //res.send("wow");
-    (async () => {
-        try {
-            var l = [];
-            var query = admin.firestore().collection('units');
-            var allDocs = query.get().then(snapShot => {
-                snapShot.forEach(doc => {
-                    l.push({ id: doc.id, data: doc.data() });
-                });
+    const sessionCookie = req.cookies.session || "";
 
-                res.setHeader('Content-Type', 'application/json');
-                return res.json({ status: 'OK', data: l });
-            });
-        } catch (error) {
-            return res.status(500).send(error);
-        }
-    })();
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)
+        .then(() => {
+            if(req.cookies.role == "student")
+            {
+                (async () => {
+                    try {
+                        var l = [];
+                        var query = admin.firestore().collection('units');
+                        var allDocs = query.get().then(snapShot => {
+                            snapShot.forEach(doc => {
+                                l.push({ id: doc.id, data: doc.data() });
+                            });
+
+                            res.setHeader('Content-Type', 'application/json');
+                            return res.json({ status: 'OK', data: l });
+                        });
+                        } catch (error) {
+                        return res.status(500).send(error);
+                    }
+                })();
+            }else{
+                res.send("not authorized access");
+            }
+        })
+        .catch((error) => {
+            res.redirect("/");
+        });
 });
 
 
 
-//request all units 
+//request all units Sort
 app.post('/requestUSort', (req, res) => {
     const sessionCookie = req.cookies.session || "";
 
     admin
         .auth()
-        .verifySessionCookie(sessionCookie, true )
+        .verifySessionCookie(sessionCookie, true)
         .then(() => {
-            if(req.cookies.role == "student")
-            {
+            if (req.cookies.role == "student") {
 
-                    (async () => {
+                (async () => {
                     try {
                         var query;
                         var l = [];
-        
-                        if(req.body.action == "sort")
-                        {
-                            if(req.body.sortDirection == "desc")
-                            {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName,'desc');
-                            }else{
+
+                        if (req.body.action == "sort") {
+                            if (req.body.sortDirection == "desc") {
+                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc');
+                            } else {
                                 query = admin.firestore().collection('units').orderBy(req.body.colName);
                             }
                         }
-                        else if(req.body.action == "filter")
-                        {
+                        else if (req.body.action == "filter") {
                             //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
                             //.where(req.body.colName,'<=',req.body.higherValue);
-                            query =  admin.firestore().collection('units').where(req.body.colName,'>=',Number(req.body.lowerValue))
-                            .where(req.body.colName,'<=',Number(req.body.higherValue));
+                            query = admin.firestore().collection('units').where(req.body.colName, '>=', Number(req.body.lowerValue))
+                                .where(req.body.colName, '<=', Number(req.body.higherValue));
                         }
                         else
                             query = admin.firestore().collection('units');
@@ -628,29 +634,28 @@ app.post('/requestOrder', (req, res) => {
 
     admin
         .auth()
-        .verifySessionCookie(sessionCookie, true )
+        .verifySessionCookie(sessionCookie, true)
         .then(() => {
-            if(req.cookies.role == "student")
-            {
+            if (req.cookies.role == "student") {
                 var query = admin.firestore().collection('requestPayment').add({
-                    email:req.body.email,
-                    billTotal:Number(req.body.billTotal),
-                    endDate:req.body.endDate,
-                    firstName:req.body.firstName,
-                    lastName:req.body.lastName,
-                    phoneNumber:req.body.phoneNumber,
-                    sId:req.cookies.uid,
-                    startDate:req.body.startDate,
-                    unitid:req.body.unitid,
-                    ccFirstName:req.body.ccFirstName,
-                    ccLastName:req.body.ccLastName,
-                    ccNumber:req.body.ccNumber,
-                    ccSec:req.body.ccSec,
-                    ccExp:req.body.ccExp,
-                    ccPostal:req.body.ccPostal
+                    email: req.body.email,
+                    billTotal: Number(req.body.billTotal),
+                    endDate: req.body.endDate,
+                    firstName: req.body.firstName,
+                    lastName: req.body.lastName,
+                    phoneNumber: req.body.phoneNumber,
+                    sId: req.cookies.uid,
+                    startDate: req.body.startDate,
+                    unitid: req.body.unitid,
+                    ccFirstName: req.body.ccFirstName,
+                    ccLastName: req.body.ccLastName,
+                    ccNumber: req.body.ccNumber,
+                    ccSec: req.body.ccSec,
+                    ccExp: req.body.ccExp,
+                    ccPostal: req.body.ccPostal
                 });
                 res.setHeader('Content-Type', 'application/json');
-                return res.json({ status: 'OK'});
+                return res.json({ status: 'OK' });
             }
             else
                 res.send("not authorized");
@@ -705,33 +710,34 @@ app.post('/updateUnit', (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then(() => {
-                (async () => {
-                    try {
+            (async () => {
+                try {
 
-                        if (req.cookies.role == "renter") {
-                            var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
-                                location: req.body.location,
-                                endDate: req.body.endDate,
-                                ownerName: req.body.ownerName,
-                                phoneNumber: req.body.phoneNumber,
-                                price: Number(req.body.price),
-                                rating: req.body.rating,
-                                rooms: Number(req.body.rooms),
-                                startDate: req.body.startDate  
-                            }).then(()=>{
-                                //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
-                                res.setHeader('Content-Type', 'application/json');
-                                res.end(JSON.stringify({ status: "success" }));
-                            });
-                        }
-                        else {
-                            res.send("not authorized post!");
-                        }
+                    if (req.cookies.role == "renter") {
+                        var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
+                            location: req.body.location,
+                            endDate: new Date(req.body.endDate),
+                            ownerName: req.body.ownerName,
+                            phoneNumber: req.body.phoneNumber,
+                            price: Number(req.body.price),
+                            rating: req.body.rating,
+                            rooms: Number(req.body.rooms),
+                            startDate: new Date(req.body.startDate),
+                            minDate: new Date(req.body.minDate)
+                        }).then(() => {
+                            //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                            res.setHeader('Content-Type', 'application/json');
+                            res.end(JSON.stringify({ status: "success" }));
+                        });
                     }
-                    catch (error) {
-                        res.send("Unable to access database!");
+                    else {
+                        res.send("not authorized post!");
                     }
-                })();
+                }
+                catch (error) {
+                    res.send("Unable to access database!");
+                }
+            })();
         })
         .catch((error) => {
             return res.status(500).send('y are you');
@@ -747,64 +753,37 @@ app.post('/addUnit', (req, res) => {
         .verifySessionCookie(sessionCookie, true)
         .then(() => {
 
-                if (req.cookies.role == "renter") {
-                    var check2 = admin.firestore().collection('units').add({
-                        location: req.body.location,//1
-                        endDate: req.body.endDate,//1
-                        ownerName: req.body.ownerName,      //1
-                        phoneNumber: req.body.phoneNumber,  //1
-                        price: Number(req.body.price),      //1
-                        rating: req.body.rating,            //1
-                        rooms: Number(req.body.rooms),      //1
-                        startDate: req.body.startDate,       //1
-                        hasPictures:req.body.hasPictures, //1
-                        minDate: req.body.minDate, //1
-                        sold:"false",
-                        rid:req.cookies.uid
-                    }).then(()=>{
-                        //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
-                        res.setHeader('Content-Type', 'application/json');
-                        res.end(JSON.stringify({ status: "success" }));
-                    });
-                }
-                else {
-                    res.send("not authorized to post a unit!");
-                }
-                
+            if (req.cookies.role == "renter") {
+                var check2 = admin.firestore().collection('units').add({
+                    location: new req.body.location,//1
+                    endDate: Date(req.body.endDate),//1
+                    ownerName: req.body.ownerName,      //1
+                    phoneNumber: req.body.phoneNumber,  //1
+                    price: Number(req.body.price),      //1
+                    rating: req.body.rating,            //1
+                    rooms: Number(req.body.rooms),      //1
+                    startDate: new Date(req.body.startDate),       //1
+                    hasPictures: req.body.hasPictures, //1
+                    minDate: new Date(req.body.minDate), //1
+                    sold: "false",
+                    rid: req.cookies.uid
+                }).then(() => {
+                    //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                    res.setHeader('Content-Type', 'application/json');
+                    res.end(JSON.stringify({ status: "success" }));
+                });
+            }
+            else {
+                res.send("not authorized to post a unit!");
+            }
+
         })
         .catch((error) => {
             return res.status(500).send('y are you');
         });
 
 });
-///checkeckeckekckekce
-app.post('/getRequests', (req, res) => {
-    try {
-        if (req.user.authenticated) {
-            return res.render('es/login', { title: 'Hello - Please Login To Your Account' });
-        }
-    }
-    catch (error) {
-        return res.status(500).send('y are you');
-    }
 
-    (async () => {
-        try {
-            /*    var l = [];
-                var query = admin.firestore().collection('units');
-                var allDocs = query.get().then(snapShot => {
-                    snapShot.forEach(doc => {
-                        l.push(doc.data());
-                        
-                        
-                    });
-                });*/
-            return res.status(200).json({ status: 'OK', data: "kk" });
-        } catch (error) {
-            return res.status(500).send(error);
-        }
-    })();
-});
 
 var PORT = 9000;
 app.use('/js', express.static("js"));

@@ -35,7 +35,16 @@ function initApp() {
     cancelSpan.onclick = function () {
         const modalVar = document.getElementById("myModal");
         const form = document.getElementById("editInfoFormTwo");
-        console.log("running");
+        // console.log("running");
+        
+        var fDate = new Date(form.fromDate.value);
+        var uDate = new Date(form.untilDate.value);
+
+        if(fDate.getTime() - uDate.getTime() > 0){
+            alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
+            return;
+        }
+
         //request to db to update data
         fetch("/updateUnit", {
             method: "POST",
