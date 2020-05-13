@@ -39,10 +39,7 @@
                         <a class="nav-link" href="/sessionLogout">Log out</a>
                     </li>
                 </ul>
-                <!-- <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form> -->
+
             </div>
         </nav>
     </div>
@@ -164,7 +161,6 @@
 
         }
 
-        /*This function have to be implemented!*/
         function addNewAppartmentFunction() {
             const modalVar = document.getElementById("myModal");
             const modalVarOne = document.getElementById("modalOne");
@@ -196,36 +192,7 @@
                 modalVar.style.display = "none";
             }
 
-            // var cancelSpan = document.getElementsByClassName("close")[0];
-            // cancelSpan.onclick = function () {
-            //     modalVar.style.display = "none";
-            // }
-            // window.onclick = function (event) {
-            //     if (event.target == modalVar) {
-            //         modalVar.style.display = "none";
-            //     }
-            // }
 
-            // var cancelSpan = document.getElementsByClassName("cancelbtn")[0];
-            // cancelSpan.onclick = function () {
-            //     modalVar.style.display = "none";
-            // }
-            // window.onclick = function (event) {
-            //     if (event.target == modalVar) {
-            //         modalVar.style.display = "none";
-            //     }
-            // }
-
-            // var saveSpan = document.getElementsByClassName("saveChangesBtn")[0];
-            // saveSpan.onclick = function () {
-            //     saveChanges();
-            //     modalVarTwo.style.display = "none";
-            // }
-            // window.onclick = function (event) {
-            //     if (event.target == modalVarTwo) {
-            //         modalVarTwo.style.display = "none";
-            //     }
-            // }
         }
 
         /*This function have to be implemented!*/
@@ -255,32 +222,17 @@
             cancelSpan.onclick = function () {
                 modalVar.style.display = "none";
             }
-            // window.onclick = function (event) {
-            //     if (event.target == modalVar) {
-            //         modalVar.style.display = "none";
-            //     }
-            // }
+
 
             var saveSpan = document.getElementById("saveOne");
             saveSpan.onclick = function () {
                 // INSERT CHANGES HERE
                 modalVar.style.display = "none";
             }
-            // window.onclick = function (event) {
-            //     if (event.target == modalVarTwo) {
-            //         modalVarTwo.style.display = "none";
-            //     }
-            // }
+
         }
 
-        /*NOT FINISHED YET - have to send eequest to server to update the database*/
-        // function saveChanges() {
-        //     {
-        //         { email: document.getElementById('newEmail') }
-        //         { fullName: document.getElementById('fullName') }
-        //         { phoneNumber: document.getElementById('newPhone') }
-        //     }
-        // }
+
 
 
     </script>
@@ -328,7 +280,9 @@
                     <p>From date: <input id="startDateModal" name="fromDate" type="text" size="30"></p>
                     <p>Until date: <input id="endDateModal" name="untilDate" type="text" size="30"></p>
                     <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
-                    <fieldset disabled> <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p> </fieldset>
+                    <fieldset disabled>
+                        <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p>
+                    </fieldset>
 
                 </form>
 
@@ -426,8 +380,6 @@
         <tbody id="myTableRows"></tbody>
     </table>
     <script type="text/javascript" src="/js/rentApp.js"></script>
-
-
 
 </body>
 

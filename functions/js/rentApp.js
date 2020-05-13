@@ -37,42 +37,41 @@ function initApp() {
         const modalVar = document.getElementById("myModal");
         const form = document.getElementById("editInfoFormTwo");
         console.log("running");
-          //request to db to update data
-            fetch("/updateUnit", {
-                method: "POST",
-                headers: {
-                    Accept: "application/json",
-                    "Content-Type": "application/json",
-                    "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-                },
-                body: JSON.stringify({ 
-                                        endDate:    form.untilDate.value,
-                                        location:   form.location.value,
-                                        ownerName:  form.owner.value,
-                                        phoneNumber:form.phone.value, 
-                                        price:      form.price.value,
-                                        rating:     form.rating.value,
-                                        rooms:      form.rooms.value,
-                                        startDate:   form.fromDate.value,
-                                        unitId:     form.uid.value
-                                    }),
-            })
-            
-                .then(response => response.json())
-                .then(function (resJ) {
-                    console.log(resJ.data);
+        //request to db to update data
+        fetch("/updateUnit", {
+            method: "POST",
+            headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+                "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+            },
+            body: JSON.stringify({
+                endDate: form.untilDate.value,
+                location: form.location.value,
+                ownerName: form.owner.value,
+                phoneNumber: form.phone.value,
+                price: form.price.value,
+                rating: form.rating.value,
+                rooms: form.rooms.value,
+                startDate: form.fromDate.value,
+                unitId: form.uid.value
+            }),
+        })
 
-                }).catch(function (error) {
-                    console.log('data error');
-                });
+            .then(response => response.json())
+            .then(function (resJ) {
+                console.log(resJ.data);
 
-          //  const sss = document.getElementById("myTable");
-            
-        //modalVar.style.display = "none";
+            }).catch(function (error) {
+                console.log('data error');
+            });
+
+        modalVar.style.display = "none";
+        location.reload();
     };
 
 
-fetch("/requestRenter", {
+    fetch("/requestRenter", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -83,23 +82,23 @@ fetch("/requestRenter", {
     })
         .then(response => response.json())
         // eslint-disable-next-line prefer-arrow-callback
-        .then(function(resJ) {
+        .then(function (resJ) {
             console.log(resJ.data);
             // eslint-disable-next-line promise/always-return
             for (var i = 0; i < resJ.data.length; i++) {
                 var obj = resJ.data[i];
                 //console.log(obj.id);
                 sss.innerHTML += '<tl>' +
-                        '<td><a href="#">' + obj.data.location + '</a></td>' +
-                        '<td><a href="#">' + obj.data.rooms + '</a></td>' +
-                        '<td><a href="#">' + obj.data.price + '</a></td>' +
-                        '<td><a href="#">' + obj.data.rating + '</a></td>' +
-                        '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
-                        '<td><a href="#">' + obj.data.startDate + '</a></td>' +
-                        '<td><a href="#">' + obj.data.endDate + '</a></td>' +
-                        '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
-                        '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures) + '"></a></td>' +
-                        '<td style="display:none;"><button value='+obj.id+' ></button></td>' +
+                    '<td><a href="#">' + obj.data.location + '</a></td>' +
+                    '<td><a href="#">' + obj.data.rooms + '</a></td>' +
+                    '<td><a href="#">' + obj.data.price + '</a></td>' +
+                    '<td><a href="#">' + obj.data.rating + '</a></td>' +
+                    '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
+                    '<td><a href="#">' + obj.data.startDate + '</a></td>' +
+                    '<td><a href="#">' + obj.data.endDate + '</a></td>' +
+                    '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
+                    '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures) + '"></a></td>' +
+                    '<td style="display:none;"><button value=' + obj.id + ' ></button></td>' +
                     '</tl>';
                 //note: obj.id is a unique unit-id
             }
@@ -110,7 +109,7 @@ fetch("/requestRenter", {
         });
 
     const sss = document.getElementById("myTable");
-    
+
 }
 
 
@@ -147,7 +146,7 @@ function addRowHandlers() {
                     modal2.style.display = "block";
                     modal3.style.display = "none";
 
-                    fillInformation(row.getElementsByTagName("a"),bd.value);
+                    fillInformation(row.getElementsByTagName("a"), bd.value);
                 };
 
             };
@@ -156,7 +155,7 @@ function addRowHandlers() {
     }
 }
 
-function fillInformation(id,uid) {
+function fillInformation(id, uid) {
     document.getElementById("locationModal").value = id[0].innerHTML;
     document.getElementById("roomzModal").value = id[1].innerHTML;
     document.getElementById("priceModal").value = id[2].innerHTML;
