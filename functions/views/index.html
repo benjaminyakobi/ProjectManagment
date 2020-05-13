@@ -205,9 +205,7 @@
       margin: auto;
       padding: 5px;
       border: 1px solid #888;
-      width: 40%;
-
-
+      width: 30%;
     }
 
     /* The Close Button */
@@ -257,17 +255,17 @@
         <input type="text" name="answer" id="questionAns" placeholder="Answer">
 
         <div class="recoverPassordWrapper">
-        <button id="checkUsernameBtn" onclick="myfunc()">Recover My Password</button>
+          <button id="checkUsernameBtn" onclick="myfunc()">Recover My Password</button>
         </div>
       </form>
       <script>
         function myfunc() {
           var ques = document.getElementsByName('questions')[0];
           var textQues = ques.options[ques.selectedIndex].text;
-          
+
           var ema = document.getElementById('newEmail');
           var textEma = ema.value;
-          
+
           var ans = document.getElementById('questionAns');
           var textAns = ans.value;
           // console.log(textQues);
@@ -290,7 +288,7 @@
     </div>
 
     <div id="registerModal" style="display: none;" class="registerModalContent">
-      <span class="close">&times;</span>
+      <span class="close" id="closeReg">&times;</span>
       <form class="registerForm">
         <label for="userType">Type:</label>
         <input type="radio" id="renter" name="userType" value="renter" onclick="userType(value)">
@@ -301,7 +299,7 @@
         <p id="email"></p>
         <input type="text" name="userE" id="userEmail" placeholder="Email">
         <p id="password"></p>
-        <input type="password" name="userP" id="userPassword">
+        <input type="password" name="userP" id="userPassword" placeholder="Password">
 
         <p id="FName"></p>
         <label for="firstName" class="sr-only">First name</label>
@@ -314,19 +312,19 @@
         <div id="bankAccount" style="display: none">
           <label for="lastName" class="sr-only">Bank Account number</label>
           <!--only for Renters-->
-          <input type="text" id="bank" name="bank" class="form-control" placeholder="Bank Account number"><br>
+          <input type="text" id="bank" name="bank" class="form-control" placeholder="Bank Account Number"><br>
           <!--add required field-->
         </div>
 
         <div id="imgup">
-          <label for="img">Add student ID</label>
           <!--only for Students-->
+          <br><label for="img">Add student ID</label>
           <input type="file" id="img" name="img" accept="image/x-png"><br>
           <!--add required field-->
           <a href=http://asce.co.il>Don't have Student card?</a><br><br>
         </div>
         <img id="prevImage" />
-        <button type="submit" name="registerB" id="registerButton">Register</button>
+        <button type="submit" name="registerB" id="registerButton" >Register</button>
       </form>
     </div>
 
