@@ -114,7 +114,7 @@
             margin: auto;
             padding: 5px;
             border: 1px solid rgb(0, 0, 0);
-            width: 80%;
+            width: 60%;
         }
 
 
@@ -173,8 +173,8 @@
             const modalVarThree = document.getElementById("modalThree");
             modalVarThree.style.display = "block";
 
-            var cancelSpan = document.getElementById("closeThree");
-            cancelSpan.onclick = function () {
+            var closeSpan = document.getElementById("closeThree");
+            closeSpan.onclick = function () {
                 const modalVar = document.getElementById("myModal");
                 modalVar.style.display = "none";
             }
@@ -185,17 +185,46 @@
                 modalVar.style.display = "none";
             }
 
-            var cancelSpan = document.getElementById("saveThree");
-            cancelSpan.onclick = function () {
+            var saveSpan = document.getElementById("saveThree");
+            saveSpan.onclick = function () {
                 const modalVar = document.getElementById("myModal");
-                // const form = document.getElementById("editInfoFormThree");
-                modalVar.style.display = "none";
-            }
+                const form = document.getElementById("editInfoFormThree");
+                console.log("running");
+                //request to db to update data
+                fetch("/addUnit", {
+                    method: "POST",
+                    headers: {
+                        Accept: "application/json",
+                        "Content-Type": "application/json",
+                        "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+                    },
+                    body: JSON.stringify({
+                        endDate: form.untilDate.value,
+                        location: form.location.value,
+                        ownerName: form.owner.value,
+                        phoneNumber: form.phone.value,
+                        price: form.price.value,
+                        rating: form.rating.value,
+                        rooms: form.rooms.value,
+                        startDate: form.fromDate.value,
+                        // unitId: form.uid.value
+                    }),
+                })
 
+                    .then(response => response.json())
+                    .then(function (resJ) {
+                        console.log(resJ.data);
+
+                    }).catch(function (error) {
+                        console.log('data error');
+                    });
+
+                modalVar.style.display = "none";
+                location.reload();
+            }
 
         }
 
-        /*This function have to be implemented!*/
         function editInfoFunction() {
             const modalVar = document.getElementById("myModal");
             const modalVarOne = document.getElementById("modalOne");
@@ -208,8 +237,8 @@
             const modalVarThree = document.getElementById("modalThree");
             modalVarThree.style.display = "none";
 
-            var cancelSpan = document.getElementsByClassName("close")[0];
-            cancelSpan.onclick = function () {
+            var closeSpan = document.getElementsByClassName("close")[0];
+            closeSpan.onclick = function () {
                 modalVar.style.display = "none";
             }
             window.onclick = function (event) {
@@ -232,9 +261,6 @@
 
         }
 
-
-
-
     </script>
 
 </head>
@@ -248,14 +274,17 @@
             <form id="editInfoForm">
                 <h2>Edit Personal Information</h2>
 
-                <label for="fullName"><b>New Name</b></label>
-                <input id="fullName" type="text" placeholder="Enter Full Name" name="fullName" required>
+                <!-- <label for="fullName"><b>New Name</b></label>
+                <input id="fullName" type="text" placeholder="Enter Full Name" name="fullName" required> -->
 
                 <label for="email"><b>New Email</b></label>
                 <input id="newEmail" type="text" placeholder="Enter Email" name="email" required>
 
-                <label for="phone"><b>New Phone Number</b></label>
-                <input id="newPhone" type="text" placeholder="Enter Phone Number" name="phone" required>
+                <!-- <label for="phone"><b>New Phone Number</b></label> -->
+                <!-- <input id="newPhone" type="text" placeholder="Enter Phone Number" name="phone" required> -->
+                <label for="bankAcoount"><b>New Bank Account</b></label>
+                <input id="newBankAccount" type="text" placeholder="Enter Bank Account" name="bankAccount" required>
+
 
             </form>
             <div class="clearfix">
@@ -327,8 +356,7 @@
                 New Appartment</button>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=showMyContractsFunction();>Show
                 My Contratcs</button>
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit
-                Info</button>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=editInfoFunction();>Edit User Info</button>
         </div>
     </div>
 
