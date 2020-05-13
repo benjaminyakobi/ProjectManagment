@@ -194,7 +194,13 @@
                             <img style="visibility: hidden;" src =" <%= obj.data.hasPictures[j] %> ">
                             
                        <% } %> -->
-                        <td><a href="#"><img src="<%- "hasImg(" + obj.data.hasPictures.length + ")" %>" > </a></td>
+                        <% if(obj.data.hasPictures.length == 0) { %>
+                            <td><a href="#"><img src="" > </a></td>
+
+                       <% }else{ %>
+                            <td><a href="#"><img src="/images/compact_camera.png" > </a></td>
+                        <% } %>
+
                     </tl></tr> 
                 <% } %>
         </tbody>
