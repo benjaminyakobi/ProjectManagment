@@ -450,3 +450,38 @@ function lClick()
         //     }
         // }
 
+
+
+              <!-- <div class="container"> -->
+      <!-- <div class="dropdown"> -->
+      <!-- <label for="username">Choose Your Question</label> -->
+      <!-- <button type="button" data-toggle="dropdown">Questions<span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><a>Who is your favorite lecturer?</a></li>
+            <li><a>What is your first pet name?</a></li>
+            <li><a>What is your favorite food?</a></li>
+            <li><a>What is your favorite song?</a></li>
+          </ul>
+        </div> -->
+      <!-- </div> -->
+
+
+            <!-- <button type="button" id="logoutButton" class="loginFormButton">Log Out</button> -->
+      <!-- <label name = "forgot passowrd" id="forgotPass" class = "loginFormField">Forgot Password/Username?</label>
+      <label name = "create new user" id="createUser" class = "loginFormField">Create New User</label> -->
+
+
+              <!-- <input value="Choose" type="submit" onclick="myfunc()"> -->
+        <!-- </form> -->
+
+        <!-- <form id="recoveryForm"> -->
+        <!-- </form> -->
+
+        <!-- <label for="answer"><br><br>Choose Your Question<br></label> -->
+
+        <!-- <form> -->
+
+                <!-- <p>Enter Username</p> -->
+        <!-- <form id="recoveryForm"> -->
+        <!-- <button id="checkUsernameBtn">Next</button> -->
+        <!-- </form> -->
