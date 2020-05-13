@@ -153,7 +153,7 @@ JotForm.paymentExtrasOnTheFly([null,{"name":"clickTo","qid":"1","text":"Product 
               <p>Owner name: <input id="ownerNameModal" type="text" value= <%= data.ownerName %> size="30"></p>
               <p>From date: <input id="startDateModal" type="text" value= <%= data.startDate %> size="30"></p>
               <p>Minimum lease date: <input id="minDateModal" type="text" value= <%= data.minDate.toDate().toLocaleDateString("en-US") %> size="30"></p>
-              <p>Until date: <input id="endDateModal" type="text" value= <%= data.endDate %> size="30"></p>
+              <p>Until date: <input id="endDateModal" type="text" value= <%= data.endDate.toDate().toLocaleDateString("en-US") %> size="30"></p>
               <p>Phone number: <input id="phoneNumberModal" type="text" value= <%= data.phoneNumber %> size="30"></p>
               <p>Uid <input id="uidModal" type="text" value= <%= id %> size="30"></p>
             </fieldset>
