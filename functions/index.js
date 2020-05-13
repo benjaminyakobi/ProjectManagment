@@ -713,13 +713,13 @@ app.post('/updateUnit', (req, res) => {
                         if (req.cookies.role == "renter") {
                             var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
                                 location: req.body.location,
-                                endDate: req.body.endDate,
+                                endDate: Date(req.body.endDate),
                                 ownerName: req.body.ownerName,
                                 phoneNumber: req.body.phoneNumber,
                                 price: Number(req.body.price),
                                 rating: req.body.rating,
                                 rooms: Number(req.body.rooms),
-                                startDate: req.body.startDate  
+                                startDate: Date(req.body.startDate)
                             }).then(()=>{
                                 //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                                 res.setHeader('Content-Type', 'application/json');
