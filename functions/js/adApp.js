@@ -170,6 +170,8 @@ function accept(objec) {
         }).catch(function (error) {
             console.log('data error');
         });
+    location.reload();
+
 }
 
 
@@ -195,6 +197,7 @@ function decline(objec) {
         }).catch(function (error) {
             console.log('data error');
         });
+    location.reload();
 }
 
 
