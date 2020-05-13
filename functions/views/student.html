@@ -123,11 +123,6 @@
     </select>
 
     <input onclick="sendData()" type="submit">
-    <div>
-        <form>
-            <button onClick="window.location.reload();">Refresh Page</button>
-        </form>
-    </div>
 
     <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
 
@@ -164,6 +159,7 @@
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
                             onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div>
                 </th>
+                
                 <th>
                     <div>Minimum order date<button class="button btnStyle" onclick="sortUp('minDate')"> <img
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
@@ -179,20 +175,7 @@
             </tr>
         </thead>
         <tbody id="tableBody">
-                <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
-                    <tr><tl>
-                        <td><a href="#"> <%= obj.data.location      %></a></td>
-                        <td><a href="#"> <%= obj.data.rooms         %></a></td>
-                        <td><a href="#"> <%= obj.data.price         %></a></td>        
-                        <td><a href="#"> <%= obj.data.rating        %></a></td>                   
-                        <td><a href="#"> <%= obj.data.ownerName     %></a></td> 
-                        <td><a href="#"> <%= obj.data.startDate     %></a></td> 
-                        <td><a href="#"> <%= obj.data.minDate     %></a></td> 
-                        <td><a href="#"> <%= obj.data.endDate       %></a></td>
-                        <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
-                        <td><a href="#"><img src=""></a></td>
-                    </tl></tr>
-                <% } %>
+
         </tbody>
     </table>
 
@@ -215,7 +198,7 @@
                     <p>Rating: <input id="ratingModal" type="text" size="30"></p>
                     <p>Owner name: <input id="ownerNameModal" type="text" size="30"></p>
                     <p>From date: <input id="startDateModal" type="text" size="30"></p>
-                    <p>Minimum order date: <input id="minDateModal" type="text" size="30"></p>
+                    <p>Minimum date: <input id="minimumDateModal" type="text" size="30"></p>
                     <p>Until date: <input id="endDateModal" type="text" size="30"></p>
                     <p>Phone number: <input id="phoneNumberModal" type="text" size="30"></p>
                 </fieldset>
@@ -261,11 +244,9 @@
 
                         <div>
                             <label>From date</label>
-                            <input type="text" id="startDate" size="10" placeholder="dd-mm-yyyy">
-                            <label>Minimum order date</label>
-                            <input type="text" id="minDate" size="10" placeholder="dd-mm-yyyy">
+                            <input type="text" id="startDate" size="10" placeholder="mm-yyyy">
                             <label>to date</label>
-                            <input type="text" id="endDate" size="10" placeholder="dd-mm-yyyy">
+                            <input type="text" id="endDate" size="10" placeholder="mm-yyyy">
                         </div>
                         <div>
                             <div>

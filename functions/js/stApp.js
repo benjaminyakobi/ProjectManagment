@@ -200,6 +200,7 @@ function sendRequestToServer(jsonInfo){
                                   '<td><a href="#">' +obj.data.rating+ '</a></td>'+                     
                                   '<td><a href="#">' +obj.data.ownerName+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.data.startDate+ '</a></td>'+ 
+                                  '<td><a href="#">' +obj.data.minDate+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.data.endDate+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
                                   '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
@@ -265,8 +266,9 @@ function fillInformation(id){
   document.getElementById("ratingModal").value = id[3].innerHTML;
   document.getElementById("ownerNameModal").value = id[4].innerHTML;
   document.getElementById("startDateModal").value = id[5].innerHTML;
-  document.getElementById("endDateModal").value = id[6].innerHTML;
-  document.getElementById("phoneNumberModal").value = id[7].innerHTML;
+  document.getElementById("minDateModal").value = id[6].innerHTML;
+  document.getElementById("endDateModal").value = id[7].innerHTML;
+  document.getElementById("phoneNumberModal").value = id[8].innerHTML;
 }
 
 function closeWindow(){
@@ -346,6 +348,3 @@ function sendData(){
   console.log(searchData +" "+ fromFilter+" "+ toFilter +" "+columnName);
   sendRequestToServer({colName:columnName,searchField:searchData,lowerValue:fromFilter,higherValue:toFilter,action:"filter"});
 }
-
-
-
