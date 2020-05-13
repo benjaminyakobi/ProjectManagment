@@ -7,6 +7,7 @@ window.onload = function() {
 function initApp()
 {
 
+    alert("The website is up, Log In & Enjoy!");
     //contain profile image
     let file={};
 
