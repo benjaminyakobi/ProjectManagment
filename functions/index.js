@@ -71,14 +71,26 @@ app.get("/renter.html", function (req, res) {
         });
 });
 
-app.get("/Admin.html", function (req, res) {
+app.get("/Admin.ejs", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "Admin")
-                res.render("Admin.html");
+            {
+
+                var l = [];
+
+                var query = admin.firestore().collection('requests');
+                //var storageRef = firebaseApp.storage().ref();
+                var allDocs = query.get().then(snapShot => {
+                    snapShot.forEach(doc => {
+                        l.push({ id: doc.id, data: doc.data() });
+                    });
+                    res.render("Admin.ejs",{l:l});
+                });
+            }
             else
                 res.send("Not authorized!");
         })
@@ -95,7 +107,7 @@ app.get("/", function (req, res) {
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "Admin") {
-                req.url = '/Admin.html';
+                req.url = '/Admin.ejs';
                 app.handle(req, res);
             }
             else if (req.cookies.role === "student") {

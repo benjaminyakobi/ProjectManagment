@@ -25,7 +25,7 @@
     <script src="https://kit.fontawesome.com/2d10b7aa43.js" crossorigin="anonymous"></script>
     
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="../css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
     
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -113,15 +113,9 @@
             <td><a href="#"> <%= obj.data.firstName         %></a></td>
             <td><a href="#"> <%= obj.data.lastName         %></a></td>        
             <td><a href="#"> <img src=" <%= obj.data.profileUrl      %>" /> </a></td>                   
-           <td><button value = <%= obj.id %> </button> onclick="accept(this)">V</button><button value = <%= obj.id %> </button> onclick="decline(this)">X</button></td>
+           <td><button value = <%= obj.id %>  onclick="accept(this)" > V </button><button value = <%= obj.id %> onclick="decline(this)">X</button></td>
            
         </tl></tr>
-        +obj.id+ '</a></td>'+
-        '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
-        '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
-        '<td><a href="#"><img src="'+obj.data.profileUrl+'"></a></td>'+
-        '<td><button value ='+obj.id+' onclick="accept(this)">V</button><button value ='+obj.id+' onclick="decline(this)">X</button></td>'+
-      '</tl>';
     <% } %> 
     </tbody>
 
