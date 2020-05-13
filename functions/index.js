@@ -756,7 +756,7 @@ app.post('/addUnit', (req, res) => {
             if (req.cookies.role == "renter") {
                 var check2 = admin.firestore().collection('units').add({
                     location: new req.body.location,//1
-                    endDate: Date(req.body.endDate),//1
+                    endDate: new Date(req.body.endDate),//1
                     ownerName: req.body.ownerName,      //1
                     phoneNumber: req.body.phoneNumber,  //1
                     price: Number(req.body.price),      //1
