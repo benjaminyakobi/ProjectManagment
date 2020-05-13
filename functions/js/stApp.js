@@ -259,12 +259,28 @@ function searchFunction() {
 
 function paymentWindow(x){
   console.log("hasdf");
+  /*
   var modal2 = document.getElementById("modalUnits");
   var modal3 = document.getElementById("modalOrder");
   modal2.style.display = "none";
-  modal3.style.display = "block";
-
-
+  modal3.style.display = "block"; sToZ8DpQF1B8rwfdsKxz
+  */
+      fetch("/order/", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+        },
+        body: JSON.stringify({}),
+        })
+        .then(response => response.json())
+        // eslint-disable-next-line prefer-arrow-callback
+        .then(function(resJ){
+        
+        }).catch(function (error) {
+          console.log('data error');
+        });
 
 }
 

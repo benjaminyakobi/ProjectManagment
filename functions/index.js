@@ -31,12 +31,14 @@ var cors = require('cors')({ origin: true });
 var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
+var ejs = require("ejs");
 app.use(cookieParser());
 /*const reqApp = express();
 reqApp.use(cors);
 reqApp.use(bodyParser.json());
 reqApp.use(bodyParser.urlencoded({ extended: true }));*/
-app.engine("html", require("ejs").renderFile);
+app.engine("html", ejs.renderFile);
+app.set('view engine',ejs);
 app.use(cors);
 app.use(csrfMiddleware);
 app.use(bodyParser.json());
@@ -108,6 +110,34 @@ app.get("/", function (req, res) {
             }
         })
         .catch((error) => {
+            res.render("index.html");
+        });
+});
+
+//web forwarding :unitId
+app.get("/order/:unitId", function (req, res) {
+    const sessionCookie = req.cookies.session || "";
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
+        .then(() => {
+            if (req.cookies.role === "student") {
+                var query = admin.firestore().collection('units').doc(req.params.unitId);
+                var allDocs = query.get().then(doc => {
+                    if (!doc.exists) {
+                        console.log('No matching documents,order request.');
+                        res.send("bad unit id");
+                        return;
+                    }
+                    res.render("order.ejs",{id:req.params.unitId,data:doc.data()});
+                });
+            } else {
+                console.log('no auth');
+                res.render("index.html");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
             res.render("index.html");
         });
 });
@@ -210,7 +240,7 @@ app.post("/registerAccount", (req, res) => {
             (sessionCookie) => {
                 (async () => {
                     try {
-                        if (req.body.lPerm == "student") {
+                        if (req.body.lPerm === "student") {
                             var check = admin.firestore().collection('users').doc(req.body.uid).set({
                                 email: req.body.email,
                                 firstName: req.body.firstName,
@@ -227,7 +257,7 @@ app.post("/registerAccount", (req, res) => {
                                 profileUrl: req.body.imgUrl
                             });
                         }
-                        if (req.body.lPerm == "renter") {
+                        if (req.body.lPerm === "renter") {
                             var check2 = admin.firestore().collection('users').doc(req.body.uid).set({
                                 email: req.body.email,
                                 firstName: req.body.firstName,
@@ -550,6 +580,53 @@ app.post('/requestUSort', (req, res) => {
             res.redirect("/");
         });
 });
+
+
+//request all units 
+app.post('/requestOrder', (req, res) => {
+    const sessionCookie = req.cookies.session || "";
+
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true )
+        .then(() => {
+            console.log('debug1');
+            if(req.cookies.role == "student")
+            {
+                console.log('debug2');
+                console.log(req.body);
+
+                var query = admin.firestore().collection('requestPayment').add({
+                    email:req.body.email,
+                    billTotal:Number(req.body.billTotal),
+                    endDate:req.body.endDate,
+                    firstName:req.body.firstName,
+                    lastName:req.body.lastName,
+                    phoneNumber:req.body.phoneNumber,
+                    sId:req.cookies.uid,
+                    startDate:req.body.startDate,
+                    unitid:req.body.unitid,
+                    ccFirstName:req.body.ccFirstName,
+                    ccLastName:req.body.ccLastName,
+                    ccNumber:req.body.ccNumber,
+                    ccSec:req.body.ccSec,
+                    ccExp:req.body.ccExp,
+                    ccPostal:req.body.ccPostal
+                });
+                console.log('debug3');
+
+                res.setHeader('Content-Type', 'application/json');
+                return res.json({ status: 'OK'});
+            }
+            else
+                res.send("not authorized");
+        })
+        .catch((error) => {
+            res.redirect("/");
+        });
+});
+
+
 
 //request all units of the request id
 app.post('/requestRenter', (req, res) => {
