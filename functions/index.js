@@ -154,6 +154,7 @@ app.get("/order/:unitId", function (req, res) {
                         res.send("bad unit id");
                         return;
                     }
+
                     res.render("order.ejs",{id:req.params.unitId,data:doc.data()});
                 });
             } else {
