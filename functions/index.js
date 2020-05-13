@@ -502,8 +502,6 @@ app.post('/renterResponse', (req, res) => {
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "renter") {
-                /////req.body.reqId
-                // console.log(req.body.flag);
                 if (req.body.flag == "true") {
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
                     //var storageRef = firebaseApp.storage().ref();
@@ -525,9 +523,11 @@ app.post('/renterResponse', (req, res) => {
                     });
                 }
                 else if (req.body.flag == "false") {
-                    var query6 = admin.firestore().collection('requestPayement').doc(req.body.uid).delete();
+                    console.log(req.body.uid);
+                    var query6 = admin.firestore().collection('requestPayment').doc(req.body.uid).delete();
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({ status: 'OK', data: l });
+
                 }
             }
             else
