@@ -1,6 +1,8 @@
 # Sami Room
 > Web site for brokerage of residential units.
 
+![Image of Yaktocat](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/images/logo-2.jpg)
+
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
@@ -27,19 +29,19 @@ To provide effective tracking of orders.
 ## Technologies
 * Firebase - version 7.14.0
 * JavaScript - version 1.8.5
+* Node.js
+* Express
 * HTML5, CSS
 
 ## Setup
-Describe how to install / setup your local environement / add link to demo version.
+Setup your local environement `npm install`
 
-## Code Examples
-Show examples of usage:
-`put-your-code-here`
+## Run Tests
+use npm `npm test` and all tests will be executed by ___
 
 ## Features
-List of features ready and TODOs for future development
-* Awesome feature 1
-* Awesome feature 2
+* Filter and sort living-units by any keyword and parameter
+* Managing student registrations by the admin
 * Awesome feature 3
 
 To-do list:

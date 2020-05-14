@@ -167,7 +167,7 @@
                 <p>Price: <input id="priceModal" type="text" value=<%= data.price %> size="30"></p>
                 <p>Rating: <input id="ratingModal" type="text" value=<%= data.rating %> size="30"></p>
                 <p>Owner name: <input id="ownerNameModal" type="text" value=<%= data.ownerName %> size="30"></p>
-                <p>From date: <input id="startDateModal" type="text" value=<%= data.startDate %> size="30"></p>
+                <p>From date: <input id="startDateModal" type="text" value=<%= data.startDate.toDate().toLocaleDateString("en-US") %> size="30"></p>
                 <p>Minimum lease date: <input id="minDateModal" type="text"
                     value=<%= data.minDate.toDate().toLocaleDateString("en-US") %> size="30"></p>
                 <p>Until date: <input id="endDateModal" type="text"
@@ -453,19 +453,19 @@
            <!--****************************-->
 
             <button id="input_13" type="button" onclick="clickHand()"
-              class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button"
+              data-component="button"
               data-content="">
               Submit Order
             </button>
             <script type="text/javascript">
               function clickHand() {
-
+                console.log("event");
                 var firstName = document.getElementById("first_2");
                 var lastName = document.getElementById("last_2");
                 var email = document.getElementById("input_3");
                 var prePhone = document.getElementById("input_5_area");
                 var midPhone = document.getElementById("input_5_phone");
-                var date = document.getElementById("lite_mode_16");
+                var date = document.getElementById("endDateModal");
                 var ccFirstName = document.getElementById("input_17_cc_firstName");
                 var ccLastName = document.getElementById("input_17_cc_lastName");
                 var ccNumber = document.getElementById("input_17_cc_number");
@@ -476,7 +476,7 @@
                 var uid = document.getElementById("uidModal");
                 const ordersum = document.getElementById("ordersum");
                 var billTotalC = parseInt(ordersum.innerHTML);
-                console.log('billymaze');
+               
                 console.log(billTotalC);
                 //***********CHECKS************//
 
@@ -497,8 +497,8 @@
                 }
 
                 //Postal
-                if (prePhone.value.length != 6) {
-                  alert("Please fill the correct phone area number");
+                if (ccPostal.value.length != 6) {
+                  alert("Please fill the correct postal 6 numbers");
                   return;
                 }
 
@@ -517,7 +517,7 @@
 
                 const endd = document.getElementById("start");
                 const minn = document.getElementById("minDateModal");
-                var date1 = new Date(min.value);
+                var date1 = new Date(minn.value);
                 var date2 = new Date(endd.value);
                 var diff = (date2 - date1) / 1000;
                 if (diff.value < 0) {
@@ -527,19 +527,6 @@
 
 
 
-
-
-
-
-                /* console.log(firstName.value+' ' +lastName.value);
-                 console.log(email.value);
-                 console.log(prePhone.value + midPhone.value);
-                 console.log(date.value);
-                 console.log(ccFirstName.value +ccLastName.value);
-                 console.log(ccNumber.value);
-                 console.log(ccSec.value);
-                 console.log(ccExp.value);
-                 console.log(ccPostal.value);*/
                 var phoneNumber = prePhone.value + midPhone.value;
                 fetch("/requestOrder", {
                   method: "POST",
@@ -550,7 +537,7 @@
                   },
                   body: JSON.stringify({
                     email: email.value,
-                    billTotal: 9000,///////CALCULATE TOTAL BILL
+                    billTotal: billTotalC,
                     endDate: date.value,
                     firstName: firstName.value,
                     lastName: lastName.value,
@@ -569,7 +556,8 @@
                   .then(response => response.json())
                   .then(function (resJ) {
                     console.log(resJ.data);
-
+                    alert("order have Completed.");
+                    window.location.href="/";
                   }).catch(function (error) {
                     console.log('data error');
                   });

@@ -65,13 +65,15 @@ app.get("/renter.ejs", function (req, res) {
                 var l = [];
                 var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
                 var allDocs = query.get().then(snapShot => {
-                    if (snapShot.empty) {
+      /*              if (snapShot.empty) {
                         console.log('No matching documents,firstPhase.');
+                        res.render("renter.ejs",{l:l});
                         return;
-                    }
+                    }*/
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
+                    console.log(l);
                     res.render("renter.ejs", { l: l });
                 });
             }
@@ -207,6 +209,7 @@ app.get("/student.ejs", function (req, res) {
                         snapShot.forEach(doc => {
                             l.push({ id: doc.id, data: doc.data() });
                         });
+                        
                         res.render("student.ejs", { l: l });
                     });
                 } catch (error) {
@@ -471,8 +474,8 @@ app.post('/adminRequest', (req, res) => {
                     });
                 }
                 else if (req.body.flag == "false") {
-                    var query2 = admin.firestore().collection('requests').doc(req.body.uid).delete();
-                    var query3 = admin.firestore().collection('users').doc(req.body.uid).delete();
+                    var query5 = admin.firestore().collection('requests').doc(req.body.uid).delete();
+                    var query6 = admin.firestore().collection('users').doc(req.body.uid).delete();
                     admin.auth().deleteUser(req.body.uid)
                         .then(function (userRecord) {
                             console.log('Successfully deleted user');
@@ -590,12 +593,12 @@ app.post('/requestUSort', (req, res) => {
                     try {
                         var query;
                         var l = [];
-
+                        console.log(req.body.action);
                         if (req.body.action == "sort") {
                             if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc');
+                                query = admin.firestore().collection('units').where("sold","==","false").orderBy(req.body.colName, 'desc');
                             } else {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName);
+                                query = admin.firestore().collection('units').where("sold","==","false").orderBy(req.body.colName) ;
                             }
                         }
                         else if (req.body.action == "filter") {
@@ -611,10 +614,12 @@ app.post('/requestUSort', (req, res) => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
+                        //    console.log(l);
                             res.setHeader('Content-Type', 'application/json');
                             return res.json({ status: 'OK', data: l });
                         });
                     } catch (error) {
+                        console.log(error);
                         return res.status(500).send(error);
                     }
                 })();
@@ -640,12 +645,12 @@ app.post('/requestOrder', (req, res) => {
                 var query = admin.firestore().collection('requestPayment').add({
                     email: req.body.email,
                     billTotal: Number(req.body.billTotal),
-                    endDate: req.body.endDate,
+                    endDate: new Date(req.body.endDate),
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     phoneNumber: req.body.phoneNumber,
                     sId: req.cookies.uid,
-                    startDate: req.body.startDate,
+                    startDate: new Date(req.body.startDate),
                     unitid: req.body.unitid,
                     ccFirstName: req.body.ccFirstName,
                     ccLastName: req.body.ccLastName,
@@ -754,13 +759,15 @@ app.post('/addUnit', (req, res) => {
         .then(() => {
 
             if (req.cookies.role == "renter") {
+                console.log(req.body);
+                console.log(new Date(req.body.minDate));
                 var check2 = admin.firestore().collection('units').add({
-                    location: new req.body.location,//1
+                    location: req.body.location,//1
                     endDate: new Date(req.body.endDate),//1
                     ownerName: req.body.ownerName,      //1
                     phoneNumber: req.body.phoneNumber,  //1
                     price: Number(req.body.price),      //1
-                    rating: req.body.rating,            //1
+                    rating: Number(req.body.rating),            //1
                     rooms: Number(req.body.rooms),      //1
                     startDate: new Date(req.body.startDate),       //1
                     hasPictures: req.body.hasPictures, //1

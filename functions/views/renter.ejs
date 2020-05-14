@@ -210,14 +210,14 @@
                     body: JSON.stringify({
                         endDate: form.untilDateThree.value, //1
                         location: form.locationThree.value, //1 
-                        ownerName: form.ownerThree.value, //1
+                        ownerName: form.ownerThree.value,   //1
                         phoneNumber: form.phoneThree.value, // 1
-                        price: form.priceThree.value, //1
-                        rating: form.ratingThree.value, // 1
-                        rooms: form.roomsThree.value, //1
+                        price: form.priceThree.value,       //1
+                        rating: form.ratingThree.value,     // 1
+                        rooms: form.roomsThree.value,           //1
                         startDate: form.fromDateThree.value, //1
-                        hasPictures: imgsUrls,    //1
-                        minDate: form.minimumDateThree.value//1
+                        hasPictures: imgsUrls,               //1
+                        minDate: form.minimumDateThree.value //1
                     }),
                 })
 
@@ -465,9 +465,9 @@
                     <td><a href="#"> <%= obj.data.price         %></a></td>
                     <td><a href="#"> <%= obj.data.rating        %></a></td>
                     <td><a href="#"> <%= obj.data.ownerName     %></a></td>
-                    <td><a href="#"> <%= obj.data.startDate     %></a></td>
-                    <td><a href="#"> <%= obj.data.minDate     %></a></td>
-                    <td><a href="#"> <%= obj.data.endDate       %></a></td>
+                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
                     <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
                     <td><a href="#"><img src=""></a></td>
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>

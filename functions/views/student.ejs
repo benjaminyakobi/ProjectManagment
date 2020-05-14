@@ -103,16 +103,17 @@
             font-size: 5px;
             padding: 5px;
         }
+
         .buttonS {
-        font: bold 18px Arial;
-        text-decoration: none;
-        background-color: #EEEEEE;
-        color: #333333;
-        padding: 2px 6px 2px 6px;
-        border-top: 1px solid #CCCCCC;
-        border-right: 1px solid #333333;
-        border-bottom: 1px solid #333333;
-        border-left: 1px solid #CCCCCC;
+            font: bold 18px Arial;
+            text-decoration: none;
+            background-color: #EEEEEE;
+            color: #333333;
+            padding: 2px 6px 2px 6px;
+            border-top: 1px solid #CCCCCC;
+            border-right: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+            border-left: 1px solid #CCCCCC;
         }
     </style>
 
@@ -136,7 +137,7 @@
     <input onclick="sendData()" type="submit">
     <div>
         <form>
-            <button onClick="window.location.reload();">Refresh Page</button>
+            <button onClick="window.location.reload();">Clear</button>
         </form>
     </div>
 
@@ -190,32 +191,35 @@
             </tr>
         </thead>
         <tbody id="tableBody">
-                <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
-                    <tr><tl>
-                        <td><a href="#"> <%= obj.data.location      %></a></td>
-                        <td><a href="#"> <%= obj.data.rooms         %></a></td>
-                        <td><a href="#"> <%= obj.data.price         %></a></td>        
-                        <td><a href="#"> <%= obj.data.rating        %></a></td>                   
-                        <td><a href="#"> <%= obj.data.ownerName     %></a></td> 
-                        <td><a href="#"> <%= obj.data.startDate     %></a></td> 
-                        <td><a href="#"> <%= obj.data.minDate     %></a></td> 
-                        <td><a href="#"> <%= obj.data.endDate       %></a></td>
-                        <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
-                        <td style="display:none;"><button value= <%= obj.id %> > </button></td>
+            <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+            <tr>
+                <tl>
+                    <td><a href="#"> <%= obj.data.location      %></a></td>
+                    <td><a href="#"> <%= obj.data.rooms         %></a></td>
+                    <td><a href="#"> <%= obj.data.price         %></a></td>
+                    <td><a href="#"> <%= obj.data.rating        %></a></td>
+                    <td><a href="#"> <%= obj.data.ownerName     %></a></td>
+                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                    <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                    
+                    <td style="display:none;"><button value=<%= obj.id %>> </button></td>
+                    <% if(obj.data.hasPictures.length == 0) { %>
+                    <td><a href="#"><img src=""> </a></td>
 
-                        <!-- <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
-                            <img style="visibility: hidden;" src =" <%= obj.data.hasPictures[j] %> ">
-                            
-                       <% } %> -->
-                        <% if(obj.data.hasPictures.length == 0) { %>
-                            <td><a href="#"><img src="" > </a></td>
+                    <% }else{ %>
+                    <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
+                    <% } %>
+                    <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
+                    <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
 
-                       <% }else{ %>
-                            <td><a href="#"><img src="/images/compact_camera.png" > </a></td>
-                        <% } %>
+                    <% } %>
 
-                    </tl></tr> 
-                <% } %>
+
+                </tl>
+            </tr>
+            <% } %>
         </tbody>
     </table>
 
@@ -244,164 +248,166 @@
                 </fieldset>
                 <fieldset>
                     <a id="orderRef" style="float:right; cursor : pointer;" class="buttonS">continue</a>
-                    <button style="float:right; cursor : pointer; margin-right: 5px" onclick="closeWindow()">cancel</button>
-                    
+                    <button style="float:right; cursor : pointer; margin-right: 5px"
+                        onclick="closeWindow()">cancel</button>
                 </fieldset>
+                <div id="imageContainer">
+
+                </div>
             </form>
         </div>
-            <div id="modalOrder" class="modalContent2">
-                <span class="close">&times;</span>
-                <p>Order information</p>
-                <form name="modalName">
-                    <fieldset>
-                        <legend> Contact Form</legend>
-                        <div>
-                            <span class="form-sub-label-container " style="vertical-align:top" data-input-type="first">
-                                <label for="first_2" id="sublabel_2_first" style="min-height:13px" aria-hidden="false">
-                                    First Name </label>
-                                <input type="text" id="first_2" size="10" value="" data-component="first"
-                                    aria-labelledby="label_2 sublabel_2_first" />
-                            </span>
-                            <span class="form-sub-label-container " style="vertical-align:top" data-input-type="last">
-                                <label for="last_2" id="sublabel_2_last" style="min-height:13px" aria-hidden="false">
-                                    Last Name </label>
-                                <input type="text" id="last_2" size="15" value="" data-component="last"
-                                    aria-labelledby="label_2 sublabel_2_last" />
-                            </span>
-                        </div>
-
-                        <div>
-                            <label>Email</label>
-                            <input type="email" id="input_3" size="30" value="" placeholder="ex: myname@example.com"
-                                data-component="email" aria-labelledby="label_3" />
-                        </div>
-
-                        <div>
-                            <label>Contact number</label>
-                            <input type="text" id="phone number" size="15" value="" data-component="last"
+        <div id="modalOrder" class="modalContent2">
+            <span class="close">&times;</span>
+            <p>Order information</p>
+            <form name="modalName">
+                <fieldset>
+                    <legend> Contact Form</legend>
+                    <div>
+                        <span class="form-sub-label-container " style="vertical-align:top" data-input-type="first">
+                            <label for="first_2" id="sublabel_2_first" style="min-height:13px" aria-hidden="false">
+                                First Name </label>
+                            <input type="text" id="first_2" size="10" value="" data-component="first"
+                                aria-labelledby="label_2 sublabel_2_first" />
+                        </span>
+                        <span class="form-sub-label-container " style="vertical-align:top" data-input-type="last">
+                            <label for="last_2" id="sublabel_2_last" style="min-height:13px" aria-hidden="false">
+                                Last Name </label>
+                            <input type="text" id="last_2" size="15" value="" data-component="last"
                                 aria-labelledby="label_2 sublabel_2_last" />
-                        </div>
+                        </span>
+                    </div>
 
+                    <div>
+                        <label>Email</label>
+                        <input type="email" id="input_3" size="30" value="" placeholder="ex: myname@example.com"
+                            data-component="email" aria-labelledby="label_3" />
+                    </div>
+
+                    <div>
+                        <label>Contact number</label>
+                        <input type="text" id="phone number" size="15" value="" data-component="last"
+                            aria-labelledby="label_2 sublabel_2_last" />
+                    </div>
+
+                    <div>
+                        <label>From date</label>
+                        <input type="text" id="startDate" size="10" placeholder="dd-mm-yyyy">
+                        <label>Minimum order date</label>
+                        <input type="text" id="minDate" size="10" placeholder="dd-mm-yyyy">
+                        <label>to date</label>
+                        <input type="text" id="endDate" size="10" placeholder="dd-mm-yyyy">
+                    </div>
+                    <div>
                         <div>
-                            <label>From date</label>
-                            <input type="text" id="startDate" size="10" placeholder="dd-mm-yyyy">
-                            <label>Minimum order date</label>
-                            <input type="text" id="minDate" size="10" placeholder="dd-mm-yyyy">
-                            <label>to date</label>
-                            <input type="text" id="endDate" size="10" placeholder="dd-mm-yyyy">
+                            <label>special requests</label>
                         </div>
                         <div>
-                            <div>
-                                <label>special requests</label>
-                            </div>
-                            <div>
-                                <textarea id="specialRequests" rows="6" data-component="textarea"
-                                    aria-labelledby="label_14"></textarea>
-                            </div>
+                            <textarea id="specialRequests" rows="6" data-component="textarea"
+                                aria-labelledby="label_14"></textarea>
+                        </div>
 
-                            <table class="form-address-table payment-form-table" style="border:0" cellPadding="0"
-                                cellSpacing="0">
-                                <tbody>
-                                    <tr>
-                                        <th colSpan="2" style="text-align:left;margin-top:20px;display:table"
-                                            id="ccTitle17">
-                                            Credit Card
-                                        </th>
-                                    </tr>
-                                    <tr>
-                                        <td width="50%">
-                                            <span class="form-sub-label-container " style="vertical-align:top">
-                                                <input type="text" id="input_17_cc_firstName"
-                                                    name="q17_myProducts[cc_firstName]"
-                                                    class="form-textbox cc_firstName" size="20" value=""
-                                                    data-component="cc_firstName" />
-                                                <label class="form-sub-label" for="input_17_cc_firstName"
-                                                    id="sublabel_cc_firstName" style="min-height:13px;margin:0 0 3px 0"
-                                                    aria-hidden="false"> First Name </label>
-                                            </span>
-                                        </td>
-                                        <td width="50%">
-                                            <span class="form-sub-label-container " style="vertical-align:top">
-                                                <input type="text" id="input_17_cc_lastName"
-                                                    name="q17_myProducts[cc_lastName]" class="form-textbox cc_lastName"
-                                                    size="20" value="" data-component="cc_lastName" />
-                                                <label class="form-sub-label" for="input_17_cc_lastName"
-                                                    id="sublabel_cc_lastName" style="min-height:13px;margin:0 0 3px 0"
-                                                    aria-hidden="false"> Last Name </label>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="50%">
-                                            <span class="form-sub-label-container " style="vertical-align:top">
-                                                <input type="text" id="input_17_cc_number"
-                                                    name="q17_myProducts[cc_number]" class="form-textbox cc_number"
-                                                    size="20" value="" data-component="cc_number"
-                                                    autocomplete="cc-number" autocapitalize="off" autocorrect="off"
-                                                    spellcheck="off" type="tel" pattern="\d*" maxlength="16"
-                                                    placeholder="•••• •••• •••• ••••" style="font-size: 14px;" />
-                                                <label class="form-sub-label" for="square_cc_number"
-                                                    id="sublabel_cc_number" style="min-height:13px;margin:0 0 3px 0"
-                                                    aria-hidden="false"> Credit Card Number </label>
-                                            </span>
-                                        </td>
-                                        <td width="50%">
-                                            <span class="form-sub-label-container " style="vertical-align:top">
-                                                <input type="text" id="input_17_cc_ccv" name="q17_myProducts[cc_ccv]"
-                                                    class="form-textbox cc_ccv" size="20" value=""
-                                                    data-component="cc_ccv" autocomplete="cc-csc" autocapitalize="off"
-                                                    autocorrect="off" spellcheck="off" type="tel" pattern="\d*"
-                                                    maxlength="3" placeholder="CVV" style="font-size: 14px;">
-                                                <label class="form-sub-label" for="square_cc_ccv" id="sublabel_cc_ccv"
-                                                    style="min-height:13px;margin:0 0 3px 0" aria-hidden="false">
-                                                    Security Code </label>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td width="50%">
-                                            <span class="form-sub-label-container " style="vertical-align:top">
-                                                <input type="text" id="input_17_cc_exp" name="q17_myProducts[cc_exp]"
-                                                    class="form-textbox cc_exp" size="20" value=""
-                                                    data-component="cc_exp" autocomplete="disabled" autocapitalize="off"
-                                                    autocorrect="off" spellcheck="off" type="tel" pattern="\d*"
-                                                    maxlength="4" placeholder="MM/YY" style="font-size: 14px;" />
-                                                <label class="form-sub-label" for="square_cc_exp" id="sublabel_cc_exp"
-                                                    style="min-height:13px;margin:0 0 3px 0" aria-hidden="false">
-                                                    Expiration Date </label>
-                                            </span>
-                                        </td>
-                                        <td width="50%">
-                                            <span class="form-sub-label-container " style="vertical-align:top">
-                                                <input type="text" id="input_17_cc_postal"
-                                                    name="q17_myProducts[cc_postal]" class="form-textbox cc_postal"
-                                                    size="20" value="" data-component="cc_postal"
-                                                    autocomplete="shipping postal-code" autocapitalize="off"
-                                                    autocorrect="off" spellcheck="off" type="text" maxlength="12"
-                                                    style="font-size: 14px;" />
-                                                <label class="form-sub-label" for="square_cc_postal"
-                                                    id="sublabel_cc_postal" style="min-height:13px;margin:0 0 3px 0"
-                                                    aria-hidden="false"> Postal Code </label>
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                            <div>
-                                <button style="float:right; cursor: pointer;" onclick="CompleteOrder()">Finish</button>
-                                <button style="float:right; cursor : pointer; margin-right: 5px" onclick="closeWindow()">cancel</button>
-
-                            </div>
+                        <table class="form-address-table payment-form-table" style="border:0" cellPadding="0"
+                            cellSpacing="0">
+                            <tbody>
+                                <tr>
+                                    <th colSpan="2" style="text-align:left;margin-top:20px;display:table"
+                                        id="ccTitle17">
+                                        Credit Card
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <td width="50%">
+                                        <span class="form-sub-label-container " style="vertical-align:top">
+                                            <input type="text" id="input_17_cc_firstName"
+                                                name="q17_myProducts[cc_firstName]" class="form-textbox cc_firstName"
+                                                size="20" value="" data-component="cc_firstName" />
+                                            <label class="form-sub-label" for="input_17_cc_firstName"
+                                                id="sublabel_cc_firstName" style="min-height:13px;margin:0 0 3px 0"
+                                                aria-hidden="false"> First Name </label>
+                                        </span>
+                                    </td>
+                                    <td width="50%">
+                                        <span class="form-sub-label-container " style="vertical-align:top">
+                                            <input type="text" id="input_17_cc_lastName"
+                                                name="q17_myProducts[cc_lastName]" class="form-textbox cc_lastName"
+                                                size="20" value="" data-component="cc_lastName" />
+                                            <label class="form-sub-label" for="input_17_cc_lastName"
+                                                id="sublabel_cc_lastName" style="min-height:13px;margin:0 0 3px 0"
+                                                aria-hidden="false"> Last Name </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">
+                                        <span class="form-sub-label-container " style="vertical-align:top">
+                                            <input type="text" id="input_17_cc_number" name="q17_myProducts[cc_number]"
+                                                class="form-textbox cc_number" size="20" value=""
+                                                data-component="cc_number" autocomplete="cc-number" autocapitalize="off"
+                                                autocorrect="off" spellcheck="off" type="tel" pattern="\d*"
+                                                maxlength="16" placeholder="•••• •••• •••• ••••"
+                                                style="font-size: 14px;" />
+                                            <label class="form-sub-label" for="square_cc_number" id="sublabel_cc_number"
+                                                style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Credit
+                                                Card Number </label>
+                                        </span>
+                                    </td>
+                                    <td width="50%">
+                                        <span class="form-sub-label-container " style="vertical-align:top">
+                                            <input type="text" id="input_17_cc_ccv" name="q17_myProducts[cc_ccv]"
+                                                class="form-textbox cc_ccv" size="20" value="" data-component="cc_ccv"
+                                                autocomplete="cc-csc" autocapitalize="off" autocorrect="off"
+                                                spellcheck="off" type="tel" pattern="\d*" maxlength="3"
+                                                placeholder="CVV" style="font-size: 14px;">
+                                            <label class="form-sub-label" for="square_cc_ccv" id="sublabel_cc_ccv"
+                                                style="min-height:13px;margin:0 0 3px 0" aria-hidden="false">
+                                                Security Code </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td width="50%">
+                                        <span class="form-sub-label-container " style="vertical-align:top">
+                                            <input type="text" id="input_17_cc_exp" name="q17_myProducts[cc_exp]"
+                                                class="form-textbox cc_exp" size="20" value="" data-component="cc_exp"
+                                                autocomplete="disabled" autocapitalize="off" autocorrect="off"
+                                                spellcheck="off" type="tel" pattern="\d*" maxlength="4"
+                                                placeholder="MM/YY" style="font-size: 14px;" />
+                                            <label class="form-sub-label" for="square_cc_exp" id="sublabel_cc_exp"
+                                                style="min-height:13px;margin:0 0 3px 0" aria-hidden="false">
+                                                Expiration Date </label>
+                                        </span>
+                                    </td>
+                                    <td width="50%">
+                                        <span class="form-sub-label-container " style="vertical-align:top">
+                                            <input type="text" id="input_17_cc_postal" name="q17_myProducts[cc_postal]"
+                                                class="form-textbox cc_postal" size="20" value=""
+                                                data-component="cc_postal" autocomplete="shipping postal-code"
+                                                autocapitalize="off" autocorrect="off" spellcheck="off" type="text"
+                                                maxlength="12" style="font-size: 14px;" />
+                                            <label class="form-sub-label" for="square_cc_postal" id="sublabel_cc_postal"
+                                                style="min-height:13px;margin:0 0 3px 0" aria-hidden="false"> Postal
+                                                Code </label>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div>
+                            <button style="float:right; cursor: pointer;" onclick="CompleteOrder()">Finish</button>
+                            <button style="float:right; cursor : pointer; margin-right: 5px"
+                                onclick="closeWindow()">cancel</button>
 
                         </div>
 
-
-                    </fieldset>
-            </div>
+                    </div>
 
 
-            </form>
+                </fieldset>
         </div>
+
+
+        </form>
+    </div>
 
     </div>
 </body>

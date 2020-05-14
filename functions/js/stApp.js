@@ -19,70 +19,7 @@ function initApp() {
 
   };
   firebase.initializeApp(config);
-  /*  firebase.auth().onAuthStateChanged(function (user) {
-        if (user) {
-            // User is signed in.
-            console.log('logged');
-        } else {
-            // No user is signed in.
-            console.log('no logged');
-        }
-    });*/
-  function hasImg(val) {
-
-    if (val > 0)
-      return "/images/compact_camera.png";
-    return "";
-  }
-
-
-
-  /*
-    fetch("/rU", {
-      method: "POST",
-      headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-          "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-      },
-      body: JSON.stringify({}),
-      })
-      .then(response => response.json())
-      // eslint-disable-next-line prefer-arrow-callback
-      .then(function(resJ){
-          for(var i = 0; i < resJ.data.length; i++) {
-            try{
-            var obj = resJ.data[i];
-                sss.innerHTML+= '<tl>'+
-                                  '<td><a href="#">' +obj.data.location+ '</a></td>'+
-                                  '<td><a href="#">' +obj.data.rooms+ '</a></td>'+
-                                  '<td><a href="#">' +obj.data.price+ '</a></td>'+        
-                                  '<td><a href="#">' +obj.data.rating+ '</a></td>'+                     
-                                  '<td><a href="#">' +obj.data.ownerName+ '</a></td>'+ 
-                                  '<td><a href="#">' +obj.data.startDate+ '</a></td>'+ 
-                                  '<td><a href="#">' +obj.data.endDate+ '</a></td>'+ 
-                                  '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
-                                  '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
-                                '</tl>';
-            }catch(error){console.log(error);}
-            addRowHandlers();
-          }
-      }).catch(function (error) {
-        console.log(error);
-      });*/
-
-  function fillInformation(id,uid) {
-    document.getElementById("locationModal").value = id[0].innerHTML;
-    document.getElementById("roomzModal").value = id[1].innerHTML;
-    document.getElementById("priceModal").value = id[2].innerHTML;
-    document.getElementById("ratingModal").value = id[3].innerHTML;
-    document.getElementById("ownerNameModal").value = id[4].innerHTML;
-    document.getElementById("startDateModal").value = id[5].innerHTML;
-    document.getElementById("minDateModal").value = id[6].innerHTML;
-    document.getElementById("endDateModal").value = id[7].innerHTML;
-    document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-    document.getElementById("orderRef").href = "/order/"+uid;
-  }
+ 
   function addRowHandlers() {
     var table = document.getElementById("tableBody");
     var rows = table.getElementsByTagName("tr");
@@ -91,10 +28,6 @@ function initApp() {
       var createClickHandler =
         function (row) {
           return function () {
-            // var cell = row.getElementsByTagName("a")[0];
-            // var id = cell.innerHTML;
-            // var cell1 = row.getElementsByTagName("a")[1];
-            // var id2 = cell1.innerHTML;
             var modal = document.getElementById("myModal");
             var modal2 = document.getElementById("modalUnits");
             var modal3 = document.getElementById("modalOrder");
@@ -112,18 +45,43 @@ function initApp() {
             modal.style.display = "block";
             modal2.style.display = "block";
             modal3.style.display = "none";
-            fillInformation(row.getElementsByTagName("a"), bd.value);
+            fillInformation(row.getElementsByTagName("a"), row.getElementsByTagName("img"), bd.value);
           };
 
         };
 
-      currentRow.onclick = createClickHandler(currentRow);
+        console.log('1');
+        currentRow.onclick = createClickHandler(currentRow);
     }
   }
+
   addRowHandlers();
   changeToCurrectField();
   setToMin();
   const sss = document.getElementById("tableBody");
+
+  function fillInformation(id, imageArray, uid) {
+    document.getElementById("locationModal").value = id[0].innerHTML;
+    document.getElementById("roomzModal").value = id[1].innerHTML;
+    document.getElementById("priceModal").value = id[2].innerHTML;
+    document.getElementById("ratingModal").value = id[3].innerHTML;
+    document.getElementById("ownerNameModal").value = id[4].innerHTML;
+    document.getElementById("startDateModal").value = id[5].innerHTML;
+    document.getElementById("minDateModal").value = id[6].innerHTML;
+    document.getElementById("endDateModal").value = id[7].innerHTML;
+    document.getElementById("phoneNumberModal").value = id[8].innerHTML;
+    console.log("hey" + imageArray.length);
+    const divImage = document.getElementById("imageContainer");
+
+    for (var i = 1; i < imageArray.length; i++) {
+      console.log(imageArray[i].src);
+      //divImage.innerHTML\
+    }
+
+    document.getElementById("orderRef").href = "/order/" + uid;
+
+  }
+
 }
 
 
@@ -203,30 +161,85 @@ function sendRequestToServer(jsonInfo) {
       for (var i = 0; i < resJ.data.length; i++) {
         var obj = resJ.data[i];
         try {
-          sss.innerHTML += '<tl>' +
+          var d=new Date(0);
+        //  var date = new DateTime.fromMillisecondsSinceEpoch(obj.data.startDate * 1000);
+          
+          var sDate =new Date(obj.data.startDate._seconds *1000);
+          var eDate =new Date(obj.data.endDate._seconds *1000);
+          var mDate =new Date(obj.data.minDate._seconds *1000);
+
+
+         // const d2 = new Date(obj.data.startDate * 1000);
+          // Careful, the string output here can vary by implementation...
+         // const strDate = d.toLocaleString();
+          //d.setUTCSeconds(obj.data.startDate);
+         // console.log(new Date(obj.data.startDate *1000));
+        //  console.log(new Date(obj.data.startDate *1000).toISOString().split('T')[0]);
+        //  console.log(moment(1382086394000).format("DD-MM-YYYY h:mm:ss"));
+          sss.innerHTML += '<tr> <tl>' +
             '<td><a href="#">' + obj.data.location + '</a></td>' +
             '<td><a href="#">' + obj.data.rooms + '</a></td>' +
             '<td><a href="#">' + obj.data.price + '</a></td>' +
             '<td><a href="#">' + obj.data.rating + '</a></td>' +
             '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
-            '<td><a href="#">' + obj.data.startDate + '</a></td>' +
-            '<td><a href="#">' + obj.data.minDate + '</a></td>' +
-            '<td><a href="#">' + obj.data.endDate + '</a></td>' +
+            '<td><a href="#">' + sDate.toISOString().split('T')[0]  + '</a></td>' +
+            '<td><a href="#">' + mDate.toISOString().split('T')[0]  + '</a></td>' +
+            '<td><a href="#">' + eDate.toISOString().split('T')[0]  + '</a></td>' +
             '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
-            '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures) + '"></a></td>' +
-            '</tl>';
+            '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures.length) + '"></a></td>' +
+            '<td style="display:none;"><button value='+ obj.id +'> </button></td>';
+            if(obj.data.hasPictures.length == 0) {
+            sss.innerHTML += '<td><a href="#"><img src=""> </a></td>';
+            }else{
+              for(var j = 0; j < obj.data.hasPictures.length ; j++ ){
+                sss.innerHTML += '<td><img height="50" width="50" style="display: none;" src="' +  obj.data.hasPictures[j] + '"></td>';
+              }
+            }
+            sss.innerHTML+= '</tl></tr>';
+            
+            
+            
+            /*           <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+            <tr>
+                <tl>
+                    <td><a href="#"> <%= obj.data.location      %></a></td>
+                    <td><a href="#"> <%= obj.data.rooms         %></a></td>
+                    <td><a href="#"> <%= obj.data.price         %></a></td>
+                    <td><a href="#"> <%= obj.data.rating        %></a></td>
+                    <td><a href="#"> <%= obj.data.ownerName     %></a></td>
+                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                    <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                    
+                    <td style="display:none;"><button value=<%= obj.id %>> </button></td>
+                    <% if(obj.data.hasPictures.length == 0) { %>
+                    <td><a href="#"><img src=""> </a></td>
+
+                    <% }else{ %>
+                    <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
+                    <% } %>
+                    <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
+                    <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
+
+                    <% } %>
+
+
+                </tl>
+            </tr>
+            <% } %>*/
         }
         catch (error) {
           console.log(error);
         }
       }
       addRowHandlers();
+      searchFunction();
     }).catch(function (error) {
       console.log('data error');
     });
 }
 function hasImg(val) {
-  console.log('+hadsaf' + val);
   if (val > 0)
     return "/images/compact_camera.png";
   return "";
@@ -262,15 +275,17 @@ function addRowHandlers() {
           modal.style.display = "block";
           modal2.style.display = "block";
           modal3.style.display = "none";
-          fillInformation(row.getElementsByTagName("a"),bd.value);
+          fillInformation(row.getElementsByTagName("a"), row.getElementsByTagName("img"), bd.value);
         };
 
       };
+      
+      currentRow.onclick = createClickHandler(currentRow);
+  };
 
-    currentRow.onclick = createClickHandler(currentRow);
-  }
 }
-function fillInformation(id,uid) {
+
+function fillInformation(id, imageArray, uid) {
   document.getElementById("locationModal").value = id[0].innerHTML;
   document.getElementById("roomzModal").value = id[1].innerHTML;
   document.getElementById("priceModal").value = id[2].innerHTML;
@@ -280,7 +295,14 @@ function fillInformation(id,uid) {
   document.getElementById("minDateModal").value = id[6].innerHTML;
   document.getElementById("endDateModal").value = id[7].innerHTML;
   document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-  document.getElementById("orderRef").href = "/order/" +uid;
+  console.log(imageArray.length);
+  for (var i = 0; i < imageArray.length; i++) {
+    console.log("hey");
+    //document.write("<li><img src='" + imageArray[i] + "' width='160' height='120'/><span>" + imageArray[i] + "</span></li>");
+  }
+
+
+  document.getElementById("orderRef").href = "/order/" + uid;
 }
 
 function closeWindow() {
@@ -292,13 +314,14 @@ function closeWindow() {
   modal3.style.display = "none";
 
 }
+
 function searchFunction() {
   var input, filter, table, tr, td, i, txtValue;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("tableBody");
   tr = table.getElementsByTagName("tr");
-  for (i = 1; i < tr.length; i++) {
+  for (i = 0; i < tr.length; i++) {
     td = tr[i].getElementsByTagName("a");
     tr[i].style.display = "none";
     for (var j = 0; j < td.length; j++) {
@@ -309,6 +332,7 @@ function searchFunction() {
     }
   }
 }
+
 
 function paymentWindow(x) {
   console.log("hasdf");
