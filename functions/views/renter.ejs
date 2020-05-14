@@ -101,14 +101,14 @@
             display: none;
             position: fixed;
             z-index: 1;
-            padding-top: 100px;
+            padding-top: 50px;
             left: 0;
             top: 0;
-            width: 100%;
+            width: 50%;
             height: 100%;
             overflow: auto;
-            background-color: rgb(0, 0, 0);
-            background-color: rgba(0, 0, 0, 0.4);
+            /* background-color: rgb(0, 0, 0); */
+            /* background-color: rgba(0, 0, 0, 0.4); */
         }
 
         .modalEditInfo {
@@ -217,7 +217,8 @@
                         rooms: form.roomsThree.value,           //1
                         startDate: form.fromDateThree.value, //1
                         hasPictures: imgsUrls,               //1
-                        minDate: form.minimumDateThree.value //1
+                        minDate: form.minimumDateThree.value, //1
+                        description: form.descriptionModalThree.value
                     }),
                 })
 
@@ -342,6 +343,9 @@
                             onfocus="(this.type='date')" id="minDateModal" name="minimumDate"></p>
 
                     <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
+
+                    <p>Description: <input id="descriptionModal" name="description" type="text" size="30"></p>
+
                     <fieldset disabled>
                         <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p>
                     </fieldset>
@@ -358,7 +362,7 @@
         <div id="modalThree" class="modalEditInfoThree">
             <span id="closeThree" class="close">&times;</span>
             <form id="editInfoFormThree">
-                <h2>Add New Appartment</h2>
+                <h2>Add New Apartment</h2>
 
                 <form name="modalNameThree">
                     <legend>Contact Form</legend>
@@ -376,13 +380,18 @@
 
                     <p>Minimum Order: <input placeholder="Minimum Order" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="minDateModalThree" name="minimumDateThree"></p>
-                            <!-- bug from here -->
+                            <!-- bug from here  -->
 
                     <p>Phone number: <input id="phoneNumberModalThree" name="phoneThree" type="text" size="30"></p>
+
+                    <p>Description: <input id="descriptionModalThree" name="descriptionThree" type="text" size="30"></p>
+
                     <div id="imgup">
                         <label for="img">Add unit images</label>
                         <input type="file" multiple="multiple" id="img" name="img" accept="image/x-png"><br>
                     </div>
+
+
                     <img id="prevImage" />
                 </form>
 
