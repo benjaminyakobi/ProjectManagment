@@ -103,6 +103,17 @@
             font-size: 5px;
             padding: 5px;
         }
+        .buttonS {
+        font: bold 18px Arial;
+        text-decoration: none;
+        background-color: #EEEEEE;
+        color: #333333;
+        padding: 2px 6px 2px 6px;
+        border-top: 1px solid #CCCCCC;
+        border-right: 1px solid #333333;
+        border-bottom: 1px solid #333333;
+        border-left: 1px solid #CCCCCC;
+        }
     </style>
 
     <link rel="stylesheet" href="/css/stStyle.css">
@@ -190,6 +201,8 @@
                         <td><a href="#"> <%= obj.data.minDate     %></a></td> 
                         <td><a href="#"> <%= obj.data.endDate       %></a></td>
                         <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                        <td style="display:none;"><button value= <%= obj.id %> > </button></td>
+
                         <% if(obj.data.hasPictures.length == 0) { %>
                             <td><a href="#"><img src="" > </a></td>
 
@@ -231,7 +244,7 @@
                     <p>Phone number: <input id="phoneNumberModal" type="text" size="30"></p>
                 </fieldset>
                 <fieldset>
-                    <button style="float:right; cursor : pointer;" onclick="paymentWindow(this)">continue</button>
+                    <a id="orderRef" style="float:right; cursor : pointer;" class="buttonS">continue</a>
                     <button style="float:right; cursor : pointer; margin-right: 5px" onclick="closeWindow()">cancel</button>
                     
                 </fieldset>

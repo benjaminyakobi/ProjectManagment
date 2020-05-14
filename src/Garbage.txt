@@ -669,4 +669,40 @@ function lClick()
                             </fieldset>
                         </form> -->
 
-                        
+                     /*
+    fetch("/requestRenter", {
+        method: "POST",
+        headers: {
+            Accept: "application/json",
+            "Content-Type": "application/json",
+            "CSRF-Token": Cookies.get("XSRF-TOKEN"),
+        },
+        body: JSON.stringify({}),
+    })
+        .then(response => response.json())
+        // eslint-disable-next-line prefer-arrow-callback
+        .then(function (resJ) {
+            console.log(resJ.data);
+            // eslint-disable-next-line promise/always-return
+            for (var i = 0; i < resJ.data.length; i++) {
+                var obj = resJ.data[i];
+                //console.log(obj.id);
+                sss.innerHTML += '<tl>' +
+                    '<td><a href="#">' + obj.data.location + '</a></td>' +
+                    '<td><a href="#">' + obj.data.rooms + '</a></td>' +
+                    '<td><a href="#">' + obj.data.price + '</a></td>' +
+                    '<td><a href="#">' + obj.data.rating + '</a></td>' +
+                    '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
+                    '<td><a href="#">' + obj.data.startDate + '</a></td>' +
+                    '<td><a href="#">' + obj.data.endDate + '</a></td>' +
+                    '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
+                    '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures) + '"></a></td>' +
+                    '<td style="display:none;"><button value=' + obj.id + ' ></button></td>' +
+                    '</tl>';
+                //note: obj.id is a unique unit-id
+            }
+            addRowHandlers();
+
+        }).catch(function (error) {
+            console.log('data error');
+        });*/   

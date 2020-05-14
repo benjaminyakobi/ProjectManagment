@@ -419,7 +419,7 @@
                   <span class="form-sub-label-container " style="vertical-align:top">
                     <input type="text" id="input_17_cc_exp" name="q17_myProducts[cc_exp]" class="form-textbox cc_exp"
                       onkeypress="return (event.charCode > 47 && 
-                    event.charCode <58 )" maxlength="5" value="" data-component="cc_exp" autocomplete="disabled"
+                    event.charCode <58 )" maxlength="4" value="" data-component="cc_exp" autocomplete="disabled"
                       autocapitalize="off" autocorrect="off" spellcheck="off" type="tel" pattern="\d*" maxlength="4"
                       placeholder="MM/YY" style="font-size: 14px;" />
                     <label class="form-sub-label" for="square_cc_exp" id="sublabel_cc_exp"
@@ -474,7 +474,10 @@
                 var ccPostal = document.getElementById("input_17_cc_postal");
                 var startDate = document.getElementById("startDateModal");
                 var uid = document.getElementById("uidModal");
-
+                const ordersum = document.getElementById("ordersum");
+                var billTotalC = parseInt(ordersum.innerHTML);
+                console.log('billymaze');
+                console.log(billTotalC);
                 //***********CHECKS************//
 
                 //Email

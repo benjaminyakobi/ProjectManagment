@@ -207,6 +207,7 @@ app.get("/student.ejs", function (req, res) {
                         snapShot.forEach(doc => {
                             l.push({ id: doc.id, data: doc.data() });
                         });
+                        
                         res.render("student.ejs", { l: l });
                     });
                 } catch (error) {
@@ -593,9 +594,9 @@ app.post('/requestUSort', (req, res) => {
 
                         if (req.body.action == "sort") {
                             if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc');
+                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc').where('sold', '==', "false");
                             } else {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName);
+                                query = admin.firestore().collection('units').orderBy(req.body.colName).where('sold', '==', "false");
                             }
                         }
                         else if (req.body.action == "filter") {
@@ -754,9 +755,10 @@ app.post('/addUnit', (req, res) => {
         .then(() => {
 
             if (req.cookies.role == "renter") {
+                console.log(req.body);
                 var check2 = admin.firestore().collection('units').add({
                     location: new req.body.location,//1
-                    endDate: Date(req.body.endDate),//1
+                    endDate: new Date(req.body.endDate),//1
                     ownerName: req.body.ownerName,      //1
                     phoneNumber: req.body.phoneNumber,  //1
                     price: Number(req.body.price),      //1
