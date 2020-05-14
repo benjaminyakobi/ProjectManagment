@@ -465,7 +465,7 @@
                 var email = document.getElementById("input_3");
                 var prePhone = document.getElementById("input_5_area");
                 var midPhone = document.getElementById("input_5_phone");
-                var date = document.getElementById("lite_mode_16");
+                var date = document.getElementById("endDateModal");
                 var ccFirstName = document.getElementById("input_17_cc_firstName");
                 var ccLastName = document.getElementById("input_17_cc_lastName");
                 var ccNumber = document.getElementById("input_17_cc_number");
@@ -476,7 +476,7 @@
                 var uid = document.getElementById("uidModal");
                 const ordersum = document.getElementById("ordersum");
                 var billTotalC = parseInt(ordersum.innerHTML);
-                console.log('billymaze');
+               
                 console.log(billTotalC);
                 //***********CHECKS************//
 
@@ -550,7 +550,7 @@
                   },
                   body: JSON.stringify({
                     email: email.value,
-                    billTotal: 9000,///////CALCULATE TOTAL BILL
+                    billTotal: billTotalC,
                     endDate: date.value,
                     firstName: firstName.value,
                     lastName: lastName.value,
