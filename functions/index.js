@@ -604,7 +604,7 @@ app.post('/requestUSort', (req, res) => {
                         else if (req.body.action == "filter") {
                             //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
                             //.where(req.body.colName,'<=',req.body.higherValue);
-                            query = admin.firestore().collection('units').where(req.body.colName, '>=', Number(req.body.lowerValue))
+                            query = admin.firestore().collection('units').where("sold","==","false").where(req.body.colName, '>=', Number(req.body.lowerValue))
                                 .where(req.body.colName, '<=', Number(req.body.higherValue));
                         }
                         else
