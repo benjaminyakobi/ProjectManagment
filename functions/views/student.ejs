@@ -203,6 +203,7 @@
                     <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
                     <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
                     <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                    <td><a href="#"> <%= obj.data.description   %></a></td>
                     
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>
                     <% if(obj.data.hasPictures.length == 0) { %>
@@ -245,11 +246,14 @@
                     <p>Minimum order date: <input id="minDateModal" type="text" size="30"></p>
                     <p>Until date: <input id="endDateModal" type="text" size="30"></p>
                     <p>Phone number: <input id="phoneNumberModal" type="text" size="30"></p>
+                    <p>Description: <textarea id="descriptionModal" rows ="6" cols="50"> </textarea></p> 
+                    <!-- <p>t number: <input id="descriptionModal" type="text" size="30"></p> -->
+
                 </fieldset>
                 <fieldset>
                     <a id="orderRef" style="float:right; cursor : pointer;" class="buttonS">continue</a>
                     <button style="float:right; cursor : pointer; margin-right: 5px"
-                        onclick="closeWindow()">cancel</button>
+                        onclick="closeWindow()" class="buttonS">cancel</button>
                 </fieldset>
                 <div id="imageContainer">
 
