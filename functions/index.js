@@ -596,9 +596,9 @@ app.post('/requestUSort', (req, res) => {
                         console.log(req.body.action);
                         if (req.body.action == "sort") {
                             if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').where("sold","==","true").orderBy(req.body.colName, 'desc');
+                                query = admin.firestore().collection('units').where("sold","==","false").orderBy(req.body.colName, 'desc');
                             } else {
-                                query = admin.firestore().collection('units').where("sold","==","true").orderBy(req.body.colName) ;
+                                query = admin.firestore().collection('units').where("sold","==","false").orderBy(req.body.colName) ;
                             }
                         }
                         else if (req.body.action == "filter") {
@@ -614,6 +614,7 @@ app.post('/requestUSort', (req, res) => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
+                        //    console.log(l);
                             res.setHeader('Content-Type', 'application/json');
                             return res.json({ status: 'OK', data: l });
                         });
@@ -644,12 +645,12 @@ app.post('/requestOrder', (req, res) => {
                 var query = admin.firestore().collection('requestPayment').add({
                     email: req.body.email,
                     billTotal: Number(req.body.billTotal),
-                    endDate: req.body.endDate,
+                    endDate: new Date(req.body.endDate),
                     firstName: req.body.firstName,
                     lastName: req.body.lastName,
                     phoneNumber: req.body.phoneNumber,
                     sId: req.cookies.uid,
-                    startDate: req.body.startDate,
+                    startDate: new Date(req.body.startDate),
                     unitid: req.body.unitid,
                     ccFirstName: req.body.ccFirstName,
                     ccLastName: req.body.ccLastName,
