@@ -167,7 +167,7 @@
                 <p>Price: <input id="priceModal" type="text" value=<%= data.price %> size="30"></p>
                 <p>Rating: <input id="ratingModal" type="text" value=<%= data.rating %> size="30"></p>
                 <p>Owner name: <input id="ownerNameModal" type="text" value=<%= data.ownerName %> size="30"></p>
-                <p>From date: <input id="startDateModal" type="text" value=<%= data.startDate %> size="30"></p>
+                <p>From date: <input id="startDateModal" type="text" value=<%= data.startDate.toDate().toLocaleDateString("en-US") %> size="30"></p>
                 <p>Minimum lease date: <input id="minDateModal" type="text"
                     value=<%= data.minDate.toDate().toLocaleDateString("en-US") %> size="30"></p>
                 <p>Until date: <input id="endDateModal" type="text"

@@ -65,14 +65,15 @@ app.get("/renter.ejs", function (req, res) {
                 var l = [];
                 var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
                 var allDocs = query.get().then(snapShot => {
-                    if (snapShot.empty) {
+      /*              if (snapShot.empty) {
                         console.log('No matching documents,firstPhase.');
                         res.render("renter.ejs",{l:l});
                         return;
-                    }
+                    }*/
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
+                    console.log(l);
                     res.render("renter.ejs", { l: l });
                 });
             }
@@ -757,13 +758,14 @@ app.post('/addUnit', (req, res) => {
 
             if (req.cookies.role == "renter") {
                 console.log(req.body);
+                console.log(new Date(req.body.minDate));
                 var check2 = admin.firestore().collection('units').add({
-                    location: new req.body.location,//1
+                    location: req.body.location,//1
                     endDate: new Date(req.body.endDate),//1
                     ownerName: req.body.ownerName,      //1
                     phoneNumber: req.body.phoneNumber,  //1
                     price: Number(req.body.price),      //1
-                    rating: req.body.rating,            //1
+                    rating: Number(req.body.rating),            //1
                     rooms: Number(req.body.rooms),      //1
                     startDate: new Date(req.body.startDate),       //1
                     hasPictures: req.body.hasPictures, //1

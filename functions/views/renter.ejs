@@ -465,9 +465,9 @@
                     <td><a href="#"> <%= obj.data.price         %></a></td>
                     <td><a href="#"> <%= obj.data.rating        %></a></td>
                     <td><a href="#"> <%= obj.data.ownerName     %></a></td>
-                    <td><a href="#"> <%= obj.data.startDate     %></a></td>
-                    <td><a href="#"> <%= obj.data.minDate     %></a></td>
-                    <td><a href="#"> <%= obj.data.endDate       %></a></td>
+                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
                     <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
                     <td><a href="#"><img src=""></a></td>
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>
