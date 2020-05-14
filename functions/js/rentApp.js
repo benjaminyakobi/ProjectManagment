@@ -62,6 +62,7 @@ function initApp() {
                 rating: form.rating.value,
                 rooms: form.rooms.value,
                 startDate: form.fromDate.value,
+                description: form.descriptionModalThree.value,
                 unitId: form.uid.value
             }),
         })
