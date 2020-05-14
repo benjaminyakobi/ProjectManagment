@@ -33,6 +33,45 @@ function initApp() {
 
     var cancelSpan = document.getElementById("saveTwo");
     cancelSpan.onclick = function () {
+        //*check dates.
+        const startDateModalThree = document.getElementById("startDateModal");
+        const endDateModalThree = document.getElementById("endDateModal");
+        const minDateModalThree = document.getElementById("minDateModal");
+        var date1 = new Date(startDateModalThree.value);
+        var date2 = new Date(endDateModalThree.value);
+        var date3 = new Date(minDateModalThree.value);
+        var diff = (date2 - date3) / 1000;
+        var diff2 = (date3 - date1) / 1000;
+        var diff3 = (date2 - date1) / 1000;
+        var days = Math.floor(diff / 86400);
+        var days3 = Math.floor(diff2 / 86400);
+        var days2 = Math.floor(diff2 / 86400);
+        if(days<0 ||days3<0||days2<0)
+        {
+            alert("Please enter a valid Until Date");
+            return;
+        }
+
+
+        //*check if anything missing
+        const loc= document.getElementById("locationModal");
+        const loc2= document.getElementById("roomzModal");
+        const loc3= document.getElementById("priceModal");
+        const loc4= document.getElementById("ratingModal");
+        const loc5= document.getElementById("ownerNameModal");
+        const loc6= document.getElementById("startDateModal");
+        const loc7= document.getElementById("endDateModal");
+        const loc8= document.getElementById("minDateModal");
+        const loc9= document.getElementById("phoneNumberModal");
+        const loc0= document.getElementById("descriptionModal");
+        if(loc.value==""||loc2.value==""||loc3.value==""||loc4.value==""||loc5.value==""||
+        loc6.value==""||loc7.value==""||loc8.value==""||loc9.value==""||loc0.value=="")
+        {
+            alert("Missing information");
+            return;
+        }
+
+
         const modalVar = document.getElementById("myModal");
         const form = document.getElementById("editInfoFormTwo");
         // console.log("running");

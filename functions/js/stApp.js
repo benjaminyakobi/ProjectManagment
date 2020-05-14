@@ -70,12 +70,13 @@ function initApp() {
     document.getElementById("minDateModal").value = id[6].innerHTML;
     document.getElementById("endDateModal").value = id[7].innerHTML;
     document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-    console.log("hey" + imageArray.length);
+    document.getElementById("descriptionModal").value = id[9].innerHTML;
+  
+    console.log("img length: " + imageArray.length);
     const divImage = document.getElementById("imageContainer");
-
+    divImage.innerHTML ="";
     for (var i = 1; i < imageArray.length; i++) {
-      console.log(imageArray[i].src);
-      //divImage.innerHTML\
+      divImage.innerHTML += '<img src ="' + imageArray[i].src +'" width ="50px" height="150px">';
     }
 
     document.getElementById("orderRef").href = "/order/" + uid;
@@ -186,12 +187,15 @@ function sendRequestToServer(jsonInfo) {
             '<td><a href="#">' + mDate.toISOString().split('T')[0]  + '</a></td>' +
             '<td><a href="#">' + eDate.toISOString().split('T')[0]  + '</a></td>' +
             '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
+            '<td><a href="#">' + obj.data.description + '</a></td>' +
+            
             '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures.length) + '"></a></td>' +
             '<td style="display:none;"><button value='+ obj.id +'> </button></td>';
             if(obj.data.hasPictures.length == 0) {
             sss.innerHTML += '<td><a href="#"><img src=""> </a></td>';
             }else{
               for(var j = 0; j < obj.data.hasPictures.length ; j++ ){
+                console.log("hzxc");
                 sss.innerHTML += '<td><img height="50" width="50" style="display: none;" src="' +  obj.data.hasPictures[j] + '"></td>';
               }
             }
@@ -254,10 +258,6 @@ function addRowHandlers() {
     var createClickHandler =
       function (row) {
         return function () {
-          // var cell = row.getElementsByTagName("a")[0];
-          // var id = cell.innerHTML;
-          // var cell1 = row.getElementsByTagName("a")[1];
-          // var id2 = cell1.innerHTML;
           var modal = document.getElementById("myModal");
           var modal2 = document.getElementById("modalUnits");
           var modal3 = document.getElementById("modalOrder");
@@ -295,7 +295,9 @@ function fillInformation(id, imageArray, uid) {
   document.getElementById("minDateModal").value = id[6].innerHTML;
   document.getElementById("endDateModal").value = id[7].innerHTML;
   document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-  console.log(imageArray.length);
+  document.getElementById("descriptionModal").value = id[9].innerHTML;
+
+  console.log('adsf' + imageArray.length);
   for (var i = 0; i < imageArray.length; i++) {
     console.log("hey");
     //document.write("<li><img src='" + imageArray[i] + "' width='160' height='120'/><span>" + imageArray[i] + "</span></li>");

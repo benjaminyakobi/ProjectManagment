@@ -189,8 +189,47 @@
             let imgsUrls = [];
             var saveSpan = document.getElementById("saveThree");
             saveSpan.onclick = function () {
-                const modalVar = document.getElementById("myModal");
-                const form = document.getElementById("editInfoFormThree");
+            const modalVar = document.getElementById("myModal");
+            const form = document.getElementById("editInfoFormThree");
+            //function for testing dates.
+            //********************
+            const startDateModalThree = document.getElementById("startDateModalThree");
+            const endDateModalThree = document.getElementById("endDateModalThree");
+            const minDateModalThree = document.getElementById("minDateModalThree");
+            var date1 = new Date(startDateModalThree.value);
+            var date2 = new Date(endDateModalThree.value);
+            var date3 = new Date(minDateModalThree.value);
+            var diff = (date2 - date3) / 1000;
+            var diff2 = (date3 - date1) / 1000;
+            var diff3 = (date2 - date1) / 1000;
+            var days = Math.floor(diff / 86400);
+            var days3 = Math.floor(diff2 / 86400);
+            var days2 = Math.floor(diff2 / 86400);
+            if(days<0 ||days3<0||days2<0)
+            {
+                alert("Please enter a valid Until Date");
+                return;
+            }
+            //checking that all the form is filled.
+            //********************
+            const loc= document.getElementById("locationModalThree");
+            const loc2= document.getElementById("roomzModalThree");
+            const loc3= document.getElementById("priceModalThree");
+            const loc4= document.getElementById("ratingModalThree");
+            const loc5= document.getElementById("ownerNameModalThree");
+            const loc6= document.getElementById("startDateModalThree");
+            const loc7= document.getElementById("endDateModalThree");
+            const loc8= document.getElementById("minDateModalThree");
+            const loc9= document.getElementById("phoneNumberModalThree");
+            const loc0= document.getElementById("descriptionModalThree");
+            if(loc.value==""||loc2.value==""||loc3.value==""||loc4.value==""||loc5.value==""||
+            loc6.value==""||loc7.value==""||loc8.value==""||loc9.value==""||loc0.value=="")
+            {
+                alert("Missing information");
+                return;
+            }
+
+
 
            //     var fDateThree = new Date(form.fromDateThree.value);
           //      var uDateThree = new Date(form.untilDateThree.value);
@@ -289,6 +328,7 @@
                 var saveSpan = document.getElementById("saveOne");
                 saveSpan.onclick = function () {
                     // INSERT CHANGES HERE
+                    
                     modalVar.style.display = "none";
                 }
             }
@@ -327,11 +367,16 @@
 
                 <form name="modalName">
                     <legend>Contact Form</legend>
-                    <p>Unit location: <input id="locationModal" name="location" type="text" size="30"></p>
-                    <p>Rooms: <input id="roomzModal" name="rooms" type="text" size="30"></p>
-                    <p>Price: <input id="priceModal" name="price" type="text" size="30"></p>
-                    <p>Rating: <input id="ratingModal" name="rating" type="text" size="30"></p>
-                    <p>Owner name: <input id="ownerNameModal" name="owner" type="text" size="30"></p>
+                    <p>Unit location: <input id="locationModal" name="location" onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
+                    <p>Rooms: <input id="roomzModal" name="rooms" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 58)" maxlength="1" type="text" size="30"></p>
+                    <p>Price: <input id="priceModal" name="price" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 58)" type="text" size="30"></p>
+                    <p>Rating: <input id="ratingModal" name="rating" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 53)" maxlength="1" type="text" size="30"></p>
+                    <p>Owner name: <input id="ownerNameModal" name="owner" onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
 
                     <p>From Date: <input placeholder="From Date" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="startDateModal" name="fromDate"></p>
@@ -342,7 +387,8 @@
                     <p>Minimum Order: <input placeholder="Minimum Order" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="minDateModal" name="minimumDate"></p>
 
-                    <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
+                    <p>Phone number: <input id="phoneNumberModal" name="phone" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 58)" maxlength="10" type="text" size="30"></p>
 
                     <p>Description: <input id="descriptionModal" name="description" type="text" size="30"></p>
 
@@ -366,25 +412,30 @@
 
                 <form name="modalNameThree">
                     <legend>Contact Form</legend>
-                    <p>Unit location: <input id="locationModalThree" name="locationThree" type="text" size="30"></p>
-                    <p>Rooms: <input id="roomzModalThree" name="roomsThree" type="text" size="30"></p>
-                    <p>Price: <input id="priceModalThree" name="priceThree" type="text" size="30"></p>
-                    <p>Rating: <input id="ratingModalThree" name="ratingThree" type="text" size="30"></p>
-                    <p>Owner name: <input id="ownerNameModalThree" name="ownerThree" type="text" size="30"></p>
+                    <p>Unit location: <input id="locationModalThree" name="locationThree" placeholder="e.g Ashdod" onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
+                    <p>Rooms: <input id="roomzModalThree" name="roomsThree" placeholder="Appartment's rooms(max 9)" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 58)" maxlength="1" type="text" size="30"></p>
+                    <p>Price: <input id="priceModalThree" name="priceThree" placeholder="e.g 500" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 58)" type="text" size="30"></p>
+                    <p>Rating: <input id="ratingModalThree" name="ratingThree" placeholder="0-5" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 54)" maxlength="1" type="text" size="30"></p>
+                    <p>Owner name: <input id="ownerNameModalThree" name="ownerThree" placeholder="e.g 'rami'" onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
+                        <!--------------------------------------------------------------------------------------------------------------------->
 
-                    <p>From Date: <input placeholder="From Date" class="textbox-n" type="text"
+                    <p>From Date: <input  placeholder="From Date" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="startDateModalThree" name="fromDateThree"></p>
+                    <p>Until Date: <input   placeholder="Until Date" class="textbox-n" type="text"
+                            onfocus="(this.type='date')" id="endDateModalThree" name="untilDateThree"  ></p>
 
-                    <p>Until Date: <input placeholder="Until Date" class="textbox-n" type="text"
-                            onfocus="(this.type='date')" id="endDateModalThree" name="untilDateThree"></p>
-
-                    <p>Minimum Order: <input placeholder="Minimum Order" class="textbox-n" type="text"
+                    <p>Minimum Order: <input  id="minDateModalThree" placeholder="Minimum leasing month"  class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="minDateModalThree" name="minimumDateThree"></p>
-                            <!-- bug from here  -->
 
-                    <p>Phone number: <input id="phoneNumberModalThree" name="phoneThree" type="text" size="30"></p>
+                    <p>Phone number: <input id="phoneNumberModalThree" name="phoneThree" placeholder="e.g 0548547216" maxlength="10" placeholder="0548547216" onkeypress="return (event.charCode > 47 && 
+                        event.charCode < 58)" type="text" size="30"></p>
 
-                    <p>Description: <input id="descriptionModalThree" name="descriptionThree" type="text" size="30"></p>
+                    <p>Description: <input id="descriptionModalThree" name="descriptionThree" placeholder="e.g 2nd floor,view to the park." type="text" size="30"></p>
 
                     <div id="imgup">
                         <label for="img">Add unit images</label>
@@ -404,7 +455,8 @@
         </div>
 
     </div>
-
+    <!--checks if the leasing date and minimum date are valid-->
+    
     <div class="renterButtons">
         <div class="actionButtons">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=addNewAppartmentFunction();>Add
@@ -477,7 +529,7 @@
                     <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
                     <td><a href="#"><%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
                     <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
-                    <td><a href="#"><%= obj.data.phoneNumber   %></a></td>
+                    <td><a href="#"><%= obj.data.phoneNumber    %></a></td>
                     <td><a href="#"><img src=""></a></td>
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>
                     <td style="display: none;"><a href="#"><%= obj.data.description   %></a></td>
