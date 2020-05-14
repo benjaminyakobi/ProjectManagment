@@ -728,7 +728,8 @@ app.post('/updateUnit', (req, res) => {
                             rating: req.body.rating,
                             rooms: Number(req.body.rooms),
                             startDate: new Date(req.body.startDate),
-                            minDate: new Date(req.body.minDate)
+                            minDate: new Date(req.body.minDate),
+                            description:req.body.description
                         }).then(() => {
                             //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                             res.setHeader('Content-Type', 'application/json');
@@ -773,7 +774,8 @@ app.post('/addUnit', (req, res) => {
                     hasPictures: req.body.hasPictures, //1
                     minDate: new Date(req.body.minDate), //1
                     sold: "false",
-                    rid: req.cookies.uid
+                    rid: req.cookies.uid,
+                    description:req.body.description
                 }).then(() => {
                     //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                     res.setHeader('Content-Type', 'application/json');
