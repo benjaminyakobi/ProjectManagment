@@ -32,10 +32,10 @@ To provide effective tracking of orders.
 * HTML5, CSS
 
 ## Setup
-Setup your local environement 'npm install'
+Setup your local environement `npm install`
 
 ## Run Tests
-use 'npm test' and all tests will be executed by ___
+use npm `npm test` and all tests will be executed by ___
 
 ## Features
 * Filter and sort living-units by any keyword and parameter
