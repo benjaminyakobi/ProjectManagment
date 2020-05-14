@@ -180,7 +180,36 @@ app.get("/renter/requests", function (req, res) {
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "renter") {
-                res.render("rentTrack.html");
+                var l = [];
+                var query = admin.firestore().collection('units');
+                //console.log(req.cookies.uid);
+                //var storageRef = firebaseApp.storage().ref();
+                var allDocs = query.where('rid', '==', req.cookies.uid).get().then(snapShot => {
+                    snapShot.forEach(doc => {
+                        /*  if (snapShot.empty) {
+                            console.log('No matching documents,firstPhase.');
+                            res.json({})
+                            res.render("rentTrack.ejs",{l:l});
+                            return;
+                        }*/
+                        var query2 = admin.firestore().collection('requestPayment');
+                        //var storageRef = firebaseApp.storage().ref();
+                        //console.log(doc.id);
+
+                        var allDocs2 = query2.where('unitid', '==', doc.id).get().then(snapShot2 => {
+                            /*   if (snapShot2.empty) {
+                                console.log('No matching documents,SecondPhase..');
+                                res.render("rentTrack.ejs",{l:l});
+                                return;
+                            }*/
+                            snapShot2.forEach(doc2 => {
+                                //        console.log('push');
+                                l.push({ id: doc2.id, data: doc2.data(), unitId: doc.id });
+                            });
+                        });
+                    });
+                    res.render("rentTrack.ejs",{l:l});
+                });
             } else {
                 res.render("index.html");
             }

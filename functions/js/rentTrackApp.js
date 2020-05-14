@@ -42,7 +42,7 @@ function initApp()
 
 
 
-    
+    /*
 fetch("/renterLease", {
     method: "POST",
     headers: {
@@ -87,7 +87,7 @@ fetch("/renterLease", {
     }).catch(function (error) {
       console.log('data error');
     });
-
+*/
 /*
     //-------------------+fake names+---------------------
     const f1= function()

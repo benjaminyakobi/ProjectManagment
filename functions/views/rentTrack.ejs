@@ -110,9 +110,23 @@
         <th >Accept Contract</th>
 
     </tr>
-    <img>
-
-
+    <tbody id="myTable">
+ <!--     <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+        <tr>
+            <tl>
+                <td><a href="#"> <%= obj.unitId      %></a></td>
+                <td><a href="#"> <%= obj.data.firstName         %></a></td>
+                <td><a href="#"> <%= obj.data.lastName         %></a></td>
+                <td><a href="#"> <%= obj.data.email        %></a></td>
+                <td><a href="#"> <%= obj.data.phoneNumber     %></a></td>
+                <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                <td><a href="#"> <%= obj.data.billTotal   %></a></td>
+                <td><button value = <%= obj.id %> onclick="Approved(this)">V</button><button value =<%= obj.id   %> onclick="Declined(this)">X</button></td>
+            </tl>
+        </tr>
+        <% } %>-->
+    </tbody>
 </table>
 
 <script src="/js/rentTrackApp.js"></script>
