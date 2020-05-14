@@ -192,13 +192,13 @@
                 const modalVar = document.getElementById("myModal");
                 const form = document.getElementById("editInfoFormThree");
 
-                var fDateThree = new Date(form.fromDateThree.value);
-                var uDateThree = new Date(form.untilDateThree.value);
-
+           //     var fDateThree = new Date(form.fromDateThree.value);
+          //      var uDateThree = new Date(form.untilDateThree.value);
+/*
                 if (fDateThree.getTime() - uDateThree.getTime() > 0) {
                     alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
                     return;
-                }
+                }*/
 
                 fetch("/addUnit", {
                     method: "POST",
@@ -218,7 +218,7 @@
                         startDate: form.fromDateThree.value, //1
                         hasPictures: imgsUrls,               //1
                         minDate: form.minimumDateThree.value, //1
-                        description: form.descriptionModalThree.value
+                        description: form.descriptionThree.value
                     }),
                 })
 
@@ -474,12 +474,13 @@
                     <td><a href="#"> <%= obj.data.price         %></a></td>
                     <td><a href="#"> <%= obj.data.rating        %></a></td>
                     <td><a href="#"> <%= obj.data.ownerName     %></a></td>
-                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
-                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
-                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                    <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"><%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
                     <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
                     <td><a href="#"><img src=""></a></td>
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>
+                    <td style="display: none;"><a href="#"><%= obj.data.description   %></a></td>
 
                 </tl>
             </tr>

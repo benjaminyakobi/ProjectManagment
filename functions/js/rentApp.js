@@ -36,14 +36,14 @@ function initApp() {
         const modalVar = document.getElementById("myModal");
         const form = document.getElementById("editInfoFormTwo");
         // console.log("running");
-        
-        var fDate = new Date(form.fromDate.value);
+         
+  /*      var fDate = new Date(form.fromDate.value);
         var uDate = new Date(form.untilDate.value);
 
         if(fDate.getTime() - uDate.getTime() > 0){
             alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
             return;
-        }
+        }*/
 
         //request to db to update data
         fetch("/updateUnit", {
@@ -58,11 +58,12 @@ function initApp() {
                 location: form.location.value,
                 ownerName: form.owner.value,
                 phoneNumber: form.phone.value,
+                minDate: form.minimumDate.value,
                 price: form.price.value,
                 rating: form.rating.value,
                 rooms: form.rooms.value,
                 startDate: form.fromDate.value,
-                description: form.descriptionModalThree.value,
+                description: form.description.value,
                 unitId: form.uid.value
             }),
         })
@@ -133,9 +134,10 @@ function initApp() {
             document.getElementById("ownerNameModal").value = id[4].innerHTML;
             document.getElementById("startDateModal").value = id[5].innerHTML;
             document.getElementById("endDateModal").value = id[6].innerHTML;
-            document.getElementById("phoneNumberModal").value = id[7].innerHTML;
+            document.getElementById("minDateModal").value = id[7].innerHTML;
+            document.getElementById("phoneNumberModal").value = id[8].innerHTML;
             document.getElementById("savChangesB").value = uid;
-            console.log(uid);
+            document.getElementById("descriptionModal").value = id[10].innerHTML;
         }
         
 }

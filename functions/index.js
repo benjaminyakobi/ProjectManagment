@@ -73,7 +73,7 @@ app.get("/renter.ejs", function (req, res) {
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
-                    console.log(l);
+                    //console.log(l);
                     res.render("renter.ejs", { l: l });
                 });
             }
@@ -199,7 +199,7 @@ app.get("/student.ejs", function (req, res) {
         .auth()
         .verifySessionCookie(sessionCookie, true)//checkRevoked
         .then(() => {
-            console.log(role);
+            //console.log(role);
             if (req.cookies.role === "student") {
 
                 try {
@@ -717,7 +717,7 @@ app.post('/updateUnit', (req, res) => {
         .then(() => {
             (async () => {
                 try {
-
+                    console.log(req.body);
                     if (req.cookies.role == "renter") {
                         var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
                             location: req.body.location,
@@ -760,8 +760,8 @@ app.post('/addUnit', (req, res) => {
         .then(() => {
 
             if (req.cookies.role == "renter") {
-                console.log(req.body);
-                console.log(new Date(req.body.minDate));
+                //console.log(req.body);
+               // console.log(new Date(req.body.minDate));
                 var check2 = admin.firestore().collection('units').add({
                     location: req.body.location,//1
                     endDate: new Date(req.body.endDate),//1
