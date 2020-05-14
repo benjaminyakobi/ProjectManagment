@@ -1,6 +1,8 @@
 # Sami Room
 > Web site for brokerage of residential units.
 
+![Image of Yaktocat](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/images/logo-2.jpg)
+
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
