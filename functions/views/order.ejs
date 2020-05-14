@@ -453,13 +453,13 @@
            <!--****************************-->
 
             <button id="input_13" type="button" onclick="clickHand()"
-              class="form-submit-button submit-button jf-form-buttons jsTest-submitField" data-component="button"
+              data-component="button"
               data-content="">
               Submit Order
             </button>
             <script type="text/javascript">
               function clickHand() {
-
+                console.log("event");
                 var firstName = document.getElementById("first_2");
                 var lastName = document.getElementById("last_2");
                 var email = document.getElementById("input_3");
@@ -556,7 +556,8 @@
                   .then(response => response.json())
                   .then(function (resJ) {
                     console.log(resJ.data);
-
+                    alert("order have Completed.");
+                    window.location.href="/";
                   }).catch(function (error) {
                     console.log('data error');
                   });
