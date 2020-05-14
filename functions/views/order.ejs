@@ -497,8 +497,8 @@
                 }
 
                 //Postal
-                if (prePhone.value.length != 6) {
-                  alert("Please fill the correct phone area number");
+                if (ccPostal.value.length != 6) {
+                  alert("Please fill the correct postal 6 numbers");
                   return;
                 }
 
@@ -517,7 +517,7 @@
 
                 const endd = document.getElementById("start");
                 const minn = document.getElementById("minDateModal");
-                var date1 = new Date(min.value);
+                var date1 = new Date(minn.value);
                 var date2 = new Date(endd.value);
                 var diff = (date2 - date1) / 1000;
                 if (diff.value < 0) {

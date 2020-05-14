@@ -593,12 +593,12 @@ app.post('/requestUSort', (req, res) => {
                     try {
                         var query;
                         var l = [];
-
+                        console.log(req.body.action);
                         if (req.body.action == "sort") {
                             if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc');
+                                query = admin.firestore().collection('units').where("sold","==","true").orderBy(req.body.colName, 'desc');
                             } else {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName) ;
+                                query = admin.firestore().collection('units').where("sold","==","true").orderBy(req.body.colName) ;
                             }
                         }
                         else if (req.body.action == "filter") {
@@ -618,6 +618,7 @@ app.post('/requestUSort', (req, res) => {
                             return res.json({ status: 'OK', data: l });
                         });
                     } catch (error) {
+                        console.log(error);
                         return res.status(500).send(error);
                     }
                 })();

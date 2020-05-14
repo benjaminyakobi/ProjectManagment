@@ -161,18 +161,73 @@ function sendRequestToServer(jsonInfo) {
       for (var i = 0; i < resJ.data.length; i++) {
         var obj = resJ.data[i];
         try {
-          sss.innerHTML += '<tl>' +
+          var d=new Date(0);
+        //  var date = new DateTime.fromMillisecondsSinceEpoch(obj.data.startDate * 1000);
+          
+          var sDate =new Date(obj.data.startDate._seconds *1000);
+          var eDate =new Date(obj.data.endDate._seconds *1000);
+          var mDate =new Date(obj.data.minDate._seconds *1000);
+
+
+         // const d2 = new Date(obj.data.startDate * 1000);
+          // Careful, the string output here can vary by implementation...
+         // const strDate = d.toLocaleString();
+          //d.setUTCSeconds(obj.data.startDate);
+         // console.log(new Date(obj.data.startDate *1000));
+        //  console.log(new Date(obj.data.startDate *1000).toISOString().split('T')[0]);
+        //  console.log(moment(1382086394000).format("DD-MM-YYYY h:mm:ss"));
+          sss.innerHTML += '<tr> <tl>' +
             '<td><a href="#">' + obj.data.location + '</a></td>' +
             '<td><a href="#">' + obj.data.rooms + '</a></td>' +
             '<td><a href="#">' + obj.data.price + '</a></td>' +
             '<td><a href="#">' + obj.data.rating + '</a></td>' +
             '<td><a href="#">' + obj.data.ownerName + '</a></td>' +
-            '<td><a href="#">' + obj.data.startDate + '</a></td>' +
-            '<td><a href="#">' + obj.data.minDate + '</a></td>' +
-            '<td><a href="#">' + obj.data.endDate + '</a></td>' +
+            '<td><a href="#">' + sDate.toISOString().split('T')[0]  + '</a></td>' +
+            '<td><a href="#">' + mDate.toISOString().split('T')[0]  + '</a></td>' +
+            '<td><a href="#">' + eDate.toISOString().split('T')[0]  + '</a></td>' +
             '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
             '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures.length) + '"></a></td>' +
-            '</tl>';
+            '<td style="display:none;"><button value='+ obj.id +'> </button></td>';
+            if(obj.data.hasPictures.length == 0) {
+            sss.innerHTML += '<td><a href="#"><img src=""> </a></td>';
+            }else{
+              for(var j = 0; j < obj.data.hasPictures.length ; j++ ){
+                sss.innerHTML += '<td><img height="50" width="50" style="display: none;" src="' +  obj.data.hasPictures[j] + '"></td>';
+              }
+            }
+            sss.innerHTML+= '</tl></tr>';
+            
+            
+            
+            /*           <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+            <tr>
+                <tl>
+                    <td><a href="#"> <%= obj.data.location      %></a></td>
+                    <td><a href="#"> <%= obj.data.rooms         %></a></td>
+                    <td><a href="#"> <%= obj.data.price         %></a></td>
+                    <td><a href="#"> <%= obj.data.rating        %></a></td>
+                    <td><a href="#"> <%= obj.data.ownerName     %></a></td>
+                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                    <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
+                    
+                    <td style="display:none;"><button value=<%= obj.id %>> </button></td>
+                    <% if(obj.data.hasPictures.length == 0) { %>
+                    <td><a href="#"><img src=""> </a></td>
+
+                    <% }else{ %>
+                    <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
+                    <% } %>
+                    <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
+                    <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
+
+                    <% } %>
+
+
+                </tl>
+            </tr>
+            <% } %>*/
         }
         catch (error) {
           console.log(error);
