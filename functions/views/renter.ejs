@@ -195,7 +195,7 @@
                 var fDateThree = new Date(form.fromDateThree.value);
                 var uDateThree = new Date(form.untilDateThree.value);
 
-                if(fDateThree.getTime() - uDateThree.getTime() > 0){
+                if (fDateThree.getTime() - uDateThree.getTime() > 0) {
                     alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
                     return;
                 }
@@ -217,7 +217,7 @@
                         rooms: form.roomsThree.value, //1
                         startDate: form.fromDateThree.value, //1
                         hasPictures: imgsUrls,    //1
-                        minDate: "01-01-2020" //1
+                        minDate: form.minimumDateThree.value//1
                     }),
                 })
 
@@ -338,6 +338,9 @@
                     <p>Until Date: <input placeholder="Until Date" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="endDateModal" name="untilDate"></p>
 
+                    <p>Minimum Order: <input placeholder="Minimum Order" class="textbox-n" type="text"
+                            onfocus="(this.type='date')" id="minDateModal" name="minimumDate"></p>
+
                     <p>Phone number: <input id="phoneNumberModal" name="phone" type="text" size="30"></p>
                     <fieldset disabled>
                         <p>Unique UID: <input id="savChangesB" name="uid" type="text" size="30"></p>
@@ -371,12 +374,14 @@
                     <p>Until Date: <input placeholder="Until Date" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="endDateModalThree" name="untilDateThree"></p>
 
+                    <p>Minimum Order: <input placeholder="Minimum Order" class="textbox-n" type="text"
+                            onfocus="(this.type='date')" id="minDateModalThree" name="minimumDateThree"></p>
+                            <!-- bug from here -->
+
                     <p>Phone number: <input id="phoneNumberModalThree" name="phoneThree" type="text" size="30"></p>
                     <div id="imgup">
                         <label for="img">Add unit images</label>
-                        <!--only for Students-->
                         <input type="file" multiple="multiple" id="img" name="img" accept="image/x-png"><br>
-                        <!--add required field-->
                     </div>
                     <img id="prevImage" />
                 </form>
@@ -433,15 +438,19 @@
                                 src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
                             onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
                 </th>
+                <!-- Sort up / Sort down - have to be implemented in the future! -->
                 <th>
-                    <div>Start date<button class="button btnStyle" onclick="sortUp('startDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div>
+                    <div>Start date<button class="button btnStyle"> <img src="/images/sortUp.jpg"> </button> <button
+                            id="sortDown" class="button btnStyle"><img src="/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
-                    <div>End date<button class="button btnStyle" onclick="sortUp('endDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div>
+                    <div>Minimum Order Date<button class="button btnStyle"> <img src="/images/sortUp.jpg"> </button>
+                        <button id="sortDown" class="button btnStyle"><img src="/images/sortDown.jpg"></button>
+                    </div>
+                </th>
+                <th>
+                    <div>End date<button class="button btnStyle"> <img src="/images/sortUp.jpg"> </button> <button
+                            id="sortDown" class="button btnStyle"><img src="/images/sortDown.jpg"></button></div>
                 </th>
                 <th>Phone number</th>
                 <th>picture</th>
@@ -457,6 +466,7 @@
                     <td><a href="#"> <%= obj.data.rating        %></a></td>
                     <td><a href="#"> <%= obj.data.ownerName     %></a></td>
                     <td><a href="#"> <%= obj.data.startDate     %></a></td>
+                    <td><a href="#"> <%= obj.data.minDate     %></a></td>
                     <td><a href="#"> <%= obj.data.endDate       %></a></td>
                     <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
                     <td><a href="#"><img src=""></a></td>
