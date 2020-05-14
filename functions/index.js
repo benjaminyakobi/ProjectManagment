@@ -472,8 +472,8 @@ app.post('/adminRequest', (req, res) => {
                     });
                 }
                 else if (req.body.flag == "false") {
-                    var query2 = admin.firestore().collection('requests').doc(req.body.uid).delete();
-                    var query3 = admin.firestore().collection('users').doc(req.body.uid).delete();
+                    var query5 = admin.firestore().collection('requests').doc(req.body.uid).delete();
+                    var query6 = admin.firestore().collection('users').doc(req.body.uid).delete();
                     admin.auth().deleteUser(req.body.uid)
                         .then(function (userRecord) {
                             console.log('Successfully deleted user');
@@ -594,9 +594,9 @@ app.post('/requestUSort', (req, res) => {
 
                         if (req.body.action == "sort") {
                             if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc').where('sold', '==', "false");
+                                query = admin.firestore().collection('units').orderBy(req.body.colName, 'desc');
                             } else {
-                                query = admin.firestore().collection('units').orderBy(req.body.colName).where('sold', '==', "false");
+                                query = admin.firestore().collection('units').orderBy(req.body.colName) ;
                             }
                         }
                         else if (req.body.action == "filter") {

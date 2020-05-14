@@ -50,9 +50,9 @@ function initApp() {
 
         };
 
-    };
-
-    currentRow.onclick = createClickHandler(currentRow);
+        console.log('1');
+        currentRow.onclick = createClickHandler(currentRow);
+    }
   }
 
   addRowHandlers();
@@ -71,9 +71,11 @@ function initApp() {
     document.getElementById("endDateModal").value = id[7].innerHTML;
     document.getElementById("phoneNumberModal").value = id[8].innerHTML;
     console.log("hey" + imageArray.length);
+    const divImage = document.getElementById("imageContainer");
+
     for (var i = 1; i < imageArray.length; i++) {
       console.log(imageArray[i].src);
-      // document.write("<li><img src='"+imageArray[i].src+ "' width='40' height='40'/><span>" + imageArray[i]+"</span></li>");
+      //divImage.innerHTML
     }
 
     document.getElementById("orderRef").href = "/order/" + uid;
@@ -222,10 +224,10 @@ function addRowHandlers() {
         };
 
       };
-
+      
+      currentRow.onclick = createClickHandler(currentRow);
   };
 
-  currentRow.onclick = createClickHandler(currentRow);
 }
 
 function fillInformation(id, imageArray, uid) {
@@ -241,7 +243,7 @@ function fillInformation(id, imageArray, uid) {
   console.log(imageArray.length);
   for (var i = 0; i < imageArray.length; i++) {
     console.log("hey");
-    document.write("<li><img src='" + imageArray[i] + "' width='160' height='120'/><span>" + imageArray[i] + "</span></li>");
+    //document.write("<li><img src='" + imageArray[i] + "' width='160' height='120'/><span>" + imageArray[i] + "</span></li>");
   }
 
 
