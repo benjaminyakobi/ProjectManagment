@@ -65,11 +65,11 @@ app.get("/renter.ejs", function (req, res) {
                 var l = [];
                 var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
                 var allDocs = query.get().then(snapShot => {
-      /*              if (snapShot.empty) {
-                        console.log('No matching documents,firstPhase.');
-                        res.render("renter.ejs",{l:l});
-                        return;
-                    }*/
+                    /*              if (snapShot.empty) {
+                                      console.log('No matching documents,firstPhase.');
+                                      res.render("renter.ejs",{l:l});
+                                      return;
+                                  }*/
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
@@ -172,6 +172,40 @@ app.get("/order/:unitId", function (req, res) {
         });
 });
 
+app.get("/renter/history/:filter", function (req, res) {
+    const sessionCookie = req.cookies.session || "";
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
+        .then(() => {
+            if (req.cookies.role === "renter") {
+                var l = [];
+                var query = admin.firestore().collection('units');
+                var allDocs = query.where('rid', '==', req.cookies.uid).get().then(snapShot => {
+                    snapShot.forEach(doc => {
+
+                        /*              var query2 = admin.firestore().collection('Transactions');
+                                      var allDocs2 = query2.where('unitid', '==', doc.id).get().then(snapShot2 => {
+                                          snapShot2.forEach(doc2 => {
+                                              l.push({  data: doc2.data(), unitId: doc.id ,sold:"true"});
+                                          });
+                                      });*/
+                        var s = doc.data().sold;
+                        if (doc.data().sold == "false") {
+                            l.push({ data: doc.data(), unitId: doc.id, sold: s });
+                        }
+                    });
+                    console.log(l);
+                    res.render("history.ejs", { l: [] });
+                });
+            } else {
+                res.render("index.html");
+            }
+        })
+        .catch((error) => {
+            res.render("index.html");
+        });
+});
 
 app.get("/renter/requests", function (req, res) {
     const sessionCookie = req.cookies.session || "";
@@ -208,7 +242,7 @@ app.get("/renter/requests", function (req, res) {
                             });
                         });
                     });
-                    res.render("rentTrack.ejs",{l:l});
+                    res.render("rentTrack.ejs", { l: l });
                 });
             } else {
                 res.render("index.html");
@@ -238,7 +272,7 @@ app.get("/student.ejs", function (req, res) {
                         snapShot.forEach(doc => {
                             l.push({ id: doc.id, data: doc.data() });
                         });
-                        
+
                         res.render("student.ejs", { l: l });
                     });
                 } catch (error) {
@@ -579,8 +613,7 @@ app.post('/rU', (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true)
         .then(() => {
-            if(req.cookies.role == "student")
-            {
+            if (req.cookies.role == "student") {
                 (async () => {
                     try {
                         var l = [];
@@ -593,11 +626,11 @@ app.post('/rU', (req, res) => {
                             res.setHeader('Content-Type', 'application/json');
                             return res.json({ status: 'OK', data: l });
                         });
-                        } catch (error) {
+                    } catch (error) {
                         return res.status(500).send(error);
                     }
                 })();
-            }else{
+            } else {
                 res.send("not authorized access");
             }
         })
@@ -625,15 +658,15 @@ app.post('/requestUSort', (req, res) => {
                         console.log(req.body.action);
                         if (req.body.action == "sort") {
                             if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').where("sold","==","false").orderBy(req.body.colName, 'desc');
+                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.body.colName, 'desc');
                             } else {
-                                query = admin.firestore().collection('units').where("sold","==","false").orderBy(req.body.colName) ;
+                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.body.colName);
                             }
                         }
                         else if (req.body.action == "filter") {
                             //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
                             //.where(req.body.colName,'<=',req.body.higherValue);
-                            query = admin.firestore().collection('units').where("sold","==","false").where(req.body.colName, '>=', Number(req.body.lowerValue))
+                            query = admin.firestore().collection('units').where("sold", "==", "false").where(req.body.colName, '>=', Number(req.body.lowerValue))
                                 .where(req.body.colName, '<=', Number(req.body.higherValue));
                         }
                         else
@@ -643,7 +676,7 @@ app.post('/requestUSort', (req, res) => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
-                        //    console.log(l);
+                            //    console.log(l);
                             res.setHeader('Content-Type', 'application/json');
                             return res.json({ status: 'OK', data: l });
                         });
@@ -758,7 +791,7 @@ app.post('/updateUnit', (req, res) => {
                             rooms: Number(req.body.rooms),
                             startDate: new Date(req.body.startDate),
                             minDate: new Date(req.body.minDate),
-                            description:req.body.description
+                            description: req.body.description
                         }).then(() => {
                             //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                             res.setHeader('Content-Type', 'application/json');
@@ -790,7 +823,7 @@ app.post('/addUnit', (req, res) => {
 
             if (req.cookies.role == "renter") {
                 //console.log(req.body);
-               // console.log(new Date(req.body.minDate));
+                // console.log(new Date(req.body.minDate));
                 var check2 = admin.firestore().collection('units').add({
                     location: req.body.location,//1
                     endDate: new Date(req.body.endDate),//1
@@ -804,7 +837,7 @@ app.post('/addUnit', (req, res) => {
                     minDate: new Date(req.body.minDate), //1
                     sold: "false",
                     rid: req.cookies.uid,
-                    description:req.body.description
+                    description: req.body.description
                 }).then(() => {
                     //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                     res.setHeader('Content-Type', 'application/json');

@@ -147,82 +147,47 @@
         <thead>
             <tr>
                 <th>
-                    <div>Location<button class="button btnStyle" onclick="sortUp('location')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div>
+                    <div>Unit Id</div>
                 </th>
                 <th>
-                    <div>Rooms<button class="button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg">
-                        </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('rooms')"><img
-                                src="/images/sortDown.jpg"></button></div>
+                    <div>Rooms</div>
                 </th>
                 <th>
-                    <div>Price<button class="button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg">
-                        </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('price')"><img
-                                src="/images/sortDown.jpg"></button></div>
+                    <div>Start Date</div>
                 </th>
                 <th>
-                    <div>Rating<button class="button btnStyle" onclick="sortUp('rating')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div>
+                    <div>End Date</div>
                 </th>
                 <th>
-                    <div>Owner name<button class="button btnStyle" onclick="sortUp('ownerName')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
+                    <div>Daily income</div>
                 </th>
                 <th>
-                    <div>Start date<button class="button btnStyle" onclick="sortUp('startDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div>
+                    <div>Total sum</div>
                 </th>
-                <th>
-                    <div>Minimum order date<button class="button btnStyle" onclick="sortUp('minDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('minDate')"><img src="/images/sortDown.jpg"></button></div>
-                </th>
-                <th>
-                    <div>End date<button class="button btnStyle" onclick="sortUp('endDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div>
-                </th>
-                <th>Phone number</th>
-                <th>picture</th>
             </tr>
         </thead>
         <tbody id="tableBody">
             <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
-            <tr>
-                <tl>
-                    <td><a href="#"> <%= obj.data.location      %></a></td>
-                    <td><a href="#"> <%= obj.data.rooms         %></a></td>
-                    <td><a href="#"> <%= obj.data.price         %></a></td>
-                    <td><a href="#"> <%= obj.data.rating        %></a></td>
-                    <td><a href="#"> <%= obj.data.ownerName     %></a></td>
-                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
-                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
-                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
-                    <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
-                    
-                    <td style="display:none;"><button value=<%= obj.id %>> </button></td>
-                    <% if(obj.data.hasPictures.length == 0) { %>
-                    <td><a href="#"><img src=""> </a></td>
-
-                    <% }else{ %>
-                    <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
-                    <% } %>
-                    <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
-                    <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
-
-                    <% } %>
-                </tl>
-            </tr>
-            <% } %>
+                <% if(obj.sold == "true") { %>
+                     <tr bgcolor = "green" >
+                <% }else{ %>
+                    <tr bgcolor = "red" >
+                <% } %>    
+                    <tl>
+                        <td><a href="#"><%= obj.unitId      %></a></td>
+                        <td><a href="#"><%= obj.data.rooms         %></a></td>
+                        <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                        <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                        <td><a href="#"></a></td> <!--  ADD DAILYYYYYYYYYYYYYYYY-->
+                        <td><a href="#"><%= obj.data.price        %></a></td>      
+               
+                    </tl>
+                </tr>
+                <% } %>
         </tbody>
     </table>
 
     <script type="text/javascript" src="/js/stHistory.js"></script>
-
 
 
     <div id="myModal" class="modal">

@@ -706,3 +706,13 @@ function lClick()
         }).catch(function (error) {
             console.log('data error');
         });*/   
+     <!--  <% if(obj.data.hasPictures.length == 0) { %>
+                        <td><a href="#"><img src=""> </a></td>
+
+                        <% }else{ %>
+                        <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
+                        <% } %>
+                        <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
+                        <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
+                        <% } %>
+                    --><%= obj.data.         %>
