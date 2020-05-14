@@ -75,7 +75,7 @@ function initApp() {
 
     for (var i = 1; i < imageArray.length; i++) {
       console.log(imageArray[i].src);
-      //divImage.innerHTML
+      //divImage.innerHTML\
     }
 
     document.getElementById("orderRef").href = "/order/" + uid;

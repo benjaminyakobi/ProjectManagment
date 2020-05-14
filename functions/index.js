@@ -67,6 +67,7 @@ app.get("/renter.ejs", function (req, res) {
                 var allDocs = query.get().then(snapShot => {
                     if (snapShot.empty) {
                         console.log('No matching documents,firstPhase.');
+                        res.render("renter.ejs",{l:l});
                         return;
                     }
                     snapShot.forEach(doc => {
