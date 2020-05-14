@@ -100,7 +100,7 @@ function addRowHandlers() {
                                       modal.style.display = "block";
                                       modal2.style.display = "block";
                                       modal3.style.display = "none";
-                                      fillInformation(row.getElementsByTagName("a"));
+                                      fillInformation(row.getElementsByTagName("a"),row.getElementsByTagName("img"));
                                };
                                       
           };
@@ -112,6 +112,26 @@ function addRowHandlers() {
   changeToCurrectField();
   setToMin();
   const sss = document.getElementById("tableBody");
+
+  function fillInformation(id,imageArray){
+    document.getElementById("locationModal").value = id[0].innerHTML;
+    document.getElementById("roomzModal").value = id[1].innerHTML;
+    document.getElementById("priceModal").value = id[2].innerHTML;
+    document.getElementById("ratingModal").value = id[3].innerHTML;
+    document.getElementById("ownerNameModal").value = id[4].innerHTML;
+    document.getElementById("startDateModal").value = id[5].innerHTML;
+    document.getElementById("minDateModal").value = id[6].innerHTML;
+    document.getElementById("endDateModal").value = id[7].innerHTML;
+    document.getElementById("phoneNumberModal").value = id[8].innerHTML;
+    console.log("hey"+ imageArray.length);
+      for(var i = 1 ; i<imageArray.length;i++){
+        console.log(imageArray[i].src);
+        // document.write("<li><img src='"+imageArray[i].src+ "' width='40' height='40'/><span>" + imageArray[i]+"</span></li>");
+      }
+     
+  
+  }
+
 }
 
 
@@ -201,7 +221,7 @@ function sendRequestToServer(jsonInfo){
                                   '<td><a href="#">' +obj.data.minDate+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.data.endDate+ '</a></td>'+ 
                                   '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
-                                  '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures)+'"></a></td>'+
+                                  '<td><a href="#"><img src="'+hasImg(obj.data.hasPictures.length)+'"></a></td>'+
                                 '</tl>';
               }
               catch(error){
@@ -209,12 +229,12 @@ function sendRequestToServer(jsonInfo){
               }
             }
             addRowHandlers();
+            searchFunction();
       }).catch(function (error) {
         console.log('data error');
       });
     }
 function hasImg(val) {
-  console.log('+hadsaf'+val);
   if (val>0)
     return "/images/compact_camera.png";
   return "";
@@ -250,7 +270,7 @@ function addRowHandlers() {
                                       modal.style.display = "block";
                                       modal2.style.display = "block";
                                       modal3.style.display = "none";
-                                      fillInformation(row.getElementsByTagName("a"));
+                                      fillInformation(row.getElementsByTagName("a"),row.getElementsByTagName("img"));
                                };
                                       
           };
@@ -258,7 +278,7 @@ function addRowHandlers() {
       currentRow.onclick = createClickHandler(currentRow);
   }
 }
-function fillInformation(id){
+function fillInformation(id,imageArray){
   document.getElementById("locationModal").value = id[0].innerHTML;
   document.getElementById("roomzModal").value = id[1].innerHTML;
   document.getElementById("priceModal").value = id[2].innerHTML;
@@ -268,6 +288,13 @@ function fillInformation(id){
   document.getElementById("minDateModal").value = id[6].innerHTML;
   document.getElementById("endDateModal").value = id[7].innerHTML;
   document.getElementById("phoneNumberModal").value = id[8].innerHTML;
+  console.log(imageArray.length);
+    for(var i = 0 ; i<imageArray.length;i++){
+      console.log("hey");
+      document.write("<li><img src='"+imageArray[i]+ "' width='160' height='120'/><span>" + imageArray[i]+"</span></li>");
+    }
+   
+
 }
 
 function closeWindow(){
@@ -285,7 +312,7 @@ function searchFunction() {
   filter = input.value.toUpperCase();
   table = document.getElementById("tableBody");
   tr = table.getElementsByTagName("tr");
-  for (i = 1; i < tr.length; i++) {
+  for (i = 0; i < tr.length; i++) {
       td = tr[i].getElementsByTagName("a");
       tr[i].style.display ="none";
       for(var j = 0; j <td.length;j++){
