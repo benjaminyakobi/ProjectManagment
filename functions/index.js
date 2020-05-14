@@ -207,6 +207,7 @@ app.get("/student.ejs", function (req, res) {
                         snapShot.forEach(doc => {
                             l.push({ id: doc.id, data: doc.data() });
                         });
+                        
                         res.render("student.ejs", { l: l });
                     });
                 } catch (error) {
