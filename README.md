@@ -1,8 +1,6 @@
 # Sami Room
 > Web site for brokerage of residential units.
 
-![Login](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/loginPage.png)
-
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
@@ -24,7 +22,10 @@ To provide a modern and easy to user interface for brokerage firms to manage the
 To provide effective tracking of orders.
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Login](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/loginPage.png)
+![Renter](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/renterPage.png)
+![Student](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/studentPage.png)
+
 
 ## Technologies
 * Firebase - version 7.14.0
