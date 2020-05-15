@@ -15,10 +15,7 @@
         "sourceType": "module"
     },
     "rules": {
-        "camelcase": [2, {"properties": "always"}],
-        "curly": ["error", "multi-or-nest"],
         "no-unexpected-multiline": ["error"],
-        "lines-around-comment": ["error", { "beforeBlockComment": true }],
         "no-undef" : "off"
     }
 }
