@@ -762,11 +762,10 @@ app.post('/rU', (req, res) => {
 });
 
 
-
 //request all units Sort
-app.post('/requestUSort', (req, res) => {
+app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
     const sessionCookie = req.cookies.session || "";
-
+    console.log('dmg check');
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true)
@@ -777,30 +776,30 @@ app.post('/requestUSort', (req, res) => {
                     try {
                         var query;
                         var l = [];
-                        console.log(req.body.action);
-                        if (req.body.action == "sort") {
-                            if (req.body.sortDirection == "desc") {
-                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.body.colName, 'desc');
+                        console.log(req.params.action);
+                        if (req.params.action == "sort") {
+                            if (req.params.fromLower == "desc") {
+                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName, 'desc');
                             } else {
-                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.body.colName);
+                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName);
                             }
                         }
-                        else if (req.body.action == "filter") {
+                        else if (req.params.action == "filter") {
                             //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
                             //.where(req.body.colName,'<=',req.body.higherValue);
-                            query = admin.firestore().collection('units').where("sold", "==", "false").where(req.body.colName, '>=', Number(req.body.lowerValue))
-                                .where(req.body.colName, '<=', Number(req.body.higherValue));
+                            query = admin.firestore().collection('units').where("sold", "==", "false").where(req.params.colName, '>=', Number(req.params.fromLower))
+                                .where(req.params.colName, '<=', Number(req.params.toHigher));
                         }
                         else
-                            query = admin.firestore().collection('units');
+                            query = admin.firestore().collection('units').where("sold", "==", "false");
 
                         var allDocs = query.get().then(snapShot => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
-                            //    console.log(l);
-                            res.setHeader('Content-Type', 'application/json');
-                            return res.json({ status: 'OK', data: l });
+                                console.log(l);
+                            res.render("student.ejs", { l: l });
+
                         });
                     } catch (error) {
                         console.log(error);
