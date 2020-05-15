@@ -145,7 +145,7 @@ function setToMin() {
 
 function sendRequestToServer(jsonInfo) {
   var sss = document.getElementById("tableBody");
-  fetch("/requestUSort", {
+  fetch("/api/requestUSort", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -241,7 +241,7 @@ function sendRequestToServer(jsonInfo) {
 }
 function hasImg(val) {
   if (val > 0)
-    return "/images/compact_camera.png";
+    return "/api/images/compact_camera.png";
   return "";
 }
 
@@ -302,7 +302,7 @@ function fillInformation(id, imageArray, uid) {
   }
 
 
-  document.getElementById("orderRef").href = "/order/" + uid;
+  document.getElementById("orderRef").href = "/api/order/" + uid;
 }
 
 function closeWindow() {
@@ -342,7 +342,7 @@ function paymentWindow(x) {
   modal2.style.display = "none";
   modal3.style.display = "block"; sToZ8DpQF1B8rwfdsKxz
   */
-  fetch("/order/", {
+  fetch("/api/order/", {
     method: "POST",
     headers: {
       Accept: "application/json",

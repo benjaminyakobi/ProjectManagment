@@ -12,7 +12,7 @@ function initApp() {
 
     function hasImg(val) {
         if (val)
-            return "/images/compact_camera.png";
+            return "/api/images/compact_camera.png";
         return "";
     }
 
@@ -85,7 +85,7 @@ function initApp() {
         }*/
 
         //request to db to update data
-        fetch("/updateUnit", {
+        fetch("/api/updateUnit", {
             method: "POST",
             headers: {
                 Accept: "application/json",
