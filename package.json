@@ -27,6 +27,8 @@
   },
   "homepage": "https://github.com/benjaminyakobi/ProjectManagement#readme",
   "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-plugin-promise": "^4.2.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
     "body-parser": "^1.19.0",
@@ -35,8 +37,6 @@
     "cors": "^2.8.5",
     "csurf": "^1.11.0",
     "ejs": "^3.1.2",
-    "eslint": "^6.8.0",
-    "eslint-plugin-promise": "^4.2.1",
     "express": "^4.17.1",
     "firebase-admin": "^8.10.0",
     "firebase-functions": "^3.6.1",

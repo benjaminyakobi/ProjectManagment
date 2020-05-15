@@ -10,7 +10,7 @@ jobs:
                 name: install npm
                 command: npm install
             - run:
-                name: install npm
+                name: install npm2
                 command: npm ci
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
