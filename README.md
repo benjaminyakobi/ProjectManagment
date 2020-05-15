@@ -1,13 +1,10 @@
 # Sami Room
 > Web site for brokerage of residential units.
 
-![Image of Yaktocat](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/images/logo-2.jpg)
-
 ## Table of contents
 * [General info](#general-info)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
-* [Setup](#setup)
 * [Features](#features)
 * [Status](#status)
 * [Inspiration](#inspiration)
@@ -24,7 +21,10 @@ To provide a modern and easy to user interface for brokerage firms to manage the
 To provide effective tracking of orders.
 
 ## Screenshots
-![Example screenshot](./img/screenshot.png)
+![Login](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/loginPage.png)
+![Renter](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/renterPage.png)
+![Student](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/studentPage.png)
+
 
 ## Technologies
 * Firebase - version 7.14.0
@@ -32,28 +32,22 @@ To provide effective tracking of orders.
 * Node.js
 * Express
 * HTML5, CSS
+* Cookies
+* Ejs
 
-## Setup
-Setup your local environement `npm install`
 
-## Run Tests
-use npm `npm test` and all tests will be executed by ___
 
 ## Features
 * Filter and sort living-units by any keyword and parameter
 * Managing student registrations by the admin
-* Awesome feature 3
-
-To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* Renter can post living-units , reject and accept offers.
+* Renter can review his actions and analyze his previous dealings.
+* More
 
 ## Status
-Project is: _in progress_
-Now we are running in sprint number 2.
+Project is: After second sprint with nice functionalities.
+Now we are heading sprint number 3.
 
-## Inspiration
-Add here credits. Project inspired by..., based on...
 
 ## Contact
-Created by Kesem Even Hen(@kesemev), Benjamin Yakobi(@benjaminyakobi]), Dan marinescu(@Dan-marinescu), Sagi Vaknin(@ForSure-Sv), Liron Vaknin. 
+Created by Kesem Even Hen(@kesemev), Benjamin Yakobi(@benjaminyakobi), Dan marinescu(@Dan-marinescu), Sagi Vaknin(@ForSure-Sv), Liron Vaknin. 

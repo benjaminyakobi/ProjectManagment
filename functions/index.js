@@ -402,7 +402,7 @@ app.get("/student.ejs", function (req, res) {
 
             }
             else
-                res.redirect("/");
+                res.redirect("/api/");
         })
         .catch((error) => {
             console.log(error);
@@ -798,7 +798,6 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
                             snapShot.forEach(doc => {
                                 l.push({ id: doc.id, data: doc.data() });
                             });
-                                console.log(l);
                             res.render("student.ejs", { l: l });
 
                         });
