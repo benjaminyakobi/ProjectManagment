@@ -78,7 +78,7 @@ function initApp() {
       divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
 
-    document.getElementById("orderRef").href = "/order/" + uid;
+    document.getElementById("orderRef").href = "/api/order/" + uid;
 
   }
 
