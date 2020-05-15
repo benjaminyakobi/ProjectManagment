@@ -35,7 +35,7 @@ function initApp() {
     function hasImg() {
         console.log("hasIMg");
         if (true) {
-            return "/images/compact_camera.png";
+            return "/api/images/compact_camera.png";
 
             /*      var x = document.createElement("IMG");
                   x.setAttribute("images", "compact_camera.png");
@@ -153,7 +153,7 @@ function initApp() {
 
 function accept(objec) {
 
-    fetch("/adminRequest", {
+    fetch("/api/adminRequest", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -180,7 +180,7 @@ function accept(objec) {
 
 
 function decline(objec) {
-    fetch("/adminRequest", {
+    fetch("/api/adminRequest", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -211,7 +211,7 @@ function decline(objec) {
 function hasImg() {
     console.log("hasIMg");
     if (true) {
-        return "/images/compact_camera.png";
+        return "/api/images/compact_camera.png";
 
     }
 }

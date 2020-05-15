@@ -307,7 +307,7 @@ function fillInformation(id, imageArray, uid) {
     }
 
 
-  document.getElementById("orderRef").href = "/order/" + uid;
+  document.getElementById("orderRef").href = "/api/order/" + uid;
 }
 
 function closeWindow() {
@@ -371,7 +371,7 @@ var sortUpOrDown = 'desc';
 function sortUp(columnName) {
   var x = document.getElementById("myInput").value;
   sortUpOrDown = 'desc';
-  window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'desc'+'/'+'0';
+  window.location.href = '/api/requestUSort/'+'sort'+'/'+columnName+'/'+'desc'+'/'+'0';
 
   //sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: x, action: "sort" });
 }
@@ -379,7 +379,7 @@ function sortUp(columnName) {
 function sortDown(columnName) {
   var searchData = document.getElementById("myInput").value;
   sortUpOrDown = 'inc';
-  window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'asc'+'/'+'0';
+  window.location.href = '/api/requestUSort/'+'sort'+'/'+columnName+'/'+'asc'+'/'+'0';
 
   //sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: searchData, action: "sort" });
 }
@@ -391,7 +391,7 @@ function sendData() {
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  window.location.href = '/requestUSort/'+'filter'+'/'+columnName+'/'+fromFilter+'/'+toFilter;
+  window.location.href = '/api/requestUSort/'+'filter'+'/'+columnName+'/'+fromFilter+'/'+toFilter;
   //'/requestUSort/:action/:colName/:fromLower/:toHigher'
   //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }

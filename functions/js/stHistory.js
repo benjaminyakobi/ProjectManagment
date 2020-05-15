@@ -302,7 +302,7 @@ function fillInformation(id, imageArray, uid) {
   }
 
 
-  document.getElementById("orderRef").href = "/order/" + uid;
+  document.getElementById("orderRef").href = "/api/order/" + uid;
 }
 
 function closeWindow() {
@@ -382,6 +382,6 @@ function sendData() {
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  window.location.href ="/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
+  window.location.href ="/api/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
   //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }

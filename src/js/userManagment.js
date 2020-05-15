@@ -18,16 +18,16 @@ class UserManagement {
             let user_type = "student" //TODO: attach properties to users..        
             alert("redirecting")
             if (user_type == "student"){            
-                try{window.location.href = "homepage_student.html"}
+                try{window.location.href = "/apihomepage_student.html"}
                 catch(e) {window.location.href = "404.html"}   
                 alert("why?") //dunno there needs to be another command for the redirect to happen weird..
             }
             else if (user_type == "renter") {
-                try{window.location.href = "homepage_renter.html"}
+                try{window.location.href = "/apihomepage_renter.html"}
                 catch(e) {window.location.href = "404.html"} 
             }
             else if (user_type == "admin") {
-                try{window.location.href = "homepage_admin.html"}
+                try{window.location.href = "/apihomepage_admin.html"}
                 catch(e) {window.location.href = "404.html"} 
             }
             else {
