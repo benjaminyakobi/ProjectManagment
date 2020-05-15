@@ -5,7 +5,6 @@
 * [General info](#general-info)
 * [Screenshots](#screenshots)
 * [Technologies](#technologies)
-* [Setup](#setup)
 * [Features](#features)
 * [Status](#status)
 * [Inspiration](#inspiration)
@@ -34,27 +33,15 @@ To provide effective tracking of orders.
 * Express
 * HTML5, CSS
 
-## Setup
-Setup your local environement `npm install`
-
-## Run Tests
-use npm `npm test` and all tests will be executed by ___
-
 ## Features
 * Filter and sort living-units by any keyword and parameter
 * Managing student registrations by the admin
-* Awesome feature 3
-
-To-do list:
-* Wow improvement to be done 1
-* Wow improvement to be done 2
+* More
 
 ## Status
-Project is: _in progress_
-Now we are running in sprint number 2.
+Project is: After second sprint with nice functionalities.
+Now we are heading sprint number 3.
 
-## Inspiration
-Add here credits. Project inspired by..., based on...
 
 ## Contact
-Created by Kesem Even Hen(@kesemev), Benjamin Yakobi(@benjaminyakobi]), Dan marinescu(@Dan-marinescu), Sagi Vaknin(@ForSure-Sv), Liron Vaknin. 
+Created by Kesem Even Hen(@kesemev), Benjamin Yakobi(@benjaminyakobi), Dan marinescu(@Dan-marinescu), Sagi Vaknin(@ForSure-Sv), Liron Vaknin. 
