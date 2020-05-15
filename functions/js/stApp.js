@@ -50,7 +50,6 @@ function initApp() {
 
         };
 
-        console.log('1');
         currentRow.onclick = createClickHandler(currentRow);
     }
   }
@@ -72,11 +71,11 @@ function initApp() {
     document.getElementById("phoneNumberModal").value = id[8].innerHTML;
     document.getElementById("descriptionModal").value = id[10].innerHTML;
   
-    console.log("img length: " + imageArray.length);
+    console.log("img length in: " + imageArray.length);
     const divImage = document.getElementById("imageContainer");
     divImage.innerHTML ="";
     for (var i = 1; i < imageArray.length; i++) {
-      divImage.innerHTML += '<img src ="' + imageArray[i].src +'" width ="50px" height="150px">';
+      divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
 
     document.getElementById("orderRef").href = "/order/" + uid;
@@ -177,7 +176,7 @@ function sendRequestToServer(jsonInfo) {
          // console.log(new Date(obj.data.startDate *1000));
         //  console.log(new Date(obj.data.startDate *1000).toISOString().split('T')[0]);
         //  console.log(moment(1382086394000).format("DD-MM-YYYY h:mm:ss"));
-          sss.innerHTML += '<tr> <tl>' +
+          sss.innerHTML += '<tr> ' +
             '<td><a href="#">' + obj.data.location + '</a></td>' +
             '<td><a href="#">' + obj.data.rooms + '</a></td>' +
             '<td><a href="#">' + obj.data.price + '</a></td>' +
@@ -188,21 +187,23 @@ function sendRequestToServer(jsonInfo) {
             '<td><a href="#">' + eDate.toISOString().split('T')[0]  + '</a></td>' +
             '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
             '<td><a href="#">' + obj.data.description + '</a></td>' +
+            '<td style="display:none;"><button value='+ obj.id +'> </button></td>'+
+
+            '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures.length) + '"></a></td>';
             
-            '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures.length) + '"></a></td>' +
-            '<td style="display:none;"><button value='+ obj.id +'> </button></td>';
-            if(obj.data.hasPictures.length == 0) {
-            sss.innerHTML += '<td><a href="#"><img src=""> </a></td>';
-            }else{
-              for(var j = 0; j < obj.data.hasPictures.length ; j++ ){
-                console.log("hzxc");
-                sss.innerHTML += '<td><img height="50" width="50" style="display: none;" src="' +  obj.data.hasPictures[j] + '"></td>';
-              }
-            }
-            sss.innerHTML+= '</tl></tr>';
+              // console.log("img: " + obj.data.hasPictures.length);
+              // const divImage = document.getElementById("imageContainer");
+              // divImage.innerHTML ="";
+              // // sss.innerHTML = "";
+              // for (var j = 0; j < obj.data.hasPictures.length; j++) {
+              //     console.log("asdf  " + obj.data.hasPictures[j]);
+              //     divImage.innerHTML += '<img src ="' + obj.data.hasPictures[j].src +'" style="margin:10px;" width ="200px" height="200px">';
+
+              // }
+
+            sss.innerHTML+= '</tr>';
             
-            
-            
+
             /*           <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
             <tr>
                 <tl>
@@ -250,10 +251,9 @@ function hasImg(val) {
 }
 
 function addRowHandlers() {
-  var table = document.getElementById("myTable");
-  var rows = table.getElementsByTagName("tl");
-  console.log(rows.length);
-  for (i = 1; i < rows.length + 1; i++) {
+  var table = document.getElementById("tableBody");
+  var rows = table.getElementsByTagName("tr");
+  for (i = 0; i < rows.length+1; i++) {
     var currentRow = table.rows[i];
     var createClickHandler =
       function (row) {
@@ -286,6 +286,7 @@ function addRowHandlers() {
 }
 
 function fillInformation(id, imageArray, uid) {
+  console.log("img array len: "+ imageArray.length);
   document.getElementById("locationModal").value = id[0].innerHTML;
   document.getElementById("roomzModal").value = id[1].innerHTML;
   document.getElementById("priceModal").value = id[2].innerHTML;
@@ -297,11 +298,13 @@ function fillInformation(id, imageArray, uid) {
   document.getElementById("phoneNumberModal").value = id[8].innerHTML;
   document.getElementById("descriptionModal").value = id[9].innerHTML;
 
-  console.log('adsf' + imageArray.length);
-  for (var i = 0; i < imageArray.length; i++) {
-    console.log("hey");
-    //document.write("<li><img src='" + imageArray[i] + "' width='160' height='120'/><span>" + imageArray[i] + "</span></li>");
-  }
+  const divImage = document.getElementById("imageContainer");
+  divImage.innerHTML ="";
+  console.log("img length:"+ imageArray.length);
+    for (var i = 1; i < imageArray.length; i++) {
+      console.log("outside fill " + imageArray[i].src);
+      divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
+    }
 
 
   document.getElementById("orderRef").href = "/order/" + uid;

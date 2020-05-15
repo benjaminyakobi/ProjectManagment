@@ -17,212 +17,8 @@
   <!-- initialize the SDK after all desired features are loaded -->
   <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
 
-  <style media="screen">
-    html {
-      height: 100%;
-    }
-
-    body {
-      height: 100%;
-      margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      display: grid;
-      justify-items: center;
-      align-items: center;
-      background-color: #3a3a3a;
-      background-image: url('https://i.pinimg.com/originals/45/29/62/45296279bc1f04f1031f832b882eb78b.jpg');
-      height: 100%;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
-      background-size: cover;
-    }
-
-    #mainHolder {
-      width: 100%;
-      height: 170%;
-      display: grid;
-      justify-items: center;
-      align-items: center;
-      /*background-color: white; */
-      /*border-radius: 7px;*/
-      /*box-shadow: 0px 0px 5px 2px black; */
-    }
-
-    #loginErrorMsgHolder {
-      width: 100%;
-      height: 100%;
-      display: grid;
-      justify-items: center;
-      align-items: center;
-
-    }
-
-    #loginErrorMsg {
-      width: 23%;
-      text-align: center;
-      margin: 0;
-      padding: 5px;
-      font-size: 12px;
-      font-weight: bold;
-      color: #8a0000;
-      border: 1px solid #8a0000;
-      background-color: #e58f8f;
-      opacity: 0;
-
-    }
-
-    #errorMsgSecondLine {
-      display: block;
-    }
-
-    #loginForm {
-      align-self: flex-start;
-      display: grid;
-      /* justify-items: center; */
-      position: relative;
-      top: -250px;
-      /* align-items: center; */
-    }
-
-    .loginFormField::placeholder {
-      color: black;
-    }
-
-    .loginFormField {
-      border: none;
-      /* border-bottom: 1px solid #3a3a3a; */
-      margin-bottom: 10px;
-      border-radius: 3px;
-      outline: none;
-      padding: 5px 5px 5px 5px;
-
-    }
-
-    /* #loginFormSubmit {
-      width: 100%;
-      padding: 7px;
-      border: none;
-      border-radius: 5px;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      outline: none;
-    } */
-
-    #forgotPass {
-      border: none;
-      /* border-bottom: 1px solid #3a3a3a;
-      margin-bottom: 10px; */
-      border-radius: 3px;
-      outline: none;
-      padding: 5px 5px 5px 5px;
-      background-color: grey;
-      /* width: 100%;
-      height: 100%;
-      border: none;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top :25px;
-      font-size: 15px; */
-    }
-
-    #createUser {
-      border: none;
-      /* border-bottom: 1px solid #3a3a3a; */
-      /* margin-bottom: 10px; */
-      border-radius: 3px;
-      outline: none;
-      padding: 5px 5px 5px 5px;
-      background-color: green;
-      /* width: 100%;
-      height: 100%;
-      border: none;
-      color: black;
-      font-weight: bold;
-      cursor: pointer;
-      font-size: 15px; */
-    }
-
-    /*image reviewer*/
-    .prevImage {
-      border: 8px solid #ccc;
-      width: 300px;
-      height: 200px;
-    }
-
-    /*recovery*/
-    /* The Modal (background) */
-    .modal {
-      display: none;
-      /* Hidden by default */
-      position: fixed;
-      /* Stay in place */
-      z-index: 1;
-      /* Sit on top */
-      padding-top: 100px;
-      /* Location of the box */
-      left: 0;
-      top: 0;
-      width: 100%;
-      /* Full width */
-      height: 100%;
-      /* Full height */
-      overflow: auto;
-      /* Enable scroll if needed */
-      background-color: rgb(0, 0, 0);
-      /* Fallback color */
-      background-color: rgba(0, 0, 0, 0.4);
-      /* Black w/ opacity */
-    }
-
-    /* Modal Content */
-    .modalOneContent {
-      background-color: rgb(216, 216, 216);
-      margin: auto;
-      padding: 10px;
-      border: 1px solid black;
-      width: 30%;
-    }
-
-    .recoverPassordWrapper {
-      text-align: center;
-      padding-top: 10px;
-    }
-
-    .modalTwoContent {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 5px;
-      border: 1px solid #888;
-      width: 80%;
-
-    }
-
-    .registerModalContent {
-      background-color: #fefefe;
-      margin: auto;
-      padding: 5px;
-      border: 1px solid #888;
-      width: 30%;
-    }
-
-    /* The Close Button */
-    .close {
-      color: #aaaaaa;
-      float: right;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: #000;
-      text-decoration: none;
-      cursor: pointer;
-    }
-  </style>
+  <!-- Custom styles for this template -->
+  <link href="../css/login.css" rel="stylesheet">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -231,15 +27,14 @@
 
 </head>
 
-<body>
+<body >
   <!-- The Modal -->
   <div id="myModal" class="modal">
 
     <!-- Modal content -->
     <div id="modalOne" class="modalOneContent">
-      <form>
+      <form >
         <span class="close">&times;</span>
-
         <label for="email">Enter Your Email<br></label>
         <input type="text" name="email" id="newEmail" placeholder="Email"><br><br>
 
@@ -279,7 +74,6 @@
 
     </div>
 
-
     <div id="modalTwo" style="display: none;" class="modalTwoContent">
       <span class="close">&times;</span>
       <p id="getQuestion"></p>
@@ -290,6 +84,7 @@
     <div id="registerModal" style="display: none;" class="registerModalContent">
       <span class="close" id="closeReg">&times;</span>
       <form class="registerForm">
+        
         <label for="userType">Type:</label>
         <input type="radio" id="renter" name="userType" value="renter" onclick="userType(value)">
         <label for="renter">Renter</label>
@@ -297,9 +92,9 @@
           onclick="UserManagement.userType(value)">
         <label for="student">Student</label>
         <p id="email"></p>
-        <input type="text" name="userE" id="userEmail" placeholder="Email">
+        <input type="text" name="userE" id="userEmail" class="form-control" placeholder="Email" required autofocus>
         <p id="password"></p>
-        <input type="password" name="userP" id="userPassword" placeholder="Password">
+        <input type="password" name="userP" id="userPassword" class="form-control" placeholder="Password" required>
 
         <p id="FName"></p>
         <label for="firstName" class="sr-only">First name</label>
@@ -334,12 +129,13 @@
     <div id="loginErrorMsgHolder">
       <p id="loginErrorMsg">Invalid username <span id="errorMsgSecondLine">and/or password</span></p>
     </div>
-    <form id="loginForm">
-      <input type="text" name="username" id="usernameField" class="loginFormField" placeholder="Username">
-      <input type="password" name="password" id="passwordField" class="loginFormField" placeholder="Password">
+    <form id="loginForm" >
+      <input type="text" name="username" id="usernameField" class="loginFormField" placeholder="Username" required autofocus>
+      <input type="password" name="password" id="passwordField" class="loginFormField" placeholder="Password" required>
       <button type="button" id="loginButton" class="loginFormField">Log In</button>
       <button type="button" id="forgotPass" class="loginFormField">Forgot Password?</button>
       <button type="button" id="createUser" class="loginFormField">Create New User</label>
+
   </main>
   <script type="text/javascript" src="/api/js/app.js"> </script>
 </body>
