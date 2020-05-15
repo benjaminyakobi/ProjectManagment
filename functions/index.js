@@ -101,14 +101,14 @@ app.get("/Admin.ejs", function (req, res) {
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
-                    res.render("Admin.ejs", { l: l });
+                    res.render("admin.ejs", { l: l });
                 });
             }
             else
                 res.send("Not authorized!");
         })
         .catch((error) => {
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -416,7 +416,7 @@ app.all("*", (req, res, next) => {
 
 app.get("/sessionLogout", (req, res) => {
     res.clearCookie("session");
-    res.redirect("/");
+    res.redirect("/api/");
 });
 
 
@@ -980,7 +980,7 @@ app.post('/addUnit', (req, res) => {
 
 var PORT = 9000;
 app.use('/js', express.static("js"));
-app.use('/images', express.static("/images"));
+app.use('/images', express.static("images"));
 app.use('/css', express.static("css"));
 //define google cloud function name
 //export const webApi = functions.https.onRequest(app);

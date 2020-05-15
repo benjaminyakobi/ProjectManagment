@@ -320,6 +320,11 @@ function initApp()
               body: JSON.stringify({ idToken ,uid:Authh.user.uid}),
             });
           });
+        }).catch((error)=>{
+            var errorCode = error.code;
+            var errorMessage = error.message;
+
+            alert(errorMessage);
         })
         .then(() => {
 
