@@ -19,9 +19,9 @@ jobs:
             - run:
                 name: run ESLint
                 command: npm run lint   
-            - run:
-                name: test
-                command: npm run test
+            #- run:
+            #    name: test
+            #    command: npm run test
             - store_artifacts: # for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
                 path: coverage
                 prefix: coverage
