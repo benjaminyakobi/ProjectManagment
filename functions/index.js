@@ -980,7 +980,7 @@ app.post('/addUnit', (req, res) => {
 
 var PORT = 9000;
 app.use('/js', express.static("js"));
-app.use('/images', express.static("../images"));
+app.use('/images', express.static("/images"));
 app.use('/css', express.static("css"));
 //define google cloud function name
 //export const webApi = functions.https.onRequest(app);

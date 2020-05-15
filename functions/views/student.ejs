@@ -27,12 +27,12 @@
     <script src="https://kit.fontawesome.com/2d10b7aa43.js" crossorigin="anonymous"></script>
 
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/api/css/styles.css">
 
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img src="/images/logo.png" width="70" height="50" alt=""> Sami Room
+                <img src="/api/images/logo.png" width="70" height="50" alt=""> Sami Room
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -45,7 +45,7 @@
                         <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/sessionLogout">Log out</a>
+                        <a class="nav-link" href="/api/sessionLogout">Log out</a>
                     </li>
                 </ul>
 
@@ -113,7 +113,7 @@
         }
     </style>
 
-    <link rel="stylesheet" href="/css/stStyle.css">
+    <link rel="stylesheet" href="/api/css/stStyle.css">
 </head>
 
 <body>
@@ -144,43 +144,43 @@
             <tr>
                 <th>
                     <div>Location<button class="button btnStyle" onclick="sortUp('location')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('location')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
-                    <div>Rooms<button class="button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg">
+                    <div>Rooms<button class="button btnStyle" onclick="sortUp('rooms')"> <img src="/api/images/sortUp.jpg">
                         </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('rooms')"><img
-                                src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
-                    <div>Price<button class="button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg">
+                    <div>Price<button class="button btnStyle" onclick="sortUp('price')"> <img src="/api/images/sortUp.jpg">
                         </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('price')"><img
-                                src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>Rating<button class="button btnStyle" onclick="sortUp('rating')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('rating')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>Owner name<button class="button btnStyle" onclick="sortUp('ownerName')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('ownerName')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>Start date<button class="button btnStyle" onclick="sortUp('startDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('startDate')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('startDate')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>Minimum order date<button class="button btnStyle" onclick="sortUp('minDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('minDate')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('minDate')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>End date<button class="button btnStyle" onclick="sortUp('endDate')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('endDate')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('endDate')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>Phone number</th>
                 <th>picture</th>
@@ -205,7 +205,7 @@
                         <td><a href="#"><img src=""> </a></td>
                 
                         <% }else{ %>
-                        <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
+                        <td><a href="#"><img src="/api/images/compact_camera.png"> </a></td>
                         <% } %>
                         <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
                             <td style="display:none;"><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
@@ -220,7 +220,7 @@
         </tbody>
     </table>
 
-    <script type="text/javascript" src="/js/stApp.js"></script>
+    <script type="text/javascript" src="/api/js/stApp.js"></script>
 
 
 

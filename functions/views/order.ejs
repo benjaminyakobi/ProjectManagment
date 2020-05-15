@@ -6,7 +6,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, user-scalable=1" />
 <meta name="HandheldFriendly" content="true" />
-<link rel="icon" href="/images/logo-2.jpg">
+<link rel="icon" href="/api/images/logo-2.jpg">
 <title>Apartment Order Form</title>
 
 <link href="https://cdn.jotfor.ms/static/formCss.css?3.3.17674" rel="stylesheet" type="text/css" />
@@ -19,12 +19,12 @@
    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     
    <!-- Custom Stylesheet -->
-   <link rel="stylesheet" href="/css/styles.css">
+   <link rel="stylesheet" href="/api/css/styles.css">
    
    <div class="container-fluid">
        <nav class="navbar navbar-expand-lg navbar-light bg-light">
            <a class="navbar-brand" href="#">
-               <img src="/images/logo.png" width="70" height="50" alt=""> Sami Room
+               <img src="/api/images/logo.png" width="70" height="50" alt=""> Sami Room
            </a>
            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                <span class="navbar-toggler-icon"></span>
@@ -36,7 +36,7 @@
                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                    </li>
                    <li class="nav-item">
-                       <a class="nav-link" href="/sessionLogout">Log out</a>
+                       <a class="nav-link" href="/api/sessionLogout">Log out</a>
                    </li>
                </ul>
                <form class="form-inline my-2 my-lg-0">
@@ -527,7 +527,7 @@
 
 
                 var phoneNumber = prePhone.value + midPhone.value;
-                fetch("/requestOrder", {
+                fetch("/api/requestOrder", {
                   method: "POST",
                   headers: {
                     Accept: "application/json",
