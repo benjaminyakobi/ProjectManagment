@@ -173,8 +173,8 @@ function initApp() {
             document.getElementById("ratingModal").value = id[3].innerHTML;
             document.getElementById("ownerNameModal").value = id[4].innerHTML;
             document.getElementById("startDateModal").value = id[5].innerHTML;
-            document.getElementById("endDateModal").value = id[6].innerHTML;
-            document.getElementById("minDateModal").value = id[7].innerHTML;
+            document.getElementById("endDateModal").value = id[7].innerHTML;
+            document.getElementById("minDateModal").value = id[6].innerHTML;
             document.getElementById("phoneNumberModal").value = id[8].innerHTML;
             document.getElementById("savChangesB").value = uid;
             document.getElementById("descriptionModal").value = id[10].innerHTML;
