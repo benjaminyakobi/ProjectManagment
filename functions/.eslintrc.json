@@ -30,16 +30,16 @@
     "no-template-curly-in-string": 1,
 
     // Warn if return statements do not either always or never specify values
-    "consistent-return": 1,
+  //  "consistent-return": 1,
 
     // Warn if no return statements in callbacks of array methods
     "array-callback-return": 1,
 
     // Require the use of === and !==
-    "eqeqeq": 2,
+ //   "eqeqeq": 2,
 
     // Disallow the use of alert, confirm, and prompt
-    "no-alert": 2,
+//    "no-alert": 2,
 
     // Disallow the use of arguments.caller or arguments.callee
     "no-caller": 2,
@@ -108,7 +108,7 @@
     "no-path-concat": 1,
 
     // Prefer using arrow functions for callbacks
-    "prefer-arrow-callback": 1,
+  //  "prefer-arrow-callback": 1,
 
     // Return inside each then() to create readable and reusable Promise chains.
     // Forces developers to return console logs and http calls in promises. 

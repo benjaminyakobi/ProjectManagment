@@ -13,11 +13,11 @@
 //var fs = require('fs');
 
 // The Firebase Admin SDK to access the Firebase Realtime Database.
-const csrf = require("csurf");
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
-const cookieParser = require("cookie-parser");
-const serviceAccount = require("../serviceAccountKey.json");
+const csrf = require('csurf');
+const cookieParser = require('cookie-parser');
+const serviceAccount = require("./serviceAccountKey.json");
 const csrfMiddleware = csrf({ cookie: true });
 const firebaseApp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
@@ -530,6 +530,7 @@ exports.newUserSignUp = functions.auth.user().onCreate(user => {
     });
 });
 */
+/*
 exports.addUserRecords = functions.https.onCall((data, context) => {
     const userR = admin.firestore().collection('users').doc(context.auth.uid);
     const requestR = admin.firestore().collection('requests').doc(context.auth.uid);
@@ -544,7 +545,7 @@ exports.addUserRecords = functions.https.onCall((data, context) => {
         });
     });
 });
-
+*/
 
 //Get a renter's units requests
 app.post('/renterLease', (req, res) => {
@@ -979,11 +980,20 @@ app.post('/addUnit', (req, res) => {
 
 var PORT = 9000;
 app.use('/js', express.static("js"));
-app.use('/images', express.static("../images"));
+app.use('/images', express.static("/images"));
 app.use('/css', express.static("css"));
+//define google cloud function name
+//export const webApi = functions.https.onRequest(app);
+
+const api = functions.https.onRequest(app)
+
+module.exports = {
+  api
+}
+/*
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
-});
+});*/
 //export const reqApp = functions.https.onRequest((data, context) => {
 
 /*  var query = admin.firestore().collection('units');

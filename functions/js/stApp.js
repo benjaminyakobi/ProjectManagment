@@ -107,11 +107,11 @@ function changeToCurrectField() {
     }
   } else {
     for (index = 1; index < 6; index++) {
-      var sel = document.getElementById("fromFilter");
+      var sel2 = document.getElementById("fromFilter");
       newOption = document.createElement("option");
       newOptionVal = document.createTextNode(index);
       newOption.appendChild(newOptionVal);
-      sel.insertBefore(newOption, sel.lastChild);
+      sel2.insertBefore(newOption, sel2.lastChild);
     }
   }
 }
@@ -134,18 +134,18 @@ function setToMin() {
     }
   } else {
     for (index; index < 6; index++) {
-      var sel = document.getElementById("toFilter");
+      var sel2 = document.getElementById("toFilter");
       newOption = document.createElement("option");
       newOptionVal = document.createTextNode(index);
       newOption.appendChild(newOptionVal);
-      sel.insertBefore(newOption, sel.lastChild);
+      sel2.insertBefore(newOption, sel2.lastChild);
     }
   }
 }
 
 function sendRequestToServer(jsonInfo) {
   var sss = document.getElementById("tableBody");
-  fetch("/requestUSort", {
+  fetch("/api/requestUSort", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -246,7 +246,7 @@ function sendRequestToServer(jsonInfo) {
 }
 function hasImg(val) {
   if (val > 0)
-    return "/images/compact_camera.png";
+    return "/api/images/compact_camera.png";
   return "";
 }
 
@@ -281,7 +281,7 @@ function addRowHandlers() {
       };
       
       currentRow.onclick = createClickHandler(currentRow);
-  };
+  }
 
 }
 
@@ -347,7 +347,7 @@ function paymentWindow(x) {
   modal2.style.display = "none";
   modal3.style.display = "block"; sToZ8DpQF1B8rwfdsKxz
   */
-  fetch("/order/", {
+  fetch("/api/order/", {
     method: "POST",
     headers: {
       Accept: "application/json",

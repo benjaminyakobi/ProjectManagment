@@ -56,7 +56,7 @@
         }
 
         #myInput {
-            background-image: url('/images/searchicon.png');
+            background-image: url('/api/images/searchicon.png');
             background-position: 10px 10px;
             background-repeat: no-repeat;
             width: 100%;
@@ -242,7 +242,7 @@
                     return;
                 }*/
 
-                fetch("/addUnit", {
+                fetch("/api/addUnit", {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
@@ -479,42 +479,42 @@
             <tr>
                 <th>
                     <div>Location<button class="button btnStyle" onclick="sortUp('location')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('location')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('location')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
-                    <div>Rooms<button class="button btnStyle" onclick="sortUp('rooms')"> <img src="/images/sortUp.jpg">
+                    <div>Rooms<button class="button btnStyle" onclick="sortUp('rooms')"> <img src="/api/images/sortUp.jpg">
                         </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('rooms')"><img
-                                src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
-                    <div>Price<button class="button btnStyle" onclick="sortUp('price')"> <img src="/images/sortUp.jpg">
+                    <div>Price<button class="button btnStyle" onclick="sortUp('price')"> <img src="/api/images/sortUp.jpg">
                         </button> <button id="sortDown" class="button btnStyle" onclick="sortDown('price')"><img
-                                src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>Rating<button class="button btnStyle" onclick="sortUp('rating')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('rating')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('rating')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
                     <div>Owner name<button class="button btnStyle" onclick="sortUp('ownerName')"> <img
-                                src="/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
-                            onclick="sortDown('ownerName')"><img src="/images/sortDown.jpg"></button></div>
+                                src="/api/images/sortUp.jpg"> </button> <button id="sortDown" class="button btnStyle"
+                            onclick="sortDown('ownerName')"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <!-- Sort up / Sort down - have to be implemented in the future! -->
                 <th>
-                    <div>Start date<button class="button btnStyle"> <img src="/images/sortUp.jpg"> </button> <button
-                            id="sortDown" class="button btnStyle"><img src="/images/sortDown.jpg"></button></div>
+                    <div>Start date<button class="button btnStyle"> <img src="/api/images/sortUp.jpg"> </button> <button
+                            id="sortDown" class="button btnStyle"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>
-                    <div>Minimum Order Date<button class="button btnStyle"> <img src="/images/sortUp.jpg"> </button>
-                        <button id="sortDown" class="button btnStyle"><img src="/images/sortDown.jpg"></button>
+                    <div>Minimum Order Date<button class="button btnStyle"> <img src="/api/images/sortUp.jpg"> </button>
+                        <button id="sortDown" class="button btnStyle"><img src="/api/images/sortDown.jpg"></button>
                     </div>
                 </th>
                 <th>
-                    <div>End date<button class="button btnStyle"> <img src="/images/sortUp.jpg"> </button> <button
-                            id="sortDown" class="button btnStyle"><img src="/images/sortDown.jpg"></button></div>
+                    <div>End date<button class="button btnStyle"> <img src="/api/images/sortUp.jpg"> </button> <button
+                            id="sortDown" class="button btnStyle"><img src="/api/images/sortDown.jpg"></button></div>
                 </th>
                 <th>Phone number</th>
                 <th>picture</th>
@@ -535,14 +535,14 @@
                     <td><a href="#"><%= obj.data.phoneNumber    %></a></td>
                     <td><a href="#"><img src=""></a></td>
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>
-                    <td style="display: none;"><a href="#"><%= obj.data.description   %></a></td>
+                    <td style="display: none;"><a  href="#"><%= obj.data.description   %></a></td>
 
                 </tl>
             </tr>
             <% } %>
         </tbody>
     </table>
-    <script type="text/javascript" src="/js/rentApp.js"></script>
+    <script type="text/javascript" src="/api/js/rentApp.js"></script>
 
 </body>
 

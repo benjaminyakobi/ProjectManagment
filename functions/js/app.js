@@ -310,7 +310,7 @@ function initApp()
            saveA =Authh;
           return Authh.user.getIdToken().then((idToken) => {
               console.log(Authh.user.uid);
-            return fetch("/sessionLogin", {
+            return fetch("/api/sessionLogin", {
               method: "POST",
               headers: {
                 Accept: "application/json",

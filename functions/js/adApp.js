@@ -1,3 +1,5 @@
+/* eslint-disable promise/always-return */
+/* eslint-disable no-constant-condition */
 window.onload = function () {
     initApp();
 };
