@@ -1,7 +1,7 @@
 # Sami Room
 > Web site for brokerage of residential units.
 
-![Alt text](/benjaminyakobi/ProjectManagement/blob/develop/screenShots/loginPage.png?raw=true "Login")
+![Login](https://github.com/benjaminyakobi/ProjectManagement/blob/develop/screenShots/loginPage.png)
 
 ## Table of contents
 * [General info](#general-info)
