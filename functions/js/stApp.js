@@ -106,7 +106,7 @@ function changeToCurrectField() {
       sel.insertBefore(newOption, sel.lastChild);
     }
   } else {
-    for (index = 1; index < 6; index++) {
+    for (index = 1; index < 9; index++) {
       var sel2 = document.getElementById("fromFilter");
       newOption = document.createElement("option");
       newOptionVal = document.createTextNode(index);
@@ -133,7 +133,7 @@ function setToMin() {
       sel.insertBefore(newOption, sel.lastChild);
     }
   } else {
-    for (index; index < 6; index++) {
+    for (index; index < 9; index++) {
       var sel2 = document.getElementById("toFilter");
       newOption = document.createElement("option");
       newOptionVal = document.createTextNode(index);
