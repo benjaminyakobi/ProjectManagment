@@ -179,7 +179,7 @@ function initApp() {
             document.getElementById("savChangesB").value = uid;
             document.getElementById("descriptionModal").value = id[10].innerHTML;
         }
-        
+
 }
 
 
