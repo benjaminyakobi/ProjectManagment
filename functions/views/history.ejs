@@ -9,7 +9,7 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Student Homepage</title>
+    <title>Renter History</title>
 
 
     <!-- update the version number as needed -->
@@ -46,7 +46,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/sessionLogout">Log out</a>
@@ -121,18 +121,17 @@
 </head>
 
 <body>
-    <h2>Available apartments</h2>
+    <h2>Selling records</h2>
     <label for="filter">choose field:</label>
-    <select onchange="changeToCurrectField()" id="filter" name="filter">
+    <select  id="filter" name="filter">
         <option value="filterPrice">Price</option>
         <option value="filterRoom">Rooms</option>
+        <option value="filterDate">By month</option>
     </select>
-    <select onchange="setToMin()" id="fromFilter" name="fromFilter">
-
-    </select>
-    <select id="toFilter" name="toFilter">
-
-    </select>
+    <input id="fromFilter" type="text" size="10px" onkeypress="return (event.charCode > 47 && 
+    event.charCode <58 )">
+    <input id="toFilter" type="text" size="10px" onkeypress="return (event.charCode > 47 && 
+    event.charCode <58 )">
 
     <input onclick="sendData()" type="submit">
     <div>
@@ -140,7 +139,10 @@
             <button onClick="window.location.reload();">Clear</button>
         </form>
     </div>
-
+    <div>
+        <h1>Total income(filtered)</h1>
+        <h1><%= totalSum  %></h1>    
+    </div>
     <input type="text" id="myInput" onkeyup="searchFunction()" placeholder="Search for names.." title="Type in a name">
 
     <table id="myTable">
@@ -169,19 +171,24 @@
         <tbody id="tableBody">
             <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
                 <% if(obj.sold == "true") { %>
-                     <tr bgcolor = "green" >
+                    <tr bgcolor = "green" >
+                    <td><a href="#"><%= obj.unitId      %></a></td>
+                    <td><a href="#"><%= obj.rooms         %></a></td>
+                    <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                    <td><a href="#"></a></td> <!--  ADD DAILYYYYYYYYYYYYYYYY-->
+                    <td><a href="#"><%= obj.data.billTotal        %></a></td>     
                 <% }else{ %>
                     <tr bgcolor = "red" >
+                    <td><a href="#"><%= obj.unitId      %></a></td>
+                    <td><a href="#"><%= obj.data.rooms         %></a></td>
+                    <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
+                    <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
+                    <td><a href="#"></a></td> <!--  ADD DAILYYYYYYYYYYYYYYYY-->
+                    <td><a href="#"><%= obj.data.price        %></a></td>    
                 <% } %>    
-                    <tl>
-                        <td><a href="#"><%= obj.unitId      %></a></td>
-                        <td><a href="#"><%= obj.data.rooms         %></a></td>
-                        <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
-                        <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
-                        <td><a href="#"></a></td> <!--  ADD DAILYYYYYYYYYYYYYYYY-->
-                        <td><a href="#"><%= obj.data.price        %></a></td>      
-               
-                    </tl>
+                    
+                   
                 </tr>
                 <% } %>
         </tbody>

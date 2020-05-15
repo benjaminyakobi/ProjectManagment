@@ -69,7 +69,7 @@ function initApp() {
     document.getElementById("minDateModal").value = id[6].innerHTML;
     document.getElementById("endDateModal").value = id[7].innerHTML;
     document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-    document.getElementById("descriptionModal").value = id[9].innerHTML;
+    document.getElementById("descriptionModal").value = id[10].innerHTML;
   
     console.log("img length in: " + imageArray.length);
     const divImage = document.getElementById("imageContainer");
@@ -371,13 +371,17 @@ var sortUpOrDown = 'desc';
 function sortUp(columnName) {
   var x = document.getElementById("myInput").value;
   sortUpOrDown = 'desc';
-  sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: x, action: "sort" });
+  window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'desc'+'/'+'0';
+
+  //sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: x, action: "sort" });
 }
 
 function sortDown(columnName) {
   var searchData = document.getElementById("myInput").value;
   sortUpOrDown = 'inc';
-  sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: searchData, action: "sort" });
+  window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'asc'+'/'+'0';
+
+  //sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: searchData, action: "sort" });
 }
 
 function sendData() {
@@ -387,5 +391,7 @@ function sendData() {
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
+  window.location.href = '/requestUSort/'+'filter'+'/'+columnName+'/'+fromFilter+'/'+toFilter;
+  //'/requestUSort/:action/:colName/:fromLower/:toHigher'
+  //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }

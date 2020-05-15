@@ -38,6 +38,9 @@
                         <a class="nav-link" href="/renter/requests">Tracking orders</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="/renter/History/0/0/0">History records</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/sessionLogout">Log out</a>
                     </li>
                 </ul>
@@ -368,7 +371,7 @@
                 <form name="modalName">
                     <legend>Contact Form</legend>
                     <p>Unit location: <input id="locationModal" name="location" onkeypress="return (event.charCode > 64 && 
-                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123 || event.charCode==32)" type="text" size="30"></p>
                     <p>Rooms: <input id="roomzModal" name="rooms" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 58)" maxlength="1" type="text" size="30"></p>
                     <p>Price: <input id="priceModal" name="price" onkeypress="return (event.charCode > 47 && 
@@ -413,7 +416,7 @@
                 <form name="modalNameThree">
                     <legend>Contact Form</legend>
                     <p>Unit location: <input id="locationModalThree" name="locationThree" placeholder="e.g Ashdod" onkeypress="return (event.charCode > 64 && 
-                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123 || event.charCode==32)" type="text" size="30"></p>
                     <p>Rooms: <input id="roomzModalThree" name="roomsThree" placeholder="Appartment's rooms(max 9)" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 58)" maxlength="1" type="text" size="30"></p>
                     <p>Price: <input id="priceModalThree" name="priceThree" placeholder="e.g 500" onkeypress="return (event.charCode > 47 && 

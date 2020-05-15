@@ -19,7 +19,7 @@ function initApp() {
 
   };
   firebase.initializeApp(config);
- 
+ /*
   function addRowHandlers() {
     var table = document.getElementById("tableBody");
     var rows = table.getElementsByTagName("tr");
@@ -53,7 +53,6 @@ function initApp() {
         console.log('1');
         currentRow.onclick = createClickHandler(currentRow);
     }
-  }
 
   addRowHandlers();
   changeToCurrectField();
@@ -81,6 +80,7 @@ function initApp() {
     document.getElementById("orderRef").href = "/order/" + uid;
 
   }
+  }*/
 
 }
 
@@ -382,5 +382,6 @@ function sendData() {
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
+  window.location.href ="/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
+  //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }
