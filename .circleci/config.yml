@@ -12,6 +12,8 @@ jobs:
             - run:
                 name: install npm2
                 command: npm ci
+            - run: cd functions && npm install
+            - run: cd functions && npm ci
             - save_cache:
                 key: dependency-cache-{{ checksum "package.json" }}
                 paths: 
