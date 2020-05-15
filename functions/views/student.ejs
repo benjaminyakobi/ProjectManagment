@@ -212,11 +212,11 @@
                         <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
                         <% } %>
                         <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
-                            <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
+                            <td style="display:none;"><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
                             
                         <% } %>
                                 
-                        <td><a style="display: inline;" href="#"><%= obj.data.description   %></a></td>
+                        <td style="display:none;" ><a style="display: inline;" href="#"><%= obj.data.description   %></a></td>
 
                 </tl>
             </tr>

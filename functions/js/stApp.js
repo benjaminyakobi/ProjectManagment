@@ -108,11 +108,11 @@ function changeToCurrectField() {
     }
   } else {
     for (index = 1; index < 6; index++) {
-      var sel = document.getElementById("fromFilter");
+      var sel2 = document.getElementById("fromFilter");
       newOption = document.createElement("option");
       newOptionVal = document.createTextNode(index);
       newOption.appendChild(newOptionVal);
-      sel.insertBefore(newOption, sel.lastChild);
+      sel2.insertBefore(newOption, sel2.lastChild);
     }
   }
 }
@@ -135,11 +135,11 @@ function setToMin() {
     }
   } else {
     for (index; index < 6; index++) {
-      var sel = document.getElementById("toFilter");
+      var sel2 = document.getElementById("toFilter");
       newOption = document.createElement("option");
       newOptionVal = document.createTextNode(index);
       newOption.appendChild(newOptionVal);
-      sel.insertBefore(newOption, sel.lastChild);
+      sel2.insertBefore(newOption, sel2.lastChild);
     }
   }
 }
@@ -281,7 +281,7 @@ function addRowHandlers() {
       };
       
       currentRow.onclick = createClickHandler(currentRow);
-  };
+  }
 
 }
 

@@ -1,3 +1,6 @@
+/* eslint-disable no-constant-condition */
+/* eslint-disable promise/always-return */
+
 window.onload = function() {
     initApp();
   };
@@ -23,22 +26,6 @@ function initApp()
     var json={
         app:1
     };
-
-    function hasImg() {
-        console.log("hasIMg");
-          if(true){
-              return "/images/compact_camera.png";
-
-            /*      var x = document.createElement("IMG");
-                  x.setAttribute("images", "compact_camera.png");
-                  x.setAttribute("width", "25");
-                  x.setAttribute("height", "25");
-                  x.setAttribute("alt", "The Pulpit Rock");
-
-                  document.body.appendChild(x);*/
-
-          }
-      }
 
 
 
@@ -168,15 +155,6 @@ function Approved(objec){
 //signOutButton.onclick = function(){
 
 
-
-
-    function hasImg() {
-        console.log("hasIMg");
-          if(true){
-              return "/images/compact_camera.png";
-
-          }
-      }
 
 
 function myFunction() {

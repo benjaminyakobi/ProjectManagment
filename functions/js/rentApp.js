@@ -25,14 +25,14 @@ function initApp() {
         modalVar.style.display = "none";
     }
 
-    var cancelSpan = document.getElementById("cancelTwo");
-    cancelSpan.onclick = function () {
+    var cancelSpan2 = document.getElementById("cancelTwo");
+    cancelSpan2.onclick = function () {
         const modalVar = document.getElementById("myModal");
         modalVar.style.display = "none";
     }
 
-    var cancelSpan = document.getElementById("saveTwo");
-    cancelSpan.onclick = function () {
+    var cancelSpan3 = document.getElementById("saveTwo");
+    cancelSpan3.onclick = function () {
         //*check dates.
         const startDateModalThree = document.getElementById("startDateModal");
         const endDateModalThree = document.getElementById("endDateModal");
@@ -108,6 +108,7 @@ function initApp() {
         })
 
             .then(response => response.json())
+            // eslint-disable-next-line promise/always-return
             .then(function (resJ) {
                 console.log(resJ.data);
 
