@@ -63,7 +63,7 @@ app.get("/renter.ejs", function (req, res) {
         .then(() => {
             if (req.cookies.role === "renter") {
                 var l = [];
-                var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid);
+                var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where('sold','==','false');
                 var allDocs = query.get().then(snapShot => {
                     /*              if (snapShot.empty) {
                                       console.log('No matching documents,firstPhase.');
