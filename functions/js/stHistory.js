@@ -19,68 +19,7 @@ function initApp() {
 
   };
   firebase.initializeApp(config);
- /*
-  function addRowHandlers() {
-    var table = document.getElementById("tableBody");
-    var rows = table.getElementsByTagName("tr");
-    for (i = 0; i < rows.length; i++) {
-      var currentRow = table.rows[i];
-      var createClickHandler =
-        function (row) {
-          return function () {
-            var modal = document.getElementById("myModal");
-            var modal2 = document.getElementById("modalUnits");
-            var modal3 = document.getElementById("modalOrder");
-            var span = document.getElementsByClassName("close")[0];
-            var bd = row.getElementsByTagName("button")[0];
-            span.onclick = function () {
-              modal.style.display = "none";
-            }
-            window.onclick = function (event) {
-              if (event.target == modal) {
-                modal.style.display = "none";
 
-              }
-            }
-            modal.style.display = "block";
-            modal2.style.display = "block";
-            modal3.style.display = "none";
-            fillInformation(row.getElementsByTagName("a"), row.getElementsByTagName("img"), bd.value);
-          };
-
-        };
-
-        console.log('1');
-        currentRow.onclick = createClickHandler(currentRow);
-    }
-
-  addRowHandlers();
-  changeToCurrectField();
-  setToMin();
-  const sss = document.getElementById("tableBody");
-
-  function fillInformation(id, imageArray, uid) {
-    document.getElementById("locationModal").value = id[0].innerHTML;
-    document.getElementById("roomzModal").value = id[1].innerHTML;
-    document.getElementById("priceModal").value = id[2].innerHTML;
-    document.getElementById("ratingModal").value = id[3].innerHTML;
-    document.getElementById("ownerNameModal").value = id[4].innerHTML;
-    document.getElementById("startDateModal").value = id[5].innerHTML;
-    document.getElementById("minDateModal").value = id[6].innerHTML;
-    document.getElementById("endDateModal").value = id[7].innerHTML;
-    document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-    console.log("hey" + imageArray.length);
-    const divImage = document.getElementById("imageContainer");
-
-    for (var i = 1; i < imageArray.length; i++) {
-      console.log(imageArray[i].src);
-      //divImage.innerHTML\
-    }
-
-    document.getElementById("orderRef").href = "/order/" + uid;
-
-  }
-  }*/
 
 }
 
@@ -241,7 +180,7 @@ function sendRequestToServer(jsonInfo) {
 }
 function hasImg(val) {
   if (val > 0)
-    return "/api/images/compact_camera.png";
+    return "https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Fcompact_camera.png?alt=media&token=e23f870d-4f38-4e92-a4fb-d3eddffd65da";
   return "";
 }
 

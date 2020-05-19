@@ -55,13 +55,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 //new user signup
 
-app.get("/renter.ejs", function (req, res) {
+app.get("/renter", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "renter") {
+            if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
                 var l = [];
                 var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where('sold','==','false');
                 var allDocs = query.get().then(snapShot => {
@@ -74,7 +74,13 @@ app.get("/renter.ejs", function (req, res) {
                         l.push({ id: doc.id, data: doc.data() });
                     });
                     //console.log(l);
-                    res.render("renter.ejs", { l: l });
+                    var adminLog ;
+                    if (req.cookies.role === "Admin")
+                        adminLog = "true";
+                    else
+                        adminLog = "false";
+
+                    res.render("renter.ejs", { l: l ,isAdmin:adminLog});
                 });
             }
             else
@@ -108,7 +114,7 @@ app.get("/Admin.ejs", function (req, res) {
                 res.send("Not authorized!");
         })
         .catch((error) => {
-            res.redirect("/api/");
+            res.redirect("/");
         });
 });
 
@@ -128,7 +134,7 @@ app.get("/", function (req, res) {
                 app.handle(req, res);
             }
             else if (req.cookies.role === "renter") {
-                req.url = '/renter.ejs';
+                req.url = '/renter';
                 app.handle(req, res);
             } else if (req.cookies.role == "Verify") {
                 res.clearCookie("session");
@@ -178,7 +184,7 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "renter") {
+            if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
          
                   /*     var l = [];
                 var sum = 0;
@@ -201,14 +207,14 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
 
                     let users;
                     if (req.params.typeIn == "rooms") {
-                        console.log(req.params.fromFilter);
-                        console.log(req.params.toFilter);
+                     //   console.log(req.params.fromFilter);
+                     //   console.log(req.params.toFilter);
     
                         users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where("rooms", '>=', Number(req.params.fromFilter))
                             .where("rooms", '<=', Number(req.params.toFilter)).get();
                     } else if (req.params.typeIn == "price") {
-                        console.log(req.params.fromFilter);
-                        console.log(req.params.toFilter);
+                     //   console.log(req.params.fromFilter);
+                     //   console.log(req.params.toFilter);
     
                         users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where("price", '>=', Number(req.params.fromFilter))
                             .where("price", '<=', Number(req.params.toFilter)).get();
@@ -224,7 +230,7 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                         //let userDocData = userDoc.data();
                         //let userId = userDocData.userId;
                         userData = userDoc.data();
-                        console.log(userData);
+                      //  console.log(userData);
                         var s = userData.sold;
                         if(s == "false")
                         {
@@ -242,7 +248,7 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                                     if (req.params.typeIn == "rooms" || req.params.typeIn == "price" || req.params.typeIn == "0")
                                     {
                                         sum+= projData.billTotal;
-                                        console.log('added');
+                         //               console.log('added');
                                     }
                                     l.push({ data: projData, unitId: userDoc.id, sold: s,rooms:userData.rooms });
                                 // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
@@ -259,7 +265,7 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
 
                     // Start the operation and wait for results
                     await Promise.all(userPromises).then(()=>{
-                        console.log(sum);
+                      //  console.log(sum);
                         res.render("history.ejs",{l:l,totalSum:sum});
                     });
                 })();
@@ -291,47 +297,7 @@ app.get("/renter/requests", async (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "renter") {
-               // var l = [];
-
-                /* try {
-                    var query = admin.firestore().collection('units');
-                    //console.log(req.cookies.uid);
-                    //var storageRef = firebaseApp.storage().ref();
-                    return await query.where('rid', '==', req.cookies.uid).get().then(snapShot => {
-                        if (snapShot.empty) {
-                            console.log('No matching documents,firstPhase.');
-                            return;
-                        }
-                        
-                        snapShot.forEach(doc => {
-                            var query2 = admin.firestore().collection('requestPayment');
-                            //var storageRef = firebaseApp.storage().ref();
-                            //console.log(doc.id);
-                            return query2.where('unitid', '==', doc.id).get().then(snapShot2 => {
-                                if (snapShot2.empty) {
-                                    console.log('No matching documents,SecondPhase..');
-                                    return;
-                                }
-                                snapShot2.forEach(doc2 => {
-                                    //        console.log('push');
-                                    l.push({ id: doc2.id, data: doc2.data(), unitId: doc.id });
-                                    console.log(l);
-                                });
-                                //    console.log(l);
-                            });
-                            
-                        });
-                    }).then(()=>{
-                        res.render("rentTrack.ejs",{l:l});
-                        
-                    });
-                    
-                } catch (error) {
-                    
-                    console.log(error);
-                    return res.status(500).send(error);
-           }*/
+            if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
                 (async () => {
                     let l=[];
                     let users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).get();
@@ -402,7 +368,7 @@ app.get("/student.ejs", function (req, res) {
 
             }
             else
-                res.redirect("/api/");
+                res.redirect("/");
         })
         .catch((error) => {
             console.log(error);
@@ -416,7 +382,7 @@ app.all("*", (req, res, next) => {
 
 app.get("/sessionLogout", (req, res) => {
     res.clearCookie("session");
-    res.redirect("/api/");
+    res.redirect("/");
 });
 
 
@@ -521,31 +487,6 @@ app.post("/registerAccount", (req, res) => {
 
 
 
-/*
-exports.newUserSignUp = functions.auth.user().onCreate(user => {
-    return admin.firestore().collection('users').doc(user.uid).set({
-        email: user.email,
-        firstName: 'fName',
-        lastName: 'lName'
-    });
-});
-*/
-/*
-exports.addUserRecords = functions.https.onCall((data, context) => {
-    const userR = admin.firestore().collection('users').doc(context.auth.uid);
-    const requestR = admin.firestore().collection('requests').doc(context.auth.uid);
-    return userR.update({
-        firstName: data.firstName,
-        lastName: data.lastName
-    }).then(() => {
-        return requestR.set({
-            uid: context.auth.uid,
-            firstName: 'fName',
-            lastName: 'lName'
-        });
-    });
-});
-*/
 
 //Get a renter's units requests
 app.post('/renterLease', (req, res) => {
@@ -554,7 +495,7 @@ app.post('/renterLease', (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "renter") {
+            if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
                 var l = [];
                 (async () => {
                     try {
@@ -689,9 +630,9 @@ app.post('/renterResponse', (req, res) => {
         .auth()
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
-            if (req.cookies.role === "renter") {
+            if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
                 if (req.body.flag == "true") {
-                    console.log(req.body);
+                   // console.log(req.body);
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
                     //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(doc => {
@@ -712,7 +653,7 @@ app.post('/renterResponse', (req, res) => {
                     });
                 }
                 else if (req.body.flag == "false") {
-                    console.log(req.body.uid);
+                 //   console.log(req.body.uid);
                     var query6 = admin.firestore().collection('requestPayment').doc(req.body.uid).delete();
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({ status: 'OK' });
@@ -766,7 +707,7 @@ app.post('/rU', (req, res) => {
 //request all units Sort
 app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
     const sessionCookie = req.cookies.session || "";
-    console.log('dmg check');
+   // console.log('dmg check');
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true)
@@ -777,7 +718,7 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
                     try {
                         var query;
                         var l = [];
-                        console.log(req.params.action);
+                //        console.log(req.params.action);
                         if (req.params.action == "sort") {
                             if (req.params.fromLower == "desc") {
                                 query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName, 'desc');
@@ -802,7 +743,7 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
 
                         });
                     } catch (error) {
-                        console.log(error);
+                 //       console.log(error);
                         return res.status(500).send(error);
                     }
                 })();
@@ -900,7 +841,7 @@ app.post('/updateUnit', (req, res) => {
         .then(() => {
             (async () => {
                 try {
-                    console.log(req.body);
+                  //  console.log(req.body);
                     if (req.cookies.role == "renter") {
                         var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
                             location: req.body.location,
@@ -992,196 +933,5 @@ module.exports = {
 /*
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
-});*/
-//export const reqApp = functions.https.onRequest((data, context) => {
-
-/*  var query = admin.firestore().collection('units');
-  return query.get().then(snapshot => {
-      //console.log(snapshot.docs);
-      var resp = [];
-      snapshot.docs.forEach(doc => {
-          resp += doc;
-      })
-      console.log(resp);
-      return snapshot.docs;
-  });*/
-
-/*
-export const requiresAuth = async (req, res, next) => {
-    const idToken = req.header('FIREBASE_AUTH_TOKEN');
-
-    // https://firebase.google.com/docs/reference/admin/node/admin.auth.DecodedIdToken
-    let decodedIdToken;
-
-    try {
-        decodedIdToken = await admin.auth().verifyIdToken(idToken);
-    } catch (error) {
-        next(error);
-        return;
-    }
-
-    req.user = decodedIdToken;
-    next();
-}*/
-/*
-app.get('/example', async (req, res) => {
-    const idToken = req.header('FIREBASE_AUTH_TOKEN');
-    console.log(idToken);
-    let decodedIdToken;
-    try {
-        decodedIdToken = await admin.auth().verifyIdToken(idToken);
-    } catch (error) {
-        console.log(error);
-        return;
-    }
-    req.user = decodedIdToken;
-    console.log(req.user)
-})
-*/
-//exports.api = functions.https.onRequest(app);
-/*
-exports.getRequests = functions.https.onCall((data, context) => {
-
-    if (!context.auth)
-        throw new functions.https.HttpsError(
-            'unauthenticated'
-        );
-    (async () => {
-        try {
-            var l = [];
-            var query = admin.firestore().collection('requests');
-            var allDocs = query.get().then(snapShot => {
-                snapShot.forEach(doc => {
-                    l.push(doc.data());
-                });
-
-                var dataJson = { status: 'OK', data: l };
-                return context.status(200).send(JSON.stringify(dataJson));
-            });
-        } catch (error) {
-            return context.status(500).send(error);
-        }
-    })();
-});*/
-/*
-async function verifyToken(req,res,next){
-
-        // Verify the ID token first.
-    admin.auth().verifyIdToken(idToken).then((claims) => {
-    if (claims.admin === true) {
-        // Allow access to requested admin resource.
-    }
-    });*/
-/* const idToken = req.headers.authorization;
- try{
-     const decodedToken = await admin.auth().verifyIdToken(idToken);
-     if(decodedToken){
-         req.body.uid = decodedToken.uid;
-         return next();
-     }else{
-         return res.status(401).send('not Authorized');
-     }
- }catch(e){
-     return res.status(401).send('not Authorized');
- }
- const token = req.header('Authorization').replace('Bearer', '').trim();
- var user = firebase.auth().currentUser;
- if (user) {
-     admin.auth().verifyIdToken(token)
-         .then( (decodedToken)=> {
-             if(decodedToken.uid === user.uid)
-             {
-                 req.user = user.uid;
-                 return next();
-             }
-             else{
-                 return res.status(401).send('not Authorized');
-             }
-     }).catch((error)=> {
-         return res.status(401).send('not Authorized');
-     });
- } else {
-     return res.status(401).send('not Authorized');
- }
-}
-const authenticate = async (req, res, next) => {
- if (!req.headers.authorization || !req.headers.authorization.startsWith('Bearer ')) {
-   res.status(403).send('Unauthorized');
-   return;
- }
- const idToken = req.headers.authorization.split('Bearer ')[1];
- try {
-   const decodedIdToken = await admin.auth().verifyIdToken(idToken);
-   req.user = decodedIdToken;
-   next();
-   return;
- } catch(e) {
-   res.status(403).send('Unauthorized');
-   return;
- }
-};
-const authenticate = async (req, res, next) => {
-    //req.user &&
-    if (req.isAuthenticated()) {
-        return next();
-    } else {
-        res.redirect('/index.html');
-    }
-};
-
-const authen = function checkAuth(req, res, next) {
-    if (req.headers.authtoken) {
-        admin.auth().verifyIdToken(req.headers.authtoken)
-            .then(() => {
-                return next();
-            }).catch(() => {
-                return res.status(403).send('Unauthorized');
-            });
-    } else {
-        res.status(403).send('Unauthorized');
-    }
-}*/
-/*
-var kk = 3000;
-var server = http.createServer(function (req, res) {
-    if (req.url == '/index.html' || req.url == '/') {
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        var myReadStream = fs.createReadStream(__dirname + '/index.html', 'utf8');
-        myReadStream.pipe(res);
-    }
-
-}
-)
-server.listen(kk, '127.0.0.1');
-console.log('sssddd');*/
-
-//app.use(express.static('./src'));
-
-/* query.get().then(doc =>{
-     if (doc.exists) {
-         return res.status(200).json(doc.data());
-     } else {
-         return res.status(400).json({"message":"User ID not found."});
-     }
- }).catch(e=>{
-     return res.status(400).json({"message":"Unable to connect to Firestore."});
- });*/
-
-
-/*
-exports.userDeleted = functions.auth.user().onDelete(user =>{
-    const id = admin.firestore().collection('users').doc(user.uid);
-    return id.delete();
-});
-exports.addRequest = functions.https.onCall((data,context)=>{
-    if(!context.auth){
-        throw new functions.https.HttpsError(
-            'unauthenticated',
-            'by passed login'
-        );
-    }
-    return admin.firestore().collection('units').add({
-
-    });
 });
 */

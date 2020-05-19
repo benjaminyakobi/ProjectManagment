@@ -78,7 +78,7 @@ function initApp() {
       divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
 
-    document.getElementById("orderRef").href = "/api/order/" + uid;
+    document.getElementById("orderRef").href = "/order/" + uid;
 
   }
 
@@ -246,7 +246,7 @@ function sendRequestToServer(jsonInfo) {
 }
 function hasImg(val) {
   if (val > 0)
-    return "/api/images/compact_camera.png";
+    return "https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Fcompact_camera.png?alt=media&token=e23f870d-4f38-4e92-a4fb-d3eddffd65da";
   return "";
 }
 

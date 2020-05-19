@@ -12,7 +12,7 @@ function initApp() {
 
     function hasImg(val) {
         if (val)
-            return "/api/images/compact_camera.png";
+            return "https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Fcompact_camera.png?alt=media&token=e23f870d-4f38-4e92-a4fb-d3eddffd65da";
         return "";
     }
 

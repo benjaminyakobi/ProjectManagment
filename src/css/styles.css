@@ -86,7 +86,7 @@ overflow: hidden;
   }
   
   #myInput {
-    background-image: url('/images/searchicon.png');
+    background-image: url('https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Fsearchicon.png?alt=media&token=5194973f-da73-43b3-9847-6d63c8674dd2');
     background-position: 10px 10px;
     background-repeat: no-repeat;
     width: 100%;

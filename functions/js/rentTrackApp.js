@@ -29,74 +29,7 @@ function initApp()
 
 
 
-    /*
-fetch("/renterLease", {
-    method: "POST",
-    headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-        "CSRF-Token": Cookies.get("XSRF-TOKEN"),
-    },
-    body: JSON.stringify({}),
-    })
-    .then(response => response.json())
-    // eslint-disable-next-line prefer-arrow-callback
-    .then(function(resJ){
-        console.log(resJ.data);
-        
-        // eslint-disable-next-line promise/always-return
-        for(var i = 0; i < resJ.data.length; i++) {
-          var obj = resJ.data[i];
-          
-          // eslint-disable-next-line no-loop-func
-           
-                
-                 // let url = await firebase.storage().ref('profileImages/'+obj.id +'/profile.png').getDownloadURL();
-                 // console.log(url);
-                  sss.innerHTML+= '<tl>'+
-                  '<td><a href="#">' +obj.unitId+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.firstName+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.lastName+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.email+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.phoneNumber+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.startDate+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.endDate+ '</a></td>'+
-                  '<td><a href="#">' +obj.data.billTotal+ '</a></td>'+
-                  '<td><button value ='+obj.id+' onclick="Approved(this)">V</button><button value ='+obj.id+' onclick="Declined(this)">X</button></td>'+
-                '</tl>';
-               
-            
 
-
-        }
-
-
-    }).catch(function (error) {
-      console.log('data error');
-    });
-*/
-/*
-    //-------------------+fake names+---------------------
-    const f1= function()
-    {
-     
-        for(i =0;i<10 ;i++)
-        {
-            sss.innerHTML+= '<tr>'+
-                            '<td >First name</td>'+
-                            '<td >last name</td>'+
-                            '<td >Email</td>'+
-                             '<td >Phone Number</td>'+
-                            '<td >starting date</td>'+
-                            '<td >ending date</td>'+
-                            '<td >Billing overall</td>'+
-                            '<td><button onclick="Approved()">V</button><button onclick="Declined">X</button></td>'+
-                            '</tr>';
-        }
-    }
-    f1();
-
-    */
 }
 //-------------end init
 
