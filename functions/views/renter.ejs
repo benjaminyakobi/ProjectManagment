@@ -17,12 +17,14 @@
     <script src="https://www.gstatic.com/firebasejs/7.14.2/firebase-storage.js"></script>
 
     <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/css%2Fstyles.css?alt=media&token=e61b48ec-2a48-454a-a9ac-4dfb593f5ac3">
+    <link rel="stylesheet"
+        href="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/css%2Fstyles.css?alt=media&token=e61b48ec-2a48-454a-a9ac-4dfb593f5ac3">
 
     <div class="container-fluid">
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <a class="navbar-brand" href="#">
-                <img src="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Flogo.png?alt=media&token=b9db8506-c404-4f13-956e-ce2142292e0a" width="50" height="70" alt=""> Sami Room
+                <img src="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Flogo.png?alt=media&token=b9db8506-c404-4f13-956e-ce2142292e0a"
+                    width="50" height="70" alt=""> Sami Room
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
                 aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -189,58 +191,80 @@
                 const modalVar = document.getElementById("myModal");
                 modalVar.style.display = "none";
             }
+
             let imgsUrls = [];
+            let imgsUrlsAttractions = [];
+
             var saveSpan = document.getElementById("saveThree");
             saveSpan.onclick = function () {
-            const modalVar = document.getElementById("myModal");
-            const form = document.getElementById("editInfoFormThree");
-            //function for testing dates.
-            //********************
-            const startDateModalThree = document.getElementById("startDateModalThree");
-            const endDateModalThree = document.getElementById("endDateModalThree");
-            const minDateModalThree = document.getElementById("minDateModalThree");
-            var date1 = new Date(startDateModalThree.value);
-            var date2 = new Date(endDateModalThree.value);
-            var date3 = new Date(minDateModalThree.value);
-            var diff = (date2 - date3) / 1000;
-            var diff2 = (date3 - date1) / 1000;
-            var diff3 = (date2 - date1) / 1000;
-            var days = Math.floor(diff / 86400);
-            var days3 = Math.floor(diff2 / 86400);
-            var days2 = Math.floor(diff2 / 86400);
-            if(days<0 ||days3<0||days2<0)
-            {
-                alert("Please enter a valid Until Date");
-                return;
-            }
-            //checking that all the form is filled.
-            //********************
-            const loc= document.getElementById("locationModalThree");
-            const loc2= document.getElementById("roomzModalThree");
-            const loc3= document.getElementById("priceModalThree");
-            const loc4= document.getElementById("ratingModalThree");
-            const loc5= document.getElementById("ownerNameModalThree");
-            const loc6= document.getElementById("startDateModalThree");
-            const loc7= document.getElementById("endDateModalThree");
-            const loc8= document.getElementById("minDateModalThree");
-            const loc9= document.getElementById("phoneNumberModalThree");
-            const loc0= document.getElementById("descriptionModalThree");
-            if(loc.value==""||loc2.value==""||loc3.value==""||loc4.value==""||loc5.value==""||
-            loc6.value==""||loc7.value==""||loc8.value==""||loc9.value==""||loc0.value=="")
-            {
-                alert("Missing information");
-                return;
-            }
-
-
-
-           //     var fDateThree = new Date(form.fromDateThree.value);
-          //      var uDateThree = new Date(form.untilDateThree.value);
-/*
-                if (fDateThree.getTime() - uDateThree.getTime() > 0) {
-                    alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
+                const modalVar = document.getElementById("myModal");
+                const form = document.getElementById("editInfoFormThree");
+                //function for testing dates.
+                //********************
+                const startDateModalThree = document.getElementById("startDateModalThree");
+                const endDateModalThree = document.getElementById("endDateModalThree");
+                const minDateModalThree = document.getElementById("minDateModalThree");
+                var date1 = new Date(startDateModalThree.value);
+                var date2 = new Date(endDateModalThree.value);
+                var date3 = new Date(minDateModalThree.value);
+                var diff = (date2 - date3) / 1000;
+                var diff2 = (date3 - date1) / 1000;
+                var diff3 = (date2 - date1) / 1000;
+                var days = Math.floor(diff / 86400);
+                var days3 = Math.floor(diff2 / 86400);
+                var days2 = Math.floor(diff2 / 86400);
+                if (days < 0 || days3 < 0 || days2 < 0) {
+                    alert("Please enter a valid Until Date");
                     return;
-                }*/
+                }
+                //checking that all the form is filled.
+                //********************
+                const loc = document.getElementById("locationModalThree");
+                const loc2 = document.getElementById("roomzModalThree");
+                const loc3 = document.getElementById("priceModalThree");
+                const loc4 = document.getElementById("ratingModalThree");
+                const loc5 = document.getElementById("ownerNameModalThree");
+                const loc6 = document.getElementById("startDateModalThree");
+                const loc7 = document.getElementById("endDateModalThree");
+                const loc8 = document.getElementById("minDateModalThree");
+                const loc9 = document.getElementById("phoneNumberModalThree");
+                const loc0 = document.getElementById("descriptionModalThree");
+                if (loc.value == "" || loc2.value == "" || loc3.value == "" || loc4.value == "" || loc5.value == "" ||
+                    loc6.value == "" || loc7.value == "" || loc8.value == "" || loc9.value == "" || loc0.value == "") {
+                    alert("Missing information");
+                    return;
+                }
+
+                //Seperating each attraction with ',' and Price with ':'
+                //from here
+                var attrNames = [];
+                var attrPrices = [];
+                var x = 0;
+                var y = 0;
+                var attr = document.getElementById("AttractionsDesctioption").value;
+                var resDots = attr.split(/[:,]+/); //regex
+
+                for (i = 0; i < resDots.length; i++) {
+                    if (i % 2 == 0) {
+                        console.log(i);
+                        attrNames[x++] = resDots[i];
+                    } else {
+                        attrPrices[y++] = resDots[i];
+                    }
+                }
+
+                if(attrNames.length != attrPrices.length){ alert("Check Your Attraction Description again");}
+                //until here
+
+
+
+                //     var fDateThree = new Date(form.fromDateThree.value);
+                //      var uDateThree = new Date(form.untilDateThree.value);
+                /*
+                                if (fDateThree.getTime() - uDateThree.getTime() > 0) {
+                                    alert('Invalid Dates, From-Date is Greater than Until-Date, try again!');
+                                    return;
+                                }*/
 
                 fetch("/addUnit", {
                     method: "POST",
@@ -259,6 +283,7 @@
                         rooms: form.roomsThree.value,           //1
                         startDate: form.fromDateThree.value, //1
                         hasPictures: imgsUrls,               //1
+                        hasPicturesAttr: imgsUrlsAttractions, //2
                         minDate: form.minimumDateThree.value, //1
                         description: form.descriptionThree.value
                     }),
@@ -301,6 +326,24 @@
             }
 
 
+            function uploadImageAttractions(imageFile, pathImg) {
+                return new Promise(function (resolve, reject) {
+                    var storageRef = firebase.storage().ref("unitsImagesAttractions/" + pathImg + "/" + imageFile.name);
+
+                    //Upload file
+                    var task = storageRef.put(imageFile).then((snapShot) => {
+                        snapShot.ref.getDownloadURL().then(function (url) {
+                            console.log(url);
+                            imgsUrlsAttractions.push(url);
+                        });
+                    });
+
+                    //Update progress bar
+
+                });
+            }
+
+
             function editInfoFunction() {
                 const modalVar = document.getElementById("myModal");
                 const modalVarOne = document.getElementById("modalOne");
@@ -331,7 +374,7 @@
                 var saveSpan = document.getElementById("saveOne");
                 saveSpan.onclick = function () {
                     // INSERT CHANGES HERE
-                    
+
                     modalVar.style.display = "none";
                 }
             }
@@ -371,7 +414,8 @@
                 <form name="modalName">
                     <legend>Contact Form</legend>
                     <p>Unit location: <input id="locationModal" name="location" onkeypress="return (event.charCode > 64 && 
-                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123 || event.charCode==32)" type="text" size="30"></p>
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123 || event.charCode==32)"
+                            type="text" size="30"></p>
                     <p>Rooms: <input id="roomzModal" name="rooms" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 58)" maxlength="1" type="text" size="30"></p>
                     <p>Price: <input id="priceModal" name="price" onkeypress="return (event.charCode > 47 && 
@@ -379,7 +423,8 @@
                     <p>Rating: <input id="ratingModal" name="rating" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 53)" maxlength="1" type="text" size="30"></p>
                     <p>Owner name: <input id="ownerNameModal" name="owner" onkeypress="return (event.charCode > 64 && 
-                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30">
+                    </p>
 
                     <p>From Date: <input placeholder="From Date" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="startDateModal" name="fromDate"></p>
@@ -415,36 +460,54 @@
 
                 <form name="modalNameThree">
                     <legend>Contact Form</legend>
-                    <p>Unit location: <input id="locationModalThree" name="locationThree" placeholder="e.g Ashdod" onkeypress="return (event.charCode > 64 && 
-                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123 || event.charCode==32)" type="text" size="30"></p>
-                    <p>Rooms: <input id="roomzModalThree" name="roomsThree" placeholder="Appartment's rooms(max 9)" onkeypress="return (event.charCode > 47 && 
+                    <p>Unit location: <input id="locationModalThree" name="locationThree" placeholder="e.g Ashdod"
+                            onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123 || event.charCode==32)"
+                            type="text" size="30"></p>
+                    <p>Rooms: <input id="roomzModalThree" name="roomsThree" placeholder="Appartment's rooms(max 9)"
+                            onkeypress="return (event.charCode > 47 && 
                         event.charCode < 58)" maxlength="1" type="text" size="30"></p>
                     <p>Price: <input id="priceModalThree" name="priceThree" placeholder="e.g 500" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 58)" type="text" size="30"></p>
                     <p>Rating: <input id="ratingModalThree" name="ratingThree" placeholder="0-5" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 54)" maxlength="1" type="text" size="30"></p>
-                    <p>Owner name: <input id="ownerNameModalThree" name="ownerThree" placeholder="e.g 'rami'" onkeypress="return (event.charCode > 64 && 
-                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30"></p>
-                        <!--------------------------------------------------------------------------------------------------------------------->
+                    <p>Owner name: <input id="ownerNameModalThree" name="ownerThree" placeholder="e.g 'rami'"
+                            onkeypress="return (event.charCode > 64 && 
+                        event.charCode < 91) || (event.charCode > 96 && event.charCode < 123)" type="text" size="30">
+                    </p>
+                    <!--------------------------------------------------------------------------------------------------------------------->
 
-                    <p>From Date: <input  placeholder="From Date" class="textbox-n" type="text"
+                    <p>From Date: <input placeholder="From Date" class="textbox-n" type="text"
                             onfocus="(this.type='date')" id="startDateModalThree" name="fromDateThree"></p>
-                    <p>Until Date: <input   placeholder="Until Date" class="textbox-n" type="text"
-                            onfocus="(this.type='date')" id="endDateModalThree" name="untilDateThree"  ></p>
+                    <p>Until Date: <input placeholder="Until Date" class="textbox-n" type="text"
+                            onfocus="(this.type='date')" id="endDateModalThree" name="untilDateThree"></p>
 
-                    <p>Minimum Order: <input  id="minDateModalThree" placeholder="Minimum leasing month"  class="textbox-n" type="text"
-                            onfocus="(this.type='date')" id="minDateModalThree" name="minimumDateThree"></p>
+                    <p>Minimum Order: <input id="minDateModalThree" placeholder="Minimum leasing month"
+                            class="textbox-n" type="text" onfocus="(this.type='date')" id="minDateModalThree"
+                            name="minimumDateThree"></p>
 
-                    <p>Phone number: <input id="phoneNumberModalThree" name="phoneThree" placeholder="e.g 0548547216" maxlength="10" placeholder="0548547216" onkeypress="return (event.charCode > 47 && 
+                    <p>Phone number: <input id="phoneNumberModalThree" name="phoneThree" placeholder="e.g 0548547216"
+                            maxlength="10" placeholder="0548547216" onkeypress="return (event.charCode > 47 && 
                         event.charCode < 58)" type="text" size="30"></p>
 
-                    <p>Description: <input id="descriptionModalThree" name="descriptionThree" placeholder="e.g 2nd floor,view to the park." type="text" size="30"></p>
+                    <p>Description: <input id="descriptionModalThree" name="descriptionThree"
+                            placeholder="e.g 2nd floor,view to the park." type="text" size="30"></p>
 
                     <div id="imgup">
                         <label for="img">Add unit images</label>
                         <input type="file" multiple="multiple" id="img" name="img" accept="image/*"><br>
                     </div>
 
+
+                    <br>
+                    <p>Attractions: <input id="AttractionsDesctioption" name="AttractionsThree"
+                            placeholder="e.g AttractinOne:PriceOne, AtrractionTwo:PriceTwo, ..." type="text"
+                            size="60"></br>
+
+                    <div id="imgupAttractions">
+                        <label for="imgAttractions">Add Attractions Images</label>
+                        <input type="file" multiple="multiple" id="imgAttr" name="imgAttr" accept="image/*"><br>
+                    </div>
 
                     <img id="prevImage" />
                 </form>
@@ -459,7 +522,7 @@
 
     </div>
     <!--checks if the leasing date and minimum date are valid-->
-    
+
     <div class="renterButtons">
         <div class="actionButtons">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit" onclick=addNewAppartmentFunction();>Add
@@ -520,7 +583,7 @@
                     <td><a href="#"><%= obj.data.phoneNumber    %></a></td>
                     <td><a href="#"><img src=""></a></td>
                     <td style="display:none;"><button value=<%= obj.id %>> </button></td>
-                    <td style="display: none;"><a  href="#"><%= obj.data.description   %></a></td>
+                    <td style="display: none;"><a href="#"><%= obj.data.description   %></a></td>
 
                 </tl>
             </tr>
