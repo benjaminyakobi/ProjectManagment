@@ -328,7 +328,8 @@ app.get("/student.ejs", function (req, res) {
                     users.forEach((userDoc) => {
                         //let userDocData = userDoc.data();
                         //let userId = userDocData.userId;
-                        userData = userDoc.data();
+                        var userData = userDoc.data();
+                        var userId = userDoc.id;
                         //console.log(userData);
 
                             let perUserPromise = admin.firestore().collection('Attraction').where('unitid', '==', userDoc.id).get().then((projects) => {
@@ -338,7 +339,7 @@ app.get("/student.ejs", function (req, res) {
                                 projects.forEach((projDoc) => {
                                     var projData =projDoc.data();
 
-                                    l.push({ data: userData,id:userDoc.id, dataAtt : projData });
+                                    l.push({ data: userData,id:userId, dataAtt : projData });
                                 });
 
                                 // Resolve and pass result to the following then()
@@ -353,6 +354,7 @@ app.get("/student.ejs", function (req, res) {
                     // Start the operation and wait for results
                     await Promise.all(userPromises).then(()=>{
                       //  console.log(sum);
+                        console.log(l);
                         res.render("student.ejs",{l:l});
                     });
                 })();
@@ -388,7 +390,7 @@ app.get("/student.ejs", function (req, res) {
 
 
 //verify permissions and render site to requester
-app.get("/myCupons", function (req, res)  {
+app.get("/myCoupons", function (req, res)  {
     const sessionCookie = req.cookies.session || "";
     var role = req.cookies.role;
     admin
@@ -398,40 +400,31 @@ app.get("/myCupons", function (req, res)  {
             if (req.cookies.role === "student") {   
                 (async () => {
                     try{
-                        return res.render("There are no cupons");
-
-                  /*  let users = await admin.firestore().collection('Cupons').where('sid', '==', req.cookies.uid).get();
-                    let l="";
+                      //  return res.render("There are no cupons");
+                   // console.log(req.cookies.uid);
+                    let users = await admin.firestore().collection('Coupons').where('sid', '==', req.cookies.uid).get();
+                    let l=[];
                     let userPromises = [];
                     users.forEach((userDoc) => {
-                        if(userDoc.empty)
-                            return;
                         var userData = userDoc.data();
-                        l+="Your cupon id : " +userDoc.id +", and the discount is : " + userData.discount +'\n';
-                        return res.render(l);
+                        l.push({data:userData,id:userDoc.id});
                     }
-                    ).catch(error=>{
-                        return res.render("There are no cupons");
+                    );
+                    //console.log(req.cookies.uid);
 
-                    });*/
-                    
+                    //userPromises.push(users);
                     // Start the operation and wait for results
-                /*    await Promise.all(userPromises).then(()=>{
-                      //  console.log(sum);
-                        if(l=="")
-                            res.render("There are no cupons");
-                        else    
-                            res.render(l);
+                    await Promise.all(userPromises).then(()=>{
+                        //console.log(l);
+                        res.render("myCoupons.ejs",{l:l});
                     }).catch((error)=>{
                         console.log("WPW2");
 
-                        res.render("There are no cupons");
-                    });*/
+                       // res.render("There are no cupons");
+                    });
                     }catch(error){
                         console.log("WPW");
 
-                      //  console.log(error);
-                        return res.render("There are no cupons");
 
                     }
                 })();
@@ -706,13 +699,13 @@ app.post('/renterResponse', (req, res) => {
             if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
                 if (req.body.flag == "true") {
                    // console.log(req.body);
-                    var cuponP=20;
+                    var couponP=20;
                     var bill =req.body.totalBill;
-                    if(bill>5000) cuponP = 35;
-                    else if(bill>8000) cuponP = 50;
-                    var queryCupon = admin.firestore().collection('Cupons').add({
+                    if(bill>5000) couponP = 35;
+                    else if(bill>8000) couponP = 50;
+                    var queryCoupon = admin.firestore().collection('Coupons').add({
                         sid:req.body.sid,
-                        discount:cuponP
+                        discount:couponP
                     });
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
                     //var storageRef = firebaseApp.storage().ref();

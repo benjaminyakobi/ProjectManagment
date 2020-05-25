@@ -302,7 +302,7 @@
             const fileButton = document.getElementById("img");
             fileButton.addEventListener('change', function (e) {
                 const form = document.getElementById("editInfoFormThree");
-                console.log(imgsUrls);
+                //console.log(imgsUrls);
 
                 //Get files
                 for (var i = 0; i < e.target.files.length; i++) {
@@ -310,13 +310,30 @@
                     uploadImageAsPromise(imageFile, form.ownerThree.value);
                 }
             });
+
+            const fileButtonAtt = document.getElementById("imgAttr");
+            fileButtonAtt.addEventListener('change', function (e) {
+                const form = document.getElementById("editInfoFormThree");
+                console.log("debug 1");
+
+                //Get files
+                for (var i = 0; i < e.target.files.length; i++) {
+                    var imageFile = e.target.files[i];
+                    uploadImageAttractions(imageFile, form.ownerThree.value);
+                }
+            });
+            
             function uploadImageAsPromise(imageFile, pathImg) {
                 return new Promise(function (resolve, reject) {
+                    console.log("debug 2");
+
                     var storageRef = firebase.storage().ref("unitsImages/" + pathImg + "/" + imageFile.name);
 
                     //Upload file
                     var task = storageRef.put(imageFile).then((snapShot) => {
                         snapShot.ref.getDownloadURL().then(function (url) {
+                            console.log("debug 3");
+
                             console.log(url);
                             imgsUrls.push(url);
                         });

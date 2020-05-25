@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+
+
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My coupons</title>
+
+
+    <!-- initialize the SDK after all desired features are loaded -->
+    <script src="https://cdn.jsdelivr.net/npm/js-cookie@rc/dist/js.cookie.min.js" defer></script>
+
+    <!-- Bootstrap CDN -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+        integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <!-- Font Awesome CDN -->
+    <script src="https://kit.fontawesome.com/2d10b7aa43.js" crossorigin="anonymous"></script>
+
+    <!-- Custom Stylesheet -->
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/css%2Fstyles.css?alt=media&token=e61b48ec-2a48-454a-a9ac-4dfb593f5ac3">
+
+    <div class="container-fluid">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Flogo.png?alt=media&token=b9db8506-c404-4f13-956e-ce2142292e0a" width="70" height="50" alt=""> Sami Room
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/sessionLogout">Log out</a>
+                    </li>
+                </ul>
+
+            </div>
+        </nav>
+    </div>
+
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        #myInput {
+            background-image: url('https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Fsearchicon.png?alt=media&token=5194973f-da73-43b3-9847-6d63c8674dd2');
+            background-position: 10px 10px;
+            background-repeat: no-repeat;
+            width: 100%;
+            font-size: 16px;
+            padding: 12px 20px 12px 40px;
+            border: 1px solid #ddd;
+            margin-bottom: 12px;
+        }
+
+        #myTable {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ddd;
+            font-size: 18px;
+        }
+
+        #myTable th,
+        #myTable td {
+            text-align: left;
+            padding: 12px;
+        }
+
+        #myTable tr {
+            border-bottom: 1px solid #ddd;
+        }
+
+        #myTable tr.header,
+        #myTable tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        .btnStyle {
+            font-size: 20px;
+            border: none;
+            background-color: white;
+            font-size: 5px;
+            padding: 5px;
+        }
+
+        .buttonS {
+            font: bold 18px Arial;
+            text-decoration: none;
+            background-color: #EEEEEE;
+            color: #333333;
+            padding: 2px 6px 2px 6px;
+            border-top: 1px solid #CCCCCC;
+            border-right: 1px solid #333333;
+            border-bottom: 1px solid #333333;
+            border-left: 1px solid #CCCCCC;
+        }
+    </style>
+
+    <link rel="stylesheet" href="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/css%2FstStyle.css?alt=media&token=e00aea3b-903c-4b56-9712-4f0d1b890c09">
+</head>
+
+<body>
+    <h2>Coupons</h2>
+
+    <table id="myTable">
+        <thead>
+            <tr>
+                <th>
+                    <div>Coupon id</div>
+                </th>
+                <th>
+                    <div>Owner id</div>
+                </th>
+                <th>
+                    <div>discount</div>
+                </th>
+   
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+            <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
+            
+                <tr>
+                    <td><a href="#"><%= obj.id      %></a></td>
+                    <td><a href="#"><%= obj.data.sid         %></a></td>
+                    <td><a href="#"><%= obj.data.discount     %></a></td>
+             
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+    </div>
+</body>
+
+</html>
