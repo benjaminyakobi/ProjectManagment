@@ -254,21 +254,31 @@
                     <p>Minimum order date: <input id="minDateModal" type="text" size="30"></p>
                     <p>Until date: <input id="endDateModal" type="text" size="30"></p>
                     <p>Phone number: <input id="phoneNumberModal" type="text" size="30"></p>
-                    <p>Description: <textarea id="descriptionModal" rows ="6" cols="50"> </textarea></p> 
-                    <!-- <p>Attraction name,price(without coupon): <input id="phoneNumberModal" type="text" size="30"></p> -->
+                    <p>Description: </p> 
+                    <textarea id="descriptionModal" rows ="6" cols="50"> </textarea>
+                    
 
                 </fieldset>
+               <div id="imageContainer">
+
+                </div>
+                <fieldset disabled>
+                    <p>Attraction name,price(without coupon):</p> 
+                    <textarea id="nameNpriceAtrcModal" rows ="6" cols="50"> </textarea>
+                </fieldset>
+                <div id="atrcContainer">
+
+                </div>
+
+
                 <fieldset>
                     <a id="orderRef" style="float:right; cursor : pointer;" class="buttonS">continue</a>
                     <button style="float:right; cursor : pointer; margin-right: 5px"
                         onclick="closeWindow()" class="buttonS">cancel</button>
                 </fieldset>
-                <div id="imageContainer">
 
-                </div>
-                <div id="atrcContainer">
 
-                </div>
+ 
             </form>
         </div>
         <div id="modalOrder" class="modalContent2">
