@@ -45,7 +45,7 @@ function Approved(objec){
                 "Content-Type": "application/json",
                 "CSRF-Token": Cookies.get("XSRF-TOKEN"),
             },
-            body: JSON.stringify({uid:objec.value,flag:"true"}),
+            body: JSON.stringify({uid:objec.value,flag:"true",sid:objec.dataset.value3,totalBill:objec.dataset.value2}),
             })
         .then(response => response.json())
         // eslint-disable-next-line prefer-arrow-callback

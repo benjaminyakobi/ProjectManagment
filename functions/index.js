@@ -185,26 +185,7 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
-         
-                  /*     var l = [];
-                var sum = 0;
-                var query;
-                var allDocs = query.get().then(snapShot => {
-                    snapShot.forEach(doc => {
-                        var s = doc.data().sold;
-                        if (doc.data().sold == "false") {
-                            l.push({ data: doc.data(), unitId: doc.id, sold: s });
-                        } else {
-                            var query2 = admin.firestore().collection('Transactions').where('rid', '==', req.cookies.uid);
-                        }
-                    });
-                    console.log(l);
-                    res.render("history.ejs", { l: l, totalSum: sum });
-                });*/
-
                 (async () => {
-
-
                     let users;
                     if (req.params.typeIn == "rooms") {
                      //   console.log(req.params.fromFilter);
@@ -269,18 +250,6 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                         res.render("history.ejs",{l:l,totalSum:sum});
                     });
                 })();
-
-
-
-
-
-
-
-
-
-
-
-
 
             } else {
                 res.render("index.html");
@@ -350,8 +319,48 @@ app.get("/student.ejs", function (req, res) {
         .verifySessionCookie(sessionCookie, true)//checkRevoked
         .then(() => {
             //console.log(role);
-            if (req.cookies.role === "student") {
+            if (req.cookies.role === "student") {   
+                (async () => {
+                    let users = await admin.firestore().collection('units').where('sold', '==', "false").get();
+                    let l=[];
+                    let userPromises = [];
 
+                    users.forEach((userDoc) => {
+                        //let userDocData = userDoc.data();
+                        //let userId = userDocData.userId;
+                        userData = userDoc.data();
+                        //console.log(userData);
+
+                            let perUserPromise = admin.firestore().collection('Attractions').where('unitid', '==', userDoc.id).get().then((projects) => {
+
+                                // For every project, get the project Id and use it to retrieve the sub project.
+                                let getSubProjectsPromises = [];
+                                projects.forEach((projDoc) => {
+                                    var projData =projDoc.data();
+
+                                    l.push({ data: userData,id:userDoc.id, dataAtt : projData });
+                                });
+
+                                // Resolve and pass result to the following then()
+                                return Promise.all(getSubProjectsPromises);
+
+                                });
+
+                            userPromises.push(perUserPromise);
+                        }
+                    );
+
+                    // Start the operation and wait for results
+                    await Promise.all(userPromises).then(()=>{
+                      //  console.log(sum);
+                        res.render("student.ejs",{l:l});
+                    });
+                })();
+              
+              
+              
+              
+                /*
                 try {
                     var l = [];
                     var query = admin.firestore().collection('units').where('sold', '==', "false");
@@ -364,7 +373,7 @@ app.get("/student.ejs", function (req, res) {
                     });
                 } catch (error) {
                     return res.status(500).send(error);
-                }
+                }*/
 
             }
             else
@@ -375,6 +384,70 @@ app.get("/student.ejs", function (req, res) {
             res.redirect("/");
         });
 });
+
+
+
+//verify permissions and render site to requester
+app.get("/myCupons", function (req, res)  {
+    const sessionCookie = req.cookies.session || "";
+    var role = req.cookies.role;
+    admin
+        .auth()
+        .verifySessionCookie(sessionCookie, true)//checkRevoked
+        .then(() => {
+            if (req.cookies.role === "student") {   
+                (async () => {
+                    try{
+                        return res.render("There are no cupons");
+
+                  /*  let users = await admin.firestore().collection('Cupons').where('sid', '==', req.cookies.uid).get();
+                    let l="";
+                    let userPromises = [];
+                    users.forEach((userDoc) => {
+                        if(userDoc.empty)
+                            return;
+                        var userData = userDoc.data();
+                        l+="Your cupon id : " +userDoc.id +", and the discount is : " + userData.discount +'\n';
+                        return res.render(l);
+                    }
+                    ).catch(error=>{
+                        return res.render("There are no cupons");
+
+                    });*/
+                    
+                    // Start the operation and wait for results
+                /*    await Promise.all(userPromises).then(()=>{
+                      //  console.log(sum);
+                        if(l=="")
+                            res.render("There are no cupons");
+                        else    
+                            res.render(l);
+                    }).catch((error)=>{
+                        console.log("WPW2");
+
+                        res.render("There are no cupons");
+                    });*/
+                    }catch(error){
+                        console.log("WPW");
+
+                      //  console.log(error);
+                        return res.render("There are no cupons");
+
+                    }
+                })();
+
+            }
+            else
+                res.redirect("/");
+        })
+        .catch((error) => {
+            console.log(error);
+            res.redirect("/");
+        });
+});
+
+
+
 app.all("*", (req, res, next) => {
     res.cookie("XSRF-TOKEN", req.csrfToken());
     next();
@@ -633,6 +706,14 @@ app.post('/renterResponse', (req, res) => {
             if (req.cookies.role === "renter" || req.cookies.role === "Admin") {
                 if (req.body.flag == "true") {
                    // console.log(req.body);
+                    var cuponP=20;
+                    var bill =req.body.totalBill;
+                    if(bill>5000) cuponP = 35;
+                    else if(bill>8000) cuponP = 50;
+                    var queryCupon = admin.firestore().collection('Cupons').add({
+                        sid:req.body.sid,
+                        discount:cuponP
+                    });
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
                     //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(doc => {
