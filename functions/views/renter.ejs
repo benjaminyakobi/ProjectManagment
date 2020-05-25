@@ -247,9 +247,9 @@
                 for (i = 0; i < resDots.length; i++) {
                     if (i % 2 == 0) {
                         console.log(i);
-                        attrNames[x++] = resDots[i];
+                        attrNames.push(resDots[i]);
                     } else {
-                        attrPrices[y++] = resDots[i];
+                        attrPrices.push(resDots[i]);
                     }
                 }
 
@@ -284,6 +284,8 @@
                         startDate: form.fromDateThree.value, //1
                         hasPictures: imgsUrls,               //1
                         hasPicturesAttr: imgsUrlsAttractions, //2
+                        AttNames:attrNames,
+                        attPrices:attrPrices,
                         minDate: form.minimumDateThree.value, //1
                         description: form.descriptionThree.value
                     }),

@@ -331,7 +331,7 @@ app.get("/student.ejs", function (req, res) {
                         userData = userDoc.data();
                         //console.log(userData);
 
-                            let perUserPromise = admin.firestore().collection('Attractions').where('unitid', '==', userDoc.id).get().then((projects) => {
+                            let perUserPromise = admin.firestore().collection('Attraction').where('unitid', '==', userDoc.id).get().then((projects) => {
 
                                 // For every project, get the project Id and use it to retrieve the sub project.
                                 let getSubProjectsPromises = [];
@@ -967,6 +967,7 @@ app.post('/addUnit', (req, res) => {
             if (req.cookies.role == "renter") {
                 //console.log(req.body);
                 // console.log(new Date(req.body.minDate));
+
                 var check2 = admin.firestore().collection('units').add({
                     location: req.body.location,//1
                     endDate: new Date(req.body.endDate),//1
@@ -981,8 +982,14 @@ app.post('/addUnit', (req, res) => {
                     sold: "false",
                     rid: req.cookies.uid,
                     description: req.body.description
-                }).then(() => {
+                }).then(function(docRef)  {
                     //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
+                    var query3 = admin.firestore().collection('Attraction').add({
+                        unitid:docRef.id,
+                        Names:req.body.AttNames,
+                        Prices:req.body.attPrices,
+                        hasPicturesAttr:req.body.hasPicturesAttr
+                    })
                     res.setHeader('Content-Type', 'application/json');
                     res.end(JSON.stringify({ status: "success" }));
                 });
