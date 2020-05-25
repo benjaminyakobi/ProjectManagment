@@ -38,7 +38,7 @@ function initApp()
 
 function Approved(objec){
         
-       fetch("/api/renterResponse", {
+       fetch("/renterResponse", {
             method: "POST",
             headers: {
                 Accept: "application/json",
@@ -63,7 +63,7 @@ function Approved(objec){
 
 
     function Declined(objec){
-        fetch("/api/renterResponse", {
+        fetch("/renterResponse", {
             method: "POST",
             headers: {
                 Accept: "application/json",

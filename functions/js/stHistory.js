@@ -84,7 +84,7 @@ function setToMin() {
 
 function sendRequestToServer(jsonInfo) {
   var sss = document.getElementById("tableBody");
-  fetch("/api/requestUSort", {
+  fetch("/requestUSort", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -241,7 +241,7 @@ function fillInformation(id, imageArray, uid) {
   }
 
 
-  document.getElementById("orderRef").href = "/api/order/" + uid;
+  document.getElementById("orderRef").href = "/order/" + uid;
 }
 
 function closeWindow() {
@@ -281,7 +281,7 @@ function paymentWindow(x) {
   modal2.style.display = "none";
   modal3.style.display = "block"; sToZ8DpQF1B8rwfdsKxz
   */
-  fetch("/api/order/", {
+  fetch("/order/", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -321,6 +321,6 @@ function sendData() {
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  window.location.href ="/api/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
+  window.location.href ="/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
   //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }

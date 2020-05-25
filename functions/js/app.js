@@ -153,7 +153,7 @@ function initApp()
                                     // eslint-disable-next-line prefer-arrow-callback
                                     snapshot.ref.getDownloadURL().then(function(url){
                                         sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val,imgUrl:url});
-                                        return fetch("/api/registerAccount", 
+                                        return fetch("/registerAccount", 
                                         {
                                             method: "POST",
                                             headers: {
@@ -175,7 +175,7 @@ function initApp()
                         }
                         else if (val == "renter"){
                             sentPack =JSON.stringify({ idToken ,uid:Authh.user.uid,email:userEmail,firstName:fName,lastName:lName,lPerm:val,bankAccount:bankN});
-                            return fetch("/api/registerAccount", 
+                            return fetch("/registerAccount", 
                             {
                                 method: "POST",
                                 headers: {
@@ -310,7 +310,7 @@ function initApp()
            saveA =Authh;
           return Authh.user.getIdToken().then((idToken) => {
               console.log(Authh.user.uid);
-            return fetch("/api/sessionLogin", {
+            return fetch("/sessionLogin", {
               method: "POST",
               headers: {
                 Accept: "application/json",
@@ -328,7 +328,7 @@ function initApp()
         })
         .then(() => {
 
-            window.location.href="/api/";
+            window.location.href="/";
             console.log('cookie connection');
         //  window.location.assign("/student.html");
         });
