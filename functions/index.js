@@ -354,7 +354,7 @@ app.get("/student.ejs", function (req, res) {
                     // Start the operation and wait for results
                     await Promise.all(userPromises).then(()=>{
                       //  console.log(sum);
-                        console.log(l);
+                      //  console.log(l);
                         res.render("student.ejs",{l:l});
                     });
                 })();
