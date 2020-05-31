@@ -84,7 +84,7 @@ function setToMin() {
 
 function sendRequestToServer(jsonInfo) {
   var sss = document.getElementById("tableBody");
-  fetch("/requestUSort", {
+  fetch("/api/requestUSort", {
     method: "POST",
     headers: {
       Accept: "application/json",
