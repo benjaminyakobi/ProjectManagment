@@ -86,10 +86,10 @@ function initApp() {
     const divAtrc = document.getElementById("atrcContainer");
     divAtrc.innerHTML ="";
     // console.log(imageArray[])
-    for (var i = 1; i < numberOfImages+1; i++) {
+    for ( i = 1; i < numberOfImages+1; i++) {
       divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
-    for (var i = numberOfImages+1; i < imageArray.length; i++) {
+    for ( i = numberOfImages+1; i < imageArray.length; i++) {
       
       divAtrc.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
