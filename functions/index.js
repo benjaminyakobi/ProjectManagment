@@ -1058,13 +1058,13 @@ app.use('/images', express.static("images"));
 app.use('/css', express.static("css"));
 //define google cloud function name
 //export const webApi = functions.https.onRequest(app);
-/*
+
 const api = functions.https.onRequest(app)
 
 module.exports = {
   api
-}*/
-
+}
+/*
 app.listen(PORT, () => {
     console.log(`Listening on http://localhost:${PORT}`);
-});
+});*/
