@@ -208,12 +208,23 @@
                         <% }else{ %>
                         <td><a href="#"><img src="https://firebasestorage.googleapis.com/v0/b/projectmanagement-612b8.appspot.com/o/icons%2Fcompact_camera.png?alt=media&token=e23f870d-4f38-4e92-a4fb-d3eddffd65da"> </a></td>
                         <% } %>
-                        <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
-                            <td style="display:none;"><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
-                            
-                        <% } %>
+                            <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
+                                <td style="display:none;"><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
                                 
+                                <% } %>
+                              
+                        
                         <td style="display:none;" ><a style="display: inline;" href="#"><%= obj.data.description   %></a></td>
+                                
+                        <td style="display:none;" ><a style="display: inline;" href="#"><%= obj.data.hasPictures.length   %></a></td>
+                        <td style="display:none;" ><a style="display: inline;" href="#"><%= obj.dataAtt.Names   %></a></td>
+                        <td style="display:none;" ><a style="display: inline;" href="#"><%= obj.dataAtt.Prices   %></a></td>
+                        
+                        
+                        <% for(var j = 0; j < obj.dataAtt.hasPicturesAttr.length ; j++ ){ %>
+                            <td style="display:none;"><img height="50" width="50" style="display: none;" src=" <%= obj.dataAtt.hasPicturesAttr[j] %> "></td>
+                            
+                            <% } %>
 
                 </tl>
             </tr>
@@ -243,18 +254,31 @@
                     <p>Minimum order date: <input id="minDateModal" type="text" size="30"></p>
                     <p>Until date: <input id="endDateModal" type="text" size="30"></p>
                     <p>Phone number: <input id="phoneNumberModal" type="text" size="30"></p>
-                    <p>Description: <textarea id="descriptionModal" rows ="6" cols="50"> </textarea></p> 
-                    <!-- <p>t number: <input id="descriptionModal" type="text" size="30"></p> -->
+                    <p>Description: </p> 
+                    <textarea id="descriptionModal" rows ="6" cols="50"> </textarea>
+                    
 
                 </fieldset>
+               <div id="imageContainer">
+
+                </div>
+                <fieldset disabled>
+                    <p>Attraction name,price(without coupon):</p> 
+                    <textarea id="nameNpriceAtrcModal" rows ="6" cols="50"> </textarea>
+                </fieldset>
+                <div id="atrcContainer">
+
+                </div>
+
+
                 <fieldset>
                     <a id="orderRef" style="float:right; cursor : pointer;" class="buttonS">continue</a>
                     <button style="float:right; cursor : pointer; margin-right: 5px"
                         onclick="closeWindow()" class="buttonS">cancel</button>
                 </fieldset>
-                <div id="imageContainer">
 
-                </div>
+
+ 
             </form>
         </div>
         <div id="modalOrder" class="modalContent2">

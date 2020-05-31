@@ -33,6 +33,7 @@ function initApp() {
             var modal3 = document.getElementById("modalOrder");
             var span = document.getElementsByClassName("close")[0];
             var bd = row.getElementsByTagName("button")[0];
+            
             span.onclick = function () {
               modal.style.display = "none";
             }
@@ -70,12 +71,27 @@ function initApp() {
     document.getElementById("endDateModal").value = id[7].innerHTML;
     document.getElementById("phoneNumberModal").value = id[8].innerHTML;
     document.getElementById("descriptionModal").value = id[10].innerHTML;
-  
+    var numberOfImages = Number(id[11].innerHTML);
+    var nameAtrc = id[12].innerHTML.split(',');
+    var atrcPrice = id[13].innerHTML.split(',');
+    var s = "";
+    for(var i=0;i<nameAtrc.length;i++){
+         s += nameAtrc[i] +', ' +atrcPrice[i]+'\n'; 
+    }
+    document.getElementById("nameNpriceAtrcModal").value = s;
+
     console.log("img length in: " + imageArray.length);
     const divImage = document.getElementById("imageContainer");
     divImage.innerHTML ="";
-    for (var i = 1; i < imageArray.length; i++) {
+    const divAtrc = document.getElementById("atrcContainer");
+    divAtrc.innerHTML ="";
+    // console.log(imageArray[])
+    for (var i = 1; i < numberOfImages+1; i++) {
       divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
+    }
+    for (var i = numberOfImages+1; i < imageArray.length; i++) {
+      
+      divAtrc.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
 
     document.getElementById("orderRef").href = "/order/" + uid;
@@ -155,27 +171,18 @@ function sendRequestToServer(jsonInfo) {
     body: JSON.stringify(jsonInfo),
   })
     .then(response => response.json())
-    // eslint-disable-next-line prefer-arrow-callback
     .then(function (resJ) {
       sss.innerHTML = "";
       for (var i = 0; i < resJ.data.length; i++) {
         var obj = resJ.data[i];
         try {
           var d=new Date(0);
-        //  var date = new DateTime.fromMillisecondsSinceEpoch(obj.data.startDate * 1000);
           
           var sDate =new Date(obj.data.startDate._seconds *1000);
           var eDate =new Date(obj.data.endDate._seconds *1000);
           var mDate =new Date(obj.data.minDate._seconds *1000);
 
 
-         // const d2 = new Date(obj.data.startDate * 1000);
-          // Careful, the string output here can vary by implementation...
-         // const strDate = d.toLocaleString();
-          //d.setUTCSeconds(obj.data.startDate);
-         // console.log(new Date(obj.data.startDate *1000));
-        //  console.log(new Date(obj.data.startDate *1000).toISOString().split('T')[0]);
-        //  console.log(moment(1382086394000).format("DD-MM-YYYY h:mm:ss"));
           sss.innerHTML += '<tr> ' +
             '<td><a href="#">' + obj.data.location + '</a></td>' +
             '<td><a href="#">' + obj.data.rooms + '</a></td>' +
@@ -188,51 +195,10 @@ function sendRequestToServer(jsonInfo) {
             '<td><a href="#">' + obj.data.phoneNumber + '</a></td>' +
             '<td><a href="#">' + obj.data.description + '</a></td>' +
             '<td style="display:none;"><button value='+ obj.id +'> </button></td>'+
-
             '<td><a href="#"><img src="' + hasImg(obj.data.hasPictures.length) + '"></a></td>';
-            
-              // console.log("img: " + obj.data.hasPictures.length);
-              // const divImage = document.getElementById("imageContainer");
-              // divImage.innerHTML ="";
-              // // sss.innerHTML = "";
-              // for (var j = 0; j < obj.data.hasPictures.length; j++) {
-              //     console.log("asdf  " + obj.data.hasPictures[j]);
-              //     divImage.innerHTML += '<img src ="' + obj.data.hasPictures[j].src +'" style="margin:10px;" width ="200px" height="200px">';
-
-              // }
 
             sss.innerHTML+= '</tr>';
-            
 
-            /*           <% for(var i = 0; i < l.length; i++) { var obj = l[i];%>
-            <tr>
-                <tl>
-                    <td><a href="#"> <%= obj.data.location      %></a></td>
-                    <td><a href="#"> <%= obj.data.rooms         %></a></td>
-                    <td><a href="#"> <%= obj.data.price         %></a></td>
-                    <td><a href="#"> <%= obj.data.rating        %></a></td>
-                    <td><a href="#"> <%= obj.data.ownerName     %></a></td>
-                    <td><a href="#"> <%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
-                    <td><a href="#"> <%= obj.data.minDate.toDate().toISOString().split('T')[0]     %></a></td>
-                    <td><a href="#"> <%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
-                    <td><a href="#"> <%= obj.data.phoneNumber   %></a></td>
-                    
-                    <td style="display:none;"><button value=<%= obj.id %>> </button></td>
-                    <% if(obj.data.hasPictures.length == 0) { %>
-                    <td><a href="#"><img src=""> </a></td>
-
-                    <% }else{ %>
-                    <td><a href="#"><img src="/images/compact_camera.png"> </a></td>
-                    <% } %>
-                    <% for(var j = 0; j < obj.data.hasPictures.length ; j++ ){ %>
-                    <td><img height="50" width="50" style="display: none;" src=" <%= obj.data.hasPictures[j] %> "></td>
-
-                    <% } %>
-
-
-                </tl>
-            </tr>
-            <% } %>*/
         }
         catch (error) {
           console.log(error);
@@ -250,65 +216,63 @@ function hasImg(val) {
   return "";
 }
 
-function addRowHandlers() {
-  var table = document.getElementById("tableBody");
-  var rows = table.getElementsByTagName("tr");
-  for (i = 0; i < rows.length+1; i++) {
-    var currentRow = table.rows[i];
-    var createClickHandler =
-      function (row) {
-        return function () {
-          var modal = document.getElementById("myModal");
-          var modal2 = document.getElementById("modalUnits");
-          var modal3 = document.getElementById("modalOrder");
-          var span = document.getElementsByClassName("close")[0];
-          var bd = row.getElementsByTagName("button")[0];
-          span.onclick = function () {
-            modal.style.display = "none";
-          }
-          window.onclick = function (event) {
-            if (event.target == modal) {
-              modal.style.display = "none";
+// function addRowHandlers() {
+//   var table = document.getElementById("tableBody");
+//   var rows = table.getElementsByTagName("tr");
+//   for (i = 0; i < rows.length+1; i++) {
+//     var currentRow = table.rows[i];
+//     var createClickHandler =
+//       function (row) {
+//         return function () {
+//           var modal = document.getElementById("myModal");
+//           var modal2 = document.getElementById("modalUnits");
+//           var modal3 = document.getElementById("modalOrder");
+//           var span = document.getElementsByClassName("close")[0];
+//           var bd = row.getElementsByTagName("button")[0];
+//           span.onclick = function () {
+//             modal.style.display = "none";
+//           }
+//           window.onclick = function (event) {
+//             if (event.target == modal) {
+//               modal.style.display = "none";
 
-            }
-          }
-          modal.style.display = "block";
-          modal2.style.display = "block";
-          modal3.style.display = "none";
-          fillInformation(row.getElementsByTagName("a"), row.getElementsByTagName("img"), bd.value);
-        };
+//             }
+//           }
+//           modal.style.display = "block";
+//           modal2.style.display = "block";
+//           modal3.style.display = "none";
+//           fillInformation(row.getElementsByTagName("a"), row.getElementsByTagName("img"), bd.value);
+//         };
 
-      };
+//       };
       
-      currentRow.onclick = createClickHandler(currentRow);
-  }
+//       currentRow.onclick = createClickHandler(currentRow);
+//   }
 
-}
+// }
 
-function fillInformation(id, imageArray, uid) {
-  console.log("img array len: "+ imageArray.length);
-  document.getElementById("locationModal").value = id[0].innerHTML;
-  document.getElementById("roomzModal").value = id[1].innerHTML;
-  document.getElementById("priceModal").value = id[2].innerHTML;
-  document.getElementById("ratingModal").value = id[3].innerHTML;
-  document.getElementById("ownerNameModal").value = id[4].innerHTML;
-  document.getElementById("startDateModal").value = id[5].innerHTML;
-  document.getElementById("minDateModal").value = id[6].innerHTML;
-  document.getElementById("endDateModal").value = id[7].innerHTML;
-  document.getElementById("phoneNumberModal").value = id[8].innerHTML;
-  document.getElementById("descriptionModal").value = id[9].innerHTML;
+// function fillInformation(id, imageArray, uid) {
+//   console.log("img array len: "+ imageArray.length);
+//   document.getElementById("locationModal").value = id[0].innerHTML;
+//   document.getElementById("roomzModal").value = id[1].innerHTML;
+//   document.getElementById("priceModal").value = id[2].innerHTML;
+//   document.getElementById("ratingModal").value = id[3].innerHTML;
+//   document.getElementById("ownerNameModal").value = id[4].innerHTML;
+//   document.getElementById("startDateModal").value = id[5].innerHTML;
+//   document.getElementById("minDateModal").value = id[6].innerHTML;
+//   document.getElementById("endDateModal").value = id[7].innerHTML;
+//   document.getElementById("phoneNumberModal").value = id[8].innerHTML;
+//   document.getElementById("descriptionModal").value = id[9].innerHTML;
 
-  const divImage = document.getElementById("imageContainer");
-  divImage.innerHTML ="";
-  console.log("img length:"+ imageArray.length);
-    for (var i = 1; i < imageArray.length; i++) {
-      console.log("outside fill " + imageArray[i].src);
-      divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
-    }
-
-
-  document.getElementById("orderRef").href = "/order/" + uid;
-}
+//   const divImage = document.getElementById("imageContainer");
+//   divImage.innerHTML ="";
+//   console.log("img length:"+ imageArray.length);
+//     for (var i = 1; i < imageArray.length; i++) {
+//       console.log("outside fill " + imageArray[i].src);
+//       divImage.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
+//     }
+//   document.getElementById("orderRef").href = "/order/" + uid;
+// }
 
 function closeWindow() {
   var modal = document.getElementById("myModal");
@@ -373,7 +337,6 @@ function sortUp(columnName) {
   sortUpOrDown = 'desc';
   window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'desc'+'/'+'0';
 
-  //sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: x, action: "sort" });
 }
 
 function sortDown(columnName) {
@@ -381,7 +344,6 @@ function sortDown(columnName) {
   sortUpOrDown = 'inc';
   window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'asc'+'/'+'0';
 
-  //sendRequestToServer({ colName: columnName, sortDirection: sortUpOrDown, searchField: searchData, action: "sort" });
 }
 
 function sendData() {
@@ -392,6 +354,4 @@ function sendData() {
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
   window.location.href = '/requestUSort/'+'filter'+'/'+columnName+'/'+fromFilter+'/'+toFilter;
-  //'/requestUSort/:action/:colName/:fromLower/:toHigher'
-  //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }
