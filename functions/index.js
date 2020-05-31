@@ -225,7 +225,7 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                         else{
                         // Create promises for each user to retrieve sub projects and do further operation on them.
                             let perUserPromise;
-                            if(req.params.typeIn == "price" || req.params.typeIn == "rooms"){
+                            if(req.params.typeIn == "price" || req.params.typeIn == "rooms" || req.params.typeIn == "0"){
                                 perUserPromise = admin.firestore().collection('Transactions').where('unitid', '==', userDoc.id).get().then((projects) => {
 
                                     // For every project, get the project Id and use it to retrieve the sub project.

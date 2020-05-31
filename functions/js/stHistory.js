@@ -327,6 +327,11 @@ function sendData() {
   }else if(document.getElementById("filter").selectedIndex == 2){
     columnName = "priceT";
   }
+  if(fromFilter == "" || toFilter == "")
+  {
+    alert("please enter selection fields");
+    return;
+  }
   //console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
   window.location.href ="/api/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
   //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
