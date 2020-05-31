@@ -34,16 +34,16 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="/api/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/renter/requests">Tracking orders</a>
+                        <a class="nav-link" href="/api/renter/requests">Tracking orders</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/renter/History/0/0/0">History records</a>
+                        <a class="nav-link" href="/api/renter/History/0/0/0">History records</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/sessionLogout">Log out</a>
+                        <a class="nav-link" href="/api/sessionLogout">Log out</a>
                     </li>
                 </ul>
 
@@ -280,7 +280,7 @@
                                     return;
                                 }*/
 
-                fetch("/addUnit", {
+                fetch("/api/addUnit", {
                     method: "POST",
                     headers: {
                         Accept: "application/json",
@@ -623,7 +623,7 @@
             <% } %>
         </tbody>
     </table>
-    <script type="text/javascript" src="/js/rentApp.js"></script>
+    <script type="text/javascript" src="/api/js/rentApp.js"></script>
 
 </body>
 

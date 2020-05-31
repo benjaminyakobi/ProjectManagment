@@ -85,7 +85,7 @@ function initApp() {
         }*/
 
         //request to db to update data
-        fetch("/updateUnit", {
+        fetch("/api/updateUnit", {
             method: "POST",
             headers: {
                 Accept: "application/json",

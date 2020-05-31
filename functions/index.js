@@ -87,7 +87,7 @@ app.get("/renter", function (req, res) {
                 res.send("Not authorized!");
         })
         .catch((error) => {
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -114,7 +114,7 @@ app.get("/Admin.ejs", function (req, res) {
                 res.send("Not authorized!");
         })
         .catch((error) => {
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -409,11 +409,11 @@ app.get("/student.ejs", function (req, res) {
 
             }
             else
-                res.redirect("/");
+                res.redirect("/api/");
         })
         .catch((error) => {
             console.log(error);
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -461,11 +461,11 @@ app.get("/myCoupons", function (req, res)  {
 
             }
             else
-                res.redirect("/");
+                res.redirect("/api/");
         })
         .catch((error) => {
             console.log(error);
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -478,7 +478,7 @@ app.all("*", (req, res, next) => {
 
 app.get("/sessionLogout", (req, res) => {
     res.clearCookie("session");
-    res.redirect("/");
+    res.redirect("/api/");
 });
 
 
@@ -803,7 +803,7 @@ app.post('/rU', (req, res) => {
             }
         })
         .catch((error) => {
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -879,7 +879,7 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
                 res.send("not authorized");
         })
         .catch((error) => {
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 
@@ -917,7 +917,7 @@ app.post('/requestOrder', (req, res) => {
                 res.send("not authorized");
         })
         .catch((error) => {
-            res.redirect("/");
+            res.redirect("/api/");
         });
 });
 

@@ -94,7 +94,7 @@ function initApp() {
       divAtrc.innerHTML += '<img src ="' + imageArray[i].src +'" style="margin:10px;" width ="200px" height="200px">';
     }
 
-    document.getElementById("orderRef").href = "/order/" + uid;
+    document.getElementById("orderRef").href = "/api/order/" + uid;
 
   }
 
@@ -161,7 +161,7 @@ function setToMin() {
 
 function sendRequestToServer(jsonInfo) {
   var sss = document.getElementById("tableBody");
-  fetch("/requestUSort", {
+  fetch("/api/requestUSort", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -311,7 +311,7 @@ function paymentWindow(x) {
   modal2.style.display = "none";
   modal3.style.display = "block"; sToZ8DpQF1B8rwfdsKxz
   */
-  fetch("/order/", {
+  fetch("/api/order/", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -335,14 +335,14 @@ var sortUpOrDown = 'desc';
 function sortUp(columnName) {
   var x = document.getElementById("myInput").value;
   sortUpOrDown = 'desc';
-  window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'desc'+'/'+'0';
+  window.location.href = '/api/requestUSort/'+'sort'+'/'+columnName+'/'+'desc'+'/'+'0';
 
 }
 
 function sortDown(columnName) {
   var searchData = document.getElementById("myInput").value;
   sortUpOrDown = 'inc';
-  window.location.href = '/requestUSort/'+'sort'+'/'+columnName+'/'+'asc'+'/'+'0';
+  window.location.href = '/api/requestUSort/'+'sort'+'/'+columnName+'/'+'asc'+'/'+'0';
 
 }
 
@@ -353,5 +353,5 @@ function sendData() {
   toFilter = document.getElementById("toFilter").value;
   columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
   console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  window.location.href = '/requestUSort/'+'filter'+'/'+columnName+'/'+fromFilter+'/'+toFilter;
+  window.location.href = '/api/requestUSort/'+'filter'+'/'+columnName+'/'+fromFilter+'/'+toFilter;
 }

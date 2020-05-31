@@ -155,7 +155,7 @@ function initApp() {
 
 function accept(objec) {
 
-    fetch("/adminRequest", {
+    fetch("/api/adminRequest", {
         method: "POST",
         headers: {
             Accept: "application/json",
@@ -182,7 +182,7 @@ function accept(objec) {
 
 
 function decline(objec) {
-    fetch("/adminRequest", {
+    fetch("/api/adminRequest", {
         method: "POST",
         headers: {
             Accept: "application/json",
