@@ -84,7 +84,7 @@ function setToMin() {
 
 function sendRequestToServer(jsonInfo) {
   var sss = document.getElementById("tableBody");
-  fetch("/requestUSort", {
+  fetch("/api/requestUSort", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -281,7 +281,7 @@ function paymentWindow(x) {
   modal2.style.display = "none";
   modal3.style.display = "block"; sToZ8DpQF1B8rwfdsKxz
   */
-  fetch("/order/", {
+  fetch("/api/order/", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -328,6 +328,6 @@ function sendData() {
     columnName = "priceT";
   }
   //console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
-  window.location.href ="/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
+  window.location.href ="/api/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
   //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }
