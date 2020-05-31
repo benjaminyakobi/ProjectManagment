@@ -817,40 +817,63 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
         .verifySessionCookie(sessionCookie, true)
         .then(() => {
             if (req.cookies.role == "student") {
-
                 (async () => {
-                    try {
-                        var query;
-                        var l = [];
-                //        console.log(req.params.action);
-                        if (req.params.action == "sort") {
-                            if (req.params.fromLower == "desc") {
-                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName, 'desc');
-                            } else {
-                                query = admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName);
-                            }
+                    let users ;
+                    let l=[];
+                    let userPromises = [];
+                    if (req.params.action == "sort") {
+                        if (req.params.fromLower == "desc") {
+                            users = await admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName, 'desc').get();
+                        } else {
+                            users = await admin.firestore().collection('units').where("sold", "==", "false").orderBy(req.params.colName).get();
                         }
-                        else if (req.params.action == "filter") {
-                            //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
-                            //.where(req.body.colName,'<=',req.body.higherValue);
-                            query = admin.firestore().collection('units').where("sold", "==", "false").where(req.params.colName, '>=', Number(req.params.fromLower))
-                                .where(req.params.colName, '<=', Number(req.params.toHigher));
-                        }
-                        else
-                            query = admin.firestore().collection('units').where("sold", "==", "false");
-
-                        var allDocs = query.get().then(snapShot => {
-                            snapShot.forEach(doc => {
-                                l.push({ id: doc.id, data: doc.data() });
-                            });
-                            res.render("student.ejs", { l: l });
-
-                        });
-                    } catch (error) {
-                 //       console.log(error);
-                        return res.status(500).send(error);
                     }
+                    else if (req.params.action == "filter") {
+                        //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
+                        //.where(req.body.colName,'<=',req.body.higherValue);
+                        users = await admin.firestore().collection('units').where("sold", "==", "false").where(req.params.colName, '>=', Number(req.params.fromLower))
+                            .where(req.params.colName, '<=', Number(req.params.toHigher)).get();
+                    }
+                    //console.log(users);
+                    users.forEach((userDoc) => {
+                        //let userDocData = userDoc.data();
+                        //let userId = userDocData.userId;
+                        var userData = userDoc.data();
+                        var userId = userDoc.id;
+                        //console.log(userData);
+                        l.push({ data: userData,id:userId}); //, dataAtt : projData 
+                            let perUserPromise = admin.firestore().collection('Attraction').where('unitid', '==', userDoc.id).get().then((projects) => {
+
+                                // For every project, get the project Id and use it to retrieve the sub project.
+                                let getSubProjectsPromises = [];
+                                projects.forEach((projDoc) => {
+                                    var projData =projDoc.data();
+                                    l.forEach((obj)=>{
+                                        if(obj.id == userId)
+                                            {
+                                                obj["dataAtt"] = projData;
+                                            }
+                                    });
+                                    //l.push({ data: userData,id:userId, dataAtt : projData });
+                                });
+
+                                // Resolve and pass result to the following then()
+                                return Promise.all(getSubProjectsPromises);
+
+                                });
+
+                            userPromises.push(perUserPromise);
+                        }
+                    );
+
+                    // Start the operation and wait for results
+                    await Promise.all(userPromises).then(()=>{
+                      //  console.log(sum);
+                      //  console.log(l);
+                        res.render("student.ejs",{l:l});
+                    });
                 })();
+              
             }
             else
                 res.send("not authorized");

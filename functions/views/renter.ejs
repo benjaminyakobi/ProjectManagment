@@ -246,14 +246,25 @@
 
                 for (i = 0; i < resDots.length; i++) {
                     if (i % 2 == 0) {
-                        console.log(i);
+                        //console.log(i);
                         attrNames.push(resDots[i]);
                     } else {
+                        try{
+                            if (isNaN(parseFloat(resDots[i]))){
+                                alert("Check your format on Pricing in attraction");
+                                return;
+                            }
+                            
+                        } catch(err)
+                        {
+                            alert("Check your format on Pricing in attraction");
+                            return;
+                        }
                         attrPrices.push(resDots[i]);
                     }
                 }
 
-                if(attrNames.length != attrPrices.length){ 
+                if(attrNames.length != attrPrices.length && attrNames.length > 0){ 
                     alert("Check Your Attraction Description again");
                     return;
                 }
