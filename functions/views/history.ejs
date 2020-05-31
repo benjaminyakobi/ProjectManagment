@@ -130,9 +130,9 @@
     <h2>Selling records</h2>
     <label for="filter">choose field:</label>
     <select  id="filter" name="filter">
-        <option value="filterPrice">Price</option>
+        <option value="filterPrice">Price(Monthly)</option>
         <option value="filterRoom">Rooms</option>
-        <option value="filterDate">By month</option>
+        <option value="filterDate">Price(Total)</option>
     </select>
     <input id="fromFilter" type="text" size="10px" onkeypress="return (event.charCode > 47 && 
     event.charCode <58 )">
@@ -167,7 +167,7 @@
                     <div>End Date</div>
                 </th>
                 <th>
-                    <div>Daily income</div>
+                    <div>Monthly income</div>
                 </th>
                 <th>
                     <div>Total sum</div>
@@ -182,7 +182,7 @@
                     <td><a href="#"><%= obj.rooms         %></a></td>
                     <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
                     <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
-                    <td><a href="#"></a></td> <!--  ADD DAILYYYYYYYYYYYYYYYY-->
+                    <td><a href="#"><%= obj.monthly       %></a></td> 
                     <td><a href="#"><%= obj.data.billTotal        %></a></td>     
                 <% }else{ %>
                     <tr bgcolor = "red" >
@@ -190,7 +190,7 @@
                     <td><a href="#"><%= obj.data.rooms         %></a></td>
                     <td><a href="#"><%= obj.data.startDate.toDate().toISOString().split('T')[0]     %></a></td>
                     <td><a href="#"><%= obj.data.endDate.toDate().toISOString().split('T')[0]       %></a></td>
-                    <td><a href="#"></a></td> <!--  ADD DAILYYYYYYYYYYYYYYYY-->
+                    <td><a href="#"><%= obj.monthly       %></a></td> 
                     <td><a href="#"><%= obj.data.price        %></a></td>    
                 <% } %>    
                     

@@ -199,8 +199,13 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
     
                         users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where("price", '>=', Number(req.params.fromFilter))
                             .where("price", '<=', Number(req.params.toFilter)).get();
+                    }else if (req.params.typeIn == "priceT") {
+                        //   console.log(req.params.fromFilter);
+                        //   console.log(req.params.toFilter);
+       
+                           users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).get();
                     }
-                    if (req.params.typeIn == "0") {
+                    else if (req.params.typeIn == "0") {
                         users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).get();
                     }
 
@@ -215,31 +220,56 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                         var s = userData.sold;
                         if(s == "false")
                         {
-                            l.push({ data: userData, unitId: userDoc.id, sold: s });
+                            l.push({ data: userData, unitId: userDoc.id, sold: s ,monthly:userData.price});
                         }
                         else{
                         // Create promises for each user to retrieve sub projects and do further operation on them.
-                            let perUserPromise = admin.firestore().collection('Transactions').where('unitid', '==', userDoc.id).get().then((projects) => {
+                            let perUserPromise;
+                            if(req.params.typeIn == "price" || req.params.typeIn == "rooms"){
+                                perUserPromise = admin.firestore().collection('Transactions').where('unitid', '==', userDoc.id).get().then((projects) => {
 
-                                // For every project, get the project Id and use it to retrieve the sub project.
-                                let getSubProjectsPromises = [];
-                                projects.forEach((projDoc) => {
-                                    var projData =projDoc.data();
+                                    // For every project, get the project Id and use it to retrieve the sub project.
+                                    let getSubProjectsPromises = [];
+                                    projects.forEach((projDoc) => {
+                                        var projData =projDoc.data();
+                                        
+                                        if (req.params.typeIn == "rooms" || req.params.typeIn == "price" || req.params.typeIn == "0")
+                                        {
+                                            sum+= projData.billTotal;
+                            //               console.log('added');
+                                        }
+                                        l.push({ data: projData, unitId: userDoc.id, sold: s,rooms:userData.rooms ,monthly:userData.price});
+                                    // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
+                                    });
 
-                                    if (req.params.typeIn == "rooms" || req.params.typeIn == "price" || req.params.typeIn == "0")
-                                    {
-                                        sum+= projData.billTotal;
-                         //               console.log('added');
-                                    }
-                                    l.push({ data: projData, unitId: userDoc.id, sold: s,rooms:userData.rooms });
-                                // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
-                                });
+                                    // Resolve and pass result to the following then()
+                                    return Promise.all(getSubProjectsPromises);
 
-                                // Resolve and pass result to the following then()
-                                return Promise.all(getSubProjectsPromises);
+                                    });
+                            }
+                            else if(req.params.typeIn == "priceT"){
+                                perUserPromise = admin.firestore().collection('Transactions').where('unitid', '==', userDoc.id).where("billTotal", '>=', Number(req.params.fromFilter))
+                                .where("billTotal", '<=', Number(req.params.toFilter)).get().then((projects) => {
 
-                                });
+                                    // For every project, get the project Id and use it to retrieve the sub project.
+                                    let getSubProjectsPromises = [];
+                                    projects.forEach((projDoc) => {
+                                        var projData =projDoc.data();
+                                        
+                                        //if (req.params.typeIn == "rooms" || req.params.typeIn == "price" || req.params.typeIn == "0")
+                                        //{
+                                            sum+= projData.billTotal;
+                            //               console.log('added');
+                                        //}
+                                        l.push({ data: projData, unitId: userDoc.id, sold: s,rooms:userData.rooms ,monthly:userData.price});
+                                    // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
+                                    });
 
+                                    // Resolve and pass result to the following then()
+                                    return Promise.all(getSubProjectsPromises);
+
+                                    });
+                            }
                             userPromises.push(perUserPromise);
                         }
                     });

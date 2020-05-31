@@ -319,8 +319,15 @@ function sendData() {
   searchData = document.getElementById("myInput").value;
   fromFilter = document.getElementById("fromFilter").value;
   toFilter = document.getElementById("toFilter").value;
-  columnName = (document.getElementById("filter").selectedIndex == 0) ? "price" : "rooms";
-  console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
+  if(document.getElementById("filter").selectedIndex == 0)
+  {
+    columnName = "price";
+  }else if(document.getElementById("filter").selectedIndex == 1){
+    columnName = "rooms";
+  }else if(document.getElementById("filter").selectedIndex == 2){
+    columnName = "priceT";
+  }
+  //console.log(searchData + " " + fromFilter + " " + toFilter + " " + columnName);
   window.location.href ="/renter/History/"+columnName+"/"+fromFilter +"/" +toFilter;
   //sendRequestToServer({ colName: columnName, searchField: searchData, lowerValue: fromFilter, higherValue: toFilter, action: "filter" });
 }
