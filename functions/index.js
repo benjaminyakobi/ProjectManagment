@@ -1,18 +1,4 @@
-/* eslint-disable promise/no-nesting */
-/* eslint-disable promise/always-return */
-/* eslint-disable prefer-arrow-callback */
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
-//var http = require('http');
-//var fs = require('fs');
-
-// The Firebase Admin SDK to access the Firebase Realtime Database.
 const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 const csrf = require('csurf');
@@ -33,10 +19,7 @@ var bodyParser = require('body-parser');
 var app = express();
 var ejs = require("ejs");
 app.use(cookieParser());
-/*const reqApp = express();
-reqApp.use(cors);
-reqApp.use(bodyParser.json());
-reqApp.use(bodyParser.urlencoded({ extended: true }));*/
+
 app.engine("html", ejs.renderFile);
 app.set('view engine', ejs);
 app.use(cors);
@@ -44,16 +27,6 @@ app.use(csrfMiddleware);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-//var todoController = require('./controller/tdController')
-
-//var app = express();
-//console.log(__dirname);
-//app.use(express.static(__dirname));
-/*app.get('/',function (req, res) {
-    res.sendFile('./index.html');
-});*/
-
-//new user signup
 
 app.get("/renter", function (req, res) {
     const sessionCookie = req.cookies.session || "";
@@ -65,11 +38,7 @@ app.get("/renter", function (req, res) {
                 var l = [];
                 var query = admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where('sold','==','false');
                 var allDocs = query.get().then(snapShot => {
-                    /*              if (snapShot.empty) {
-                                      console.log('No matching documents,firstPhase.');
-                                      res.render("renter.ejs",{l:l});
-                                      return;
-                                  }*/
+        
                     snapShot.forEach(doc => {
                         l.push({ id: doc.id, data: doc.data() });
                     });
@@ -188,21 +157,15 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                 (async () => {
                     let users;
                     if (req.params.typeIn == "rooms") {
-                     //   console.log(req.params.fromFilter);
-                     //   console.log(req.params.toFilter);
-    
+
                         users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where("rooms", '>=', Number(req.params.fromFilter))
                             .where("rooms", '<=', Number(req.params.toFilter)).get();
                     } else if (req.params.typeIn == "price") {
-                     //   console.log(req.params.fromFilter);
-                     //   console.log(req.params.toFilter);
-    
+
                         users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).where("price", '>=', Number(req.params.fromFilter))
                             .where("price", '<=', Number(req.params.toFilter)).get();
                     }else if (req.params.typeIn == "priceT") {
-                        //   console.log(req.params.fromFilter);
-                        //   console.log(req.params.toFilter);
-       
+
                            users = await admin.firestore().collection('units').where('rid', '==', req.cookies.uid).get();
                     }
                     else if (req.params.typeIn == "0") {
@@ -213,10 +176,8 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                     let l=[];
                     let userPromises = [];
                     users.forEach((userDoc) => {
-                        //let userDocData = userDoc.data();
-                        //let userId = userDocData.userId;
+    
                         userData = userDoc.data();
-                      //  console.log(userData);
                         var s = userData.sold;
                         if(s == "false")
                         {
@@ -236,10 +197,8 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                                         if (req.params.typeIn == "rooms" || req.params.typeIn == "price" || req.params.typeIn == "0")
                                         {
                                             sum+= projData.billTotal;
-                            //               console.log('added');
                                         }
                                         l.push({ data: projData, unitId: userDoc.id, sold: s,rooms:userData.rooms ,monthly:userData.price});
-                                    // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
                                     });
 
                                     // Resolve and pass result to the following then()
@@ -259,10 +218,8 @@ app.get("/renter/history/:typeIn/:fromFilter/:toFilter", function (req, res) {
                                         //if (req.params.typeIn == "rooms" || req.params.typeIn == "price" || req.params.typeIn == "0")
                                         //{
                                             sum+= projData.billTotal;
-                            //               console.log('added');
                                         //}
                                         l.push({ data: projData, unitId: userDoc.id, sold: s,rooms:userData.rooms ,monthly:userData.price});
-                                    // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
                                     });
 
                                     // Resolve and pass result to the following then()
@@ -303,17 +260,13 @@ app.get("/renter/requests", async (req, res) => {
 
                     let userPromises = [];
                     users.forEach((userDoc) => {
-                        //let userDocData = userDoc.data();
-                        //let userId = userDocData.userId;
 
-                        // Create promises for each user to retrieve sub projects and do further operation on them.
                         let perUserPromise = admin.firestore().collection('requestPayment').where('unitid', '==', userDoc.id).get().then((projects) => {
 
                             // For every project, get the project Id and use it to retrieve the sub project.
                             let getSubProjectsPromises = [];
                             projects.forEach((projDoc) => {
                                 l.push({ id: projDoc.id, data: projDoc.data(), unitId: userDoc.id });
-                               // getSubProjectsPromises.push(database.collection("users").doc(userId).collection("projects").doc(projectId).collection("subProjects").get());
 
                             });
 
@@ -343,12 +296,10 @@ app.get("/renter/requests", async (req, res) => {
 app.get("/student.ejs", function (req, res) {
     const sessionCookie = req.cookies.session || "";
     var role = req.cookies.role;
-    //console.log(role);
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true)//checkRevoked
         .then(() => {
-            //console.log(role);
             if (req.cookies.role === "student") {   
                 (async () => {
                     let users = await admin.firestore().collection('units').where('sold', '==', "false").get();
@@ -356,11 +307,9 @@ app.get("/student.ejs", function (req, res) {
                     let userPromises = [];
 
                     users.forEach((userDoc) => {
-                        //let userDocData = userDoc.data();
-                        //let userId = userDocData.userId;
+
                         var userData = userDoc.data();
                         var userId = userDoc.id;
-                        //console.log(userData);
 
                             let perUserPromise = admin.firestore().collection('Attraction').where('unitid', '==', userDoc.id).get().then((projects) => {
 
@@ -383,30 +332,12 @@ app.get("/student.ejs", function (req, res) {
 
                     // Start the operation and wait for results
                     await Promise.all(userPromises).then(()=>{
-                      //  console.log(sum);
-                      //  console.log(l);
+
                         res.render("student.ejs",{l:l});
                     });
                 })();
               
               
-              
-              
-                /*
-                try {
-                    var l = [];
-                    var query = admin.firestore().collection('units').where('sold', '==', "false");
-                    var allDocs = query.get().then(snapShot => {
-                        snapShot.forEach(doc => {
-                            l.push({ id: doc.id, data: doc.data() });
-                        });
-
-                        res.render("student.ejs", { l: l });
-                    });
-                } catch (error) {
-                    return res.status(500).send(error);
-                }*/
-
             }
             else
                 res.redirect("/api/");
@@ -430,8 +361,7 @@ app.get("/myCoupons", function (req, res)  {
             if (req.cookies.role === "student") {   
                 (async () => {
                     try{
-                      //  return res.render("There are no cupons");
-                   // console.log(req.cookies.uid);
+
                     let users = await admin.firestore().collection('Coupons').where('sid', '==', req.cookies.uid).get();
                     let l=[];
                     let userPromises = [];
@@ -440,17 +370,13 @@ app.get("/myCoupons", function (req, res)  {
                         l.push({data:userData,id:userDoc.id});
                     }
                     );
-                    //console.log(req.cookies.uid);
 
-                    //userPromises.push(users);
                     // Start the operation and wait for results
                     await Promise.all(userPromises).then(()=>{
                         //console.log(l);
                         res.render("myCoupons.ejs",{l:l});
                     }).catch((error)=>{
                         console.log("WPW2");
-
-                       // res.render("There are no cupons");
                     });
                     }catch(error){
                         console.log("WPW");
@@ -559,7 +485,6 @@ app.post("/registerAccount", (req, res) => {
                             });
                         }
                         const options = { maxAge: expiresIn, httpOnly: true };
-                        //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                         res.cookie('role', roleA);
                         res.cookie('uid', req.body.uid);
                         res.cookie("session", sessionCookie, options);
@@ -596,8 +521,7 @@ app.post('/renterLease', (req, res) => {
                 (async () => {
                     try {
                         var query = admin.firestore().collection('units');
-                        //console.log(req.cookies.uid);
-                        //var storageRef = firebaseApp.storage().ref();
+
                         var allDocs = query.where('rid', '==', req.cookies.uid).get().then(snapShot => {
                             snapShot.forEach(doc => {
                                 if (snapShot.empty) {
@@ -605,18 +529,15 @@ app.post('/renterLease', (req, res) => {
                                     return;
                                 }
                                 var query2 = admin.firestore().collection('requestPayment');
-                                //var storageRef = firebaseApp.storage().ref();
-                                //console.log(doc.id);
+
                                 var allDocs2 = query2.where('unitid', '==', doc.id).get().then(snapShot2 => {
                                     if (snapShot2.empty) {
                                         console.log('No matching documents,SecondPhase..');
                                         return;
                                     }
                                     snapShot2.forEach(doc2 => {
-                                        //        console.log('push');
                                         l.push({ id: doc2.id, data: doc2.data(), unitId: doc.id });
                                     });
-                                    //    console.log(l);
                                     res.setHeader('Content-Type', 'application/json');
                                     return res.json({ status: 'OK', data: l });
                                 });
@@ -653,13 +574,6 @@ app.post('/requestAuth', (req, res) => {
                         //var storageRef = firebaseApp.storage().ref();
                         var allDocs = query.get().then(snapShot => {
                             snapShot.forEach(doc => {
-                                //var photoUrl ="";
-                                //console.log(doc.id);
-                                //console.log(toString(doc.id));
-                                /*         var forestRef = storageRef.child('profileImages/'+doc.id +'/profile.png');
-                                         var url = forestRef.getDownloadURL().then(function(url){
-                                             photoUrl=url;
-                                         });*/
                                 l.push({ id: doc.id, data: doc.data() });
                             });
 
@@ -688,7 +602,6 @@ app.post('/adminRequest', (req, res) => {
         .verifySessionCookie(sessionCookie, true /** checkRevoked*/)
         .then(() => {
             if (req.cookies.role === "Admin") {
-                //  console.log(req.body.flag);
                 if (req.body.flag == "true") {
                     var query = admin.firestore().collection('requests').doc(req.body.uid).delete();
                     var query2 = admin.firestore().collection('users').doc(req.body.uid).update({
@@ -738,7 +651,6 @@ app.post('/renterResponse', (req, res) => {
                         discount:couponP
                     });
                     var query = admin.firestore().collection('requestPayment').doc(req.body.uid);
-                    //var storageRef = firebaseApp.storage().ref();
                     var allDocs = query.get().then(doc => {
                         var query4 = admin.firestore().collection('units').doc(doc.data().unitid).update({
                             sold: "true"
@@ -757,7 +669,6 @@ app.post('/renterResponse', (req, res) => {
                     });
                 }
                 else if (req.body.flag == "false") {
-                 //   console.log(req.body.uid);
                     var query6 = admin.firestore().collection('requestPayment').doc(req.body.uid).delete();
                     res.setHeader('Content-Type', 'application/json');
                     return res.json({ status: 'OK' });
@@ -811,7 +722,6 @@ app.post('/rU', (req, res) => {
 //request all units Sort
 app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
     const sessionCookie = req.cookies.session || "";
-   // console.log('dmg check');
     admin
         .auth()
         .verifySessionCookie(sessionCookie, true)
@@ -829,19 +739,13 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
                         }
                     }
                     else if (req.params.action == "filter") {
-                        //query =  admin.firestore().collection('units').where(req.body.colName,'>=',req.body.lowerValue)
-                        //.where(req.body.colName,'<=',req.body.higherValue);
                         users = await admin.firestore().collection('units').where("sold", "==", "false").where(req.params.colName, '>=', Number(req.params.fromLower))
                             .where(req.params.colName, '<=', Number(req.params.toHigher)).get();
                     }
-                    //console.log(users);
                     users.forEach((userDoc) => {
-                        //let userDocData = userDoc.data();
-                        //let userId = userDocData.userId;
                         var userData = userDoc.data();
                         var userId = userDoc.id;
-                        //console.log(userData);
-                        l.push({ data: userData,id:userId}); //, dataAtt : projData 
+                        l.push({ data: userData,id:userId}); 
                             let perUserPromise = admin.firestore().collection('Attraction').where('unitid', '==', userDoc.id).get().then((projects) => {
 
                                 // For every project, get the project Id and use it to retrieve the sub project.
@@ -854,7 +758,6 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
                                                 obj["dataAtt"] = projData;
                                             }
                                     });
-                                    //l.push({ data: userData,id:userId, dataAtt : projData });
                                 });
 
                                 // Resolve and pass result to the following then()
@@ -868,8 +771,6 @@ app.get('/requestUSort/:action/:colName/:fromLower/:toHigher', (req, res) => {
 
                     // Start the operation and wait for results
                     await Promise.all(userPromises).then(()=>{
-                      //  console.log(sum);
-                      //  console.log(l);
                         res.render("student.ejs",{l:l});
                     });
                 })();
@@ -968,7 +869,6 @@ app.post('/updateUnit', (req, res) => {
         .then(() => {
             (async () => {
                 try {
-                  //  console.log(req.body);
                     if (req.cookies.role == "renter") {
                         var check2 = admin.firestore().collection('units').doc(req.body.unitId).update({
                             location: req.body.location,
@@ -982,7 +882,6 @@ app.post('/updateUnit', (req, res) => {
                             minDate: new Date(req.body.minDate),
                             description: req.body.description
                         }).then(() => {
-                            //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                             res.setHeader('Content-Type', 'application/json');
                             res.end(JSON.stringify({ status: "success" }));
                         });
@@ -1011,8 +910,7 @@ app.post('/addUnit', (req, res) => {
         .then(() => {
 
             if (req.cookies.role == "renter") {
-                //console.log(req.body);
-                // console.log(new Date(req.body.minDate));
+
 
                 var check2 = admin.firestore().collection('units').add({
                     location: req.body.location,//1
@@ -1029,7 +927,6 @@ app.post('/addUnit', (req, res) => {
                     rid: req.cookies.uid,
                     description: req.body.description
                 }).then(function(docRef)  {
-                    //var keys = [ req.body.uid.toString(),req.body.lPerm.toString() ]
                     var query3 = admin.firestore().collection('Attraction').add({
                         unitid:docRef.id,
                         Names:req.body.AttNames,
@@ -1056,15 +953,9 @@ var PORT = 9000;
 app.use('/js', express.static("js"));
 app.use('/images', express.static("images"));
 app.use('/css', express.static("css"));
-//define google cloud function name
-//export const webApi = functions.https.onRequest(app);
 
 const api = functions.https.onRequest(app)
 
 module.exports = {
   api
 }
-/*
-app.listen(PORT, () => {
-    console.log(`Listening on http://localhost:${PORT}`);
-});*/
